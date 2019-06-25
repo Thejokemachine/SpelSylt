@@ -1,5 +1,7 @@
 #include "DebugLogger.h"
+
 #include <cstdarg>
+#include <windows.h>
 
 //------------------------------------------------------------------
 
@@ -21,10 +23,10 @@ CDebugLogger& CDebugLogger::GetInstance()
 
 void CDebugLogger::PrintLog(ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage, ...)
 {
-	SetTextColor(LogColorMap[InLogLevel]);
 	printf_s(InLogCat);
 	printf_s(": ");
 
+	SetTextColor(LogColorMap[InLogLevel]);
 	va_list Args;
 	va_start(Args, InLogMessage);
 	vprintf_s(InLogMessage, Args);
@@ -61,6 +63,31 @@ void CDebugLogger::BindDefaultColors()
 
 void CDebugLogger::SetTextColor(ETextColor InColor)
 {
+	WORD Color = -1;
+	
+	switch (InColor)
+	{
+	case CDebugLogger::ETextColor::Green:
+		Color = 10;
+		break;
+	case CDebugLogger::ETextColor::Blue:
+		Color = 11;
+		break;
+	case CDebugLogger::ETextColor::Yellow:
+		Color = 14;
+		break;
+	case CDebugLogger::ETextColor::Red:
+		Color = 12;
+		break;
+	case CDebugLogger::ETextColor::White:
+		Color = 7;
+		break;
+	default:
+		break;
+	}
+
+	HANDLE CmdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(CmdHandle, Color);
 }
 
 //------------------------------------------------------------------

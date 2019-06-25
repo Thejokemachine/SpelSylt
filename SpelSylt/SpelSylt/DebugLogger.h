@@ -29,7 +29,8 @@ public:
 		Green,
 		Blue,
 		Yellow,
-		Red
+		Red,
+		White,
 	};
 
 	enum class ELogLevel
