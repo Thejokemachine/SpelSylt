@@ -23,10 +23,16 @@ CDebugLogger& CDebugLogger::GetInstance()
 
 void CDebugLogger::PrintLog(ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage, ...)
 {
+	if (!CurrentLogLevelAllowsRequestedLogLevel(InLogLevel))
+	{
+		return;
+	}
+
+	SetTextColor(LogColorMap[InLogLevel]);
+
 	printf_s(InLogCat);
 	printf_s(": ");
 
-	SetTextColor(LogColorMap[InLogLevel]);
 	va_list Args;
 	va_start(Args, InLogMessage);
 	vprintf_s(InLogMessage, Args);
@@ -88,6 +94,16 @@ void CDebugLogger::SetTextColor(ETextColor InColor)
 
 	HANDLE CmdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(CmdHandle, Color);
+}
+
+//------------------------------------------------------------------
+
+bool CDebugLogger::CurrentLogLevelAllowsRequestedLogLevel(ELogLevel InRequestedLogLevel) const
+{
+	const auto RequestedAsInt = static_cast<unsigned int>(InRequestedLogLevel);
+	const auto CurrentAsInt = static_cast<unsigned int>(CurrentLogLevel);
+
+	return RequestedAsInt >= CurrentAsInt;
 }
 
 //------------------------------------------------------------------

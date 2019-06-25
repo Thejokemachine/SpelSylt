@@ -58,6 +58,8 @@ private:
 	void BindDefaultColors();
 	void SetTextColor(ETextColor InColor);
 
+	bool CurrentLogLevelAllowsRequestedLogLevel(ELogLevel InRequestedLogLevel) const;
+
 	FLogColorMap LogColorMap;
 	ELogLevel CurrentLogLevel;
 };
