@@ -19,10 +19,10 @@ public:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void clear();
 
-	void DrawLine(const sf::Vector2f& aFrom, const sf::Vector2f& aTo);
-	void DrawRectangle(const sf::Vector2f & aCenter, float aWidth, float aHeight);
-	void DrawCircle(const sf::Vector2f& aPosition, float aRadius);
-	void DrawText(const std::string& aText, const sf::Vector2f& aPosition);
+	void DrawLine(const sf::Vector2f& aFrom, const sf::Vector2f& aTo, const sf::Color& aColor = sf::Color::Red);
+	void DrawRectangle(const sf::Vector2f & aCenter, float aWidth, float aHeight, bool aFill = false, const sf::Color& aColor = sf::Color::Red);
+	void DrawCircle(const sf::Vector2f& aPosition, float aRadius, bool aFill = false, const sf::Color& aColor = sf::Color::Red);
+	void DrawText(const std::string& aText, const sf::Vector2f& aPosition, const sf::Color& aColor = sf::Color::Red);
 
 private:
 

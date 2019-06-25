@@ -19,7 +19,7 @@ protected:
 class LineCommand : public DebugCommand
 {
 public:
-	LineCommand(const sf::Vector2f& aFrom, const sf::Vector2f& aTo);
+	LineCommand(const sf::Vector2f& aFrom, const sf::Vector2f& aTo, const sf::Color& aColor);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
 	sf::Vertex myLine[2];
@@ -28,7 +28,7 @@ private:
 class RectangleCommand : public DebugCommand
 {
 public:
-	RectangleCommand(const sf::Vector2f& aPosition, float aWidth, float aHeight, bool aFill = false);
+	RectangleCommand(const sf::Vector2f& aPosition, float aWidth, float aHeight, bool aFill, const sf::Color& aColor);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
 	sf::RectangleShape myRect;
@@ -37,7 +37,7 @@ private:
 class CircleCommand : public DebugCommand
 {
 public:
-	CircleCommand(const sf::Vector2f& aPosition, float aRadius, bool aFill = false);
+	CircleCommand(const sf::Vector2f& aPosition, float aRadius, bool aFill, const sf::Color& aColor);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
 	sf::CircleShape myCircle;
@@ -46,7 +46,7 @@ private:
 class TextCommand : public DebugCommand
 {
 public:
-	TextCommand(const sf::Font& aFont, const std::string& aText, const sf::Vector2f& aPosition, short aSize = 32);
+	TextCommand(const sf::Font& aFont, const std::string& aText, const sf::Vector2f& aPosition, const sf::Color& aColor, short aSize = 32);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
 	sf::Text myText;
