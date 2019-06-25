@@ -1,4 +1,7 @@
 #pragma once
+
+#include "LogLevels.h"
+
 #include <unordered_map>
 
 //------------------------------------------------------------------
@@ -9,15 +12,17 @@ Note: All Logging should be done through these macros
 Exceptions are when rebinding colors
 */
 
-#define SET_LOG_LEVEL_VERBOSE					CDebugLogger::GetInstance().SetLogLevel(CDebugLogger::ELogLevel::Verbose)
-#define SET_LOG_LEVEL_LOG						CDebugLogger::GetInstance().SetLogLevel(CDebugLogger::ELogLevel::Log)
-#define SET_LOG_LEVEL_WARNING					CDebugLogger::GetInstance().SetLogLevel(CDebugLogger::ELogLevel::Warning)
-#define SET_LOG_LEVEL_ERROR						CDebugLogger::GetInstance().SetLogLevel(CDebugLogger::ELogLevel::Error)
+#define LOG_TO_FILE								CDebugLogger::GetInstance().SetShouldLogToFile()
 
-#define LOG_VERBOSE(LogCat, LogMessage, ...)	CDebugLogger::GetInstance().PrintLog(CDebugLogger::ELogLevel::Verbose, #LogCat, LogMessage, __VA_ARGS__)
-#define LOG_LOG(LogCat, LogMessage, ...)		CDebugLogger::GetInstance().PrintLog(CDebugLogger::ELogLevel::Log, #LogCat, LogMessage, __VA_ARGS__)
-#define LOG_WARNING(LogCat, LogMessage, ...)	CDebugLogger::GetInstance().PrintLog(CDebugLogger::ELogLevel::Warning, #LogCat, LogMessage, __VA_ARGS__)
-#define LOG_ERROR(LogCat, LogMessage, ...)		CDebugLogger::GetInstance().PrintLog(CDebugLogger::ELogLevel::Error, #LogCat, LogMessage, __VA_ARGS__)
+#define SET_LOG_LEVEL_VERBOSE					CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Verbose)
+#define SET_LOG_LEVEL_LOG						CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Log)
+#define SET_LOG_LEVEL_WARNING					CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Warning)
+#define SET_LOG_LEVEL_ERROR						CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Error)
+
+#define LOG_VERBOSE(LogCat, LogMessage, ...)	CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Verbose, #LogCat, LogMessage, __VA_ARGS__)
+#define LOG_LOG(LogCat, LogMessage, ...)		CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Log, #LogCat, LogMessage, __VA_ARGS__)
+#define LOG_WARNING(LogCat, LogMessage, ...)	CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Warning, #LogCat, LogMessage, __VA_ARGS__)
+#define LOG_ERROR(LogCat, LogMessage, ...)		CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Error, #LogCat, LogMessage, __VA_ARGS__)
 
 //------------------------------------------------------------------
 
@@ -33,35 +38,33 @@ public:
 		White,
 	};
 
-	enum class ELogLevel
-	{
-		Verbose,
-		Log,
-		Warning,
-		Error,
-	};
-
 public:
 	static CDebugLogger& GetInstance();
 
-	void PrintLog(ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage, ...);
+	void PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage, ...);
 
-	void SetLogLevel(ELogLevel InLogLevel);
+	void SetLogLevel(LogLevels::ELogLevel InLogLevel);
 
-	void BindColorToLogLevel(ELogLevel InLogLevel, ETextColor InColor);
+	void BindColorToLogLevel(LogLevels::ELogLevel InLogLevel, ETextColor InColor);
+
+	void SetShouldLogToFile();
 
 private:
-	using FLogColorMap = std::unordered_map<ELogLevel, ETextColor>;
+	using FLogColorMap = std::unordered_map<LogLevels::ELogLevel, ETextColor>;
 	
 	CDebugLogger();
 
 	void BindDefaultColors();
 	void SetTextColor(ETextColor InColor);
 
-	bool CurrentLogLevelAllowsRequestedLogLevel(ELogLevel InRequestedLogLevel) const;
+	bool CurrentLogLevelAllowsRequestedLogLevel(LogLevels::ELogLevel InRequestedLogLevel) const;
+
+	void PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
+	void PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
 
 	FLogColorMap LogColorMap;
-	ELogLevel CurrentLogLevel;
+	LogLevels::ELogLevel CurrentLogLevel;
+	bool ShouldLogToFile;
 };
 
 //------------------------------------------------------------------
