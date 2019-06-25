@@ -141,6 +141,7 @@
     <ClCompile Include="CommonMath.cpp" />
     <ClCompile Include="DebugCommands.cpp" />
     <ClCompile Include="DebugDrawer.cpp" />
+    <ClCompile Include="DebugLogger.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -160,9 +161,12 @@
     <ClInclude Include="CommonMath.h" />
     <ClInclude Include="DebugCommands.h" />
     <ClInclude Include="DebugDrawer.h" />
+    <ClInclude Include="DebugFileWriter.h" />
+    <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
+    <ClInclude Include="LogLevels.h" />
     <ClInclude Include="PointCollider.h" />
     <ClInclude Include="RectangleCollider.h" />
     <ClInclude Include="sfml_libs.h" />
