@@ -26,3 +26,14 @@
 *.exe
 *.out
 *.app
+
+# Custom Ignores
+*.log
+*.filters
+*.idb
+*.pdb
+*.txt
+*.tlog
+*.lastbuildstate
+*.ilk
+*v16/
