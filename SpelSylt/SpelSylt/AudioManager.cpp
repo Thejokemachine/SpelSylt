@@ -1,5 +1,7 @@
 #include "AudioManager.h"
 
+#include "CommonMath.h"
+
 #include <filesystem>
 #include <iostream>
 
@@ -13,16 +15,34 @@ AudioManager::AudioManager(const std::string & aAudioFolder)
 	}
 }
 
-void AudioManager::Update()
+void AudioManager::Update(const float dt)
 {
 	for (int i = 0; i < mySoundHandles.size(); ++i)
 	{
-		if (mySoundHandles[i].getStatus() != sf::Sound::Playing)
+		if (mySoundHandles[i]->getStatus() != sf::Sound::Playing)
 		{
 			mySoundHandles[i] = mySoundHandles.back();
 			mySoundHandles.pop_back();
 		}
 	}
+
+	if (myShouldSwitchMusic)
+	{
+		myMusicFade -= dt / 3.f;
+		if (myMusicFade <= 0.f)
+		{
+			myShouldSwitchMusic = false;
+			myMusic.stop();
+			myMusic.openFromFile("Audio/Music/" + myMusicAlias);
+			myMusic.play();
+		}
+	}
+	else
+	{
+		myMusicFade += dt / 3.f;
+	}
+	myMusicFade = Math::Clamp(myMusicFade, 0.f, 1.f);
+	myMusic.setVolume(myMusicFade * 100.f);
 }
 
 void AudioManager::PlaySound(const std::string& aAlias, sf::Sound * aSoundHandle)
@@ -36,9 +56,27 @@ void AudioManager::PlaySound(const std::string& aAlias, sf::Sound * aSoundHandle
 		}
 		else
 		{
-			mySoundHandles.push_back(sf::Sound());
-			mySoundHandles.back().setBuffer(mySoundBuffers.at(aAlias));
-			mySoundHandles.back().play();
+			mySoundHandles.push_back(new sf::Sound());
+			mySoundHandles.back()->setBuffer(mySoundBuffers.at(aAlias));
+			mySoundHandles.back()->play();
+		}
+	}
+}
+
+void AudioManager::PlayMusic(const std::string & aAlias, bool aFadeOutCurrent)
+{
+	if (myMusicAlias != aAlias)
+	{
+		myMusicAlias = aAlias;
+		if (!aFadeOutCurrent)
+		{
+			myMusic.stop();
+			myMusic.openFromFile("Audio/Music/" + myMusicAlias);
+			myMusic.play();
+		}
+		else
+		{
+			myShouldSwitchMusic = true;
 		}
 	}
 }

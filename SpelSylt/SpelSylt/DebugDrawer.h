@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#define DEBUG_COLOR sf::Color::White
+
 class DebugCommand;
 class LineCommand;
 class RectangleCommand;
@@ -19,10 +21,10 @@ public:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void clear();
 
-	void DrawLine(const sf::Vector2f& aFrom, const sf::Vector2f& aTo, const sf::Color& aColor = sf::Color::Red);
-	void DrawRectangle(const sf::Vector2f & aCenter, float aWidth, float aHeight, bool aFill = false, const sf::Color& aColor = sf::Color::Red);
-	void DrawCircle(const sf::Vector2f& aPosition, float aRadius, bool aFill = false, const sf::Color& aColor = sf::Color::Red);
-	void DrawText(const std::string& aText, const sf::Vector2f& aPosition, const sf::Color& aColor = sf::Color::Red);
+	void DrawLine(const sf::Vector2f& aFrom, const sf::Vector2f& aTo, const sf::Color& aColor = DEBUG_COLOR);
+	void DrawRectangle(const sf::Vector2f & aCenter, float aWidth, float aHeight, bool aFill = false, const sf::Color& aColor = DEBUG_COLOR);
+	void DrawCircle(const sf::Vector2f& aPosition, float aRadius, bool aFill = false, const sf::Color& aColor = DEBUG_COLOR);
+	void DrawText(const std::string& aText, const sf::Vector2f& aPosition, const sf::Color& aColor = DEBUG_COLOR);
 
 private:
 

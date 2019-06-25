@@ -16,6 +16,7 @@ GameState::~GameState()
 
 void GameState::Init()
 {
+	myAudioManager.PlayMusic("thief_of_seas.ogg", false);
 }
 
 void GameState::Update(float dt)
@@ -27,8 +28,10 @@ void GameState::Update(float dt)
 
 	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::C))
 		myAudioManager.PlaySound("shovel");
+	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::M))
+		myAudioManager.PlayMusic("stress.ogg", true);
 
-	myAudioManager.Update();
+	myAudioManager.Update(dt);
 }
 
 void GameState::Render(sf::RenderWindow * aRenderWindow)
