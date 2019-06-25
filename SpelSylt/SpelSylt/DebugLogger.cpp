@@ -36,7 +36,7 @@ void CDebugLogger::PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCa
 	int LogLength = 0;
 	char* LogMessage;
 
-	//EXPERIMENTAL
+	//This code builds a string with the va_args included for easier forwarding to the functions later printing the log to cmd or file
 	va_start(Args, InLogMessage);
 	LogLength += vsnprintf(NULL, 0, InLogMessage, Args);
 	va_end(Args);
@@ -46,7 +46,6 @@ void CDebugLogger::PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCa
 	va_start(Args, InLogMessage);
 	vsnprintf(LogMessage, LogLength + 1, InLogMessage, Args);
 	va_end(Args);
-	//END EXPERIMENTAL
 
 	PrintToConsole(InLogLevel, InLogCat, LogMessage);
 	if (ShouldLogToFile)
