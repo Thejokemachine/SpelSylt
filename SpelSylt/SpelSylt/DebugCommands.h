@@ -3,6 +3,8 @@
 #include "SFML/Graphics/Color.hpp"
 #include "SFML/Graphics/Vertex.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
+#include "SFML/Graphics/CircleShape.hpp"
+#include "SFML/Graphics/Text.hpp"
 
 class DebugCommand : public sf::Drawable
 {
@@ -23,27 +25,29 @@ private:
 	sf::Vertex myLine[2];
 };
 
-
 class RectangleCommand : public DebugCommand
 {
 public:
-	RectangleCommand(const sf::Vector2f& aCenter, float aWidth, float aHeight);
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states);
+	RectangleCommand(const sf::Vector2f& aPosition, float aWidth, float aHeight, bool aFill = false);
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
 	sf::RectangleShape myRect;
 };
 
-/*
 class CircleCommand : public DebugCommand
 {
 public:
-	CircleCommand();
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states);
+	CircleCommand(const sf::Vector2f& aPosition, float aRadius, bool aFill = false);
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+private:
+	sf::CircleShape myCircle;
 };
 
 class TextCommand : public DebugCommand
 {
 public:
-	TextCommand();
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states);
-};*/
+	TextCommand(const sf::Font& aFont, const std::string& aText, const sf::Vector2f& aPosition, short aSize = 32);
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+private:
+	sf::Text myText;
+};

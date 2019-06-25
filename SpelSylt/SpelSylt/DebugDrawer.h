@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics/Drawable.hpp"
+#include "SFML/Graphics/Font.hpp"
 
 #include <vector>
 
@@ -19,13 +20,15 @@ public:
 	void clear();
 
 	void DrawLine(const sf::Vector2f& aFrom, const sf::Vector2f& aTo);
-	/*void DrawRectangle();
-	void DrawCircle();
-	void DrawText();*/
+	void DrawRectangle(const sf::Vector2f & aCenter, float aWidth, float aHeight);
+	void DrawCircle(const sf::Vector2f& aPosition, float aRadius);
+	void DrawText(const std::string& aText, const sf::Vector2f& aPosition);
 
 private:
 
 	void AddCommand(DebugCommand* command);
 	std::vector<DebugCommand*> myCommands;
+
+	sf::Font myFont;
 };
 
