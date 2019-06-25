@@ -85,6 +85,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -94,6 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir)External\SFML\Include\SFML\;$(SolutionDir)External\JSON\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,6 +109,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -122,6 +125,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir)External\SFML\Include\SFML\;$(SolutionDir)External\JSON\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -130,10 +134,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\External\JSON\Base64.cpp" />
-    <ClCompile Include="..\External\JSON\FileDialog.cpp" />
-    <ClCompile Include="..\External\JSON\JsonDocument.cpp" />
     <ClCompile Include="..\External\JSON\pugixml.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CommonMath.cpp" />
@@ -150,11 +152,9 @@
     <ClCompile Include="TimedEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\External\JSON\Base64.h" />
-    <ClInclude Include="..\External\JSON\FileDialog.h" />
-    <ClInclude Include="..\External\JSON\JsonDocument.h" />
     <ClInclude Include="..\External\JSON\pugiconfig.hpp" />
     <ClInclude Include="..\External\JSON\pugixml.hpp" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonMath.h" />
