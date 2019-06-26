@@ -143,6 +143,7 @@
     <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="DebugLogger.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HookGame.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PointCollider.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HookGame.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
     <ClInclude Include="LogLevels.h" />
