@@ -151,6 +151,7 @@
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="TextFileHandler.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimedEvent.cpp" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonMath.h" />
+    <ClInclude Include="CStrStdStrConverter.h" />
     <ClInclude Include="DebugCommands.h" />
     <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="DebugLogger.h" />
@@ -175,6 +177,7 @@
     <ClInclude Include="sfml_libs.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
+    <ClInclude Include="TextFileHandler.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimedEvent.h" />
   </ItemGroup>
