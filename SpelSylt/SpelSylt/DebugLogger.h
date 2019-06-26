@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LogLevels.h"
+#include "TextFileHandler.h"
 
 #include <unordered_map>
 #include <string>
@@ -69,6 +70,7 @@ private:
 	LogLevels::ELogLevel CurrentLogLevel;
 
 	//File Logging
+	CTextFileHandler LogFileHandler;
 	void PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
 	std::string LogFileName;
 	bool ShouldLogToFile;

@@ -2,11 +2,12 @@
 
 #include "Time.h"
 #include "DirectoryHelpers.h"
+#include "TextFileHandler.h"
 
 #include <cstdarg>
 #include <windows.h>
 #include <string>
-#include <fstream>
+#include <sstream>
 
 //------------------------------------------------------------------
 
@@ -81,13 +82,13 @@ void CDebugLogger::PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLo
 {
 	std::string LogLevelName = "";
 	VerbosityLevelToString(InLogLevel, LogLevelName);
+	
+	std::stringstream FullLogMessage;
+	FullLogMessage << LogLevelName << "[Category: " << InLogCat << "] " << InLogMessage;
 
-	std::ofstream FileStream;
-	FileStream.open(LogFileName, std::fstream::app);
-	FileStream << LogLevelName;
-	FileStream << "[Category: " << InLogCat << "] ";
-	FileStream << InLogMessage << "\n";
-	FileStream.close();
+	LogFileHandler.OpenFile(LogFileName, CTextFileHandler::EFileOpenMode::Write);
+	LogFileHandler.WriteLine(FullLogMessage.str());
+	LogFileHandler.CloseFile();
 }
 
 //------------------------------------------------------------------
@@ -112,9 +113,16 @@ void CDebugLogger::SetShouldLogToFile()
 
 	MakeLogFileName();
 
-	std::ofstream LogFileStream;
-	LogFileStream.open(LogFileName, std::ofstream::trunc);
-	LogFileStream.close();
+	//TODO: This is very clunky?
+	SDateTime CurrentDateTime;
+	CTime::GetInstance().GetNowAsDateTime(CurrentDateTime);
+	std::string CurrentDateTimeStr;
+	CurrentDateTime.ToString(CurrentDateTimeStr);
+
+	LogFileHandler.OpenFile(LogFileName, CTextFileHandler::EFileOpenMode::Write);
+	LogFileHandler.Write("Logging session started: ");
+	LogFileHandler.WriteLine(CurrentDateTimeStr);
+	LogFileHandler.CloseFile();
 }
 
 //------------------------------------------------------------------
