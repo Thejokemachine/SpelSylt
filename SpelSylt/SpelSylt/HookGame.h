@@ -4,6 +4,7 @@
 #include "DebugDrawer.h"
 
 #include "SFML/System/Vector2.hpp"
+#include "SFML/Graphics/View.hpp"
 
 class HookGame : public CState 
 {
@@ -21,7 +22,12 @@ private:
 	sf::Vector2f myVelocity;
 	bool myIsGrounded;
 	bool myIsHooked = false;
-	float myRopeLength;
+	float myRopeLength = 300.f;
+
+	std::vector<sf::Vector2f> myHookPoints;
+	sf::Vector2f myHookPoint;
+
+	sf::View myCamera;
 
 	DebugDrawer myDrawer;
 };

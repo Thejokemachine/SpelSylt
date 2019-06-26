@@ -5,7 +5,7 @@
 #include "InputManager.h"
 #include "StateStack.h"
 #include "Time.h"
-#include "GameState.h"
+#include "HookGame.h"
 
 #include "DebugLogger.h"
 
@@ -47,7 +47,7 @@ int main()
 	time.Init();
 
 	CStateStack stateStack;
-	stateStack.Push(new GameState());
+	stateStack.Push(new HookGame());
 
 	window.setFramerateLimit(60); // Fix when physics
 
