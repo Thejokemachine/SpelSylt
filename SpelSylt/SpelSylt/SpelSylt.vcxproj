@@ -162,7 +162,6 @@
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonMath.h" />
-    <ClInclude Include="CStrStdStrConverter.h" />
     <ClInclude Include="DebugCommands.h" />
     <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="DebugLogger.h" />
