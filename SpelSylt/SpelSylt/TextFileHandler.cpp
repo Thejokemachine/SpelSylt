@@ -31,23 +31,33 @@ bool CTextFileHandler::OpenFile(const std::string& InRelativeFilePath, EFileOpen
 		CloseFile();
 	}
 
+	CurrentFile = InRelativeFilePath;
+
+	bool Success = false;
+
 	switch (InOpenMode)
 	{
 	case CTextFileHandler::EFileOpenMode::None:
 		LOG_ERROR(TextFileHandler, "Tried opening file %s with Open Mode set to None", InRelativeFilePath);
-		return false;
 		break;
 	case CTextFileHandler::EFileOpenMode::Write:
-		return OpenWriteFile(InRelativeFilePath);
+		Success = OpenWriteFile(InRelativeFilePath);
 		break;
 	case CTextFileHandler::EFileOpenMode::Read:
+		Success = OpenReadFile(InRelativeFilePath);
 		break;
 	default:
 		break;
 	}
 
+	if (Success)
+	{
+		return true;
+	}
+
 	LOG_WARNING(TextFileHandler, "Failed to open file %s", InRelativeFilePath.c_str());
 	CurrentMode = EFileOpenMode::None;
+	CurrentFile = "";
 	return false;
 }
 
@@ -63,6 +73,7 @@ void CTextFileHandler::CloseFile()
 		WriteStream.close();
 		break;
 	case CTextFileHandler::EFileOpenMode::Read:
+		ReadStream.close();
 		break;
 	default:
 		break;
@@ -103,6 +114,15 @@ bool CTextFileHandler::OpenWriteFile(const std::string& InRelativePath)
 
 //------------------------------------------------------------------
 
+bool CTextFileHandler::OpenReadFile(const std::string& InRelativePath)
+{
+	CurrentMode = EFileOpenMode::Read;
+	ReadStream.open(InRelativePath, std::ofstream::beg);
+	return ReadStream.is_open();
+}
+
+//------------------------------------------------------------------
+
 bool CTextFileHandler::Write(const std::string& InMessage)
 {
 	if (CurrentMode == EFileOpenMode::Write)
@@ -125,6 +145,39 @@ bool CTextFileHandler::WriteLine(const std::string& InMessage)
 		return true;
 	}
 
+	return false;
+}
+
+//------------------------------------------------------------------
+
+bool CTextFileHandler::Read(std::string& InBuffer)
+{
+	if (CurrentMode == EFileOpenMode::Read)
+	{
+		ReadStream.seekg(0, std::ios::end);
+		InBuffer.reserve(ReadStream.tellg());
+		ReadStream.seekg(0, std::ios::beg);
+
+		InBuffer.assign(std::istreambuf_iterator<char>(ReadStream), std::istreambuf_iterator<char>());
+
+		return true;
+	}
+
+	LOG_ERROR(TextFileHandler, "Read called on file %s that was not open for reading", CurrentFile.c_str());
+	return false;
+}
+
+//------------------------------------------------------------------
+
+bool CTextFileHandler::ReadLine(std::string& InBuffer)
+{
+	if (CurrentMode == EFileOpenMode::Read)
+	{
+		ReadStream >> InBuffer;
+		return true;
+	}
+
+	LOG_ERROR(TextFileHandler, "Read called on file %s that was not open for reading", CurrentFile.c_str());
 	return false;
 }
 
