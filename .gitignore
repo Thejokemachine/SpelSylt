@@ -31,9 +31,13 @@
 *.log
 *.filters
 *.idb
+*.iobj
+*.ipdb
 *.pdb
 *.txt
 *.tlog
+*.lastcodeanalysissucceeded
+*nativecodeanalysis*
 *.lastbuildstate
 *.ilk
 *v16/
