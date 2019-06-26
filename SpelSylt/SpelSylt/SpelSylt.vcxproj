@@ -95,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir)External\SFML\Include\SFML\;$(SolutionDir)External\JSON\</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,7 +125,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir)External\SFML\Include\SFML\;$(SolutionDir)External\JSON\</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -143,6 +143,7 @@
     <ClCompile Include="DebugCommands.cpp" />
     <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="DebugLogger.cpp" />
+    <ClCompile Include="DirectoryHelpers.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HookGame.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="TextFileHandler.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimedEvent.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
@@ -167,8 +169,8 @@
     <ClInclude Include="CommonMath.h" />
     <ClInclude Include="DebugCommands.h" />
     <ClInclude Include="DebugDrawer.h" />
-    <ClInclude Include="DebugFileWriter.h" />
     <ClInclude Include="DebugLogger.h" />
+    <ClInclude Include="DirectoryHelpers.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HookGame.h" />
     <ClInclude Include="InputManager.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="sfml_libs.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
+    <ClInclude Include="TextFileHandler.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimedEvent.h" />
     <ClInclude Include="tinyxml2.h" />

@@ -1,15 +1,19 @@
 #include "DebugLogger.h"
 
+#include "Time.h"
+#include "DirectoryHelpers.h"
+#include "TextFileHandler.h"
+
 #include <cstdarg>
 #include <windows.h>
 #include <string>
-#include <fstream>
-#include <ctime>
+#include <sstream>
 
 //------------------------------------------------------------------
 
 CDebugLogger::CDebugLogger()
 	: ShouldLogToFile(false)
+	, LogFileName("")
 {
 	BindDefaultColors();
 	SetLogLevel(LogLevels::ELogLevel::Verbose);
@@ -61,6 +65,11 @@ void CDebugLogger::PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCa
 void CDebugLogger::PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage)
 {
 	SetTextColor(LogColorMap[InLogLevel]);
+
+	std::string LogLevelStr;
+	VerbosityLevelToString(InLogLevel, LogLevelStr);
+
+	printf_s(LogLevelStr.c_str());
 	printf_s(InLogCat);
 	printf_s(": ");
 	printf_s(InLogMessage);
@@ -71,32 +80,15 @@ void CDebugLogger::PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* I
 
 void CDebugLogger::PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage)
 {
-	const char* LogLevelName = "";
+	std::string LogLevelName = "";
+	VerbosityLevelToString(InLogLevel, LogLevelName);
+	
+	std::stringstream FullLogMessage;
+	FullLogMessage << LogLevelName << "[Category: " << InLogCat << "] " << InLogMessage;
 
-	switch (InLogLevel)
-	{
-	case LogLevels::ELogLevel::Verbose:
-		LogLevelName = "[VERBOSE]";
-		break;
-	case LogLevels::ELogLevel::Log:
-		LogLevelName = "[LOG]";
-		break;
-	case LogLevels::ELogLevel::Warning:
-		LogLevelName = "[WARNING]";
-		break;
-	case LogLevels::ELogLevel::Error:
-		LogLevelName = "[ERROR]";
-		break;
-	default:
-		break;
-	}
-
-	std::ofstream FileStream;
-	FileStream.open("DebugLog.log", std::fstream::app);
-	FileStream << LogLevelName;
-	FileStream << "[Category: " << InLogCat << "] ";
-	FileStream << InLogMessage << "\n";
-	FileStream.close();
+	LogFileHandler.OpenFile(LogFileName, CTextFileHandler::EFileOpenMode::Write);
+	LogFileHandler.WriteLine(FullLogMessage.str());
+	LogFileHandler.CloseFile();
 }
 
 //------------------------------------------------------------------
@@ -119,9 +111,18 @@ void CDebugLogger::SetShouldLogToFile()
 {
 	ShouldLogToFile = true;
 
-	std::ofstream LogFileStream;
-	LogFileStream.open("DebugLog.log", std::ofstream::trunc);
-	LogFileStream.close();
+	MakeLogFileName();
+
+	//TODO: This is very clunky?
+	SDateTime CurrentDateTime;
+	CTime::GetInstance().GetNowAsDateTime(CurrentDateTime);
+	std::string CurrentDateTimeStr;
+	CurrentDateTime.ToString(CurrentDateTimeStr);
+
+	LogFileHandler.OpenFile(LogFileName, CTextFileHandler::EFileOpenMode::Write);
+	LogFileHandler.Write("Logging session started: ");
+	LogFileHandler.WriteLine(CurrentDateTimeStr);
+	LogFileHandler.CloseFile();
 }
 
 //------------------------------------------------------------------
@@ -129,7 +130,7 @@ void CDebugLogger::SetShouldLogToFile()
 void CDebugLogger::BindDefaultColors()
 {
 	BindColorToLogLevel(LogLevels::ELogLevel::Verbose, ETextColor::Blue);
-	BindColorToLogLevel(LogLevels::ELogLevel::Log, ETextColor::Green);
+	BindColorToLogLevel(LogLevels::ELogLevel::Log, ETextColor::White);
 	BindColorToLogLevel(LogLevels::ELogLevel::Warning, ETextColor::Yellow);
 	BindColorToLogLevel(LogLevels::ELogLevel::Error, ETextColor::Red);
 }
@@ -173,6 +174,45 @@ bool CDebugLogger::CurrentLogLevelAllowsRequestedLogLevel(LogLevels::ELogLevel I
 	const auto CurrentAsInt = static_cast<unsigned int>(CurrentLogLevel);
 
 	return RequestedAsInt >= CurrentAsInt;
+}
+
+//------------------------------------------------------------------
+
+void CDebugLogger::MakeLogFileName()
+{
+	SDirectoryHelpers::CreateDirectoryIfNotExisting("DebugLogs/");
+
+	SDateTime DateTime;
+	CTime::GetInstance().GetNowAsDateTime(DateTime);
+	std::string DateTimeStr;
+	DateTime.ToString(DateTimeStr);
+
+	LogFileName = "DebugLogs/SessionLog ";
+	LogFileName += DateTimeStr;
+	LogFileName += ".log";
+}
+
+//------------------------------------------------------------------
+
+void CDebugLogger::VerbosityLevelToString(const LogLevels::ELogLevel InLogLevel, std::string& OutString) const
+{
+	switch (InLogLevel)
+	{
+	case LogLevels::ELogLevel::Verbose:
+		OutString = "[VERBOSE]";
+		break;
+	case LogLevels::ELogLevel::Log:
+		OutString = "[LOG]";
+		break;
+	case LogLevels::ELogLevel::Warning:
+		OutString = "[WARNING]";
+		break;
+	case LogLevels::ELogLevel::Error:
+		OutString = "[ERROR]";
+		break;
+	default:
+		break;
+	}
 }
 
 //------------------------------------------------------------------

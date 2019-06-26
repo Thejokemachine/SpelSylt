@@ -1,8 +1,10 @@
 #pragma once
 
 #include "LogLevels.h"
+#include "TextFileHandler.h"
 
 #include <unordered_map>
+#include <string>
 
 //------------------------------------------------------------------
 
@@ -41,13 +43,12 @@ public:
 public:
 	static CDebugLogger& GetInstance();
 
+	void SetShouldLogToFile();
+	
 	void PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage, ...);
 
 	void SetLogLevel(LogLevels::ELogLevel InLogLevel);
-
 	void BindColorToLogLevel(LogLevels::ELogLevel InLogLevel, ETextColor InColor);
-
-	void SetShouldLogToFile();
 
 private:
 	using FLogColorMap = std::unordered_map<LogLevels::ELogLevel, ETextColor>;
@@ -60,10 +61,18 @@ private:
 	bool CurrentLogLevelAllowsRequestedLogLevel(LogLevels::ELogLevel InRequestedLogLevel) const;
 
 	void PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
-	void PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
+
+	void MakeLogFileName();
+
+	void VerbosityLevelToString(const LogLevels::ELogLevel InLogLevel, std::string& OutString) const;
 
 	FLogColorMap LogColorMap;
 	LogLevels::ELogLevel CurrentLogLevel;
+
+	//File Logging
+	CTextFileHandler LogFileHandler;
+	void PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
+	std::string LogFileName;
 	bool ShouldLogToFile;
 };
 

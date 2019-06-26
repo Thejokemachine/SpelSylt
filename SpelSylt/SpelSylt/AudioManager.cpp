@@ -2,17 +2,21 @@
 
 #include "CommonMath.h"
 
-#include <filesystem>
 #include <iostream>
+
+#include "DirectoryHelpers.h"
 
 AudioManager::AudioManager(const std::string & aAudioFolder)
 {
-	for (auto&& file : std::filesystem::directory_iterator(aAudioFolder + "Sounds/"))
-	{
-		std::string alias = file.path().stem().string();
-		std::string fileName = file.path().string();
-		mySoundBuffers[alias].loadFromFile(fileName);
-	}
+	std::string SoundsFolder = aAudioFolder + "Sounds/";
+
+	SDirectoryHelpers::VisitDirectory(
+		SoundsFolder.c_str(), 
+		[&](const FFile & InFile) {
+			std::string alias = InFile.path().stem().string();
+			std::string fileName = InFile.path().string();
+			mySoundBuffers[alias].loadFromFile(fileName);
+		});
 }
 
 void AudioManager::Update(const float dt)
