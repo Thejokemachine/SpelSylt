@@ -63,6 +63,8 @@ private:
 
 	void MakeLogFileName();
 
+	void VerbosityLevelToString(const LogLevels::ELogLevel InLogLevel, std::string& OutString) const;
+
 	FLogColorMap LogColorMap;
 	LogLevels::ELogLevel CurrentLogLevel;
 

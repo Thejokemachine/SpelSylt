@@ -64,6 +64,11 @@ void CDebugLogger::PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCa
 void CDebugLogger::PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage)
 {
 	SetTextColor(LogColorMap[InLogLevel]);
+
+	std::string LogLevelStr;
+	VerbosityLevelToString(InLogLevel, LogLevelStr);
+
+	printf_s(LogLevelStr.c_str());
 	printf_s(InLogCat);
 	printf_s(": ");
 	printf_s(InLogMessage);
@@ -74,25 +79,8 @@ void CDebugLogger::PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* I
 
 void CDebugLogger::PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage)
 {
-	const char* LogLevelName = "";
-
-	switch (InLogLevel)
-	{
-	case LogLevels::ELogLevel::Verbose:
-		LogLevelName = "[VERBOSE]";
-		break;
-	case LogLevels::ELogLevel::Log:
-		LogLevelName = "[LOG]";
-		break;
-	case LogLevels::ELogLevel::Warning:
-		LogLevelName = "[WARNING]";
-		break;
-	case LogLevels::ELogLevel::Error:
-		LogLevelName = "[ERROR]";
-		break;
-	default:
-		break;
-	}
+	std::string LogLevelName = "";
+	VerbosityLevelToString(InLogLevel, LogLevelName);
 
 	std::ofstream FileStream;
 	FileStream.open(LogFileName, std::fstream::app);
@@ -134,7 +122,7 @@ void CDebugLogger::SetShouldLogToFile()
 void CDebugLogger::BindDefaultColors()
 {
 	BindColorToLogLevel(LogLevels::ELogLevel::Verbose, ETextColor::Blue);
-	BindColorToLogLevel(LogLevels::ELogLevel::Log, ETextColor::Green);
+	BindColorToLogLevel(LogLevels::ELogLevel::Log, ETextColor::White);
 	BindColorToLogLevel(LogLevels::ELogLevel::Warning, ETextColor::Yellow);
 	BindColorToLogLevel(LogLevels::ELogLevel::Error, ETextColor::Red);
 }
@@ -194,6 +182,29 @@ void CDebugLogger::MakeLogFileName()
 	LogFileName = "DebugLogs/SessionLog ";
 	LogFileName += DateTimeStr;
 	LogFileName += ".log";
+}
+
+//------------------------------------------------------------------
+
+void CDebugLogger::VerbosityLevelToString(const LogLevels::ELogLevel InLogLevel, std::string& OutString) const
+{
+	switch (InLogLevel)
+	{
+	case LogLevels::ELogLevel::Verbose:
+		OutString = "[VERBOSE]";
+		break;
+	case LogLevels::ELogLevel::Log:
+		OutString = "[LOG]";
+		break;
+	case LogLevels::ELogLevel::Warning:
+		OutString = "[WARNING]";
+		break;
+	case LogLevels::ELogLevel::Error:
+		OutString = "[ERROR]";
+		break;
+	default:
+		break;
+	}
 }
 
 //------------------------------------------------------------------
