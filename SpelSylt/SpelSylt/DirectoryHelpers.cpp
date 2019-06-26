@@ -1,7 +1,5 @@
 #include "DirectoryHelpers.h"
 
-
-
 //------------------------------------------------------------------
 
 void SDirectoryHelpers::CreateDirectoryIfNotExisting(const char* InRelativePath)
