@@ -3,6 +3,7 @@
 #include "LogLevels.h"
 
 #include <unordered_map>
+#include <string>
 
 //------------------------------------------------------------------
 
@@ -41,13 +42,12 @@ public:
 public:
 	static CDebugLogger& GetInstance();
 
+	void SetShouldLogToFile();
+	
 	void PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage, ...);
 
 	void SetLogLevel(LogLevels::ELogLevel InLogLevel);
-
 	void BindColorToLogLevel(LogLevels::ELogLevel InLogLevel, ETextColor InColor);
-
-	void SetShouldLogToFile();
 
 private:
 	using FLogColorMap = std::unordered_map<LogLevels::ELogLevel, ETextColor>;
@@ -60,10 +60,15 @@ private:
 	bool CurrentLogLevelAllowsRequestedLogLevel(LogLevels::ELogLevel InRequestedLogLevel) const;
 
 	void PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
-	void PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
+
+	void MakeLogFileName();
 
 	FLogColorMap LogColorMap;
 	LogLevels::ELogLevel CurrentLogLevel;
+
+	//File Logging
+	void PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
+	std::string LogFileName;
 	bool ShouldLogToFile;
 };
 

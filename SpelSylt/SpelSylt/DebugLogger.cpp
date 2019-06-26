@@ -1,15 +1,18 @@
 #include "DebugLogger.h"
 
+#include "Time.h"
+#include "DirectoryHelpers.h"
+
 #include <cstdarg>
 #include <windows.h>
 #include <string>
 #include <fstream>
-#include <ctime>
 
 //------------------------------------------------------------------
 
 CDebugLogger::CDebugLogger()
 	: ShouldLogToFile(false)
+	, LogFileName("")
 {
 	BindDefaultColors();
 	SetLogLevel(LogLevels::ELogLevel::Verbose);
@@ -92,7 +95,7 @@ void CDebugLogger::PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLo
 	}
 
 	std::ofstream FileStream;
-	FileStream.open("DebugLog.log", std::fstream::app);
+	FileStream.open(LogFileName, std::fstream::app);
 	FileStream << LogLevelName;
 	FileStream << "[Category: " << InLogCat << "] ";
 	FileStream << InLogMessage << "\n";
@@ -119,8 +122,10 @@ void CDebugLogger::SetShouldLogToFile()
 {
 	ShouldLogToFile = true;
 
+	MakeLogFileName();
+
 	std::ofstream LogFileStream;
-	LogFileStream.open("DebugLog.log", std::ofstream::trunc);
+	LogFileStream.open(LogFileName, std::ofstream::trunc);
 	LogFileStream.close();
 }
 
@@ -173,6 +178,22 @@ bool CDebugLogger::CurrentLogLevelAllowsRequestedLogLevel(LogLevels::ELogLevel I
 	const auto CurrentAsInt = static_cast<unsigned int>(CurrentLogLevel);
 
 	return RequestedAsInt >= CurrentAsInt;
+}
+
+//------------------------------------------------------------------
+
+void CDebugLogger::MakeLogFileName()
+{
+	SDirectoryHelpers::CreateDirectoryIfNotExisting("DebugLogs/");
+
+	SDateTime DateTime;
+	CTime::GetInstance().GetNowAsDateTime(DateTime);
+	std::string DateTimeStr;
+	DateTime.ToString(DateTimeStr);
+
+	LogFileName = "DebugLogs/SessionLog ";
+	LogFileName += DateTimeStr;
+	LogFileName += ".log";
 }
 
 //------------------------------------------------------------------
