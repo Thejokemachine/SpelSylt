@@ -6,7 +6,8 @@
 
 #include <iostream>
 
-HookGame::HookGame()
+HookGame::HookGame() :
+myUI(1600, 900)
 {
 }
 
@@ -96,10 +97,13 @@ void HookGame::Update(float dt)
 	myIsGrounded = myPlayerPos.y == 900.f;
 
 	myCamera.setCenter(myCamera.getCenter().x, myPlayerPos.y - 300.f);
+
+	myUI.Update(&im);
 }
 
 void HookGame::Render(sf::RenderWindow * aRenderWindow)
 {
+
 	for (auto hookPoint : myHookPoints)
 	{
 		myDrawer.DrawCircle(hookPoint, 2.f, true);
@@ -109,7 +113,9 @@ void HookGame::Render(sf::RenderWindow * aRenderWindow)
 	playerOffset.y -= 50.f;
 	myDrawer.DrawRectangle(playerOffset, 50.f, 100.f, true);
 
-	aRenderWindow->setView(myCamera);
+	//aRenderWindow->setView(myCamera);
 	aRenderWindow->draw(myDrawer);
 	myDrawer.clear();
+
+	myUI.Render(*aRenderWindow);
 }

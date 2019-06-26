@@ -2,6 +2,7 @@
 #include "State.h"
 
 #include "DebugDrawer.h"
+#include "UILayout.h"
 
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Graphics/View.hpp"
@@ -28,6 +29,8 @@ private:
 	sf::Vector2f myHookPoint;
 
 	sf::View myCamera;
+
+	UILayout myUI;
 
 	DebugDrawer myDrawer;
 };
