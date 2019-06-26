@@ -142,6 +142,7 @@
     <ClCompile Include="DebugCommands.cpp" />
     <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="DebugLogger.cpp" />
+    <ClCompile Include="DirectoryHelpers.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HookGame.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="DebugCommands.h" />
     <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="DebugLogger.h" />
+    <ClInclude Include="DirectoryHelpers.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HookGame.h" />
     <ClInclude Include="InputManager.h" />
