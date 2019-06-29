@@ -25,6 +25,8 @@ public:
 	virtual void ForEachCommandAtLayer(ERenderLayer InLayer, const FRenderFunction& InRenderFunc) override;
 	//End IRenderQueueOutput
 
+	void Clear();
+
 private:
 	using FRenderQueue = std::array<std::vector<IRenderCommand>, static_cast<unsigned int>(ERenderLayer::Count)>;
 

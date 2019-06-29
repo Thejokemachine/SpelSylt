@@ -37,3 +37,13 @@ void CRenderQueue::ForEachCommandAtLayer(ERenderLayer InLayer, const FRenderFunc
 }
 
 //------------------------------------------------------------------
+
+void CRenderQueue::Clear()
+{
+	for(unsigned int i = 0; i < Queue.size(); ++i)
+	{
+		Queue[i].clear();
+	}
+}
+
+//------------------------------------------------------------------
