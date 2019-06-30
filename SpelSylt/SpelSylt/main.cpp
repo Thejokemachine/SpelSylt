@@ -5,7 +5,15 @@
 #include "InputManager.h"
 #include "StateStack.h"
 #include "Time.h"
+
+//States
 #include "HookGame.h"
+#include "RenderingTestState.h"
+//States
+
+#include "Renderer.h"
+#include "RenderQueue.h"
+#include "RenderingContext.h"
 
 #include "DebugLogger.h"
 
@@ -47,7 +55,13 @@ int main()
 	time.Init();
 
 	CStateStack stateStack;
-	stateStack.Push(new HookGame());
+	stateStack.Push(new CRenderingTestState());
+	//This one is not yet retargeted to the new rendering infrastructure!
+	//stateStack.Push(new HookGame());
+
+	CRenderer Renderer;
+	CRenderQueue RenderQueue;
+	SRenderingContext RenderingContext(RenderQueue);
 
 	window.setFramerateLimit(60); // Fix when physics
 
@@ -71,7 +85,10 @@ int main()
 		}
 
 		stateStack.Update(time.GetDeltaTime());
-		stateStack.Render(&window);
+		stateStack.Render(RenderingContext);
+
+		Renderer.RunRenderAllLayers(RenderQueue, window);
+		RenderQueue.Clear();
 
 		window.display();
 
