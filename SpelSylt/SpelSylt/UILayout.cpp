@@ -1,14 +1,5 @@
 #include "SpelSyltPCH.h"
 
-/*
-Real big todo:
-I have not been reading through this code properly but something in the way it's using shared ptrs is triggering the 4244 warning
-Disabled the warning for now but we should strive for getting rid of the warning and being able to remove pragma disable
-*/
-
-#pragma warning(push)
-#pragma warning(disable: 4244)
-
 #include "UILayout.h"
 #include "SFML/Graphics/RenderTarget.hpp"
 #include "Button.h"
@@ -21,11 +12,11 @@ using namespace tinyxml2;
 UILayout::UILayout(float aWidth, float aHeight) : 
 myRootPanel(nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None)
 {
-	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", 15, 15, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Top | DockFlag::Left));
-	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", -15, 15, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Top | DockFlag::Right));
-	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", -15, -15, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Bottom | DockFlag::Right));
-	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", 15, -15, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Bottom | DockFlag::Left));
-	auto middle = std::make_shared<Button>(&myRootPanel, "", 15, 15, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Center);
+	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", 15.f, 15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Top | DockFlag::Left));
+	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", -15.f, 15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Top | DockFlag::Right));
+	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", -15.f, -15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Bottom | DockFlag::Right));
+	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", 15.f, -15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Bottom | DockFlag::Left));
+	auto middle = std::make_shared<Button>(&myRootPanel, "", 15.f, 15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Center);
 	middle->SetCallback([](Button& button) {
 		std::cout << "AAAAAJ" << std::endl;
 	});
@@ -107,5 +98,3 @@ unsigned char UILayout::evaluateDockingFlags(const std::string & aBlock)
 
 	return flags;
 }
-
-#pragma warning(pop)
