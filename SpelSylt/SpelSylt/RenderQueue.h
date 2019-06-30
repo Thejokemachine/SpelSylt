@@ -4,9 +4,11 @@
 #include "RenderQueueOutput.h"
 #include "RenderLayer.h"
 #include "RenderCommand.h"
+#include "StaticMemoryBuffer.h"
 
 #include <array>
 #include <vector>
+#include <utility>
 
 class CRenderQueue final
 	: public IRenderQueueInput
@@ -28,7 +30,8 @@ public:
 	void Clear();
 
 private:
-	using FRenderQueue = std::array<std::vector<IRenderCommand>, static_cast<unsigned int>(ERenderLayer::Count)>;
-
+	using FRenderQueue = std::array<std::vector<IRenderCommand*>, static_cast<unsigned int>(ERenderLayer::Count)>;
 	FRenderQueue Queue;
+
+	CStaticMemoryBuffer CommandsBuffer;
 };

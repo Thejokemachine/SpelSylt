@@ -14,6 +14,7 @@ namespace
 
 CRenderQueue::CRenderQueue()
 	: Queue()
+	, CommandsBuffer(1048 * 2 * 2 * 2 * 2 * 2)
 {
 }
 
@@ -21,7 +22,19 @@ CRenderQueue::CRenderQueue()
 
 void CRenderQueue::Enqueue(ERenderLayer InLayer, const IRenderCommand& InRenderCmd)
 {
-	Queue[LayerToInt(InLayer)].push_back(InRenderCmd);
+	unsigned short SizeOfCommandType = 0;
+
+	switch (InRenderCmd.GetCommandType())
+	{
+	case ECommandType::Sprite:
+		SizeOfCommandType = sizeof(SSpriteRenderCommand);
+		break;
+	default:
+		break;
+	}
+
+	IRenderCommand* Command = reinterpret_cast<IRenderCommand*>(CommandsBuffer.AddCustomData(&InRenderCmd, SizeOfCommandType));
+	Queue[LayerToInt(InLayer)].push_back(Command);
 }
 
 //------------------------------------------------------------------
@@ -30,9 +43,9 @@ void CRenderQueue::ForEachCommandAtLayer(ERenderLayer InLayer, const FRenderFunc
 {
 	auto& LayerCommands = Queue[LayerToInt(InLayer)];
 
-	for (IRenderCommand& Command : LayerCommands)
+	for (IRenderCommand* Command : LayerCommands)
 	{
-		InRenderFunction(Command);
+		InRenderFunction(*Command);
 	}
 }
 
@@ -44,6 +57,8 @@ void CRenderQueue::Clear()
 	{
 		Queue[i].clear();
 	}
+
+	CommandsBuffer.Flush();
 }
 
 //------------------------------------------------------------------
