@@ -48,8 +48,10 @@ void CRenderingTestState::Update(float InDT)
 
 void CRenderingTestState::Render(SRenderingContext& InRenderingContext)
 {
-	SSpriteRenderCommand Command(TestSprite);
-	InRenderingContext.RenderQueue.Enqueue(ERenderLayer::Game, Command);
+	InRenderingContext.DebugDrawer.DrawCircle(TestSprite.getPosition(), 64.f, false);
+
+	//SSpriteRenderCommand Command(TestSprite);
+	//InRenderingContext.RenderQueue.Enqueue(ERenderLayer::Game, Command);
 }
 
 //------------------------------------------------------------------
