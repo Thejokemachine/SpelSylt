@@ -6,6 +6,7 @@
 #include "InputManager.h"
 
 #include "RenderingTestState.h"
+#include "HookGame.h"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
@@ -32,7 +33,8 @@ void CApplication::Initialize()
 	InputManager.Init(&Window);
 	Time.Init();
 
-	StateStack.Push(new CRenderingTestState());
+	StateStack.Push(new HookGame());
+	//StateStack.Push(new CRenderingTestState());
 }
 
 //------------------------------------------------------------------
@@ -103,6 +105,8 @@ void CApplication::PrepareForNewFrame()
 void CApplication::PublishNewFrame()
 {
 	StateStack.Render(RenderingContext);
+
+	Window.setView(RenderingContext.Camera);
 
 	Renderer.RunRenderAllLayers(RenderQueue, Window);
 	DebugDrawer.draw(Window, sf::RenderStates::Default);

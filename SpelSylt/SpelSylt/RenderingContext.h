@@ -4,6 +4,8 @@
 #include "RenderQueueInput.h"
 #include "DebugDrawerInput.h"
 
+#include <SFML/Graphics/View.hpp>
+
 struct SRenderingContext
 {
 public:
@@ -20,4 +22,6 @@ public:
 
 	IRenderQueueInput& RenderQueue;
 	IDebugDrawerInput& DebugDrawer;
+
+	sf::View Camera; //At least temporarily used as a sf::View
 };

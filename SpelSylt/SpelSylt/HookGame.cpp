@@ -1,6 +1,5 @@
 #include "SpelSyltPCH.h"
 
-/*
 #include "HookGame.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 
@@ -9,8 +8,9 @@
 
 #include <iostream>
 
-HookGame::HookGame() :
-myUI(1600, 900)
+HookGame::HookGame() 
+	: myIsGrounded(true)
+	//: myUI(1600, 900)
 {
 }
 
@@ -26,34 +26,31 @@ void HookGame::Init()
 	{
 		myHookPoints.emplace_back(sf::Vector2f(200.f + (float)(rand() % 1400), 500.f - i * 75.f));
 	}
-
-	myCamera.setSize(1600, 900);
 }
 
 void HookGame::Update(float dt)
 {
-	sf::Vector2f pAnchor = myPlayerPos;
-	pAnchor.y -= 100.f;
+	Anchor = myPlayerPos;
+	Anchor.y -= 100.f;
 
 	if (!myIsHooked)
 	{
 		for (auto point : myHookPoints)
 		{
-			if (point.y <= pAnchor.y)
+			if (point.y <= Anchor.y)
 			{
-				if (Math::Length(myHookPoint - pAnchor) > Math::Length(point - pAnchor))
+				if (Math::Length(myHookPoint - Anchor) > Math::Length(point - Anchor))
 					myHookPoint = point;
 			}
 		}
 	}
-	myDrawer.DrawCircle(myHookPoint, 5.f, true, sf::Color::Blue);
 
 	auto im = CInputManager::GetInstance();
 	if (im.IsKeyPressed(EKeyCode::Up))
 	{
 		if (!myIsHooked)
 		{
-			myRopeLength = Math::Length(myHookPoint - pAnchor);
+			myRopeLength = Math::Length(myHookPoint - Anchor);
 		}
 		myIsHooked = !myIsHooked;
 	}
@@ -79,11 +76,11 @@ void HookGame::Update(float dt)
 	}
 	else
 	{
-		sf::Vector2f p = pAnchor + myVelocity * dt;
+		sf::Vector2f p = Anchor + myVelocity * dt;
 		if (Math::Length(p - myHookPoint) > myRopeLength)
 		{
 			sf::Vector2f restrainedP = (myHookPoint + myRopeLength * Math::GetNormalized(p - myHookPoint));
-			myVelocity = (restrainedP - pAnchor) / dt;
+			myVelocity = (restrainedP - Anchor) / dt;
 			myPlayerPos = restrainedP;
 			myPlayerPos.y += 100.f;
 		}
@@ -91,35 +88,36 @@ void HookGame::Update(float dt)
 		{
 			myPlayerPos += myVelocity * dt;
 		}
-		myDrawer.DrawLine(pAnchor, myHookPoint);
 	}
-
-	myDrawer.DrawLine(myPlayerPos, myPlayerPos + myVelocity, sf::Color::Blue);
 
 	myPlayerPos.y = Math::Min(myPlayerPos.y, 900.f);
 	myIsGrounded = myPlayerPos.y == 900.f;
 
-	myCamera.setCenter(myCamera.getCenter().x, myPlayerPos.y - 300.f);
-
-	myUI.Update(&im);
+	//myUI.Update(&im);
 }
 
-void HookGame::Render(sf::RenderWindow * aRenderWindow)
+void HookGame::Render(SRenderingContext& InContext)
 {
+
+	InContext.Camera.setCenter(InContext.Camera.getCenter().x, myPlayerPos.y - 300.f);
+
+	InContext.DebugDrawer.DrawCircle(myHookPoint, 5.f, true, sf::Color::Blue);
 
 	for (auto hookPoint : myHookPoints)
 	{
-		myDrawer.DrawCircle(hookPoint, 2.f, true);
+		InContext.DebugDrawer.DrawCircle(hookPoint, 2.f, true);
 	}
 
 	sf::Vector2f playerOffset = myPlayerPos;
 	playerOffset.y -= 50.f;
-	myDrawer.DrawRectangle(playerOffset, 50.f, 100.f, true);
+	InContext.DebugDrawer.DrawRectangle(playerOffset, 50.f, 100.f, true);
 
-	//aRenderWindow->setView(myCamera);
-	aRenderWindow->draw(myDrawer);
-	myDrawer.clear();
+	if (myIsHooked)
+	{
+		InContext.DebugDrawer.DrawLine(Anchor, myHookPoint);
+	}
 
-	myUI.Render(*aRenderWindow);
+	InContext.DebugDrawer.DrawLine(myPlayerPos, myPlayerPos + myVelocity, sf::Color::Blue);
+
+	//myUI.Render(*aRenderWindow);
 }
-*/

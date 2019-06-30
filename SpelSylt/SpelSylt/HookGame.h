@@ -1,5 +1,4 @@
 #pragma once
-/*
 #include "State.h"
 
 #include "DebugDrawer.h"
@@ -14,10 +13,11 @@ public:
 	HookGame();
 	~HookGame();
 
-	virtual void Init();
-	virtual void Update(float dt);
-	virtual void Render(sf::RenderWindow* aRenderWindow);
-
+	//Begin CState
+	virtual void Init() override;
+	virtual void Update(float dt) override;
+	virtual void Render(SRenderingContext& InContext) override;
+	//End CState
 private:
 
 	sf::Vector2f myPlayerPos;
@@ -28,11 +28,7 @@ private:
 
 	std::vector<sf::Vector2f> myHookPoints;
 	sf::Vector2f myHookPoint;
+	sf::Vector2f Anchor;
 
-	sf::View myCamera;
-
-	UILayout myUI;
-
-	DebugDrawer myDrawer;
+	//UILayout myUI;
 };
-*/
