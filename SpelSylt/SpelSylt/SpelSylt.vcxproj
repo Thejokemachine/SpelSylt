@@ -96,6 +96,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir)External\SFML\Include\SFML\;$(SolutionDir)External\JSON\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>SpelSyltPCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,6 +128,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir)External\SFML\Include\SFML\;$(SolutionDir)External\JSON\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>SpelSyltPCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -134,7 +138,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\External\JSON\pugixml.cpp" />
+    <ClCompile Include="..\External\JSON\pugixml.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
@@ -180,6 +187,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
     <ClInclude Include="LogLevels.h" />
+    <ClInclude Include="SpelSyltPCH.h" />
     <ClInclude Include="StaticMemoryBuffer.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PointCollider.h" />

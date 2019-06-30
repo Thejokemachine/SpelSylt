@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "TimedEvent.h"
 
 void CTimedEvent::Init(EType aType, float aDuration, std::function<void()> aFunction)

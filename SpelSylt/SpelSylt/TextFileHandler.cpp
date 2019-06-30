@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "TextFileHandler.h"
 
 #include "DebugLogger.h"

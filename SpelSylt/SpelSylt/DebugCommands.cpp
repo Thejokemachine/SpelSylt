@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "DebugCommands.h"
 #include "SFML/Graphics/RenderTarget.hpp"
 

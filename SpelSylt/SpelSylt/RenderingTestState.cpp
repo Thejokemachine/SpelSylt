@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "RenderingTestState.h"
 
 #include "RenderCommand.h"

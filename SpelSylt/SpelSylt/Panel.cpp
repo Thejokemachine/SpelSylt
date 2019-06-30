@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "Panel.h"
 
 Panel::Panel(const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags) :

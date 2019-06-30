@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "CircleCollider.h"
 
 void CCircleCollider::SetRadius(float aRadius)

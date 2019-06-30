@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "StaticMemoryBuffer.h"
 
 //------------------------------------------------------------------

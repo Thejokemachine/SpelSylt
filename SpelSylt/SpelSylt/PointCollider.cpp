@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "PointCollider.h"
 
 bool CPointCollider::IsColliding(const CCircleCollider & aCircleCollider) const

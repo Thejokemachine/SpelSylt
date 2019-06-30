@@ -1,3 +1,5 @@
+#include "SpelSyltPCH.h"
+
 #include "RectangleCollider.h"
 
 void CRectangleCollider::SetDimensions(const sf::Vector2f & aDimensions)
