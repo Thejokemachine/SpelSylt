@@ -6,6 +6,8 @@
 
 
 CStateStack::CStateStack()
+	: myStates()
+	, myCurrentStateIndex(0)
 {
 }
 
@@ -32,7 +34,7 @@ void CStateStack::Render(SRenderingContext& InRenderingContext)
 
 void CStateStack::Push(CState * aNewState)
 {
-	myCurrentStateIndex = myStates.size();
+	myCurrentStateIndex = static_cast<short>(myStates.size());
 	myStates.push_back(aNewState);
 	aNewState->SetOwner(this);
 	aNewState->Init();
@@ -62,5 +64,5 @@ void CStateStack::PopAll()
 
 short CStateStack::Size()
 {
-	return myStates.size();
+	return static_cast<short>(myStates.size());
 }

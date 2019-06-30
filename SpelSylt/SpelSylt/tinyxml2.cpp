@@ -1,5 +1,9 @@
 #include "SpelSyltPCH.h"
 
+#pragma warning(push)
+#pragma warning(disable: 26495)
+#pragma warning(disable: 26451)
+
 /*
 Original code by Lee Thomason (www.grinninglizard.com)
 
@@ -2838,3 +2842,5 @@ namespace tinyxml2
 	}
 
 }   // namespace tinyxml2
+
+#pragma warning(pop)

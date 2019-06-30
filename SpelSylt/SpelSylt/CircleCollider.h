@@ -6,7 +6,11 @@ class CCircleCollider : public CCollider
 	friend class CCollider;
 
 public:
-	CCircleCollider() { myType = CCollider::EColliderType::Circle; };
+	CCircleCollider()
+		: myRadius(0.f)
+	{ 
+		myType = CCollider::EColliderType::Circle; 
+	};
 
 	void SetRadius(float aRadius);
 	virtual bool IsColliding(const CCollider& aCollider) const override { return aCollider.IsColliding(*this); }

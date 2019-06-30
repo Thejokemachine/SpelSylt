@@ -5,6 +5,13 @@
 #include "SFML\Window.hpp"
 
 CInputManager::CInputManager()
+	: myKeyStates()
+	, myPreviousKeyStates()
+	, myMouseButtonStates()
+	, myPreviousMouseButtonStates()
+	, myWheelDelta(0.f)
+	, myTextInput("")
+	, myHWND(nullptr)
 {
 }
 

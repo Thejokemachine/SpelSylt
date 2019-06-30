@@ -1,4 +1,7 @@
 #pragma once
+
+#pragma warning(push)
+
 /*
 Original code by Lee Thomason (www.grinninglizard.com)
 
@@ -2308,3 +2311,5 @@ namespace tinyxml2
 #endif
 
 #endif // TINYXML2_INCLUDED
+
+#pragma warning(pop)

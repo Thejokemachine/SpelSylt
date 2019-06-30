@@ -5,6 +5,7 @@
 #include "StateStack.h"
 
 CState::CState()
+	: myOwner(nullptr)
 {
 }
 

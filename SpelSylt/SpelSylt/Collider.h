@@ -18,6 +18,11 @@ public:
 		Count
 	};
 
+	CCollider()
+		: myType(EColliderType::Count)
+	{
+	}
+	
 	virtual bool IsColliding(const CCollider& aCollider) const = 0;
 
 	virtual bool IsColliding(const CCircleCollider& aCircleCollider) const = 0;

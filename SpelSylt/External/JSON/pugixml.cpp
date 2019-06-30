@@ -1,3 +1,9 @@
+#pragma warning(push)
+#pragma warning(disable:6011)
+#pragma warning(disable:28182)
+#pragma warning(disable:26451)
+#pragma warning(disable:26495)
+
 /**
  * pugixml parser - version 1.7
  * --------------------------------------------------------
@@ -12423,3 +12429,4 @@ namespace pugi
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
+#pragma warning(pop)
