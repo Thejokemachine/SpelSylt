@@ -6,15 +6,15 @@ class CStaticMemoryBuffer
 {
 public:
 	CStaticMemoryBuffer();
-	CStaticMemoryBuffer(unsigned short InSize);
+	CStaticMemoryBuffer(B InSize);
 	~CStaticMemoryBuffer();
 
 	//Removed constructors
 	CStaticMemoryBuffer(const CStaticMemoryBuffer& InStaticMemoryBuffer) = delete;
 	CStaticMemoryBuffer(CStaticMemoryBuffer&& InStaticMemoryBuffer) = delete;
 
-	void Allocate(unsigned short InSize);
-	unsigned short GetRemainingSize() const;
+	void Allocate(B InSize);
+	B GetRemainingSize() const;
 	void Flush();
 
 	void* AddCustomData(const void* InStart, unsigned short InSize);
@@ -26,8 +26,8 @@ public:
 	T& AddToBuffer(const T& InData);
 
 private:
-	unsigned short NextSlot;
-	unsigned short Size;
+	unsigned int NextSlot;
+	B Size;
 	RawByte* Buffer;
 };
 

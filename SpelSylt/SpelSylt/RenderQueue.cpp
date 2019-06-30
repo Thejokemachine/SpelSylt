@@ -16,7 +16,7 @@ namespace
 
 CRenderQueue::CRenderQueue()
 	: Queue()
-	, CommandsBuffer(1048 * 2 * 2 * 2 * 2 * 2)
+	, CommandsBuffer(512_mb)
 {
 }
 

@@ -13,7 +13,7 @@ CStaticMemoryBuffer::CStaticMemoryBuffer()
 
 //------------------------------------------------------------------
 
-CStaticMemoryBuffer::CStaticMemoryBuffer(unsigned short InSize)
+CStaticMemoryBuffer::CStaticMemoryBuffer(B InSize)
 	: NextSlot(0)
 	, Size(0)
 	, Buffer(nullptr)
@@ -30,15 +30,15 @@ CStaticMemoryBuffer::~CStaticMemoryBuffer()
 
 //------------------------------------------------------------------
 
-void CStaticMemoryBuffer::Allocate(unsigned short InSize)
+void CStaticMemoryBuffer::Allocate(B InSize)
 {
 	Size = InSize;
-	Buffer = new RawByte[Size];
+	Buffer = new RawByte[static_cast<unsigned int>(Size)];
 }
 
 //------------------------------------------------------------------
 
-unsigned short CStaticMemoryBuffer::GetRemainingSize() const
+B CStaticMemoryBuffer::GetRemainingSize() const
 {
 	return Size - NextSlot;
 }
