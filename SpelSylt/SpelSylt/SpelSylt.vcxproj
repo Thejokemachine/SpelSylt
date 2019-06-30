@@ -191,6 +191,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
     <ClInclude Include="LogLevels.h" />
+    <ClInclude Include="MemAllocSizes.h" />
     <ClInclude Include="SpelSyltPCH.h" />
     <ClInclude Include="StaticMemoryBuffer.h" />
     <ClInclude Include="Panel.h" />
