@@ -1,5 +1,4 @@
 #pragma once
-#include <cstring>
 
 typedef unsigned char RawByte;
 

@@ -1,9 +1,7 @@
 #include "SpelSyltPCH.h"
 
 #include "Renderer.h"
-
 #include "RenderCommand.h"
-
 #include "RenderQueueOutput.h"
 
 #include <SFML/Graphics/RenderTarget.hpp>
