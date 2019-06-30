@@ -6,3 +6,6 @@
 
 //Logging
 #include "DebugLogger.h"
+
+//Memory
+#include "MemAllocSizes.h"
