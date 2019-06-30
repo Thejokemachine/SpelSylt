@@ -28,8 +28,10 @@ void HookGame::Init()
 	}
 }
 
-void HookGame::Update(float dt)
+void HookGame::Update(SGameContext& InGameContext)
 {
+	const float dt = InGameContext.Time.GetDeltaTime();
+
 	Anchor = myPlayerPos;
 	Anchor.y -= 100.f;
 
@@ -45,7 +47,7 @@ void HookGame::Update(float dt)
 		}
 	}
 
-	auto im = CInputManager::GetInstance();
+	auto& im = InGameContext.Input;
 	if (im.IsKeyPressed(EKeyCode::Up))
 	{
 		if (!myIsHooked)

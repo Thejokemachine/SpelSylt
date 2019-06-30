@@ -28,6 +28,10 @@ Exceptions are when rebinding colors
 
 //------------------------------------------------------------------
 
+class CTime;
+
+//------------------------------------------------------------------
+
 class CDebugLogger
 {
 public:
@@ -62,7 +66,7 @@ private:
 
 	void PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
 
-	void MakeLogFileName();
+	void MakeLogFileName(const CTime& InTime);
 
 	void VerbosityLevelToString(const LogLevels::ELogLevel InLogLevel, std::string& OutString) const;
 

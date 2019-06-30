@@ -15,7 +15,7 @@ public:
 
 	//Begin CState
 	virtual void Init() override;
-	virtual void Update(float dt) override;
+	virtual void Update(SGameContext& InGameContext) override;
 	virtual void Render(SRenderingContext& InContext) override;
 	//End CState
 private:

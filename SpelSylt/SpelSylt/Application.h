@@ -6,12 +6,14 @@
 #include "RenderingContext.h"
 #include "RenderQueue.h"
 
+#include "InputManager.h"
+#include "Time.h"
+#include "GameContext.h"
+
 #include "StateStack.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-class CTime;
-class CInputManager;
 
 class CApplication
 {
@@ -30,8 +32,8 @@ private:
 
 	bool HandleEvents();
 
-	CInputManager& InputManager;
-	CTime& Time;
+	CInputManager InputManager;
+	CTime Time;
 
 	CStateStack StateStack;
 
@@ -41,5 +43,8 @@ private:
 	CDebugDrawer DebugDrawer;
 
 	CRenderQueue RenderQueue;
+
+	//Contexts
+	SGameContext GameContext;
 	SRenderingContext RenderingContext;
 };

@@ -162,7 +162,6 @@
     <ClCompile Include="PointCollider.cpp" />
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RenderingTestState.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
@@ -182,13 +181,16 @@
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonMath.h" />
+    <ClInclude Include="DateTime.h" />
     <ClInclude Include="DebugCommands.h" />
     <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="DebugDrawerInput.h" />
     <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="DirectoryHelpers.h" />
+    <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HookGame.h" />
+    <ClInclude Include="InputEventGetter.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
     <ClInclude Include="LogLevels.h" />
@@ -201,7 +203,6 @@
     <ClInclude Include="RenderCommand.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderingContext.h" />
-    <ClInclude Include="RenderingTestState.h" />
     <ClInclude Include="RenderLayer.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="RenderQueueInput.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="TextFileHandler.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimedEvent.h" />
+    <ClInclude Include="TimeGetter.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="UILayout.h" />
   </ItemGroup>

@@ -7,6 +7,7 @@ namespace sf
 }
 
 class CState;
+struct SGameContext;
 struct SRenderingContext;
 
 class CStateStack
@@ -15,7 +16,7 @@ public:
 	CStateStack();
 	~CStateStack();
 
-	void Update(float dt);
+	void Update(SGameContext& InGameContext);
 	void Render(SRenderingContext& InRenderingContext);
 
 	void Push(CState* aNewState);

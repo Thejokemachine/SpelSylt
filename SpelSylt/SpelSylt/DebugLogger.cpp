@@ -3,6 +3,7 @@
 #include "DebugLogger.h"
 
 #include "Time.h"
+#include "DateTime.h"
 #include "DirectoryHelpers.h"
 #include "TextFileHandler.h"
 
@@ -113,11 +114,15 @@ void CDebugLogger::SetShouldLogToFile()
 {
 	ShouldLogToFile = true;
 
-	MakeLogFileName();
+	//Construct temporary Time only for Date
+	//Note: This is not initialized and should not be used for any operations that require it to be
+	const CTime Time; 
+
+	MakeLogFileName(Time);
 
 	//TODO: This is very clunky?
 	SDateTime CurrentDateTime;
-	CTime::GetInstance().GetNowAsDateTime(CurrentDateTime);
+	Time.GetNowAsDateTime(CurrentDateTime);
 	std::string CurrentDateTimeStr;
 	CurrentDateTime.ToString(CurrentDateTimeStr);
 
@@ -180,12 +185,12 @@ bool CDebugLogger::CurrentLogLevelAllowsRequestedLogLevel(LogLevels::ELogLevel I
 
 //------------------------------------------------------------------
 
-void CDebugLogger::MakeLogFileName()
+void CDebugLogger::MakeLogFileName(const CTime& InTime)
 {
 	SDirectoryHelpers::CreateDirectoryIfNotExisting("DebugLogs/");
 
 	SDateTime DateTime;
-	CTime::GetInstance().GetNowAsDateTime(DateTime);
+	InTime.GetNowAsDateTime(DateTime);
 	std::string DateTimeStr;
 	DateTime.ToString(DateTimeStr);
 

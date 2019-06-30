@@ -1,22 +1,19 @@
 #include "SpelSyltPCH.h"
 
 #include "Time.h"
+#include "DateTime.h"
 #include <ctime>
 #include <iomanip>
 
 CTime::CTime()
+	: myDeltaTime()
+	, myTotalTime()
 {
 }
 
 
 CTime::~CTime()
 {
-}
-
-CTime & CTime::GetInstance()
-{
-	static CTime instance;
-	return instance;
 }
 
 void CTime::Init()

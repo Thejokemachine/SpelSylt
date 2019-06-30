@@ -16,11 +16,11 @@ CStateStack::~CStateStack()
 {
 }
 
-void CStateStack::Update(float dt)
+void CStateStack::Update(SGameContext& InGameContext)
 {
 	if (myStates.size() > 0)
 	{
-		myStates[myCurrentStateIndex]->Update(dt);
+		myStates[myCurrentStateIndex]->Update(InGameContext);
 	}
 }
 

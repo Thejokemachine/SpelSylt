@@ -1,50 +1,28 @@
 #pragma once
+
+#include "TimeGetter.h"
+
 #include <chrono>
 #include <string>
 
-struct SDateTime
-{
-	unsigned char Day;
-	unsigned char Month;
-	unsigned short Year;
-	unsigned char Hour;
-	unsigned char Minute;
-	unsigned char Second;
-
-	void ToString(std::string& OutString)
-	{
-		//Make date
-		OutString = std::to_string(Year);
-		OutString += "-";
-		OutString += std::to_string(Month);
-		OutString += "-";
-		OutString += std::to_string(Day);
-
-		OutString += " ";
-
-		OutString += std::to_string(Hour);
-		OutString += "h";
-		OutString += std::to_string(Minute);
-		OutString += "m";
-		OutString += std::to_string(Second);
-		OutString += "s";
-	}
-};
+struct SDateTime;
 
 class CTime
+	: public ITimeGetter
 {
 public:
+	CTime();
 	~CTime();
 	
-	static CTime& GetInstance();
-
 	void Init();
 	void Update();
 
-	float GetDeltaTime();
-	float GetTotalTime();
+	//Begin ITimeGetter
+	virtual float GetDeltaTime() override;
+	virtual float GetTotalTime() override;
 
-	void GetNowAsDateTime(SDateTime& OutDateTime) const;
+	virtual void GetNowAsDateTime(SDateTime& OutDateTime) const override;
+	//End ITimeGetter
 
 	struct STimeData
 	{
@@ -54,9 +32,6 @@ public:
 	};
 
 private:
-
-	CTime();
-
 	std::chrono::time_point<std::chrono::high_resolution_clock> myLastTimePoint;
 	std::chrono::time_point<std::chrono::high_resolution_clock> myCurrentTimePoint;
 	std::chrono::time_point<std::chrono::high_resolution_clock> myStartingTimePoint;

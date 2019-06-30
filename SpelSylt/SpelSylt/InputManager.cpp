@@ -20,13 +20,6 @@ CInputManager::~CInputManager()
 {
 }
 
-CInputManager & CInputManager::GetInstance()
-{
-	static CInputManager instance;
-
-	return instance;
-}
-
 void CInputManager::Init(sf::Window* aClientWindow)
 {
 	myHWND = aClientWindow;

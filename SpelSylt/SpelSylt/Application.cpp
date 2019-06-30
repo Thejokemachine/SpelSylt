@@ -5,7 +5,6 @@
 #include "Time.h"
 #include "InputManager.h"
 
-#include "RenderingTestState.h"
 #include "HookGame.h"
 
 #include <SFML/Graphics/Color.hpp>
@@ -15,12 +14,13 @@
 
 CApplication::CApplication()
 	: StateStack()
-	, InputManager(CInputManager::GetInstance())
-	, Time(CTime::GetInstance())
+	, InputManager()
+	, Time()
 	, Window()
 	, Renderer()
 	, RenderQueue()
 	, DebugDrawer()
+	, GameContext(InputManager, Time)
 	, RenderingContext(RenderQueue, DebugDrawer)
 {
 }
@@ -60,7 +60,7 @@ bool CApplication::Run()
 	
 	const bool CouldHandleAllEvents = HandleEvents();
 	
-	StateStack.Update(Time.GetDeltaTime());
+	StateStack.Update(GameContext);
 
 	const bool StateStackValid = StateStack.Size() > 0;
 

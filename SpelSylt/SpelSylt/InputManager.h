@@ -1,15 +1,16 @@
 #pragma once
 #include "KeyCodes.h"
+#include "InputEventGetter.h"
 #include <map>
 #include "SFML\Window\Window.hpp"
 #include "SFML\System\Vector2.hpp"
 
-class CInputManager
+class CInputManager final
+	: public IInputEventGetter
 {
 public:
+	CInputManager();
 	~CInputManager();
-
-	static CInputManager& GetInstance();
 
 	void Init(sf::Window* aClientWindow);
 	void Update(const sf::Event& aWindowsMessage);
@@ -17,19 +18,19 @@ public:
 	void UpdateMouse(const sf::Event& aWindowsMessage);
 	void OncePerFrameUpdate();
 
-	bool IsKeyPressed(EKeyCode aKey);
-	bool IsKeyDown(EKeyCode aKey);
-	bool IsKeyReleased(EKeyCode aKey);
+	//Begin IInputEventGetter
+	virtual bool IsKeyPressed(EKeyCode aKey) override;
+	virtual bool IsKeyDown(EKeyCode aKey) override;
+	virtual bool IsKeyReleased(EKeyCode aKey) override;
 
-	int GetScrollWheelDelta();
-	sf::Vector2f GetMousePosFloat();
-	sf::Vector2i GetMousePosInt();
+	virtual int GetScrollWheelDelta() override;
+	virtual sf::Vector2f GetMousePosFloat() override;
+	virtual sf::Vector2i GetMousePosInt() override;
 
-	std::string GetTextInput();
+	virtual std::string GetTextInput() override;
+	//End IInputEventGetter
 
 private:
-	CInputManager();
-
 	std::map<EKeyCode, EKeyState> myKeyStates;
 	std::map<EKeyCode, EKeyState> myPreviousKeyStates;
 
