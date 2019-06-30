@@ -6,6 +6,7 @@ namespace sf
 }
 
 class CStateStack;
+struct SRenderingContext;
 
 class CState
 {
@@ -17,7 +18,7 @@ public:
 
 	virtual void Init() = 0;
 	virtual void Update(float dt) = 0;
-	virtual void Render(sf::RenderWindow* aRenderWindow) = 0;
+	virtual void Render(SRenderingContext& InRenderingContext) = 0;
 
 protected:
 	bool Pop();
