@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DebugDrawer.h"
+
 #include "Renderer.h"
 #include "RenderingContext.h"
 #include "RenderQueue.h"
@@ -34,7 +36,10 @@ private:
 	CStateStack StateStack;
 
 	sf::RenderWindow Window;
+	
 	CRenderer Renderer;
+	CDebugDrawer DebugDrawer;
+
 	CRenderQueue RenderQueue;
 	SRenderingContext RenderingContext;
 };

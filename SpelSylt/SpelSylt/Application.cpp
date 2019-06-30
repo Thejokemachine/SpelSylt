@@ -19,7 +19,8 @@ CApplication::CApplication()
 	, Window()
 	, Renderer()
 	, RenderQueue()
-	, RenderingContext(RenderQueue)
+	, DebugDrawer()
+	, RenderingContext(RenderQueue, DebugDrawer)
 {
 }
 
@@ -94,6 +95,7 @@ void CApplication::PrepareForNewFrame()
 
 	Window.clear(sf::Color::Magenta);
 	RenderQueue.Clear();
+	DebugDrawer.clear();
 }
 
 //------------------------------------------------------------------
@@ -103,6 +105,7 @@ void CApplication::PublishNewFrame()
 	StateStack.Render(RenderingContext);
 
 	Renderer.RunRenderAllLayers(RenderQueue, Window);
+	DebugDrawer.draw(Window, sf::RenderStates::Default);
 
 	Window.display();
 }
