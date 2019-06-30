@@ -48,6 +48,8 @@ void CApplication::CreateWindow()
 
 	Window.create(vm, "SpelSylt");
 	Window.setFramerateLimit(60u);
+
+	RenderingContext.Camera.setSize(static_cast<float>(vm.width), static_cast<float>(vm.height));
 }
 
 //------------------------------------------------------------------
