@@ -20,11 +20,11 @@ void CStateStack::Update(float dt)
 	}
 }
 
-void CStateStack::Render(sf::RenderWindow * aRenderWindow)
+void CStateStack::Render(SRenderingContext& InRenderingContext)
 {
 	if (myStates.size() > 0)
 	{
-		myStates[myCurrentStateIndex]->Render(aRenderWindow);
+		myStates[myCurrentStateIndex]->Render(InRenderingContext);
 	}
 }
 

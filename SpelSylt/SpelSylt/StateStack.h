@@ -7,6 +7,7 @@ namespace sf
 }
 
 class CState;
+struct SRenderingContext;
 
 class CStateStack
 {
@@ -15,7 +16,7 @@ public:
 	~CStateStack();
 
 	void Update(float dt);
-	void Render(sf::RenderWindow* aRenderWindow);
+	void Render(SRenderingContext& InRenderingContext);
 
 	void Push(CState* aNewState);
 	bool Pop();
