@@ -24,6 +24,6 @@ private:
 	
 	unsigned char evaluateDockingFlags(const std::string& aBlock);
 
-	DebugDrawer myDrawer;
+	CDebugDrawer myDrawer;
 	Panel myRootPanel;
 };
