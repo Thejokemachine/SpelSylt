@@ -1,3 +1,4 @@
+/*
 #include "GameState.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "DebugDrawer.h"
@@ -39,3 +40,4 @@ void GameState::Render(sf::RenderWindow * aRenderWindow)
 	aRenderWindow->draw(dd);
 	dd.clear();
 }
+*/

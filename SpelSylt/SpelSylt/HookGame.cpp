@@ -1,3 +1,4 @@
+/*
 #include "HookGame.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 
@@ -119,3 +120,4 @@ void HookGame::Render(sf::RenderWindow * aRenderWindow)
 
 	myUI.Render(*aRenderWindow);
 }
+*/

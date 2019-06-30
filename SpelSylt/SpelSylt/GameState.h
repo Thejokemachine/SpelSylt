@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 #include "State.h"
 #include "AudioManager.h"
 
@@ -16,4 +16,5 @@ public:
 private:
 	AudioManager myAudioManager;
 };
+*/
 

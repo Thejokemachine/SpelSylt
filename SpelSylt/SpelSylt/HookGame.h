@@ -1,4 +1,5 @@
 #pragma once
+/*
 #include "State.h"
 
 #include "DebugDrawer.h"
@@ -34,3 +35,4 @@ private:
 
 	DebugDrawer myDrawer;
 };
+*/
