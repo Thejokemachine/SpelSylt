@@ -145,6 +145,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AsyncLoader.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="DebugLogger.cpp" />
     <ClCompile Include="DirectoryHelpers.cpp" />
+    <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HookGame.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -176,6 +178,9 @@
     <ClInclude Include="..\External\JSON\pugiconfig.hpp" />
     <ClInclude Include="..\External\JSON\pugixml.hpp" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="AsyncLoader.h" />
+    <ClInclude Include="AsyncLoaderInterface.h" />
+    <ClInclude Include="AsyncOperationInterface.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CircleCollider.h" />
@@ -187,12 +192,15 @@
     <ClInclude Include="DebugDrawerInput.h" />
     <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="DirectoryHelpers.h" />
+    <ClInclude Include="FileLoader.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HookGame.h" />
     <ClInclude Include="InputEventGetter.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
+    <ClInclude Include="LoadRequestTicket.h" />
+    <ClInclude Include="LoadEnums.h" />
     <ClInclude Include="LogLevels.h" />
     <ClInclude Include="MemAllocSizes.h" />
     <ClInclude Include="SpelSyltPCH.h" />
