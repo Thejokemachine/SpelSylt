@@ -12,6 +12,9 @@
 
 #include "StateStack.h"
 
+#include "AsyncLoader.h"
+#include <thread>
+
 #include <SFML/Graphics/RenderWindow.hpp>
 
 
@@ -47,4 +50,7 @@ private:
 	//Contexts
 	SGameContext GameContext;
 	SRenderingContext RenderingContext;
+
+	CAsyncLoader AsyncLoader;
+	std::thread LoadThread;
 };

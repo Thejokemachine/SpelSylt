@@ -20,8 +20,9 @@ CApplication::CApplication()
 	, Renderer()
 	, RenderQueue()
 	, DebugDrawer()
-	, GameContext(InputManager, Time)
+	, GameContext(InputManager, Time, AsyncLoader)
 	, RenderingContext(RenderQueue, DebugDrawer)
+	, AsyncLoader()
 {
 }
 
@@ -35,6 +36,8 @@ void CApplication::Initialize()
 
 	StateStack.Push(new HookGame());
 	//StateStack.Push(new CRenderingTestState());
+
+	AsyncLoader.ProvideThread(LoadThread);
 }
 
 //------------------------------------------------------------------
@@ -79,6 +82,11 @@ bool CApplication::HandleEvents()
 		if (e.type == sf::Event::Closed)
 		{
 			Window.close();
+
+			AsyncLoader.RequestShutDown();
+			while (!AsyncLoader.HasShutDown());
+			LoadThread.join();
+
 			return false;
 		}
 		else
