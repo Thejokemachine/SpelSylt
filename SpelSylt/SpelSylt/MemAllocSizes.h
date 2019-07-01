@@ -3,23 +3,37 @@
 struct B
 {
 public:
-	B(unsigned int InAmount)
+	B()
+		: Amount(0)
+	{}
+
+	B(unsigned long long InAmount)
 		: Amount(InAmount)
 	{};
 
 	explicit operator unsigned int() const
 	{
-		return Amount;
+		return static_cast<unsigned int>(Amount);
 	}
 
-	explicit operator unsigned long long() const
+	explicit operator long long() const
 	{
-		return static_cast<unsigned long long>(Amount);
+		return static_cast<long long>(Amount);
+	}
+
+	operator unsigned long long() const
+	{
+		return Amount;
 	}
 
 	B operator -(const B& InRHS) const
 	{
 		return B(Amount - InRHS.Amount);
+	}
+
+	B operator -(unsigned int InRHS) const
+	{
+		return B(Amount - static_cast<B>(InRHS));
 	}
 
 	B operator +(const B& InRHS) const
@@ -53,7 +67,7 @@ public:
 	}
 
 protected:
-	unsigned int Amount;
+	unsigned long long Amount;
 };
 
 static B operator ""_mb(unsigned long long InMegabyte)
