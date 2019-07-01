@@ -17,3 +17,7 @@
 //Utility
 #include "TimeGetter.h"
 #include "InputEventGetter.h"
+#include "AsyncLoaderInterface.h"
+
+//Loading
+#include "LoadRequestTicket.h"
