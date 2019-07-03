@@ -1,5 +1,6 @@
 #include "SpelSyltPCH.h"
 
+#include "RawAsset.h"
 #include "AsyncLoader.h"
 #include "LoadRequestTicket.h"
 #include "FileLoader.h"
@@ -49,15 +50,19 @@ const SLoadRequestTicket* CAsyncLoader::LoadAsync(const char* InPath)
 
 //------------------------------------------------------------------
 
-void CAsyncLoader::HandInTicket(const SLoadRequestTicket*& InTicket, void* OutDataLocation)
+void CAsyncLoader::HandInTicket(FLoadRequestTicket& InTicket, SRawAsset& OutDataLocation)
 {
 	const SLoadRequestTicket& Ticket = *InTicket;
 
 	if (Ticket.Status == ELoadRequestStatus::Done)
 	{
 		SLoadHandle& HandleForTicket = FinishedLoadHandles[Ticket.ID];
-		memcpy(OutDataLocation, HandleForTicket.DataStart, static_cast<unsigned long long>(HandleForTicket.DataSize));
-		HandleForTicket.Destroy();
+		
+		//memcpy(OutDataLocation.DataLocation, HandleForTicket.DataStart, static_cast<unsigned long long>(HandleForTicket.DataSize));
+		
+		OutDataLocation.DataLocation = HandleForTicket.DataStart;
+		OutDataLocation.DataSize = HandleForTicket.DataSize;
+		
 		FinishedLoadHandles.erase(Ticket.ID);
 	}
 

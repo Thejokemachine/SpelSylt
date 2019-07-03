@@ -5,7 +5,7 @@
 #include "MemAllocSizes.h"
 
 #include "LoadRequestTicket.h"
-
+#include "RawAsset.h"
 #include <atomic>
 #include <queue>
 #include <list>
@@ -28,14 +28,9 @@ struct SLoadHandle
 		, DataSize()
 	{}
 
-	void Destroy()
-	{
-		delete[DataSize] DataStart;
-	}
-
 	std::string Path;
 	unsigned int ID;
-	void* DataStart;
+	char* DataStart;
 	B DataSize;
 };
 
@@ -53,8 +48,8 @@ public:
 	//End IAsyncOperation
 
 	//Begin IAsyncLoader
-	virtual const SLoadRequestTicket* LoadAsync(const char* InPath) override;
-	virtual void HandInTicket(const SLoadRequestTicket*& InTicket, void* OutDataLocation) override;
+	virtual FLoadRequestTicket LoadAsync(const char* InPath) override;
+	virtual void HandInTicket(FLoadRequestTicket& InTicket, SRawAsset& OutLoadedAsset) override;
 	//End IAsyncLoader
 private:
 	void StartTicking();
