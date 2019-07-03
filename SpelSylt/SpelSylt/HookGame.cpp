@@ -32,7 +32,7 @@ void HookGame::Init()
 
 void HookGame::Update(SGameContext& InGameContext)
 {
-	if (TestTexture.GetLoadStatus() != ELoadRequestStatus::Done && InGameContext.Time.GetTotalTime() > 10.f)
+	if (TestTexture.GetLoadStatus() != ELoadRequestStatus::Pending)
 	{
 		InGameContext.Loader.LoadAsync("Graphics/Sprites/BigTest.png", TestTexture);
 	}
@@ -41,7 +41,6 @@ void HookGame::Update(SGameContext& InGameContext)
 		TestSprite.setTexture(TestTexture);
 		SetTexture = true;
 	}
-
 
 	const float dt = InGameContext.Time.GetDeltaTime();
 
@@ -111,10 +110,10 @@ void HookGame::Update(SGameContext& InGameContext)
 
 void HookGame::Render(SRenderingContext& InContext)
 {
+	TestSprite.setPosition(InContext.Camera.getCenter());
 
 	InContext.Camera.setCenter(InContext.Camera.getCenter().x, myPlayerPos.y - 300.f);
-
-	TestSprite.setPosition(InContext.Camera.getCenter());
+	
 	InContext.RenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(TestSprite));
 
 	InContext.DebugDrawer.DrawCircle(myHookPoint, 5.f, true, sf::Color::Blue);
