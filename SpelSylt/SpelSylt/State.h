@@ -12,10 +12,21 @@ struct SRenderingContext;
 class CState
 {
 public:
+
+	enum StateFlags : int {
+		NONE = 0,
+		UPDATE_BELOW = 1,
+		DRAW_BELOW = 2,
+	};
+
 	CState();
 	virtual ~CState();
 
 	void SetOwner(CStateStack* aOwner);
+	void SetStateFlags(StateFlags aStateFlags);
+	void SetStateFlags(int aStateFlags);
+
+	StateFlags GetStateFlags() const { return myStateFlags; }
 
 	virtual void Init() = 0;
 	virtual void Update(SGameContext& InGameContext) = 0;
@@ -29,5 +40,6 @@ protected:
 
 private:
 	CStateStack* myOwner;
+	StateFlags myStateFlags;
 };
 

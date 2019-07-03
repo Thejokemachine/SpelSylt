@@ -1,6 +1,8 @@
 #pragma once
 
 #include "SFML/Graphics/Rect.hpp"
+#include "SFML/Graphics/Texture.hpp"
+#include "SFML/Graphics/Drawable.hpp"
 
 #include <vector>
 #include <memory>
@@ -14,9 +16,11 @@ enum DockFlag : unsigned char
 	Top = 4,
 	Bottom = 8,
 	Center = 16,
+	HCenter = 32,
+	VCenter = 64
 };
 
-class Panel : private sf::FloatRect
+class Panel : private sf::FloatRect, public sf::Drawable
 {
 	friend class UILayout;
 
@@ -29,12 +33,17 @@ public:
 	float GetWidth() const { return width; }
 	float GetHeight() const { return height; }
 
+	void SetImage(const std::string& aImage);
+		
 	void AddPanel(std::shared_ptr<Panel> aPanel);
 
 	void ForEachChild(std::function<void(Panel& panel)> aFunction);
 
 	void Update(const float dt);
-	virtual void onUpdate(const float dt) {};
+	virtual void onUpdate(const float dt) {}
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual void onDraw(sf::RenderTarget& aTarget) const {}
 
 private:
 
@@ -43,4 +52,5 @@ private:
 	const std::string myName;
 	const Panel* myParent;
 	const unsigned char myDockFlags;
+	sf::Texture myTexture;
 };

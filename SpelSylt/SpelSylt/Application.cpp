@@ -6,6 +6,8 @@
 #include "InputManager.h"
 
 #include "HookGame.h"
+#include "HookUIState.h"
+#include "UIState.h"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
@@ -35,6 +37,7 @@ void CApplication::Initialize()
 	Time.Init();
 
 	StateStack.Push(new HookGame());
+	StateStack.Push(new UIState(1600,900));
 	//StateStack.Push(new CRenderingTestState());
 
 	AsyncLoader.ProvideThread(LoadThread);
@@ -114,9 +117,9 @@ void CApplication::PrepareForNewFrame()
 
 void CApplication::PublishNewFrame()
 {
-	StateStack.Render(RenderingContext);
-
 	Window.setView(RenderingContext.Camera);
+
+	StateStack.Render(RenderingContext);
 
 	Renderer.RunRenderAllLayers(RenderQueue, Window);
 	DebugDrawer.draw(Window, sf::RenderStates::Default);

@@ -12,11 +12,8 @@ using namespace tinyxml2;
 UILayout::UILayout(float aWidth, float aHeight) : 
 myRootPanel(nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None)
 {
-	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", 15.f, 15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Top | DockFlag::Left));
-	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", -15.f, 15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Top | DockFlag::Right));
-	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", -15.f, -15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Bottom | DockFlag::Right));
-	myRootPanel.AddPanel(std::make_shared<Panel>(&myRootPanel, "", 15.f, -15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Bottom | DockFlag::Left));
 	auto middle = std::make_shared<Button>(&myRootPanel, "", 15.f, 15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Center);
+
 	middle->SetCallback([](Button& button) {
 		std::cout << "AAAAAJ" << std::endl;
 	});
@@ -26,27 +23,7 @@ myRootPanel(nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None)
 	layout.LoadFile("UI/Layouts/hookGame_layout.xml");
 	if (auto root = layout.FirstChildElement("layout"))
 	{
-		auto child = root->FirstChildElement();
-		while (child)
-		{
-			std::string val = child->Value();
-			std::shared_ptr<Panel> panel = nullptr;
-
-			if (val == "panel")
-			{
-				std::string name = child->FindAttribute("name")->Value();
-				float x = child->FindAttribute("x")->FloatValue();
-				float y = child->FindAttribute("y")->FloatValue();
-				float height = child->FindAttribute("height")->FloatValue();
-				float width = child->FindAttribute("width")->FloatValue();
-				unsigned char dockFlags = evaluateDockingFlags(child->FindAttribute("dock")->Value());
-
-				panel = std::make_shared<Panel>(&myRootPanel, name, x, y, width, height, dockFlags);
-			}
-
-			myRootPanel.AddPanel(panel);
-			child = child->NextSiblingElement();
-		}
+		addChildren(myRootPanel, root);
 	}
 }
 
@@ -70,6 +47,8 @@ void UILayout::Update(CInputManager * aInputManager)
 
 void UILayout::Render(sf::RenderTarget & aRenderTarget)
 {
+	aRenderTarget.draw(myRootPanel);
+
 	myRootPanel.ForEachChild([this](Panel& panel){
 		sf::Vector2f center;
 		center.x = panel.GetX() + panel.GetWidth() * 0.5f;
@@ -94,7 +73,45 @@ unsigned char UILayout::evaluateDockingFlags(const std::string & aBlock)
 	if (aBlock.find("bottom") != std::string::npos)
 		flags |= DockFlag::Bottom;
 	if (aBlock.find("center") != std::string::npos)
-		flags |= DockFlag::Center;
+	{
+		if (aBlock.find("hcenter") != std::string::npos)
+			flags |= DockFlag::HCenter;
+		if (aBlock.find("vcenter") != std::string::npos)
+			flags |= DockFlag::VCenter;
+		if ((!(flags & DockFlag::VCenter) && !(flags & DockFlag::HCenter)))
+			flags |= DockFlag::Center;
+	}
 
 	return flags;
+}
+
+void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
+{
+	auto child = aElement->FirstChildElement();
+	while (child)
+	{
+		std::string val = child->Value();
+		std::shared_ptr<Panel> panel = nullptr;
+
+		if (val == "panel")
+		{
+			std::string name = child->FindAttribute("name")->Value();
+			float x = child->FindAttribute("x")->FloatValue();
+			float y = child->FindAttribute("y")->FloatValue();
+			float height = child->FindAttribute("height")->FloatValue();
+			float width = child->FindAttribute("width")->FloatValue();
+			unsigned char dockFlags = evaluateDockingFlags(child->FindAttribute("dock")->Value());
+			std::string image = child->FindAttribute("image")->Value();
+
+			panel = std::make_shared<Panel>(&aParent, name, x, y, width, height, dockFlags);
+			if (!image.empty())
+				panel->SetImage(image);
+		}
+
+		if (panel)
+			addChildren(*panel, child);
+
+		aParent.AddPanel(panel);
+		child = child->NextSiblingElement();
+	}
 }

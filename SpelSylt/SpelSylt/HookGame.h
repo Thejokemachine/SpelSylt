@@ -29,6 +29,4 @@ private:
 	std::vector<sf::Vector2f> myHookPoints;
 	sf::Vector2f myHookPoint;
 	sf::Vector2f Anchor;
-
-	//UILayout myUI;
 };

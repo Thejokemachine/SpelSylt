@@ -1,3 +1,5 @@
 <layout>
-  <panel name="Kalle" dock="left|bottom" x="30" y="-75" width="760" height="122"/>
+  <panel image="TestSprite" name="Kalle" dock="left|top" x="75" y="75" width="760" height="122">
+    <panel image="TestSprite" name="Ivan" dock="right|vcenter" x="0" y="0" width="30" height="250"/>
+  </panel>
 </layout>

@@ -9,8 +9,8 @@
 #include <iostream>
 
 HookGame::HookGame() 
-	: myIsGrounded(true)
-	//: myUI(1600, 900)
+: 
+myIsGrounded(true)
 {
 }
 
@@ -94,8 +94,6 @@ void HookGame::Update(SGameContext& InGameContext)
 
 	myPlayerPos.y = Math::Min(myPlayerPos.y, 900.f);
 	myIsGrounded = myPlayerPos.y == 900.f;
-
-	//myUI.Update(&im);
 }
 
 void HookGame::Render(SRenderingContext& InContext)
@@ -120,6 +118,4 @@ void HookGame::Render(SRenderingContext& InContext)
 	}
 
 	InContext.DebugDrawer.DrawLine(myPlayerPos, myPlayerPos + myVelocity, sf::Color::Blue);
-
-	//myUI.Render(*aRenderWindow);
 }

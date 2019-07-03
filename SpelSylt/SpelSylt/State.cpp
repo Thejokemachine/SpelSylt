@@ -7,6 +7,7 @@
 CState::CState()
 	: myOwner(nullptr)
 {
+	SetStateFlags(static_cast<int>(StateFlags::NONE));
 }
 
 CState::~CState()
@@ -16,6 +17,16 @@ CState::~CState()
 void CState::SetOwner(CStateStack * aOwner)
 {
 	myOwner = aOwner;
+}
+
+void CState::SetStateFlags(int aStateFlags)
+{
+	SetStateFlags(static_cast<StateFlags>(aStateFlags));
+}
+
+void CState::SetStateFlags(CState::StateFlags aStateFlags)
+{
+	myStateFlags = aStateFlags;
 }
 
 bool CState::Pop()

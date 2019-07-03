@@ -7,7 +7,6 @@
 
 CStateStack::CStateStack()
 	: myStates()
-	, myCurrentStateIndex(0)
 {
 }
 
@@ -18,23 +17,28 @@ CStateStack::~CStateStack()
 
 void CStateStack::Update(SGameContext& InGameContext)
 {
-	if (myStates.size() > 0)
+	for (int i = static_cast<int>(myStates.size()) - 1; i >= 0; --i)
 	{
-		myStates[myCurrentStateIndex]->Update(InGameContext);
+		CState& state = *myStates[i];
+		state.Update(InGameContext);
+		if (!(state.GetStateFlags() & CState::StateFlags::UPDATE_BELOW))
+			break;
 	}
 }
 
 void CStateStack::Render(SRenderingContext& InRenderingContext)
 {
-	if (myStates.size() > 0)
+	for (int i = static_cast<int>(myStates.size()) - 1; i >= 0; --i)
 	{
-		myStates[myCurrentStateIndex]->Render(InRenderingContext);
+		CState& state = *myStates[i];
+		state.Render(InRenderingContext);
+		if (!(state.GetStateFlags() & CState::StateFlags::DRAW_BELOW))
+			break;
 	}
 }
 
 void CStateStack::Push(CState * aNewState)
 {
-	myCurrentStateIndex = static_cast<short>(myStates.size());
 	myStates.push_back(aNewState);
 	aNewState->SetOwner(this);
 	aNewState->Init();
@@ -44,11 +48,10 @@ bool CStateStack::Pop()
 {
 	if (myStates.size() > 0)
 	{
-		delete myStates[myCurrentStateIndex];
-		myStates[myCurrentStateIndex] = nullptr;
+		delete myStates.back();
+		myStates.back() = nullptr;
 
 		myStates.pop_back();
-		myCurrentStateIndex--;
 		return true;
 	}
 	return false;

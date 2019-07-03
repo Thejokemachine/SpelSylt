@@ -28,6 +28,5 @@ public:
 private:
 
 	std::vector<CState*> myStates;
-	short myCurrentStateIndex;
 };
 

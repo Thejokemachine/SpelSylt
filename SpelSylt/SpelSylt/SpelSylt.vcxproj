@@ -158,6 +158,7 @@
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HookGame.cpp" />
+    <ClCompile Include="HookUIState.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Panel.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="TimedEvent.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="UILayout.cpp" />
+    <ClCompile Include="UIState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\External\JSON\pugiconfig.hpp" />
@@ -196,6 +198,7 @@
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HookGame.h" />
+    <ClInclude Include="HookUIState.h" />
     <ClInclude Include="InputEventGetter.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
@@ -224,6 +227,7 @@
     <ClInclude Include="TimeGetter.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="UILayout.h" />
+    <ClInclude Include="UIState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
