@@ -30,15 +30,15 @@ B CFileLoader::GetFileSize() const
 	const auto Begin = FileStream.tellg();
 	FileStream.seekg(0, std::ios::end);
 	const auto End = FileStream.tellg();
+	FileStream.seekg(0, std::ios::beg);
 	return static_cast<B>(End - Begin);
 }
 
 //------------------------------------------------------------------
 
-void CFileLoader::LoadData(void* OutData) const
+void CFileLoader::LoadData(char* OutData) const
 {
-	FileStream.seekg(std::ios::beg);
-	FileStream.read(static_cast<char*>(OutData), static_cast<long long>(GetFileSize()));
+	FileStream.read(OutData, GetFileSize());
 }
 
 //------------------------------------------------------------------

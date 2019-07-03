@@ -11,7 +11,7 @@ public:
 
 	bool IsValid() const;
 	B GetFileSize() const;
-	void LoadData(void* OutData) const;
+	void LoadData(char* OutData) const;
 private:
 	mutable std::ifstream FileStream;
 };
