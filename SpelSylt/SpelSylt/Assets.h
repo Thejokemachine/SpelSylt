@@ -3,6 +3,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 
+#include "LoadEnums.h"
+
 #include "MemAllocSizes.h"
 
 struct SBaseAsset
@@ -10,7 +12,13 @@ struct SBaseAsset
 	friend class CAsyncLoader;
 
 	SBaseAsset()
+		: LoadStatus(ELoadRequestStatus::None)
 	{}
+
+	ELoadRequestStatus GetLoadStatus() const
+	{
+		return LoadStatus;
+	}
 
 protected:
 	void SetData(char* InDataLocation, B InDataSize)
@@ -19,6 +27,9 @@ protected:
 	}
 	
 	virtual void AssignData(char* InDataLocation, B InDataSize) = 0;
+
+private:
+	ELoadRequestStatus LoadStatus;
 };
 
 struct STextureAsset final

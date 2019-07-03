@@ -2,17 +2,14 @@
 
 #include "Assets.h"
 #include "AsyncLoader.h"
-#include "LoadRequestTicket.h"
 #include "FileLoader.h"
 
 //------------------------------------------------------------------
 
 CAsyncLoader::CAsyncLoader()
 	: LoadQueue()
-	, InFlightLoadTickets()
 	, HaveStopRequest(false)
 	, IsStopped(false)
-	, NextTicketID(0)
 {
 }
 
@@ -39,27 +36,10 @@ bool CAsyncLoader::HasShutDown() const
 
 //------------------------------------------------------------------
 
-const SLoadRequestTicket* CAsyncLoader::LoadAsync(const char* InPath, SBaseAsset& InTo)
+void CAsyncLoader::LoadAsync(const char* InPath, SBaseAsset& InTo)
 {
-	const SLoadRequestTicket& RequestTicket = CreateNewTicket();
-	LoadQueue.push({InPath, RequestTicket.ID, InTo});
-	return &RequestTicket;
-}
-
-//------------------------------------------------------------------
-
-void CAsyncLoader::HandInTicket(FLoadRequestTicket& InTicket)
-{
-	const SLoadRequestTicket& Ticket = *InTicket;
-
-	if (Ticket.Status == ELoadRequestStatus::Done)
-	{
-		SLoadHandle& HandleForTicket = FinishedLoadHandles[Ticket.ID];
-		FinishedLoadHandles.erase(Ticket.ID);
-	}
-
-	DestroyTicket(Ticket);
-	InTicket = nullptr;
+	InTo.LoadStatus = ELoadRequestStatus::Pending;
+	LoadQueue.push({InPath, InTo});
 }
 
 //------------------------------------------------------------------
@@ -85,7 +65,6 @@ void CAsyncLoader::StartTicking()
 
 void CAsyncLoader::DoLoad(SLoadHandle& InLoadHandle)
 {
-	SLoadRequestTicket& TicketForLoaded = InFlightLoadTickets[InLoadHandle.ID];
 	CFileLoader FileLoader(InLoadHandle.Path.c_str());
 	if (FileLoader.IsValid())
 	{
@@ -98,37 +77,12 @@ void CAsyncLoader::DoLoad(SLoadHandle& InLoadHandle)
 
 		//Free allocated buffer
 		delete[DataSize] LoadDataBuffer;
-
-		TicketForLoaded.Status = ELoadRequestStatus::Done;
-		FinishedLoadHandles[InLoadHandle.ID] = InLoadHandle;
+		InLoadHandle.RawAsset->LoadStatus = ELoadRequestStatus::Done;
 	}
 	else
 	{
-		TicketForLoaded.Status = ELoadRequestStatus::Fail;
+		InLoadHandle.RawAsset->LoadStatus = ELoadRequestStatus::Fail;
 	}
-}
-
-//------------------------------------------------------------------
-
-const SLoadRequestTicket& CAsyncLoader::CreateNewTicket()
-{
-	SLoadRequestTicket NewTicket;
-	
-	NewTicket.ID = NextTicketID;
-	++NextTicketID;
-
-	NewTicket.Status = ELoadRequestStatus::Pending;
-
-	InFlightLoadTickets[NewTicket.ID] = NewTicket;
-
-	return InFlightLoadTickets[NewTicket.ID];
-}
-
-//------------------------------------------------------------------
-
-void CAsyncLoader::DestroyTicket(const SLoadRequestTicket& InTicket)
-{
-	InFlightLoadTickets.erase(InTicket.ID);
 }
 
 //------------------------------------------------------------------

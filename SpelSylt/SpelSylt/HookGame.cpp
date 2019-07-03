@@ -8,9 +8,11 @@
 
 #include <iostream>
 
+#include "Assets.h"
+
 HookGame::HookGame() 
-: 
-myIsGrounded(true)
+	: myIsGrounded(true)
+	, SetTexture(false)
 {
 }
 
@@ -30,6 +32,17 @@ void HookGame::Init()
 
 void HookGame::Update(SGameContext& InGameContext)
 {
+	if (TestTexture.GetLoadStatus() != ELoadRequestStatus::Done && InGameContext.Time.GetTotalTime() > 10.f)
+	{
+		InGameContext.Loader.LoadAsync("Graphics/Sprites/BigTest.png", TestTexture);
+	}
+	if (!SetTexture && TestTexture.GetLoadStatus() == ELoadRequestStatus::Done)
+	{
+		TestSprite.setTexture(TestTexture);
+		SetTexture = true;
+	}
+
+
 	const float dt = InGameContext.Time.GetDeltaTime();
 
 	Anchor = myPlayerPos;
@@ -101,6 +114,9 @@ void HookGame::Render(SRenderingContext& InContext)
 
 	InContext.Camera.setCenter(InContext.Camera.getCenter().x, myPlayerPos.y - 300.f);
 
+	TestSprite.setPosition(InContext.Camera.getCenter());
+	InContext.RenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(TestSprite));
+
 	InContext.DebugDrawer.DrawCircle(myHookPoint, 5.f, true, sf::Color::Blue);
 
 	for (auto hookPoint : myHookPoints)
@@ -116,6 +132,7 @@ void HookGame::Render(SRenderingContext& InContext)
 	{
 		InContext.DebugDrawer.DrawLine(Anchor, myHookPoint);
 	}
+	
 
 	InContext.DebugDrawer.DrawLine(myPlayerPos, myPlayerPos + myVelocity, sf::Color::Blue);
 }

@@ -2,6 +2,7 @@
 
 enum class ELoadRequestStatus
 {
+	None,
 	Pending,
 	Done,
 	Fail,

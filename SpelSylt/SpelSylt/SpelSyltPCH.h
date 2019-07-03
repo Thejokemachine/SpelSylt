@@ -19,5 +19,5 @@
 #include "InputEventGetter.h"
 #include "AsyncLoaderInterface.h"
 
-//Loading
-#include "LoadRequestTicket.h"
+//Asset
+#include "Assets.h"

@@ -7,6 +7,11 @@
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Graphics/View.hpp"
 
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+
+#include "Assets.h"
+
 class HookGame : public CState 
 {
 public:
@@ -29,4 +34,9 @@ private:
 	std::vector<sf::Vector2f> myHookPoints;
 	sf::Vector2f myHookPoint;
 	sf::Vector2f Anchor;
+
+	//UILayout myUI;
+	bool SetTexture;
+	STextureAsset TestTexture;
+	sf::Sprite TestSprite;
 };

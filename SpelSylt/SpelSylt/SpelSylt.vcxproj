@@ -203,7 +203,6 @@
     <ClInclude Include="InputEventGetter.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
-    <ClInclude Include="LoadRequestTicket.h" />
     <ClInclude Include="LoadEnums.h" />
     <ClInclude Include="LogLevels.h" />
     <ClInclude Include="MemAllocSizes.h" />
