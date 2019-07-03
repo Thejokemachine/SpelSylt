@@ -1,10 +1,9 @@
 #include "SpelSyltPCH.h"
 
+#include "Assets.h"
 #include "AsyncLoader.h"
 #include "LoadRequestTicket.h"
 #include "FileLoader.h"
-
-#define NO_LOAD -1
 
 //------------------------------------------------------------------
 
@@ -40,24 +39,22 @@ bool CAsyncLoader::HasShutDown() const
 
 //------------------------------------------------------------------
 
-const SLoadRequestTicket* CAsyncLoader::LoadAsync(const char* InPath)
+const SLoadRequestTicket* CAsyncLoader::LoadAsync(const char* InPath, SBaseAsset& InTo)
 {
 	const SLoadRequestTicket& RequestTicket = CreateNewTicket();
-	LoadQueue.push({InPath, RequestTicket.ID});
+	LoadQueue.push({InPath, RequestTicket.ID, InTo});
 	return &RequestTicket;
 }
 
 //------------------------------------------------------------------
 
-void CAsyncLoader::HandInTicket(const SLoadRequestTicket*& InTicket, void* OutDataLocation)
+void CAsyncLoader::HandInTicket(FLoadRequestTicket& InTicket)
 {
 	const SLoadRequestTicket& Ticket = *InTicket;
 
 	if (Ticket.Status == ELoadRequestStatus::Done)
 	{
 		SLoadHandle& HandleForTicket = FinishedLoadHandles[Ticket.ID];
-		memcpy(OutDataLocation, HandleForTicket.DataStart, static_cast<unsigned long long>(HandleForTicket.DataSize));
-		HandleForTicket.Destroy();
 		FinishedLoadHandles.erase(Ticket.ID);
 	}
 
@@ -73,6 +70,7 @@ void CAsyncLoader::StartTicking()
 	{
 		if (LoadQueue.empty())
 		{
+			std::this_thread::yield();
 			continue;
 		}
 
@@ -91,12 +89,16 @@ void CAsyncLoader::DoLoad(SLoadHandle& InLoadHandle)
 	CFileLoader FileLoader(InLoadHandle.Path.c_str());
 	if (FileLoader.IsValid())
 	{
-		InLoadHandle.DataSize = FileLoader.GetFileSize();
-		
-		char* LoadDataBuffer = new char[InLoadHandle.DataSize];
-		InLoadHandle.DataStart = LoadDataBuffer;
+		//Create temporary buffer
+		const B DataSize = FileLoader.GetFileSize();
+		char* LoadDataBuffer = new char[DataSize];
 
-		FileLoader.LoadData(InLoadHandle.DataStart);
+		FileLoader.LoadData(LoadDataBuffer);
+		InLoadHandle.RawAsset->SetData(LoadDataBuffer, DataSize);
+
+		//Free allocated buffer
+		delete[DataSize] LoadDataBuffer;
+
 		TicketForLoaded.Status = ELoadRequestStatus::Done;
 		FinishedLoadHandles[InLoadHandle.ID] = InLoadHandle;
 	}

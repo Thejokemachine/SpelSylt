@@ -19,3 +19,5 @@ private:
 		ID = InRHS.ID;
 	}
 };
+
+using FLoadRequestTicket = const SLoadRequestTicket*;

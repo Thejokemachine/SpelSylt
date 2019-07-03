@@ -197,6 +197,7 @@
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="HookGame.h" />
     <ClInclude Include="HookUIState.h" />
     <ClInclude Include="InputEventGetter.h" />
