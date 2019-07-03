@@ -162,7 +162,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PointCollider.cpp" />
-    <ClCompile Include="RawAssetHelpers.cpp" />
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
@@ -194,10 +193,9 @@
     <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="DirectoryHelpers.h" />
     <ClInclude Include="FileLoader.h" />
-    <ClInclude Include="FileWriter.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="RawAsset.h" />
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="HookGame.h" />
     <ClInclude Include="InputEventGetter.h" />
     <ClInclude Include="InputManager.h" />
@@ -206,7 +204,6 @@
     <ClInclude Include="LoadEnums.h" />
     <ClInclude Include="LogLevels.h" />
     <ClInclude Include="MemAllocSizes.h" />
-    <ClInclude Include="RawAssetHelpers.h" />
     <ClInclude Include="SpelSyltPCH.h" />
     <ClInclude Include="StaticMemoryBuffer.h" />
     <ClInclude Include="Panel.h" />

@@ -5,7 +5,7 @@
 #include "MemAllocSizes.h"
 
 #include "LoadRequestTicket.h"
-#include "RawAsset.h"
+#include "Assets.h"
 #include <atomic>
 #include <queue>
 #include <list>
@@ -16,22 +16,19 @@ struct SLoadHandle
 {
 	SLoadHandle()
 		: Path("")
+		, RawAsset(nullptr)
 		, ID(0)
-		, DataStart(nullptr)
-		, DataSize()
 	{}
 
-	SLoadHandle(const char* InPath, unsigned int InID)
+	SLoadHandle(const char* InPath, unsigned int InID, SBaseAsset& InRawAsset)
 		: Path(InPath)
+		, RawAsset(&InRawAsset)
 		, ID(InID)
-		, DataStart(nullptr)
-		, DataSize()
 	{}
 
 	std::string Path;
+	SBaseAsset* RawAsset;
 	unsigned int ID;
-	char* DataStart;
-	B DataSize;
 };
 
 class CAsyncLoader final
@@ -48,8 +45,8 @@ public:
 	//End IAsyncOperation
 
 	//Begin IAsyncLoader
-	virtual FLoadRequestTicket LoadAsync(const char* InPath) override;
-	virtual void HandInTicket(FLoadRequestTicket& InTicket, SRawAsset& OutLoadedAsset) override;
+	virtual FLoadRequestTicket LoadAsync(const char* InPath, SBaseAsset& InTo) override;
+	virtual void HandInTicket(FLoadRequestTicket& InTicket) override;
 	//End IAsyncLoader
 private:
 	void StartTicking();
