@@ -2,7 +2,11 @@
 #include <string>
 #include <unordered_map>
 
+#include "Assets.h"
+
 #include "SFML/Audio.hpp"
+
+class IAsyncLoader;
 
 class AudioManager
 {
@@ -10,6 +14,7 @@ public:
 	AudioManager(const std::string& aAudioFolder);
 	~AudioManager() = default;
 
+	void LoadSounds(IAsyncLoader& InAsyncLoader, const std::string& InAudioFolder);
 	void Update(const float dt);
 
 	void PlaySound(const std::string& aAlias, sf::Sound* aSoundHandle = nullptr);
@@ -17,7 +22,7 @@ public:
 
 private:
 
-	std::unordered_map<std::string, sf::SoundBuffer> mySoundBuffers;
+	std::unordered_map<std::string, SSoundAsset> mySoundBuffers;
 	std::vector<sf::Sound*> mySoundHandles;
 
 	sf::Music myMusic;

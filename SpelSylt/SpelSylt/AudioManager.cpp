@@ -10,13 +10,20 @@
 
 AudioManager::AudioManager(const std::string & aAudioFolder)
 {
-	std::string SoundsFolder = aAudioFolder + "Sounds/";
 
+}
+
+void AudioManager::LoadSounds(IAsyncLoader& InAsyncLoader, const std::string& InAudioFolder)
+{
+	std::string SoundsFolder = InAudioFolder + "Sounds/";
+
+	//TODO: If needed this can now be loaded async
 	SDirectoryHelpers::VisitDirectory(
-		SoundsFolder.c_str(), 
+		SoundsFolder.c_str(),
 		[&](const FFile & InFile) {
 			std::string alias = InFile.path().stem().string();
 			std::string fileName = InFile.path().string();
+			
 			mySoundBuffers[alias].loadFromFile(fileName);
 		});
 }
