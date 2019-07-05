@@ -37,11 +37,11 @@ void CStateStack::Render(SRenderingContext& InRenderingContext)
 	}
 }
 
-void CStateStack::Push(CState * aNewState)
+void CStateStack::Push(CState * aNewState, SGameContext& InGameContext, SRenderingContext& InRenderingContext)
 {
 	myStates.push_back(aNewState);
 	aNewState->SetOwner(this);
-	aNewState->Init();
+	aNewState->Init(InGameContext, InRenderingContext);
 }
 
 bool CStateStack::Pop()

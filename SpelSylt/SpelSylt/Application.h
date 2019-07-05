@@ -15,6 +15,8 @@
 #include "AsyncLoader.h"
 #include <thread>
 
+#include "TextureBank.h"
+
 #include <SFML/Graphics/RenderWindow.hpp>
 
 
@@ -44,6 +46,8 @@ private:
 	
 	CRenderer Renderer;
 	CDebugDrawer DebugDrawer;
+
+	CTextureBank TextureBank;
 
 	CRenderQueue RenderQueue;
 

@@ -19,7 +19,7 @@ public:
 	~HookGame();
 
 	//Begin CState
-	virtual void Init() override;
+	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext) override;
 	virtual void Update(SGameContext& InGameContext) override;
 	virtual void Render(SRenderingContext& InContext) override;
 	//End CState

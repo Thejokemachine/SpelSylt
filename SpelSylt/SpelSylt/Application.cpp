@@ -20,9 +20,10 @@ CApplication::CApplication()
 	, Time()
 	, Window()
 	, Renderer()
+	, TextureBank(AsyncLoader)
 	, RenderQueue()
 	, DebugDrawer()
-	, GameContext(InputManager, Time, AsyncLoader)
+	, GameContext(InputManager, Time, AsyncLoader, TextureBank)
 	, RenderingContext(RenderQueue, DebugDrawer)
 	, AsyncLoader()
 {
@@ -36,8 +37,8 @@ void CApplication::Initialize()
 	InputManager.Init(&Window);
 	Time.Init();
 
-	StateStack.Push(new HookGame());
-	StateStack.Push(new UIState(1600,900));
+	StateStack.Push(new HookGame(), GameContext, RenderingContext);
+	StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);
 	//StateStack.Push(new CRenderingTestState());
 
 	AsyncLoader.ProvideThread(LoadThread);
