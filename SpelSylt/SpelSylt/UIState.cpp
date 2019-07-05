@@ -12,7 +12,7 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight) :
 	mySprite.setOrigin(aWidth * 0.5f, aHeight * 0.5f);
 }
 
-void UIState::Init()
+void UIState::Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext)
 {
 }
 

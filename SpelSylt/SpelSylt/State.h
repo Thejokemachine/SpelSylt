@@ -28,7 +28,7 @@ public:
 
 	StateFlags GetStateFlags() const { return myStateFlags; }
 
-	virtual void Init() = 0;
+	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext) = 0;
 	virtual void Update(SGameContext& InGameContext) = 0;
 	virtual void Render(SRenderingContext& InRenderingContext) = 0;
 

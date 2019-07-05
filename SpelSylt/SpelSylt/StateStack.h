@@ -10,6 +10,7 @@ class CState;
 struct SGameContext;
 struct SRenderingContext;
 
+
 class CStateStack
 {
 public:
@@ -19,14 +20,13 @@ public:
 	void Update(SGameContext& InGameContext);
 	void Render(SRenderingContext& InRenderingContext);
 
-	void Push(CState* aNewState);
+	void Push(CState* aNewState, SGameContext& InGameContext, SRenderingContext& InRenderingContext);
 	bool Pop();
 	void PopAll();
 
 	short Size();
 
 private:
-
 	std::vector<CState*> myStates;
 };
 

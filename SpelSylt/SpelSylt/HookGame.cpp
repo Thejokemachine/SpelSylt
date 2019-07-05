@@ -20,13 +20,13 @@ HookGame::~HookGame()
 {
 }
 
-void HookGame::Init()
+void HookGame::Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext)
 {
 	myPlayerPos = sf::Vector2f(800.f, 900.f);
 
 	for (int i = 0; i < 100; ++i)
 	{
-		myHookPoints.emplace_back(sf::Vector2f(200.f + (float)(rand() % 1400), 500.f - i * 75.f));
+		myHookPoints.emplace_back(sf::Vector2f(200.f + (float)(rand() % 1200), 500.f - i * 75.f));
 	}
 }
 

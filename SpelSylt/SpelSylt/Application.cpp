@@ -37,8 +37,8 @@ void CApplication::Initialize()
 	InputManager.Init(&Window);
 	Time.Init();
 
-	StateStack.Push(new HookGame());
-	StateStack.Push(new UIState(1600,900));
+	StateStack.Push(new HookGame(), GameContext, RenderingContext);
+	StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);
 	//StateStack.Push(new CRenderingTestState());
 
 	AsyncLoader.ProvideThread(LoadThread);
