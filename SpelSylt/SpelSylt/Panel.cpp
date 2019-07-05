@@ -4,6 +4,8 @@
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTarget.hpp"
 
+using namespace UI;
+
 Panel::Panel(const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags) :
 sf::FloatRect(x, y, aWidth, aHeight),
 myParent(aParent),
@@ -47,9 +49,30 @@ myDockFlags(aDockFlags)
 	top += y;
 }
 
+Panel * Panel::GetPanel(const std::string & aName)
+{
+	for (auto& p : myChildren)
+	{
+		if (p->myName == aName)
+		{
+			return p.get();
+		}
+	}
+	for (auto& p : myChildren)
+	{
+		return p->GetPanel(aName);
+	}
+	return nullptr;
+}
+
 void Panel::SetImage(const std::string & aImage)
 {
 	myTexture.loadFromFile("UI/Images/" + aImage + ".png");
+}
+
+void Panel::SetColor(const sf::Color & aColor)
+{
+	myColor = aColor;
 }
 
 void Panel::AddPanel(std::shared_ptr<Panel> aPanel)
@@ -79,8 +102,9 @@ void Panel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 		sprite.setTexture(myTexture);
 		sprite.setPosition(left, top);
 		sprite.setScale(width / myTexture.getSize().x, height / myTexture.getSize().y);
+		sprite.setColor(myColor);
 
-		target.draw(sprite);
+		target.draw(sprite, states);
 	}
 
 	onDraw(target);

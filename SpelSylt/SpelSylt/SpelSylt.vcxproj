@@ -169,12 +169,15 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="StaticMemoryBuffer.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextFileHandler.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimedEvent.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="UILayout.cpp" />
     <ClCompile Include="UIState.cpp" />
+    <ClCompile Include="UIUtilities.cpp" />
+    <ClCompile Include="XMLUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\External\JSON\pugiconfig.hpp" />
@@ -221,6 +224,7 @@
     <ClInclude Include="sfml_libs.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="TextFileHandler.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimedEvent.h" />
@@ -228,6 +232,8 @@
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="UILayout.h" />
     <ClInclude Include="UIState.h" />
+    <ClInclude Include="UIUtilities.h" />
+    <ClInclude Include="XMLUtilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
