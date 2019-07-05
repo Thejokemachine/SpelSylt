@@ -40,4 +40,8 @@
 *nativecodeanalysis*
 *.lastbuildstate
 *.ilk
+*.db
+*.suo
 *v16/
+/SpelSylt/.vs/SpelSylt/v15/ipch/62d68f747e1486e.ipch
+/SpelSylt/.vs/SpelSylt/v15/Browse.VC.opendb
