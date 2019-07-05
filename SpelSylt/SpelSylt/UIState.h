@@ -11,9 +11,9 @@ public:
 	UIState(unsigned int aWidth, unsigned int aHeight);
 	~UIState() = default;
 
-	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext);
-	virtual void Update(SGameContext& InGameContext);
-	virtual void Render(SRenderingContext& InRenderingContext);
+	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext) override;
+	virtual void Update(SGameContext& InGameContext) override;
+	virtual void Render(SRenderingContext& InRenderingContext) override;
 private:
 	
 	sf::Sprite mySprite;
