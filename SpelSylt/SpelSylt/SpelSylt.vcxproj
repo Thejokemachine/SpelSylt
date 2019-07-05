@@ -170,6 +170,7 @@
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="StaticMemoryBuffer.cpp" />
     <ClCompile Include="TextFileHandler.cpp" />
+    <ClCompile Include="TextureBank.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimedEvent.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
@@ -222,6 +223,8 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
     <ClInclude Include="TextFileHandler.h" />
+    <ClInclude Include="TextureBank.h" />
+    <ClInclude Include="TextureProviderInterface.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimedEvent.h" />
     <ClInclude Include="TimeGetter.h" />
