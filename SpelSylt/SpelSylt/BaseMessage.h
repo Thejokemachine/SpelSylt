@@ -1,6 +1,6 @@
 #pragma once
 
-struct SBaseEvent
+struct SBaseMessage
 {
 	void SetMessageHash(size_t InEventHash)
 	{

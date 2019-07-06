@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseEvent.h"
+#include "BaseMessage.h"
 
 #include <queue>
 #include <unordered_map>
@@ -15,25 +15,25 @@
 class CMessageQueue
 {
 public:
-	template<typename EventType>
-	void Subscribe(std::function<void(const EventType&)> InCallback, CSubscriptions& InSubscriptions);
+	template<typename MessageType>
+	void Subscribe(std::function<void(const MessageType&)> InCallback, CSubscriptions& InSubscriptions);
 	
 	void Unsubscribe(const SSubscriptionHandle& InHandle);
 
-	template<typename EventType, typename ... Params>
+	template<typename MessageType, typename ... Params>
 	void DispatchEvent(Params... InParams);
 	
 	void SendAllEvents();
 private:
 	bool ContainsSubscriberListOfType(size_t InTypeHash) const;
 
-	template<typename EventType>
+	template<typename MessageType>
 	void CreateSubscriberList();
 
-	template<typename EventType>
+	template<typename MessageType>
 	size_t GetMessageHash() const;
 
-	std::queue<SBaseEvent*> EventQueue;
+	std::queue<SBaseMessage*> EventQueue;
 	std::unordered_map<size_t, IMessageSubscriberList*> PerEventSubscribers;
 };
 
@@ -41,18 +41,18 @@ private:
 //BEGIN IMPL
 //------------------------------------------------------------------
 
-template<typename EventType>
-inline void CMessageQueue::Subscribe(std::function<void(const EventType&)> InCallback, CSubscriptions& InSubscriptions)
+template<typename MessageType>
+inline void CMessageQueue::Subscribe(std::function<void(const MessageType&)> InCallback, CSubscriptions& InSubscriptions)
 {
-	static_assert(std::is_base_of<SBaseEvent, EventType>(), "Subscribing only allowed to events");
+	static_assert(std::is_base_of<SBaseMessage, MessageType>(), "Subscribing only allowed to events");
 
-	const size_t MessageHash = GetMessageHash<EventType>();
+	const size_t MessageHash = GetMessageHash<MessageType>();
 	if (!ContainsSubscriberListOfType(MessageHash))
 	{
-		CreateSubscriberList<EventType>();
+		CreateSubscriberList<MessageType>();
 	}
 
-	TMessageSubscriberList<EventType>* SubscriberList = reinterpret_cast<TMessageSubscriberList<EventType>*>(PerEventSubscribers[MessageHash]);
+	TMessageSubscriberList<MessageType>* SubscriberList = reinterpret_cast<TMessageSubscriberList<MessageType>*>(PerEventSubscribers[MessageHash]);
 	const size_t Identifier = SubscriberList->AddSubscriber(InCallback);
 
 	SSubscriptionHandle CreatedHandle(Identifier, MessageHash, this);
@@ -61,29 +61,29 @@ inline void CMessageQueue::Subscribe(std::function<void(const EventType&)> InCal
 
 //------------------------------------------------------------------
 
-template<typename EventType, typename ...Params>
+template<typename MessageType, typename ...Params>
 inline void CMessageQueue::DispatchEvent(Params ...InParams)
 {
-	static_assert(std::is_base_of<SBaseEvent, EventType>(), "Dispatching only allowed of events");
-	EventQueue.push(new EventType(InParams...));
-	EventQueue.back()->SetMessageHash(GetMessageHash<EventType>());
+	static_assert(std::is_base_of<SBaseMessage, MessageType>(), "Dispatching only allowed of events");
+	EventQueue.push(new MessageType(InParams...));
+	EventQueue.back()->SetMessageHash(GetMessageHash<MessageType>());
 }
 
 //------------------------------------------------------------------
 
-template<typename EventType>
+template<typename MessageType>
 inline void CMessageQueue::CreateSubscriberList()
 {
-	const size_t MessageHash = GetMessageHash<EventType>();
-	PerEventSubscribers[MessageHash] = new TMessageSubscriberList<EventType>();
+	const size_t MessageHash = GetMessageHash<MessageType>();
+	PerEventSubscribers[MessageHash] = new TMessageSubscriberList<MessageType>();
 }
 
 //------------------------------------------------------------------
 
-template<typename EventType>
+template<typename MessageType>
 inline size_t CMessageQueue::GetMessageHash() const
 {
-	return typeid(EventType).hash_code();
+	return typeid(MessageType).hash_code();
 }
 
 //------------------------------------------------------------------

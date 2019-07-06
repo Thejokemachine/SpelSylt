@@ -11,7 +11,6 @@
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
-#include "TestEvent.h"
 
 //------------------------------------------------------------------
 

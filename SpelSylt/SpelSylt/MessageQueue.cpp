@@ -18,7 +18,7 @@ void CMessageQueue::SendAllEvents()
 {
 	while (!EventQueue.empty())
 	{
-		SBaseEvent* Event = EventQueue.front();
+		SBaseMessage* Event = EventQueue.front();
 		if (ContainsSubscriberListOfType(Event->GetMessageHash()))
 		{
 			PerEventSubscribers[Event->GetMessageHash()]->DispatchToAllSubscribers(Event);
