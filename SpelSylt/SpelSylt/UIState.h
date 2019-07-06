@@ -1,6 +1,8 @@
 #pragma once
 #include "State.h"
 #include "UILayout.h"
+#include "FontBank.h"
+#include "MessageSubscriberList.h"
 
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"
@@ -19,5 +21,8 @@ private:
 	sf::Sprite mySprite;
 	sf::RenderTexture myTexture;
 
+	CSubscriptions mySubs;
+
 	UI::UILayout myLayout;
+	static CFontBank FontBank;
 };

@@ -156,6 +156,7 @@
     <ClCompile Include="DebugLogger.cpp" />
     <ClCompile Include="DirectoryHelpers.cpp" />
     <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="FontBank.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HookGame.cpp" />
     <ClCompile Include="HookUIState.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="MessageSubscriberList.h" />
     <ClInclude Include="MessageSubscriberListInterface.h" />
     <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="FontBank.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Assets.h" />
@@ -245,6 +247,7 @@
     <ClInclude Include="TimeGetter.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="UILayout.h" />
+    <ClInclude Include="UIMessages.h" />
     <ClInclude Include="UIState.h" />
     <ClInclude Include="UIUtilities.h" />
     <ClInclude Include="XMLUtilities.h" />

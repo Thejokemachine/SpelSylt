@@ -10,19 +10,17 @@
 #include "CommonMath.h"
 #include "XMLUtilities.h"
 
-#include <iostream>
-
 using namespace tinyxml2;
 using namespace UI;
 
-UILayout::UILayout(float aWidth, float aHeight) : 
-myRootPanel(nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None)
+UILayout::UILayout(float aWidth, float aHeight, CFontBank& aFontBank) :
+myFontBank(aFontBank)
 {
-	XMLDocument layout;
-	layout.LoadFile("UI/Layouts/hookGame_layout.xml");
-	if (auto root = layout.FirstChildElement("layout"))
+	myDocument.LoadFile("UI/Layouts/hookGame_layout.xml");
+	if (auto root = myDocument.FirstChildElement("layout"))
 	{
-		addChildren(myRootPanel, root);
+		myRootPanel = std::make_unique<Panel>(*this, nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None, *root);
+		addChildren(*myRootPanel, root);
 	}
 }
 
@@ -32,12 +30,13 @@ void UILayout::Update(IInputEventGetter* aInputManager)
 
 	if (aInputManager && aInputManager->IsKeyPressed(EKeyCode::MouseLeft))
 	{
-		myRootPanel.ForEachChild([mPos](Panel& panel) {
+		myRootPanel->ForEachChild([mPos](Panel& panel) {
 			if (panel.contains(mPos))
 			{
 				if (auto btn = dynamic_cast<Button*>(&panel))
 				{
-					btn->myOnPressed(*btn);
+					if (btn->myOnPressed)
+						btn->myOnPressed(*btn);
 				}
 			}
 		});
@@ -46,9 +45,9 @@ void UILayout::Update(IInputEventGetter* aInputManager)
 
 void UILayout::Render(sf::RenderTarget & aRenderTarget)
 {
-	aRenderTarget.draw(myRootPanel, sf::BlendAlpha);
+	aRenderTarget.draw(*myRootPanel, sf::BlendAlpha);
 
-	myRootPanel.ForEachChild([this](Panel& panel){
+	myRootPanel->ForEachChild([this](Panel& panel){
 		sf::Vector2f center;
 		center.x = panel.GetX() + panel.GetWidth() * 0.5f;
 		center.y = panel.GetY() + panel.GetHeight() * 0.5f;
@@ -59,9 +58,15 @@ void UILayout::Render(sf::RenderTarget & aRenderTarget)
 	myDrawer.clear();
 }
 
+void UILayout::Resize(int aWidth, int aHeight)
+{
+	LOG_VERBOSE(UI, "Resized window: width: %i height: %i", aWidth, aHeight);
+	myRootPanel->Resize((float)aWidth, (float)aHeight);
+}
+
 Panel * UILayout::GetPanel(const std::string & aName)
 {
-	return myRootPanel.GetPanel(aName);
+	return myRootPanel->GetPanel(aName);
 }
 
 Button * UILayout::GetButton(const std::string & aName)
@@ -100,15 +105,15 @@ void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
 
 		if (val == "panel")
 		{
-			panel = std::make_shared<Panel>(&aParent, name, x, y, width, height, dockFlags);
+			panel = std::make_shared<Panel>(*this, &aParent, name, x, y, width, height, dockFlags, *child);
 		}
 		else if (val == "button")
 		{
-			panel = std::make_shared<Button>(&aParent, name, x, y, width, height, dockFlags);
+			panel = std::make_shared<Button>(*this, &aParent, name, x, y, width, height, dockFlags, *child);
 		}
 		else if (val == "text")
 		{
-			panel = std::make_shared<Text>(&aParent, name, x, y, width, height, dockFlags, *child);
+			panel = std::make_shared<Text>(*this, &aParent, name, x, y, width, height, dockFlags, *child);
 		}
 
 		if (panel)

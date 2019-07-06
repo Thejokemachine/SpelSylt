@@ -2,10 +2,14 @@
 #include "UIState.h"
 #include "GameContext.h"
 #include "Button.h"
+#include "UIMessages.h"
+#include "MessageQueue.h"
+
+CFontBank UIState::FontBank;
 
 UIState::UIState(unsigned int aWidth, unsigned int aHeight) :
 	CState(),
-	myLayout((float)aWidth, (float)aHeight)
+	myLayout((float)aWidth, (float)aHeight, FontBank)
 {
 	SetStateFlags(CState::DRAW_BELOW | CState::UPDATE_BELOW);
 
@@ -16,6 +20,9 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight) :
 
 void UIState::Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext)
 {
+	InGameContext.MessageQueue.Subscribe<SResizedWindowMessage>([this](const SResizedWindowMessage& msg) {
+		myLayout.Resize(msg.width, msg.height);
+	}, mySubs);
 }
 
 void UIState::Update(SGameContext & InGameContext)
@@ -33,4 +40,5 @@ void UIState::Render(SRenderingContext & InRenderingContext)
 	mySprite.setPosition(InRenderingContext.Camera.getCenter());
 
 	InRenderingContext.RenderQueue.Enqueue(ERenderLayer::UI, SSpriteRenderCommand(mySprite));
+
 }

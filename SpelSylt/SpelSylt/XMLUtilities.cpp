@@ -18,3 +18,11 @@ void XMLUtilities::QueryAttribute(const tinyxml2::XMLElement & aElement, const s
 		outValue = attr->FloatValue();
 	}
 }
+
+void XMLUtilities::QueryAttribute(const tinyxml2::XMLElement & aElement, const std::string & aAttributeName, int & outValue)
+{
+	if (auto attr = aElement.FindAttribute(aAttributeName.c_str()))
+	{
+		outValue = attr->IntValue();
+	}
+}
