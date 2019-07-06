@@ -2,12 +2,12 @@
 
 struct SBaseEvent
 {
-	void SetEventHash(size_t InEventHash)
+	void SetMessageHash(size_t InEventHash)
 	{
 		EventHash = InEventHash;
 	}
 
-	size_t GetEventHash() const
+	size_t GetMessageHash() const
 	{
 		return EventHash;
 	}

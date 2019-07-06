@@ -170,6 +170,8 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="StaticMemoryBuffer.cpp" />
+    <ClCompile Include="SubscriptionHandle.cpp" />
+    <ClCompile Include="Subscriptions.cpp" />
     <ClCompile Include="TextFileHandler.cpp" />
     <ClCompile Include="TextureBank.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -197,8 +199,8 @@
     <ClInclude Include="DebugDrawerInput.h" />
     <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="DirectoryHelpers.h" />
-    <ClInclude Include="EventSubscriberList.h" />
-    <ClInclude Include="EventSubscriberListInterface.h" />
+    <ClInclude Include="MessageSubscriberList.h" />
+    <ClInclude Include="MessageSubscriberListInterface.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameState.h" />
@@ -227,6 +229,8 @@
     <ClInclude Include="sfml_libs.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
+    <ClInclude Include="SubscriptionHandle.h" />
+    <ClInclude Include="Subscriptions.h" />
     <ClInclude Include="TestEvent.h" />
     <ClInclude Include="TextFileHandler.h" />
     <ClInclude Include="TextureBank.h" />

@@ -4,14 +4,24 @@
 
 //------------------------------------------------------------------
 
+void CMessageQueue::Unsubscribe(const SSubscriptionHandle& InHandle)
+{
+	if (ContainsSubscriberListOfType(InHandle.GetMessageType()))
+	{
+		PerEventSubscribers[InHandle.GetMessageType()]->Unsubscribe(InHandle);
+	}
+}
+
+//------------------------------------------------------------------
+
 void CMessageQueue::SendAllEvents()
 {
 	while (!EventQueue.empty())
 	{
 		SBaseEvent* Event = EventQueue.front();
-		if (ContainsSubscriberListOfType(Event->GetEventHash()))
+		if (ContainsSubscriberListOfType(Event->GetMessageHash()))
 		{
-			PerEventSubscribers[Event->GetEventHash()]->DispatchToAllSubscribers(Event);
+			PerEventSubscribers[Event->GetMessageHash()]->DispatchToAllSubscribers(Event);
 		}
 		delete Event;
 		EventQueue.pop();

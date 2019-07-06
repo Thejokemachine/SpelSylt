@@ -22,5 +22,6 @@
 //Asset
 #include "Assets.h"
 
-//Event
+//Messaging
 #include "MessageQueue.h"
+#include "SubscriptionHandle.h"
