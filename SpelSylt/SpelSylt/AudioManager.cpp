@@ -8,12 +8,17 @@
 
 #include "DirectoryHelpers.h"
 
-AudioManager::AudioManager(const std::string & aAudioFolder)
+CAudioManager::CAudioManager(const std::string & aAudioFolder)
 {
-
 }
 
-void AudioManager::LoadSounds(IAsyncLoader& InAsyncLoader, const std::string& InAudioFolder)
+void CAudioManager::Init(CMessageQueue& InMessageQueue)
+{
+	const auto& MusicMessageCallback = [&](const SMusicMessage & InMessage) { OnMusicMessage(InMessage); };
+	InMessageQueue.Subscribe<SMusicMessage>(MusicMessageCallback, Subscriptions);
+}
+
+void CAudioManager::LoadSounds(IAsyncLoader& InAsyncLoader, const std::string& InAudioFolder)
 {
 	std::string SoundsFolder = InAudioFolder + "Sounds/";
 
@@ -28,7 +33,7 @@ void AudioManager::LoadSounds(IAsyncLoader& InAsyncLoader, const std::string& In
 		});
 }
 
-void AudioManager::Update(const float dt)
+void CAudioManager::Update(const float dt)
 {
 	for (int i = 0; i < mySoundHandles.size(); ++i)
 	{
@@ -58,7 +63,7 @@ void AudioManager::Update(const float dt)
 	myMusic.setVolume(myMusicFade * 100.f);
 }
 
-void AudioManager::PlaySound(const std::string& aAlias, sf::Sound * aSoundHandle)
+void CAudioManager::PlaySound(const std::string& aAlias, sf::Sound * aSoundHandle)
 {
 	if (mySoundBuffers.find(aAlias) != mySoundBuffers.end())
 	{
@@ -76,7 +81,7 @@ void AudioManager::PlaySound(const std::string& aAlias, sf::Sound * aSoundHandle
 	}
 }
 
-void AudioManager::PlayMusic(const std::string & aAlias, bool aFadeOutCurrent)
+void CAudioManager::PlayMusic(const std::string & aAlias, bool aFadeOutCurrent)
 {
 	if (myMusicAlias != aAlias)
 	{
@@ -84,7 +89,7 @@ void AudioManager::PlayMusic(const std::string & aAlias, bool aFadeOutCurrent)
 		if (!aFadeOutCurrent)
 		{
 			myMusic.stop();
-			myMusic.openFromFile("Audio/Music/" + myMusicAlias);
+			myMusic.openFromFile("Audio/Music/" + myMusicAlias + ".ogg");
 			myMusic.play();
 		}
 		else
@@ -92,4 +97,9 @@ void AudioManager::PlayMusic(const std::string & aAlias, bool aFadeOutCurrent)
 			myShouldSwitchMusic = true;
 		}
 	}
+}
+
+void CAudioManager::OnMusicMessage(const SMusicMessage& InMessage)
+{
+	PlayMusic(InMessage.Alias, InMessage.FadeOutCurrent);
 }
