@@ -161,6 +161,7 @@
     <ClCompile Include="HookUIState.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MessageQueue.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PointCollider.cpp" />
     <ClCompile Include="RectangleCollider.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="AsyncLoaderInterface.h" />
     <ClInclude Include="AsyncOperationInterface.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="BaseEvent.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
@@ -195,6 +197,8 @@
     <ClInclude Include="DebugDrawerInput.h" />
     <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="DirectoryHelpers.h" />
+    <ClInclude Include="EventSubscriberList.h" />
+    <ClInclude Include="EventSubscriberListInterface.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameState.h" />
@@ -207,6 +211,7 @@
     <ClInclude Include="LoadEnums.h" />
     <ClInclude Include="LogLevels.h" />
     <ClInclude Include="MemAllocSizes.h" />
+    <ClInclude Include="MessageQueue.h" />
     <ClInclude Include="SpelSyltPCH.h" />
     <ClInclude Include="StaticMemoryBuffer.h" />
     <ClInclude Include="Panel.h" />
@@ -222,6 +227,7 @@
     <ClInclude Include="sfml_libs.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
+    <ClInclude Include="TestEvent.h" />
     <ClInclude Include="TextFileHandler.h" />
     <ClInclude Include="TextureBank.h" />
     <ClInclude Include="TextureProviderInterface.h" />
