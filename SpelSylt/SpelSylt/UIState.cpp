@@ -21,7 +21,7 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight) :
 void UIState::Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext)
 {
 	InGameContext.MessageQueue.Subscribe<SResizedWindowMessage>([this](const SResizedWindowMessage& msg) {
-		myLayout.Resize(msg.width, msg.height);
+		myLayout.Resize(msg.Param, msg.ParamTwo);
 	}, mySubs);
 }
 
