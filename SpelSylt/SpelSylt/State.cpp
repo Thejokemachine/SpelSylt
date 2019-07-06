@@ -39,7 +39,7 @@ void CState::PopAll()
 	myOwner->PopAll();
 }
 
-// void CState::Push(CState * aNewState)
-// {
-// 	myOwner->Push(aNewState);
-// }
+/*void CState::Push(CState * aNewState)
+{
+	myOwner->Push(aNewState);
+}*/
