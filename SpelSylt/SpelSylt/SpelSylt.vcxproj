@@ -156,6 +156,7 @@
     <ClCompile Include="DebugLogger.cpp" />
     <ClCompile Include="DirectoryHelpers.cpp" />
     <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="FileWatcher.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HookGame.cpp" />
     <ClCompile Include="HookUIState.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="DebugDrawerInput.h" />
     <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="DirectoryHelpers.h" />
+    <ClInclude Include="FileWatcher.h" />
     <ClInclude Include="MessageSubscriberList.h" />
     <ClInclude Include="MessageSubscriberListInterface.h" />
     <ClInclude Include="FileLoader.h" />
