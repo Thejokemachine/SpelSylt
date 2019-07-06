@@ -28,3 +28,4 @@
 
 //Messages
 #include "MusicMessage.h"
+#include "SoundMessage.h"

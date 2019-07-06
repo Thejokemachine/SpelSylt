@@ -66,6 +66,7 @@ void HookGame::Update(SGameContext& InGameContext)
 	{
 		if (!myIsHooked)
 		{
+			InGameContext.MessageQueue.DispatchEvent<SSoundMessage>("HookNoise");
 			myRopeLength = Math::Length(myHookPoint - Anchor);
 		}
 		myIsHooked = !myIsHooked;

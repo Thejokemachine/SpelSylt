@@ -16,9 +16,14 @@ void CAudioManager::Init(CMessageQueue& InMessageQueue)
 {
 	const auto& MusicMessageCallback = [&](const SMusicMessage & InMessage) { OnMusicMessage(InMessage); };
 	InMessageQueue.Subscribe<SMusicMessage>(MusicMessageCallback, Subscriptions);
+
+	const auto& SoundMessageCallback = [&](const SSoundMessage & InMessage) {OnSoundMessage(InMessage); };
+	InMessageQueue.Subscribe<SSoundMessage>(SoundMessageCallback, Subscriptions);
+
+	LoadSounds("Audio/");
 }
 
-void CAudioManager::LoadSounds(IAsyncLoader& InAsyncLoader, const std::string& InAudioFolder)
+void CAudioManager::LoadSounds(/*IAsyncLoader& InAsyncLoader,*/ const std::string& InAudioFolder)
 {
 	std::string SoundsFolder = InAudioFolder + "Sounds/";
 
@@ -102,4 +107,9 @@ void CAudioManager::PlayMusic(const std::string & aAlias, bool aFadeOutCurrent)
 void CAudioManager::OnMusicMessage(const SMusicMessage& InMessage)
 {
 	PlayMusic(InMessage.Alias, InMessage.FadeOutCurrent);
+}
+
+void CAudioManager::OnSoundMessage(const SSoundMessage& InMessage)
+{
+	PlaySound(InMessage.Alias);
 }

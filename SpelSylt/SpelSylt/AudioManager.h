@@ -9,7 +9,9 @@
 
 class IAsyncLoader;
 class CMessageQueue;
+
 struct SMusicMessage;
+struct SSoundMessage;
 
 class CAudioManager
 {
@@ -19,7 +21,7 @@ public:
 
 	void Init(CMessageQueue& InMessageQueue);
 
-	void LoadSounds(IAsyncLoader& InAsyncLoader, const std::string& InAudioFolder);
+	void LoadSounds(/*IAsyncLoader& InAsyncLoader,*/ const std::string& InAudioFolder);
 	void Update(const float dt);
 
 	void PlaySound(const std::string& aAlias, sf::Sound* aSoundHandle = nullptr);
@@ -27,6 +29,7 @@ public:
 
 private:
 	void OnMusicMessage(const SMusicMessage& InMessage);
+	void OnSoundMessage(const SSoundMessage& InMessage);
 
 	std::unordered_map<std::string, SSoundAsset> mySoundBuffers;
 	std::vector<sf::Sound*> mySoundHandles;

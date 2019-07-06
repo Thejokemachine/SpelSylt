@@ -218,6 +218,7 @@
     <ClInclude Include="MemAllocSizes.h" />
     <ClInclude Include="MessageQueue.h" />
     <ClInclude Include="MusicMessage.h" />
+    <ClInclude Include="SoundMessage.h" />
     <ClInclude Include="SpelSyltPCH.h" />
     <ClInclude Include="StaticMemoryBuffer.h" />
     <ClInclude Include="Panel.h" />
