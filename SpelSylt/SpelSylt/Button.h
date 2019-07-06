@@ -1,18 +1,21 @@
 #pragma once
 #include "Panel.h"
 
-class Button : public Panel
+namespace UI
 {
-	friend class UILayout;
+	class Button : public Panel
+	{
+		friend class UILayout;
 
-public:
+	public:
 
-	using Panel::Panel;
+		using Panel::Panel;
 
-	void SetCallback(std::function<void(Button& button)> aOnPressed);
+		void SetCallback(std::function<void(Button& button)> aOnPressed);
 
-private:
+	private:
 
-	std::function<void(Button& button)> myOnPressed;
+		std::function<void(Button& button)> myOnPressed;
 
-};
+	};
+}

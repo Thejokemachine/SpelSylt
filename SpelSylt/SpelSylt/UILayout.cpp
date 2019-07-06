@@ -3,22 +3,21 @@
 #include "UILayout.h"
 #include "SFML/Graphics/RenderTarget.hpp"
 #include "Button.h"
+#include "Text.h"
 #include "tinyxml2.h"
+#include "InputEventGetter.h"
+#include "UIUtilities.h"
+#include "CommonMath.h"
+#include "XMLUtilities.h"
 
 #include <iostream>
 
 using namespace tinyxml2;
+using namespace UI;
 
 UILayout::UILayout(float aWidth, float aHeight) : 
 myRootPanel(nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None)
 {
-	auto middle = std::make_shared<Button>(&myRootPanel, "", 15.f, 15.f, aWidth * 0.1f, aHeight * 0.1f, DockFlag::Center);
-
-	middle->SetCallback([](Button& button) {
-		std::cout << "AAAAAJ" << std::endl;
-	});
-	myRootPanel.AddPanel(middle);
-
 	XMLDocument layout;
 	layout.LoadFile("UI/Layouts/hookGame_layout.xml");
 	if (auto root = layout.FirstChildElement("layout"))
@@ -27,7 +26,7 @@ myRootPanel(nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None)
 	}
 }
 
-void UILayout::Update(CInputManager * aInputManager)
+void UILayout::Update(IInputEventGetter* aInputManager)
 {
 	sf::Vector2f mPos = aInputManager->GetMousePosFloat();
 
@@ -47,7 +46,7 @@ void UILayout::Update(CInputManager * aInputManager)
 
 void UILayout::Render(sf::RenderTarget & aRenderTarget)
 {
-	aRenderTarget.draw(myRootPanel);
+	aRenderTarget.draw(myRootPanel, sf::BlendAlpha);
 
 	myRootPanel.ForEachChild([this](Panel& panel){
 		sf::Vector2f center;
@@ -60,29 +59,14 @@ void UILayout::Render(sf::RenderTarget & aRenderTarget)
 	myDrawer.clear();
 }
 
-unsigned char UILayout::evaluateDockingFlags(const std::string & aBlock)
+Panel * UILayout::GetPanel(const std::string & aName)
 {
-	unsigned char flags = 0;
+	return myRootPanel.GetPanel(aName);
+}
 
-	if (aBlock.find("left") != std::string::npos)
-		flags |= DockFlag::Left;
-	if (aBlock.find("right") != std::string::npos)
-		flags |= DockFlag::Right;
-	if (aBlock.find("top") != std::string::npos)
-		flags |= DockFlag::Top;
-	if (aBlock.find("bottom") != std::string::npos)
-		flags |= DockFlag::Bottom;
-	if (aBlock.find("center") != std::string::npos)
-	{
-		if (aBlock.find("hcenter") != std::string::npos)
-			flags |= DockFlag::HCenter;
-		if (aBlock.find("vcenter") != std::string::npos)
-			flags |= DockFlag::VCenter;
-		if ((!(flags & DockFlag::VCenter) && !(flags & DockFlag::HCenter)))
-			flags |= DockFlag::Center;
-	}
-
-	return flags;
+Button * UILayout::GetButton(const std::string & aName)
+{
+	return dynamic_cast<Button*>(GetPanel(aName));
 }
 
 void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
@@ -93,23 +77,48 @@ void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
 		std::string val = child->Value();
 		std::shared_ptr<Panel> panel = nullptr;
 
+		std::string name = "";
+		float x = 0;
+		float y = 0;
+		float height = 0;
+		float width = 0;
+		std::string image = "";
+		std::string dockFlagsValue = "";
+		std::string colorValue = "";
+
+		XMLUtilities::QueryAttribute(*child, "name", name);
+		XMLUtilities::QueryAttribute(*child, "x", x);
+		XMLUtilities::QueryAttribute(*child, "y", y);
+		XMLUtilities::QueryAttribute(*child, "height", height);
+		XMLUtilities::QueryAttribute(*child, "width", width);
+		XMLUtilities::QueryAttribute(*child, "dock", dockFlagsValue);
+		XMLUtilities::QueryAttribute(*child, "image", image);
+		XMLUtilities::QueryAttribute(*child, "color", colorValue);
+
+		unsigned char dockFlags = UIUtilities::EvaluateDockingFlags(dockFlagsValue);
+		sf::Color color = UIUtilities::EvaluateColor(colorValue);
+
 		if (val == "panel")
 		{
-			std::string name = child->FindAttribute("name")->Value();
-			float x = child->FindAttribute("x")->FloatValue();
-			float y = child->FindAttribute("y")->FloatValue();
-			float height = child->FindAttribute("height")->FloatValue();
-			float width = child->FindAttribute("width")->FloatValue();
-			unsigned char dockFlags = evaluateDockingFlags(child->FindAttribute("dock")->Value());
-			std::string image = child->FindAttribute("image")->Value();
-
 			panel = std::make_shared<Panel>(&aParent, name, x, y, width, height, dockFlags);
-			if (!image.empty())
-				panel->SetImage(image);
+		}
+		else if (val == "button")
+		{
+			panel = std::make_shared<Button>(&aParent, name, x, y, width, height, dockFlags);
+		}
+		else if (val == "text")
+		{
+			panel = std::make_shared<Text>(&aParent, name, x, y, width, height, dockFlags, *child);
 		}
 
 		if (panel)
+		{
+			if (!image.empty())
+				panel->SetImage(image);
+			panel->SetColor(color);
+
 			addChildren(*panel, child);
+		}
 
 		aParent.AddPanel(panel);
 		child = child->NextSiblingElement();

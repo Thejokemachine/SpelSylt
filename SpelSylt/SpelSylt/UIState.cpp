@@ -1,5 +1,7 @@
 #include "SpelSyltPCH.h"
 #include "UIState.h"
+#include "GameContext.h"
+#include "Button.h"
 
 UIState::UIState(unsigned int aWidth, unsigned int aHeight) :
 	CState(),
@@ -18,6 +20,7 @@ void UIState::Init(SGameContext& InGameContext, SRenderingContext& InRenderingCo
 
 void UIState::Update(SGameContext & InGameContext)
 {
+	myLayout.Update(&InGameContext.Input);
 }
 
 void UIState::Render(SRenderingContext & InRenderingContext)

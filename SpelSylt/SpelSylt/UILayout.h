@@ -4,7 +4,6 @@
 
 #include "Panel.h"
 #include "DebugDrawer.h"
-#include "InputManager.h"
 
 namespace sf
 {
@@ -16,20 +15,29 @@ namespace tinyxml2
 	class XMLElement;
 }
 
-class UILayout
+class IInputEventGetter;
+
+namespace UI
 {
-public:
-	UILayout(float aWidth, float aHeight);
-	virtual ~UILayout() = default;
+	class Button;
 
-	void Update(CInputManager* aInputManager);
-	void Render(sf::RenderTarget& aRenderTarget);
+	class UILayout
+	{
+	public:
+		UILayout(float aWidth, float aHeight);
+		virtual ~UILayout() = default;
 
-private:
-	
-	unsigned char evaluateDockingFlags(const std::string& aBlock);
-	void addChildren(Panel& aParent, tinyxml2::XMLElement* aElement);
+		void Update(IInputEventGetter* aInputManager);
+		void Render(sf::RenderTarget& aRenderTarget);
 
-	CDebugDrawer myDrawer;
-	Panel myRootPanel;
-};
+		Panel* GetPanel(const std::string& aName);
+		Button* GetButton(const std::string& aName);
+
+	private:
+
+		void addChildren(Panel& aParent, tinyxml2::XMLElement* aElement);
+
+		CDebugDrawer myDrawer;
+		Panel myRootPanel;
+	};
+}
