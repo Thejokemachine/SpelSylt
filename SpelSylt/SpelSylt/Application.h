@@ -15,6 +15,7 @@
 #include "AsyncLoader.h"
 #include <thread>
 
+#include "AudioManager.h"
 #include "TextureBank.h"
 #include "MessageQueue.h"
 
@@ -46,6 +47,8 @@ private:
 	
 	CRenderer Renderer;
 	CDebugDrawer DebugDrawer;
+
+	CAudioManager AudioManager;
 
 	CTextureBank TextureBank;
 

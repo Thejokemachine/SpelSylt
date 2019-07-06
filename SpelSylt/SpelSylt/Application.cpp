@@ -24,6 +24,7 @@ CApplication::CApplication()
 	, RenderQueue()
 	, MessageQueue()
 	, DebugDrawer()
+	, AudioManager("Audio")
 	, GameContext(InputManager, Time, AsyncLoader, TextureBank, MessageQueue)
 	, RenderingContext(RenderQueue, DebugDrawer)
 	, AsyncLoader()
@@ -37,6 +38,8 @@ void CApplication::Initialize()
 	CreateWindow();
 	InputManager.Init(&Window);
 	Time.Init();
+
+	AudioManager.Init(MessageQueue);
 
 	StateStack.Push(new HookGame(), GameContext, RenderingContext);
 	StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);

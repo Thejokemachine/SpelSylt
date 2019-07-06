@@ -32,6 +32,11 @@ void CMessageQueue::SendAllEvents()
 
 bool CMessageQueue::ContainsSubscriberListOfType(size_t InTypeHash) const
 {
+	if (PerEventSubscribers.size() == 0)
+	{
+		return false;
+	}
+
 	const auto& NotFound = PerEventSubscribers.end();
 	return (PerEventSubscribers.find(InTypeHash) != NotFound);
 }

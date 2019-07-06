@@ -25,3 +25,6 @@
 //Messaging
 #include "MessageQueue.h"
 #include "SubscriptionHandle.h"
+
+//Messages
+#include "MusicMessage.h"

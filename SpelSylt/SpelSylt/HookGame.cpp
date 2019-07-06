@@ -28,6 +28,8 @@ void HookGame::Init(SGameContext& InGameContext, SRenderingContext& InRenderingC
 	{
 		myHookPoints.emplace_back(sf::Vector2f(200.f + (float)(rand() % 1200), 500.f - i * 75.f));
 	}
+
+	InGameContext.MessageQueue.DispatchEvent<SMusicMessage>("HookGameOst", false);
 }
 
 void HookGame::Update(SGameContext& InGameContext)
