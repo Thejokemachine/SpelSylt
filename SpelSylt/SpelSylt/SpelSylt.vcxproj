@@ -192,6 +192,7 @@
     <ClInclude Include="AsyncLoaderInterface.h" />
     <ClInclude Include="AsyncOperationInterface.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="AudioMessages.h" />
     <ClInclude Include="BaseMessage.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CircleCollider.h" />
@@ -219,8 +220,6 @@
     <ClInclude Include="LogLevels.h" />
     <ClInclude Include="MemAllocSizes.h" />
     <ClInclude Include="MessageQueue.h" />
-    <ClInclude Include="MusicMessage.h" />
-    <ClInclude Include="SoundMessage.h" />
     <ClInclude Include="SpelSyltPCH.h" />
     <ClInclude Include="StaticMemoryBuffer.h" />
     <ClInclude Include="Panel.h" />

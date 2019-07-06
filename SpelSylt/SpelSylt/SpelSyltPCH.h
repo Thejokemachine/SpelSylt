@@ -27,5 +27,4 @@
 #include "SubscriptionHandle.h"
 
 //Messages
-#include "MusicMessage.h"
-#include "SoundMessage.h"
+#include "AudioMessages.h"

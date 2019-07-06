@@ -106,10 +106,10 @@ void CAudioManager::PlayMusic(const std::string & aAlias, bool aFadeOutCurrent)
 
 void CAudioManager::OnMusicMessage(const SMusicMessage& InMessage)
 {
-	PlayMusic(InMessage.Alias, InMessage.FadeOutCurrent);
+	PlayMusic(InMessage.Param, InMessage.ParamTwo);
 }
 
 void CAudioManager::OnSoundMessage(const SSoundMessage& InMessage)
 {
-	PlaySound(InMessage.Alias);
+	PlaySound(InMessage.Param);
 }
