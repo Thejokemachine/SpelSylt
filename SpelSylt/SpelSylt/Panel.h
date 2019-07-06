@@ -8,6 +8,10 @@
 #include <memory>
 #include <functional>
 
+namespace tinyxml2 {
+	class XMLElement;
+}
+
 namespace UI
 {
 
@@ -23,12 +27,14 @@ namespace UI
 		VCenter = 64
 	};
 
+	class UILayout;
+
 	class Panel : private sf::FloatRect, public sf::Drawable
 	{
-		friend class UILayout;
+		friend UILayout;
 
 	public:
-		Panel(const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags);
+		Panel(UILayout& aLayout, const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement& aElement);
 		virtual ~Panel() = default;
 
 		// Getters -------------------------------------
@@ -45,6 +51,7 @@ namespace UI
 		// ---------------------------------------------
 
 		void AddPanel(std::shared_ptr<Panel> aPanel);
+		void Resize(float aWidth, float aHeight);
 
 		void ForEachChild(std::function<void(Panel& panel)> aFunction);
 
@@ -53,6 +60,11 @@ namespace UI
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		virtual void onDraw(sf::RenderTarget& aTarget) const {}
+
+	protected:
+
+		UILayout& myLayout;
+		tinyxml2::XMLElement& myXMLElement;
 
 	private:
 

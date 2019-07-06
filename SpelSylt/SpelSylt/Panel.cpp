@@ -3,11 +3,14 @@
 #include "Panel.h"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTarget.hpp"
+#include "UILayout.h"
 
 using namespace UI;
 
-Panel::Panel(const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags) :
+Panel::Panel(UILayout& aLayout, const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement& aElement) :
 sf::FloatRect(x, y, aWidth, aHeight),
+myLayout(aLayout),
+myXMLElement(aElement),
 myParent(aParent),
 myName(aName),
 myDockFlags(aDockFlags)
@@ -78,6 +81,13 @@ void Panel::SetColor(const sf::Color & aColor)
 void Panel::AddPanel(std::shared_ptr<Panel> aPanel)
 {
 	myChildren.emplace_back(aPanel);
+}
+
+void UI::Panel::Resize(float aWidth, float aHeight)
+{
+
+	for (auto& p : myChildren)
+		p->Resize(GetWidth(), GetHeight());
 }
 
 void Panel::ForEachChild(std::function<void(Panel& panel)> aFunction)

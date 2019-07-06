@@ -36,7 +36,7 @@ protected:
 	bool Pop();
 	void PopAll();
 
-	void Push(CState* aNewState);
+	//void Push(CState* aNewState);
 
 private:
 	CStateStack* myOwner;

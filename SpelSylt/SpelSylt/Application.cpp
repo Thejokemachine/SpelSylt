@@ -4,6 +4,7 @@
 
 #include "Time.h"
 #include "InputManager.h"
+#include "UIMessages.h"
 
 #include "HookGame.h"
 #include "HookUIState.h"
@@ -98,6 +99,10 @@ bool CApplication::HandleEvents()
 
 			return false;
 		}
+		else if (e.type == sf::Event::Resized)
+		{
+			MessageQueue.DispatchEvent<SResizedWindowMessage>(e.size.width, e.size.height);
+		}
 		else
 		{
 			InputManager.Update(e);
@@ -114,7 +119,7 @@ void CApplication::PrepareForNewFrame()
 	InputManager.OncePerFrameUpdate();
 	Time.Update();
 
-	Window.clear(sf::Color::Magenta);
+	Window.clear(sf::Color::Blue);
 	RenderQueue.Clear();
 	DebugDrawer.clear();
 }
