@@ -11,6 +11,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
+#include "TestEvent.h"
 
 //------------------------------------------------------------------
 
@@ -22,8 +23,9 @@ CApplication::CApplication()
 	, Renderer()
 	, TextureBank(AsyncLoader)
 	, RenderQueue()
+	, MessageQueue()
 	, DebugDrawer()
-	, GameContext(InputManager, Time, AsyncLoader, TextureBank)
+	, GameContext(InputManager, Time, AsyncLoader, TextureBank, MessageQueue)
 	, RenderingContext(RenderQueue, DebugDrawer)
 	, AsyncLoader()
 {
@@ -68,6 +70,7 @@ bool CApplication::Run()
 	const bool CouldHandleAllEvents = HandleEvents();
 	
 	StateStack.Update(GameContext);
+	MessageQueue.SendAllEvents();
 
 	const bool StateStackValid = StateStack.Size() > 0;
 

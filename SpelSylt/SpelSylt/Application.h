@@ -16,9 +16,9 @@
 #include <thread>
 
 #include "TextureBank.h"
+#include "MessageQueue.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
-
 
 class CApplication
 {
@@ -50,6 +50,8 @@ private:
 	CTextureBank TextureBank;
 
 	CRenderQueue RenderQueue;
+
+	CMessageQueue MessageQueue;
 
 	//Contexts
 	SGameContext GameContext;
