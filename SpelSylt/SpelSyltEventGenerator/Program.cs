@@ -8,21 +8,31 @@ namespace SpelSyltEventGenerator
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             string ReadFile = args[0];
             string OutFile = args[1];
 
             List<Event> EventList = new List<Event>();
 
+            Console.WriteLine("Starting events read from file: " + ReadFile);
             EventReader Reader = new EventReader();
-            Reader.ReadEvents(ReadFile, ref EventList);
+            bool ReadResult = Reader.ReadEvents(ReadFile, ref EventList);
+
+            if(!ReadResult)
+            {
+                Console.WriteLine("Failed to read file '" + ReadFile + "'");
+                return -1;
+            }
 
             EventDuplicateRemover DuplicateRemover = new EventDuplicateRemover();
             DuplicateRemover.RemoveAllDuplicates(ref EventList);
 
+            Console.WriteLine("Parsing events to file: " + OutFile);
             EventParser Parser = new EventParser();
             Parser.ParseEvents(ref EventList, OutFile);
+
+            return 0;
         }
     }
 }

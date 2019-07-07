@@ -12,15 +12,17 @@ namespace SpelSyltEventGenerator
     class EventReader
     {
         private XmlDocument Document;
-        public void ReadEvents(string InFile, ref List<Event> InEventList)
+        public bool ReadEvents(string InFile, ref List<Event> InEventList)
         {
             if(OpenFile(InFile) == false)
             {
-                return;
+                return false;
             }
 
             XmlNode RootNode = Document.FirstChild;
             ReadAllNodes(RootNode, ref InEventList);
+
+            return true;
         }
 
         private void ReadAllNodes(XmlNode InNode, ref List<Event> InEventList)
