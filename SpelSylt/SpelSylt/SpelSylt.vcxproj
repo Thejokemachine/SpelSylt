@@ -103,6 +103,9 @@
     <Link>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(OutDir)UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -138,6 +141,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(OutDir)UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\External\JSON\pugixml.cpp">
