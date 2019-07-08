@@ -36,9 +36,14 @@ public:
 		return B(Amount - static_cast<B>(InRHS));
 	}
 
-	B operator +(const B& InRHS) const
+	B operator +(const B & InRHS) const
 	{
 		return B(Amount + InRHS.Amount);
+	}
+
+	B operator +(unsigned long long InRHS) const
+	{
+		return B(Amount + InRHS);
 	}
 
 	bool operator ==(const B& InRHS) const
