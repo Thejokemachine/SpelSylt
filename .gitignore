@@ -27,29 +27,35 @@
 *.out
 *.app
 
-# Custom Ignores
-*.log
+# VS Files
+*.suo
 *.filters
+*.db
+*.tlog
+*.lastcodeanalysissucceeded
+*nativecodeanalysis*
+/SpelSylt/.vs/SpelSylt/v15/Browse.VC.opendb
+/SpelSylt/.vs/SpelSylt/v15/ipch/62d68f747e1486e.ipch
+*v16/
+*.user
+*.ilk
+
+# Basic Files
+*.txt
+
+# CS
+*.exe.config
+*.cache
+
+#Runtime Generated Files
+*.log
+
+# Buildtime Generated Files
 *.idb
 *.iobj
 *.ipdb
 *.pdb
-*.txt
-*.tlog
-*.lastcodeanalysissucceeded
-*nativecodeanalysis*
 *.lastbuildstate
-*.ilk
-*.db
-*.suo
-*v16/
-/SpelSylt/.vs/SpelSylt/v15/ipch/62d68f747e1486e.ipch
-/SpelSylt/.vs/SpelSylt/v15/Browse.VC.opendb
-*.cache
-*.exe.config
-*.user
-
-# Generated files
 *.generated.h
 *.anmbndl
 
