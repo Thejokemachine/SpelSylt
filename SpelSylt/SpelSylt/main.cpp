@@ -1,6 +1,12 @@
 #include "SpelSyltPCH.h"
 
 #include "sfml_libs.h"
+#ifdef _DEBUG
+#pragma comment(lib, "../External/RapidJson_Debug")
+#else
+#pragma comment(lib, "../External/RapidJson_Release")
+#endif
+
 
 #include "Application.h"
 

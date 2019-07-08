@@ -6,9 +6,15 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpelSylt", "SpelSylt\SpelSylt.vcxproj", "{51EC98B9-DB61-47C8-A253-5086ACA847E3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9C75632C-E935-4B2C-A3F3-564ACBADC662} = {9C75632C-E935-4B2C-A3F3-564ACBADC662}
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2} = {5C473E41-C71B-4522-8662-FDBA6BB5A5F2}
+		{37A445B3-7858-484A-866A-91519485B0E9} = {37A445B3-7858-484A-866A-91519485B0E9}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpelSyltEventGenerator", "SpelSyltEventGenerator\SpelSyltEventGenerator.csproj", "{9C75632C-E935-4B2C-A3F3-564ACBADC662}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpelSyltAnimationBundler", "SpelSyltAnimationBundler\SpelSyltAnimationBundler.csproj", "{37A445B3-7858-484A-866A-91519485B0E9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RapidJsonLibrary", "RapidJsonLibrary\RapidJsonLibrary.vcxproj", "{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +48,28 @@ Global
 		{9C75632C-E935-4B2C-A3F3-564ACBADC662}.Release|x64.Build.0 = Debug|Any CPU
 		{9C75632C-E935-4B2C-A3F3-564ACBADC662}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C75632C-E935-4B2C-A3F3-564ACBADC662}.Release|x86.Build.0 = Release|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Debug|x86.Build.0 = Debug|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Release|x64.Build.0 = Release|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Release|x86.ActiveCfg = Release|Any CPU
+		{37A445B3-7858-484A-866A-91519485B0E9}.Release|x86.Build.0 = Release|Any CPU
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Debug|x64.ActiveCfg = Debug|x64
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Debug|x64.Build.0 = Debug|x64
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Debug|x86.ActiveCfg = Debug|Win32
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Debug|x86.Build.0 = Debug|Win32
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Release|Any CPU.ActiveCfg = Release|Win32
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Release|x64.ActiveCfg = Release|x64
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Release|x64.Build.0 = Release|x64
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Release|x86.ActiveCfg = Release|Win32
+		{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

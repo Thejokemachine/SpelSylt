@@ -99,6 +99,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSyltPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,6 +107,10 @@
     <PreBuildEvent>
       <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(OutDir)UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -135,6 +140,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSyltPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -144,12 +150,13 @@
     <PreBuildEvent>
       <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(OutDir)UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\External\JSON\pugixml.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="AnimationAsset.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AsyncLoader.cpp" />
     <ClCompile Include="AudioManager.cpp" />
@@ -192,9 +199,9 @@
     <ClCompile Include="XMLUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\External\JSON\pugiconfig.hpp" />
-    <ClInclude Include="..\External\JSON\pugixml.hpp" />
+    <ClInclude Include="AnimationAsset.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Asset.h" />
     <ClInclude Include="AsyncLoader.h" />
     <ClInclude Include="AsyncLoaderInterface.h" />
     <ClInclude Include="AsyncOperationInterface.h" />
@@ -228,6 +235,7 @@
     <ClInclude Include="LogLevels.h" />
     <ClInclude Include="MemAllocSizes.h" />
     <ClInclude Include="MessageQueue.h" />
+    <ClInclude Include="SoundAsset.h" />
     <ClInclude Include="SpelSyltPCH.h" />
     <ClInclude Include="StaticMemoryBuffer.h" />
     <ClInclude Include="Panel.h" />
@@ -247,6 +255,7 @@
     <ClInclude Include="Subscriptions.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TextFileHandler.h" />
+    <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="TextureBank.h" />
     <ClInclude Include="TextureProviderInterface.h" />
     <ClInclude Include="Time.h" />
