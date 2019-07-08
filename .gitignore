@@ -48,4 +48,8 @@
 *.cache
 *.exe.config
 *.csproj.user
+
+# Generated files
 *.generated.h
+*.anmbndl
+
