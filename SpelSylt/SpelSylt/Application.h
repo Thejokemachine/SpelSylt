@@ -1,23 +1,23 @@
 #pragma once
 
-#include "DebugDrawer.h"
+#include "Debugging/Rendering/DebugDrawer.h"
 
-#include "Renderer.h"
-#include "RenderingContext.h"
-#include "RenderQueue.h"
+#include "Rendering/Renderer.h"
+#include "Contexts/RenderingContext.h"
+#include "Rendering/RenderQueue.h"
 
-#include "InputManager.h"
-#include "Time.h"
-#include "GameContext.h"
+#include "Utility/Input/InputManager.h"
+#include "Utility/Time/Time.h"
+#include "Contexts/GameContext.h"
 
-#include "StateStack.h"
+#include "State/StateStack.h"
 
-#include "AsyncLoader.h"
+#include "FileHandling/Loading/AsyncLoader.h"
 #include <thread>
 
-#include "AudioManager.h"
-#include "TextureBank.h"
-#include "MessageQueue.h"
+#include "Audio/AudioManager.h"
+#include "FileHandling/Banks/TextureBank.h"
+#include "Messaging/MessageQueue.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 

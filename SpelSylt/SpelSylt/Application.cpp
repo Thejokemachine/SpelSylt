@@ -2,13 +2,13 @@
 
 #include "Application.h"
 
-#include "Time.h"
-#include "InputManager.h"
-#include "UIMessages.h"
+#include "Utility/Time/Time.h"
+#include "Utility/Input/InputManager.h"
+#include "Messaging/Messages/UIMessages.h"
+#include "UI/Base/UIState.h"
 
-#include "HookGame.h"
-#include "HookUIState.h"
-#include "UIState.h"
+//#include "HookGame.h"
+//#include "HookUIState.h"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
@@ -42,8 +42,8 @@ void CApplication::Initialize()
 
 	AudioManager.Init(MessageQueue);
 
-	StateStack.Push(new HookGame(), GameContext, RenderingContext);
-	StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);
+	//StateStack.Push(new HookGame(), GameContext, RenderingContext);
+	//StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);
 	//StateStack.Push(new CRenderingTestState());
 
 	AsyncLoader.ProvideThread(LoadThread);

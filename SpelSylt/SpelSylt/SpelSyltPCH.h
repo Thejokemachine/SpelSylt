@@ -5,26 +5,26 @@
 #include <string>
 
 //Logging
-#include "DebugLogger.h"
+#include "Debugging/Logging/DebugLogger.h"
 
 //Memory
-#include "MemAllocSizes.h"
+#include "Memory/MemAllocSizes.h"
 
 //Contexts
-#include "GameContext.h"
-#include "RenderingContext.h"
+#include "Contexts/GameContext.h"
+#include "Contexts/RenderingContext.h"
 
 //Utility
-#include "TimeGetter.h"
-#include "InputEventGetter.h"
-#include "AsyncLoaderInterface.h"
+#include "Utility/Time/TimeGetter.h"
+#include "Utility/Input/InputEventGetter.h"
+#include "FileHandling/Loading/AsyncLoaderInterface.h"
 
 //Asset
-#include "Assets.h"
+#include "FileHandling/Asset/Assets.h"
 
 //Messaging
-#include "MessageQueue.h"
-#include "SubscriptionHandle.h"
+#include "Messaging/MessageQueue.h"
+#include "Messaging/Subscribing/SubscriptionHandle.h"
 
 //Messages
-#include "AudioMessages.h"
+#include "Messaging/Messages/AudioMessages.h"

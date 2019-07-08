@@ -39,13 +39,13 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -70,14 +70,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>Launcher_Debug</TargetName>
-    <OutDir>$(SolutionDir)bin\</OutDir>
-    <IntDir>$(SolutionDir)trash\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+    <OutDir>$(SolutionDir)External\Engine\</OutDir>
+    <IntDir>$(SolutionDir)trash\$(ProjectName)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <TargetName>Launcher_Release</TargetName>
-    <OutDir>$(SolutionDir)bin\</OutDir>
-    <IntDir>$(SolutionDir)trash\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+    <OutDir>$(SolutionDir)External\Engine\</OutDir>
+    <IntDir>$(SolutionDir)trash\$(ProjectName)$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,7 +94,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir)External\SFML\Include\SFML\;$(SolutionDir)External\JSON\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(ProjectDir);$(SolutionDir)External\SFML\Include\SFML\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSyltPCH.h</PrecompiledHeaderFile>
@@ -105,7 +105,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(OutDir)UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
+      <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(SolutionDir)Bin\UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
@@ -135,7 +135,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir)External\SFML\Include\SFML\;$(SolutionDir)External\JSON\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(ProjectDir);$(SolutionDir)External\SFML\Include\SFML\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSyltPCH.h</PrecompiledHeaderFile>
@@ -148,7 +148,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(OutDir)UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
+      <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(SolutionDir)Bin\UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
@@ -156,116 +156,110 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnimationAsset.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="AsyncLoader.cpp" />
-    <ClCompile Include="AudioManager.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="CircleCollider.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="CommonMath.cpp" />
-    <ClCompile Include="DebugCommands.cpp" />
-    <ClCompile Include="DebugDrawer.cpp" />
-    <ClCompile Include="DebugLogger.cpp" />
-    <ClCompile Include="DirectoryHelpers.cpp" />
-    <ClCompile Include="FileLoader.cpp" />
-    <ClCompile Include="FileWatcher.cpp" />
-    <ClCompile Include="FontBank.cpp" />
-    <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="HookGame.cpp" />
-    <ClCompile Include="HookUIState.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MessageQueue.cpp" />
-    <ClCompile Include="Panel.cpp" />
-    <ClCompile Include="PointCollider.cpp" />
-    <ClCompile Include="RectangleCollider.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RenderQueue.cpp" />
-    <ClCompile Include="State.cpp" />
-    <ClCompile Include="StateStack.cpp" />
-    <ClCompile Include="StaticMemoryBuffer.cpp" />
-    <ClCompile Include="Text.cpp" />
-    <ClCompile Include="SubscriptionHandle.cpp" />
-    <ClCompile Include="Subscriptions.cpp" />
-    <ClCompile Include="TextFileHandler.cpp" />
-    <ClCompile Include="TextureBank.cpp" />
-    <ClCompile Include="Time.cpp" />
-    <ClCompile Include="TimedEvent.cpp" />
+    <ClCompile Include="Audio\AudioManager.cpp" />
+    <ClCompile Include="Debugging\Logging\DebugLogger.cpp" />
+    <ClCompile Include="Debugging\Rendering\DebugCommands.cpp" />
+    <ClCompile Include="Debugging\Rendering\DebugDrawer.cpp" />
+    <ClCompile Include="FileHandling\Asset\AnimationAsset.cpp" />
+    <ClCompile Include="FileHandling\Banks\FontBank.cpp" />
+    <ClCompile Include="FileHandling\Banks\TextureBank.cpp" />
+    <ClCompile Include="FileHandling\DirectoryHelpers.cpp" />
+    <ClCompile Include="FileHandling\FileWatcher.cpp" />
+    <ClCompile Include="FileHandling\Loading\AsyncLoader.cpp" />
+    <ClCompile Include="FileHandling\Loading\FileLoader.cpp" />
+    <ClCompile Include="FileHandling\TextFileHandler.cpp" />
+    <ClCompile Include="Math\CommonMath.cpp" />
+    <ClCompile Include="Memory\Containers\StaticMemoryBuffer.cpp" />
+    <ClCompile Include="Messaging\MessageQueue.cpp" />
+    <ClCompile Include="Messaging\Subscribing\SubscriptionHandle.cpp" />
+    <ClCompile Include="Messaging\Subscribing\Subscriptions.cpp" />
+    <ClCompile Include="Physics\Collision\CircleCollider.cpp" />
+    <ClCompile Include="Physics\Collision\Collider.cpp" />
+    <ClCompile Include="Physics\Collision\PointCollider.cpp" />
+    <ClCompile Include="Physics\Collision\RectangleCollider.cpp" />
+    <ClCompile Include="Rendering\Renderer.cpp" />
+    <ClCompile Include="Rendering\RenderQueue.cpp" />
+    <ClCompile Include="State\State.cpp" />
+    <ClCompile Include="State\StateStack.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
-    <ClCompile Include="UILayout.cpp" />
-    <ClCompile Include="UIState.cpp" />
-    <ClCompile Include="UIUtilities.cpp" />
+    <ClCompile Include="UI\Base\UILayout.cpp" />
+    <ClCompile Include="UI\Base\UIState.cpp" />
+    <ClCompile Include="UI\Button.cpp" />
+    <ClCompile Include="UI\Panel.cpp" />
+    <ClCompile Include="UI\Text.cpp" />
+    <ClCompile Include="UI\UIUtilities.cpp" />
+    <ClCompile Include="Utility\Input\InputManager.cpp" />
+    <ClCompile Include="Utility\TimedEvent.cpp" />
+    <ClCompile Include="Utility\Time\Time.cpp" />
     <ClCompile Include="XMLUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationAsset.h" />
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Asset.h" />
-    <ClInclude Include="AsyncLoader.h" />
-    <ClInclude Include="AsyncLoaderInterface.h" />
-    <ClInclude Include="AsyncOperationInterface.h" />
-    <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="AudioMessages.h" />
-    <ClInclude Include="BaseMessage.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="CircleCollider.h" />
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="CommonMath.h" />
-    <ClInclude Include="DateTime.h" />
-    <ClInclude Include="DebugCommands.h" />
-    <ClInclude Include="DebugDrawer.h" />
-    <ClInclude Include="DebugDrawerInput.h" />
-    <ClInclude Include="DebugLogger.h" />
-    <ClInclude Include="DirectoryHelpers.h" />
-    <ClInclude Include="FileWatcher.h" />
-    <ClInclude Include="MessageSubscriberList.h" />
-    <ClInclude Include="MessageSubscriberListInterface.h" />
-    <ClInclude Include="FileLoader.h" />
-    <ClInclude Include="FontBank.h" />
-    <ClInclude Include="GameContext.h" />
-    <ClInclude Include="GameState.h" />
-    <ClInclude Include="Assets.h" />
-    <ClInclude Include="HookGame.h" />
-    <ClInclude Include="HookUIState.h" />
-    <ClInclude Include="InputEventGetter.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="KeyCodes.h" />
-    <ClInclude Include="LoadEnums.h" />
-    <ClInclude Include="LogLevels.h" />
-    <ClInclude Include="MemAllocSizes.h" />
-    <ClInclude Include="MessageQueue.h" />
-    <ClInclude Include="SoundAsset.h" />
+    <ClInclude Include="Audio\AudioManager.h" />
+    <ClInclude Include="Contexts\GameContext.h" />
+    <ClInclude Include="Contexts\RenderingContext.h" />
+    <ClInclude Include="Debugging\Logging\DebugLogger.h" />
+    <ClInclude Include="Debugging\Logging\LogLevels.h" />
+    <ClInclude Include="Debugging\Rendering\DebugCommands.h" />
+    <ClInclude Include="Debugging\Rendering\DebugDrawer.h" />
+    <ClInclude Include="Debugging\Rendering\DebugDrawerInput.h" />
+    <ClInclude Include="EngineMinimal.h" />
+    <ClInclude Include="EngineStartUp.h" />
+    <ClInclude Include="FileHandling\Asset\AnimationAsset.h" />
+    <ClInclude Include="FileHandling\Asset\Asset.h" />
+    <ClInclude Include="FileHandling\Asset\Assets.h" />
+    <ClInclude Include="FileHandling\Asset\SoundAsset.h" />
+    <ClInclude Include="FileHandling\Asset\TextureAsset.h" />
+    <ClInclude Include="FileHandling\Banks\FontBank.h" />
+    <ClInclude Include="FileHandling\Banks\TextureBank.h" />
+    <ClInclude Include="FileHandling\Banks\TextureProviderInterface.h" />
+    <ClInclude Include="FileHandling\DirectoryHelpers.h" />
+    <ClInclude Include="FileHandling\FileWatcher.h" />
+    <ClInclude Include="FileHandling\Loading\AsyncLoader.h" />
+    <ClInclude Include="FileHandling\Loading\AsyncLoaderInterface.h" />
+    <ClInclude Include="FileHandling\Loading\FileLoader.h" />
+    <ClInclude Include="FileHandling\Loading\LoadEnums.h" />
+    <ClInclude Include="FileHandling\TextFileHandler.h" />
+    <ClInclude Include="Math\CommonMath.h" />
+    <ClInclude Include="Memory\Containers\StaticMemoryBuffer.h" />
+    <ClInclude Include="Memory\MemAllocSizes.h" />
+    <ClInclude Include="Messaging\MessageQueue.h" />
+    <ClInclude Include="Messaging\Messages\AudioMessages.h" />
+    <ClInclude Include="Messaging\Messages\BaseMessage.h" />
+    <ClInclude Include="Messaging\Messages\UIMessages.h" />
+    <ClInclude Include="Messaging\Subscribing\MessageSubscriberList.h" />
+    <ClInclude Include="Messaging\Subscribing\MessageSubscriberListInterface.h" />
+    <ClInclude Include="Messaging\Subscribing\SubscriptionHandle.h" />
+    <ClInclude Include="Messaging\Subscribing\Subscriptions.h" />
+    <ClInclude Include="Physics\Collision\CircleCollider.h" />
+    <ClInclude Include="Physics\Collision\Collider.h" />
+    <ClInclude Include="Physics\Collision\PointCollider.h" />
+    <ClInclude Include="Physics\Collision\RectangleCollider.h" />
+    <ClInclude Include="Rendering\RenderCommand.h" />
+    <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\RenderLayer.h" />
+    <ClInclude Include="Rendering\RenderQueue.h" />
+    <ClInclude Include="Rendering\RenderQueueInput.h" />
+    <ClInclude Include="Rendering\RenderQueueOutput.h" />
     <ClInclude Include="SpelSyltPCH.h" />
-    <ClInclude Include="StaticMemoryBuffer.h" />
-    <ClInclude Include="Panel.h" />
-    <ClInclude Include="PointCollider.h" />
-    <ClInclude Include="RectangleCollider.h" />
-    <ClInclude Include="RenderCommand.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="RenderingContext.h" />
-    <ClInclude Include="RenderLayer.h" />
-    <ClInclude Include="RenderQueue.h" />
-    <ClInclude Include="RenderQueueInput.h" />
-    <ClInclude Include="RenderQueueOutput.h" />
+    <ClInclude Include="State\State.h" />
+    <ClInclude Include="State\StateStack.h" />
     <ClInclude Include="sfml_libs.h" />
-    <ClInclude Include="State.h" />
-    <ClInclude Include="StateStack.h" />
-    <ClInclude Include="SubscriptionHandle.h" />
-    <ClInclude Include="Subscriptions.h" />
-    <ClInclude Include="Text.h" />
-    <ClInclude Include="TextFileHandler.h" />
-    <ClInclude Include="TextureAsset.h" />
-    <ClInclude Include="TextureBank.h" />
-    <ClInclude Include="TextureProviderInterface.h" />
-    <ClInclude Include="Time.h" />
-    <ClInclude Include="TimedEvent.h" />
-    <ClInclude Include="TimeGetter.h" />
     <ClInclude Include="tinyxml2.h" />
-    <ClInclude Include="UILayout.h" />
-    <ClInclude Include="UIMessages.h" />
-    <ClInclude Include="UIState.h" />
-    <ClInclude Include="UIUtilities.h" />
+    <ClInclude Include="UI\Base\UILayout.h" />
+    <ClInclude Include="UI\Base\UIState.h" />
+    <ClInclude Include="UI\Button.h" />
+    <ClInclude Include="UI\Panel.h" />
+    <ClInclude Include="UI\Text.h" />
+    <ClInclude Include="UI\UIUtilities.h" />
+    <ClInclude Include="Utility\Async\AsyncOperationInterface.h" />
+    <ClInclude Include="Utility\Input\InputEventGetter.h" />
+    <ClInclude Include="Utility\Input\InputManager.h" />
+    <ClInclude Include="Utility\Input\KeyCodes.h" />
+    <ClInclude Include="Utility\TimedEvent.h" />
+    <ClInclude Include="Utility\Time\Time.h" />
+    <ClInclude Include="Utility\Time\TimeGetter.h" />
     <ClInclude Include="XMLUtilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
