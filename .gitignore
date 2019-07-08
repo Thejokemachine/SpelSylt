@@ -47,7 +47,7 @@
 /SpelSylt/.vs/SpelSylt/v15/Browse.VC.opendb
 *.cache
 *.exe.config
-*.csproj.user
+*.user
 
 # Generated files
 *.generated.h
