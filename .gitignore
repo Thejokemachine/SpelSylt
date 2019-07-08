@@ -48,3 +48,4 @@
 *.cache
 *.exe.config
 *.csproj.user
+*.generated.h
