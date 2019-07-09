@@ -137,7 +137,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir);$(SolutionDir)External\SFML\Include\SFML\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSylt/SpelSyltPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
@@ -180,6 +180,9 @@
     <ClCompile Include="Physics\Collision\RectangleCollider.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderQueue.cpp" />
+    <ClCompile Include="SpelSyltPCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="State\State.cpp" />
     <ClCompile Include="State\StateStack.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
