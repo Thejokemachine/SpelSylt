@@ -138,13 +138,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="HookGame.cpp" />
     <ClCompile Include="HookUIState.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h" />
+    <ClInclude Include="GameApplication.h" />
     <ClInclude Include="HookGame.h" />
     <ClInclude Include="HookUIState.h" />
   </ItemGroup>

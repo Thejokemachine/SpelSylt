@@ -25,9 +25,15 @@ public:
 
 	void Initialize();
 	bool Run();
-private:
-	void CreateWindow();
+	
+protected:
+	virtual void SetUpWindow() = 0;
+	virtual void PushStartUpStates() = 0;
 
+	void CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen = false);
+	void SetWindowTitle(const char* InTitle);
+	void PushState(CState* InState);
+private:
 	void PrepareForNewFrame();
 	void PublishNewFrame();
 

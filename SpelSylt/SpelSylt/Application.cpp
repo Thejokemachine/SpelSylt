@@ -1,9 +1,11 @@
-#include "Application.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include <SpelSylt/Utility/Time/Time.h>
-#include <SpelSylt/Utility/Input/InputManager.h>
-#include <SpelSylt/Messaging/Messages/UIMessages.h>
-#include <SpelSylt/UI/Base/UIState.h>
+#include "SpelSylt/Application.h"
+
+#include "SpelSylt/Utility/Time/Time.h"
+#include "SpelSylt/Utility/Input/InputManager.h"
+#include "SpelSylt/Messaging/Messages/UIMessages.h"
+#include "SpelSylt/UI/Base/UIState.h"
 
 #include "Game/HookGame.h"
 #include "Game/HookUIState.h"
@@ -34,7 +36,6 @@ CApplication::CApplication()
 
 void CApplication::Initialize()
 {
-	CreateWindow();
 	InputManager.Init(&Window);
 	Time.Init();
 
@@ -44,21 +45,38 @@ void CApplication::Initialize()
 	StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);
 
 	AsyncLoader.ProvideThread(LoadThread);
+
+	SetUpWindow();
+	PushStartUpStates();
 }
 
 //------------------------------------------------------------------
 
-void CApplication::CreateWindow()
+void CApplication::CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen )
 {
 	sf::VideoMode vm;
-	vm.width = 1600;
-	vm.height = 900;
+	vm.width = InWindowW;
+	vm.height = InWindowH;
 	vm.bitsPerPixel = 32;
 
-	Window.create(vm, "SpelSylt");
+	Window.create(vm, "SpelSylt Application");
 	Window.setFramerateLimit(60u);
 
 	RenderingContext.Camera.setSize(static_cast<float>(vm.width), static_cast<float>(vm.height));
+}
+
+//------------------------------------------------------------------
+
+void CApplication::SetWindowTitle(const char* InTitle)
+{
+	Window.setTitle(InTitle);
+}
+
+//------------------------------------------------------------------
+
+void CApplication::PushState(CState* InState)
+{
+	StateStack.Push(InState, GameContext, RenderingContext);
 }
 
 //------------------------------------------------------------------

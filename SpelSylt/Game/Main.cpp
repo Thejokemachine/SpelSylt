@@ -1,6 +1,8 @@
-#include "SpelSylt/EngineStartUp.h"
-#include "SpelSylt/EngineMinimal.h"
-#include "Game/Application.h"
+#include <SpelSylt/EngineStartUp.h>
+#include <SpelSylt/EngineMinimal.h>
+#include <SpelSylt/Application.h>
+
+#include "Game/GameApplication.h"
 
 void LoggingSetup()
 {
@@ -26,7 +28,7 @@ int main()
 {
 	LoggingSetup();
 
-	CApplication App;
+	CGameApplication App;
 	App.Initialize();
 	while (App.Run());
 
