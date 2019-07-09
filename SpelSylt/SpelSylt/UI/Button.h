@@ -1,5 +1,5 @@
 #pragma once
-#include "UI/Panel.h"
+#include "SpelSylt/UI/Panel.h"
 
 namespace UI
 {

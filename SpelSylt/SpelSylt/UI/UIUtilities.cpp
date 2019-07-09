@@ -1,7 +1,7 @@
-#include "SpelSyltPCH.h"
-#include "UI/UIUtilities.h"
-#include "Math/CommonMath.h"
-#include "UI/Panel.h"
+#include "SpelSylt/SpelSyltPCH.h"
+#include "SpelSylt/UI/UIUtilities.h"
+#include "SpelSylt/Math/CommonMath.h"
+#include "SpelSylt/UI/Panel.h"
 
 using namespace UI;
 

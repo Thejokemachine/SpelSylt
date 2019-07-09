@@ -1,5 +1,5 @@
 #pragma once
-#include "KeyCodes.h"
+#include "SpelSylt/Utility/Input/KeyCodes.h"
 
 #include <SFML/System/Vector2.hpp>
 

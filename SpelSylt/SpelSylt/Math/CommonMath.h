@@ -1,5 +1,5 @@
 #pragma once
-#include "System/Vector2.hpp"
+#include "SFML/System/Vector2.hpp"
 
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)

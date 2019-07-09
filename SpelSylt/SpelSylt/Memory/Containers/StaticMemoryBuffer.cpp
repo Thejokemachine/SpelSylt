@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Memory/Containers/StaticMemoryBuffer.h"
+#include "SpelSylt/Memory/Containers/StaticMemoryBuffer.h"
 
 //------------------------------------------------------------------
 

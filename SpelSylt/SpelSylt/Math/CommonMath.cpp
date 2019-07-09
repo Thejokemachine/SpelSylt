@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Math/CommonMath.h"
+#include "SpelSylt/Math/CommonMath.h"
 #include <cmath>
 #include <utility>
 

@@ -1,10 +1,10 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Physics/Collision/Collider.h"
-#include "Physics/Collision/CircleCollider.h"
-#include "Physics/Collision/RectangleCollider.h"
-#include "Physics/Collision/PointCollider.h"
-#include "Math/CommonMath.h"
+#include "SpelSylt/Physics/Collision/Collider.h"
+#include "SpelSylt/Physics/Collision/CircleCollider.h"
+#include "SpelSylt/Physics/Collision/RectangleCollider.h"
+#include "SpelSylt/Physics/Collision/PointCollider.h"
+#include "SpelSylt/Math/CommonMath.h"
 
 bool CCollider::CircleVsCircle(const CCircleCollider & aCollider1, const CCircleCollider & aCollider2)
 {

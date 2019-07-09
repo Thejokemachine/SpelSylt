@@ -1,9 +1,9 @@
-#include "SpelSyltPCH.h"
-#include "UI/Base/UIState.h"
-#include "Contexts/GameContext.h"
-#include "UI/Button.h"
-#include "Messaging/Messages/UIMessages.h"
-#include "Messaging/MessageQueue.h"
+#include "SpelSylt/SpelSyltPCH.h"
+#include "SpelSylt/UI/Base/UIState.h"
+#include "SpelSylt/Contexts/GameContext.h"
+#include "SpelSylt/UI/Button.h"
+#include "SpelSylt/Messaging/Messages/UIMessages.h"
+#include "SpelSylt/Messaging/MessageQueue.h"
 
 CFontBank UIState::FontBank;
 

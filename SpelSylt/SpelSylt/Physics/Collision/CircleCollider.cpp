@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Physics/Collision/CircleCollider.h"
+#include "SpelSylt/Physics/Collision/CircleCollider.h"
 
 void CCircleCollider::SetRadius(float aRadius)
 {

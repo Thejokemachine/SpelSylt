@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Messaging/Messages/BaseMessage.h"
+#include "SpelSylt/Messaging/Messages/BaseMessage.h"
 #include <functional>
 
 struct SSubscriptionHandle;

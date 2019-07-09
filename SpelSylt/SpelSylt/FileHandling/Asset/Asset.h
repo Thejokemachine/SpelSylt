@@ -1,7 +1,7 @@
 #pragma once
 
-#include "FileHandling/Loading/LoadEnums.h"
-#include "Memory/MemAllocSizes.h"
+#include "SpelSylt/FileHandling/Loading/LoadEnums.h"
+#include "SpelSylt/Memory/MemAllocSizes.h"
 
 struct SBaseAsset
 {

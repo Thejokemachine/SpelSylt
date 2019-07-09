@@ -1,11 +1,11 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Debugging/Logging/DebugLogger.h"
+#include "SpelSylt/Debugging/Logging/DebugLogger.h"
 
-#include "Utility/Time/Time.h"
-#include "Utility/Time/DateTime.h"
-#include "FileHandling/DirectoryHelpers.h"
-#include "FileHandling/TextFileHandler.h"
+#include "SpelSylt/Utility/Time/Time.h"
+#include "SpelSylt/Utility/Time/DateTime.h"
+#include "SpelSylt/FileHandling/DirectoryHelpers.h"
+#include "SpelSylt/FileHandling/TextFileHandler.h"
 
 #include <cstdarg>
 #include <windows.h>

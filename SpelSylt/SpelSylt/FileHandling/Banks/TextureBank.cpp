@@ -1,7 +1,7 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "FileHandling/Banks/TextureBank.h"
-#include "FileHandling/Loading/AsyncLoaderInterface.h"
+#include "SpelSylt/FileHandling/Banks/TextureBank.h"
+#include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
 
 //------------------------------------------------------------------
 

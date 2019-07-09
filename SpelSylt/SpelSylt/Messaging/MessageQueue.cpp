@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Messaging/MessageQueue.h"
+#include "SpelSylt/Messaging/MessageQueue.h"
 
 //------------------------------------------------------------------
 

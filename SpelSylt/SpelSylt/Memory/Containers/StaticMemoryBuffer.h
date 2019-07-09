@@ -1,5 +1,5 @@
 #pragma once
-#include "Memory/MemAllocSizes.h"
+#include "SpelSylt/Memory/MemAllocSizes.h"
 
 typedef unsigned char RawByte;
 

@@ -1,10 +1,10 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
 #include <iostream>
 
-#include "Audio/AudioManager.h"
-#include "Math/CommonMath.h"
-#include "FileHandling/DirectoryHelpers.h"
+#include "SpelSylt/Audio/AudioManager.h"
+#include "SpelSylt/Math/CommonMath.h"
+#include "SpelSylt/FileHandling/DirectoryHelpers.h"
 
 CAudioManager::CAudioManager(const std::string & aAudioFolder)
 {

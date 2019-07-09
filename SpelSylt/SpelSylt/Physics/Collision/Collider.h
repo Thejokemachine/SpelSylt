@@ -1,6 +1,6 @@
 #pragma once
-#include "System/Vector2.hpp"
-#include "Graphics/Transformable.hpp"
+#include "SFML/System/Vector2.hpp"
+#include "SFML/Graphics/Transformable.hpp"
 
 class CCircleCollider;
 class CRectangleCollider;

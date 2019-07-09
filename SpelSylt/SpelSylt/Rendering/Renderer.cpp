@@ -1,8 +1,8 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Rendering/Renderer.h"
-#include "Rendering/RenderCommand.h"
-#include "Rendering/RenderQueueOutput.h"
+#include "SpelSylt/Rendering/Renderer.h"
+#include "SpelSylt/Rendering/RenderCommand.h"
+#include "SpelSylt/Rendering/RenderQueueOutput.h"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 

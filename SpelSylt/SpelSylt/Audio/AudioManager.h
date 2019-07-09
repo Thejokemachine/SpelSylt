@@ -2,8 +2,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "FileHandling/Asset/Assets.h"
-#include "Messaging/Subscribing/Subscriptions.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
+#include "SpelSylt/Messaging/Subscribing/Subscriptions.h"
 
 #include "SFML/Audio.hpp"
 

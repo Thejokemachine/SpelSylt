@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Messaging/Subscribing/SubscriptionHandle.h"
+#include "SpelSylt/Messaging/Subscribing/SubscriptionHandle.h"
 
 //------------------------------------------------------------------
 

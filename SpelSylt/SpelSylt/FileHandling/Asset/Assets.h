@@ -1,4 +1,4 @@
 #pragma once
 
-#include "SoundAsset.h"
-#include "TextureAsset.h"
+#include "SpelSylt/FileHandling/Asset/SoundAsset.h"
+#include "SpelSylt/FileHandling/Asset/TextureAsset.h"

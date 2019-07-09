@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Asset.h"
+#include "SpelSylt/FileHandling/Asset/Asset.h"
 
 #include <SFML/Graphics/Texture.hpp>
 

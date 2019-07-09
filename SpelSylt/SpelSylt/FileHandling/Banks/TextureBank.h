@@ -1,8 +1,8 @@
 #pragma once
 
-#include "TextureProviderInterface.h"
+#include "SpelSylt/FileHandling/Banks/TextureProviderInterface.h"
 
-#include "FileHandling/Asset/Assets.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
 
 #include <string>
 #include <unordered_map>

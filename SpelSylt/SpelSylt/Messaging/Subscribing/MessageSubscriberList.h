@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Messaging/Subscribing/MessageSubscriberListInterface.h"
+#include "SpelSylt/Messaging/Subscribing/MessageSubscriberListInterface.h"
 
 #include <vector>
 #include <functional>
-#include "Messaging/Subscribing/SubscriptionHandle.h"
+#include "SpelSylt/Messaging/Subscribing/SubscriptionHandle.h"
 
 template<typename MessageType>
 class TMessageSubscriberList final

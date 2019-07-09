@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Physics/Collision/RectangleCollider.h"
+#include "SpelSylt/Physics/Collision/RectangleCollider.h"
 
 void CRectangleCollider::SetDimensions(const sf::Vector2f & aDimensions)
 {

@@ -1,11 +1,9 @@
-#include "SpelSyltPCH.h"
-
 #include "Application.h"
 
-#include "Utility/Time/Time.h"
-#include "Utility/Input/InputManager.h"
-#include "Messaging/Messages/UIMessages.h"
-#include "UI/Base/UIState.h"
+#include <SpelSylt/Utility/Time/Time.h>
+#include <SpelSylt/Utility/Input/InputManager.h>
+#include <SpelSylt/Messaging/Messages/UIMessages.h>
+#include <SpelSylt/UI/Base/UIState.h>
 
 //#include "HookGame.h"
 //#include "HookUIState.h"

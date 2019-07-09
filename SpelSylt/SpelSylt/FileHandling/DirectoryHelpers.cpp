@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "FileHandling/DirectoryHelpers.h"
+#include "SpelSylt/FileHandling/DirectoryHelpers.h"
 
 //------------------------------------------------------------------
 

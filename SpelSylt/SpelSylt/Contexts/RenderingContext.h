@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Rendering/RenderCommand.h"
-#include "Rendering/RenderQueueInput.h"
-#include "Debugging/Rendering/DebugDrawerInput.h"
+#include "SpelSylt/Rendering/RenderCommand.h"
+#include "SpelSylt/Rendering/RenderQueueInput.h"
+#include "SpelSylt/Debugging/Rendering/DebugDrawerInput.h"
 
 #include <SFML/Graphics/View.hpp>
 

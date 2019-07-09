@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TimeGetter.h"
+#include "SpelSylt/Utility/Time/TimeGetter.h"
 
 #include <chrono>
 #include <string>

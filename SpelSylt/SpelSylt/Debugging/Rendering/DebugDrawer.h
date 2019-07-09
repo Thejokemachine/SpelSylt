@@ -1,5 +1,5 @@
 #pragma once
-#include "Debugging/Rendering/DebugDrawerInput.h"
+#include "SpelSylt/Debugging/Rendering/DebugDrawerInput.h"
 
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/Font.hpp"

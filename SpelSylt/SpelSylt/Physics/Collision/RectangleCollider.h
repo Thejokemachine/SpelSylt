@@ -1,5 +1,5 @@
 #pragma once
-#include "Physics/Collision/Collider.h"
+#include "SpelSylt/Physics/Collision/Collider.h"
 
 class CRectangleCollider : public CCollider
 {

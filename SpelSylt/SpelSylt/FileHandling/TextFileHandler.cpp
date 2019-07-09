@@ -1,8 +1,8 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "FileHandling/TextFileHandler.h"
+#include "SpelSylt/FileHandling/TextFileHandler.h"
 
-#include "Debugging/Logging/DebugLogger.h"
+#include "SpelSylt/Debugging/Logging/DebugLogger.h"
 
 //------------------------------------------------------------------
 

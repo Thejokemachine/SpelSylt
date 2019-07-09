@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
-#include "FileHandling/Banks/FontBank.h"
-#include "FileHandling/DirectoryHelpers.h"
+#include "SpelSylt/SpelSyltPCH.h"
+#include "SpelSylt/FileHandling/Banks/FontBank.h"
+#include "SpelSylt/FileHandling/DirectoryHelpers.h"
 
 CFontBank::CFontBank()
 {

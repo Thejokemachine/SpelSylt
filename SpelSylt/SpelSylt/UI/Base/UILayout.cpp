@@ -1,14 +1,14 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "UI/Base/UILayout.h"
+#include "SpelSylt/UI/Base/UILayout.h"
 #include "SFML/Graphics/RenderTarget.hpp"
-#include "UI/Button.h"
-#include "UI/Text.h"
-#include "tinyxml2.h"
-#include "Utility/Input/InputEventGetter.h"
-#include "UI/UIUtilities.h"
-#include "Math/CommonMath.h"
-#include "XMLUtilities.h"
+#include "SpelSylt/UI/Button.h"
+#include "SpelSylt/UI/Text.h"
+#include "SpelSylt/tinyxml2.h"
+#include "SpelSylt/Utility/Input/InputEventGetter.h"
+#include "SpelSylt/UI/UIUtilities.h"
+#include "SpelSylt/Math/CommonMath.h"
+#include "SpelSylt/XMLUtilities.h"
 
 using namespace tinyxml2;
 using namespace UI;

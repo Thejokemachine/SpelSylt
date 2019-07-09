@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Rendering/RenderQueue.h"
+#include "SpelSylt/Rendering/RenderQueue.h"
 
 //------------------------------------------------------------------
 

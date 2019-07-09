@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Messaging/Subscribing/SubscriptionHandle.h"
+#include "SpelSylt/Messaging/Subscribing/SubscriptionHandle.h"
 #include <vector>
 
 class CSubscriptions

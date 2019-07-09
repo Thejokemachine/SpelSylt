@@ -1,8 +1,8 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "FileHandling/Asset/Assets.h"
-#include "FileHandling/Loading/AsyncLoader.h"
-#include "FileHandling/Loading/FileLoader.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
+#include "SpelSylt/FileHandling/Loading/AsyncLoader.h"
+#include "SpelSylt/FileHandling/Loading/FileLoader.h"
 
 //------------------------------------------------------------------
 

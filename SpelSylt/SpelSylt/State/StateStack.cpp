@@ -1,8 +1,8 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "State/StateStack.h"
+#include "SpelSylt/State/StateStack.h"
 
-#include "State/State.h"
+#include "SpelSylt/State/State.h"
 
 
 CStateStack::CStateStack()

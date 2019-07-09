@@ -3,8 +3,8 @@
 #include <vector>
 #include <memory>
 
-#include "Debugging/Rendering/DebugDrawer.h"
-#include "tinyxml2.h"
+#include "SpelSylt/Debugging/Rendering/DebugDrawer.h"
+#include "SpelSylt/tinyxml2.h"
 
 namespace sf
 {

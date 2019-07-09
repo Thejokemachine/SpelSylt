@@ -1,6 +1,7 @@
 #pragma once
-#include "KeyCodes.h"
-#include "Utility/Input/InputEventGetter.h"
+#include "SpelSylt/Utility/Input/KeyCodes.h"
+#include "SpelSylt/Utility/Input/InputEventGetter.h"
+
 #include <map>
 #include "SFML\Window\Window.hpp"
 #include "SFML\System\Vector2.hpp"

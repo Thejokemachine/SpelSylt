@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Physics/Collision/PointCollider.h"
+#include "SpelSylt/Physics/Collision/PointCollider.h"
 
 bool CPointCollider::IsColliding(const CCircleCollider & aCircleCollider) const
 {

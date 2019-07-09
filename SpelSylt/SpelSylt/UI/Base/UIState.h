@@ -1,8 +1,8 @@
 #pragma once
-#include "State/State.h"
-#include "UI/Base/UILayout.h"
-#include "FileHandling/Banks/FontBank.h"
-#include "Messaging/Subscribing/MessageSubscriberList.h"
+#include "SpelSylt/State/State.h"
+#include "SpelSylt/UI/Base/UILayout.h"
+#include "SpelSylt/FileHandling/Banks/FontBank.h"
+#include "SpelSylt/Messaging/Subscribing/MessageSubscriberList.h"
 
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"

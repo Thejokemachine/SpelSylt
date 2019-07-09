@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "FileWatcher.h"
+#include "SpelSylt/FileHandling/FileWatcher.h"
 
 //------------------------------------------------------------------
 

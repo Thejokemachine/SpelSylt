@@ -1,8 +1,8 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Debugging/Rendering/DebugDrawer.h"
+#include "SpelSylt/Debugging/Rendering/DebugDrawer.h"
 
-#include "DebugCommands.h"
+#include "SpelSylt/Debugging/Rendering/DebugCommands.h"
 
 
 CDebugDrawer::CDebugDrawer()

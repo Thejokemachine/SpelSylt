@@ -1,6 +1,6 @@
 #pragma once
 #include <fstream>
-#include "Memory/MemAllocSizes.h"
+#include "SpelSylt/Memory/MemAllocSizes.h"
 
 class CFileLoader
 {

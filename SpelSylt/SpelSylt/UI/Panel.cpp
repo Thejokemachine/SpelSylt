@@ -1,9 +1,9 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "UI/Panel.h"
+#include "SpelSylt/UI/Panel.h"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTarget.hpp"
-#include "UI/Base/UILayout.h"
+#include "SpelSylt/UI/Base/UILayout.h"
 
 using namespace UI;
 

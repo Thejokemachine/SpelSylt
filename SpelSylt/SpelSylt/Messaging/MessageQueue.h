@@ -1,16 +1,16 @@
 #pragma once
 
-#include "Messaging/Messages/BaseMessage.h"
+#include "SpelSylt/Messaging/Messages/BaseMessage.h"
 
 #include <queue>
 #include <unordered_map>
 #include <utility>
 #include <functional>
 
-#include "Messaging/Subscribing/MessageSubscriberList.h"
-#include "Messaging/Subscribing/MessageSubscriberListInterface.h"
-#include "Messaging/Subscribing/Subscriptions.h"
-#include "Messaging/Subscribing/SubscriptionHandle.h"
+#include "SpelSylt/Messaging/Subscribing/MessageSubscriberList.h"
+#include "SpelSylt/Messaging/Subscribing/MessageSubscriberListInterface.h"
+#include "SpelSylt/Messaging/Subscribing/Subscriptions.h"
+#include "SpelSylt/Messaging/Subscribing/SubscriptionHandle.h"
 
 class CMessageQueue
 {

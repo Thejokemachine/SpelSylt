@@ -5,26 +5,26 @@
 #include <string>
 
 //Logging
-#include "Debugging/Logging/DebugLogger.h"
+#include "SpelSylt/Debugging/Logging/DebugLogger.h"
 
 //Memory
-#include "Memory/MemAllocSizes.h"
+#include "SpelSylt/Memory/MemAllocSizes.h"
 
 //Contexts
-#include "Contexts/GameContext.h"
-#include "Contexts/RenderingContext.h"
+#include "SpelSylt/Contexts/GameContext.h"
+#include "SpelSylt/Contexts/RenderingContext.h"
 
 //Utility
-#include "Utility/Time/TimeGetter.h"
-#include "Utility/Input/InputEventGetter.h"
-#include "FileHandling/Loading/AsyncLoaderInterface.h"
+#include "SpelSylt/Utility/Time/TimeGetter.h"
+#include "SpelSylt/Utility/Input/InputEventGetter.h"
+#include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
 
 //Asset
-#include "FileHandling/Asset/Assets.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
 
 //Messaging
-#include "Messaging/MessageQueue.h"
-#include "Messaging/Subscribing/SubscriptionHandle.h"
+#include "SpelSylt/Messaging/MessageQueue.h"
+#include "SpelSylt/Messaging/Subscribing/SubscriptionHandle.h"
 
 //Messages
-#include "Messaging/Messages/AudioMessages.h"
+#include "SpelSylt/Messaging/Messages/AudioMessages.h"

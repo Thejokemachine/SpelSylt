@@ -1,7 +1,7 @@
-#include "SpelSyltPCH.h"
-#include "XMLUtilities.h"
+#include "SpelSylt/SpelSyltPCH.h"
+#include "SpelSylt/XMLUtilities.h"
 
-#include "tinyxml2.h"
+#include "SpelSylt/tinyxml2.h"
 
 void XMLUtilities::QueryAttribute(const tinyxml2::XMLElement & aElement, const std::string & aAttributeName, std::string & outValue)
 {

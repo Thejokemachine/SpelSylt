@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Messaging/Messages/BaseMessage.h"
+#include "SpelSylt/Messaging/Messages/BaseMessage.h"
 #include <string>
 
 DEFINE_MSG_TWOPARAM(SMusicMessage, std::string, bool)

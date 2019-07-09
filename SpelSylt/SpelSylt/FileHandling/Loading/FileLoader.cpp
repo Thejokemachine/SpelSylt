@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "FileHandling/Loading/FileLoader.h"
+#include "SpelSylt/FileHandling/Loading/FileLoader.h"
 
 //------------------------------------------------------------------
 

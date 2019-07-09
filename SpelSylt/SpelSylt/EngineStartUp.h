@@ -9,6 +9,3 @@
 #pragma comment(lib, "../External/Engine/SpelSylt_Release")
 #pragma comment(lib, "../External/RapidJson_Release")
 #endif
-
-#include "SpelSylt/Application.h"
-

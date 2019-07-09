@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Utility/Input/InputManager.h"
+#include "SpelSylt/Utility/Input/InputManager.h"
 #include "SFML\Window\Mouse.hpp"
 #include "SFML\Window.hpp"
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Asset.h"
-#include "TextureAsset.h"
+#include "SpelSylt/FileHandling/Asset/Asset.h"
+#include "SpelSylt/FileHandling/Asset/TextureAsset.h"
 
 struct SAnimationFrame
 {

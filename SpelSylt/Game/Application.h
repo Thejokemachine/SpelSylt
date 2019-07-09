@@ -1,24 +1,19 @@
 #pragma once
 
-#include "Debugging/Rendering/DebugDrawer.h"
+#include <SpelSylt/Audio/AudioManager.h>
+#include <SpelSylt/Contexts/GameContext.h>
+#include <SpelSylt/Contexts/RenderingContext.h>
+#include <SpelSylt/Debugging/Rendering/DebugDrawer.h>
+#include <SpelSylt/FileHandling/Banks/TextureBank.h>
+#include <SpelSylt/FileHandling/Loading/AsyncLoader.h>
+#include <SpelSylt/Messaging/MessageQueue.h>
+#include <SpelSylt/Rendering/Renderer.h>
+#include <SpelSylt/Rendering/RenderQueue.h>
+#include <SpelSylt/State/StateStack.h>
+#include <SpelSylt/Utility/Input/InputManager.h>
+#include <SpelSylt/Utility/Time/Time.h>
 
-#include "Rendering/Renderer.h"
-#include "Contexts/RenderingContext.h"
-#include "Rendering/RenderQueue.h"
-
-#include "Utility/Input/InputManager.h"
-#include "Utility/Time/Time.h"
-#include "Contexts/GameContext.h"
-
-#include "State/StateStack.h"
-
-#include "FileHandling/Loading/AsyncLoader.h"
 #include <thread>
-
-#include "Audio/AudioManager.h"
-#include "FileHandling/Banks/TextureBank.h"
-#include "Messaging/MessageQueue.h"
-
 #include <SFML/Graphics/RenderWindow.hpp>
 
 class CApplication

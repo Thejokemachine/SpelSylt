@@ -1,6 +1,6 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "DebugCommands.h"
+#include "SpelSylt/Debugging/Rendering/DebugCommands.h"
 #include "SFML/Graphics/RenderTarget.hpp"
 
 LineCommand::LineCommand(const sf::Vector2f & aFrom, const sf::Vector2f & aTo, const sf::Color& aColor)

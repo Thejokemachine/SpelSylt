@@ -1,7 +1,7 @@
-#include "SpelSyltPCH.h"
+#include "SpelSylt/SpelSyltPCH.h"
 
-#include "Utility/Time/Time.h"
-#include "Utility/Time/DateTime.h"
+#include "SpelSylt/Utility/Time/Time.h"
+#include "SpelSylt/Utility/Time/DateTime.h"
 #include <ctime>
 #include <iomanip>
 

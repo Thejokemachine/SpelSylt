@@ -1,10 +1,10 @@
 #pragma once
-#include "Utility/Async/AsyncOperationInterface.h"
-#include "FileHandling/Loading/AsyncLoaderInterface.h"
+#include "SpelSylt/Utility/Async/AsyncOperationInterface.h"
+#include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
 
-#include "Memory/MemAllocSizes.h"
+#include "SpelSylt/Memory/MemAllocSizes.h"
 
-#include "FileHandling/Asset/Assets.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
 #include <atomic>
 #include <queue>
 #include <list>

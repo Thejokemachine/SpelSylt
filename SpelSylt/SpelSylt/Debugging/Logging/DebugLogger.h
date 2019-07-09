@@ -1,7 +1,7 @@
 #pragma once
 
-#include "LogLevels.h"
-#include "FileHandling/TextFileHandler.h"
+#include "SpelSylt/Debugging/Logging/LogLevels.h"
+#include "SpelSylt/FileHandling/TextFileHandler.h"
 
 #include <unordered_map>
 #include <string>

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Rendering/RenderQueueInput.h"
-#include "Rendering/RenderQueueOutput.h"
-#include "Rendering/RenderLayer.h"
-#include "Rendering/RenderCommand.h"
-#include "Memory/Containers/StaticMemoryBuffer.h"
+#include "SpelSylt/Rendering/RenderQueueInput.h"
+#include "SpelSylt/Rendering/RenderQueueOutput.h"
+#include "SpelSylt/Rendering/RenderLayer.h"
+#include "SpelSylt/Rendering/RenderCommand.h"
+#include "SpelSylt/Memory/Containers/StaticMemoryBuffer.h"
 
 #include <array>
 #include <vector>
