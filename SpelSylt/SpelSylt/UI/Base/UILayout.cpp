@@ -13,10 +13,15 @@
 using namespace tinyxml2;
 using namespace UI;
 
-UILayout::UILayout(float aWidth, float aHeight, CFontBank& aFontBank) :
+UILayout::UILayout(float aWidth, float aHeight, CFontBank& aFontBank, const std::string& aLayoutXML) :
 myFontBank(aFontBank)
 {
-	myDocument.LoadFile("UI/Layouts/hookGame_layout.xml");
+	bool loaded = false;
+	while (!loaded)
+	{
+		myDocument.LoadFile(aLayoutXML.c_str());
+		loaded = !myDocument.Error();
+	}
 	if (auto root = myDocument.FirstChildElement("layout"))
 	{
 		myRootPanel = std::make_unique<Panel>(*this, nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None, *root);
@@ -46,13 +51,6 @@ void UILayout::Update(IInputEventGetter* aInputManager)
 void UILayout::Render(sf::RenderTarget & aRenderTarget)
 {
 	aRenderTarget.draw(*myRootPanel, sf::BlendAlpha);
-
-	myRootPanel->ForEachChild([this](Panel& panel){
-		sf::Vector2f center;
-		center.x = panel.GetX() + panel.GetWidth() * 0.5f;
-		center.y = panel.GetY() + panel.GetHeight() * 0.5f;
-		myDrawer.DrawRectangle(center, panel.GetWidth(), panel.GetHeight());
-	});
 
 	aRenderTarget.draw(myDrawer);
 	myDrawer.clear();

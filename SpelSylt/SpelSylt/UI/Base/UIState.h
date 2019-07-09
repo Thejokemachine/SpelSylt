@@ -4,13 +4,17 @@
 #include "SpelSylt/FileHandling/Banks/FontBank.h"
 #include "SpelSylt/Messaging/Subscribing/MessageSubscriberList.h"
 
+#ifdef _DEBUG
+#include <SpelSylt/FileHandling/FileWatcher.h>
+#endif
+
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"
 
 class UIState : public CState
 {
 public:
-	UIState(unsigned int aWidth, unsigned int aHeight);
+	UIState(unsigned int aWidth, unsigned int aHeight, const std::string& aLayoutXML);
 	~UIState() = default;
 
 	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext) override;
@@ -23,6 +27,12 @@ private:
 
 	CSubscriptions mySubs;
 
-	UI::UILayout myLayout;
+	std::unique_ptr<UI::UILayout> myLayout;
 	static CFontBank FontBank;
+
+#ifdef _DEBUG
+	CFileWatcher myFileWatcher;
+	bool myShouldReload = false;
+	std::string myLayoutFile;
+#endif
 };

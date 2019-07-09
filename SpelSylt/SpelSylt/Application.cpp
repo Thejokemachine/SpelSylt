@@ -51,9 +51,6 @@ void CApplication::Initialize()
 
 	AudioManager.Init(MessageQueue);
 
-	StateStack.Push(new HookGame(), GameContext, RenderingContext);
-	StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);
-
 	AsyncLoader.ProvideThread(LoadThread);
 
 	SetUpWindow();

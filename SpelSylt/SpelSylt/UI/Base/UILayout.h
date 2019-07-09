@@ -28,7 +28,7 @@ namespace UI
 	class UILayout
 	{
 	public:
-		UILayout(float aWidth, float aHeight, CFontBank& aFontBank);
+		UILayout(float aWidth, float aHeight, CFontBank& aFontBank, const std::string& aLayoutXML);
 		virtual ~UILayout() = default;
 
 		void Update(IInputEventGetter* aInputManager);

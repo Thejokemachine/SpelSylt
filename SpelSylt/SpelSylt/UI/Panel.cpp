@@ -8,7 +8,7 @@
 using namespace UI;
 
 Panel::Panel(UILayout& aLayout, const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement& aElement) :
-sf::FloatRect(x, y, aWidth, aHeight),
+sf::FloatRect(0, 0, aWidth, aHeight),
 myLayout(aLayout),
 myXMLElement(aElement),
 myParent(aParent),
