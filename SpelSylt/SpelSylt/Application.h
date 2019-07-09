@@ -22,6 +22,7 @@ public:
 	CApplication();
 	CApplication(const CApplication&) = delete;
 	CApplication(CApplication&&) = delete;
+	~CApplication();
 
 	void Initialize();
 	bool Run();

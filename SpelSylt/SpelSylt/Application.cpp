@@ -34,6 +34,16 @@ CApplication::CApplication()
 
 //------------------------------------------------------------------
 
+CApplication::~CApplication()
+{
+	Window.close();
+	AsyncLoader.RequestShutDown();
+	while (!AsyncLoader.HasShutDown());
+	LoadThread.join();
+}
+
+//------------------------------------------------------------------
+
 void CApplication::Initialize()
 {
 	InputManager.Init(&Window);
@@ -106,12 +116,6 @@ bool CApplication::HandleEvents()
 	{
 		if (e.type == sf::Event::Closed)
 		{
-			Window.close();
-
-			AsyncLoader.RequestShutDown();
-			while (!AsyncLoader.HasShutDown());
-			LoadThread.join();
-
 			return false;
 		}
 		else if (e.type == sf::Event::Resized)
