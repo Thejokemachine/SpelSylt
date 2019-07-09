@@ -1,14 +1,20 @@
-#include "SpelSyltPCH.h"
-
-#include "HookGame.h"
+#include "Game/HookGame.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 
-#include "CommonMath.h"
-#include "InputManager.h"
+#include "SpelSylt/Math/CommonMath.h"
+#include "SpelSylt/Utility/Input/InputManager.h"
 
 #include <iostream>
 
-#include "Assets.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
+
+#include "SpelSylt/Contexts/GameContext.h"
+#include "SpelSylt/Contexts/RenderingContext.h"
+#include "SpelSylt/Messaging/MessageQueue.h"
+#include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
+#include "SpelSylt/Utility/Time/TimeGetter.h"
+
+#include "SpelSylt/Messaging/Messages/AudioMessages.h"
 
 HookGame::HookGame() 
 	: myIsGrounded(true)

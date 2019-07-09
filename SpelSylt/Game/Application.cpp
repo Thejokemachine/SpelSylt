@@ -5,8 +5,8 @@
 #include <SpelSylt/Messaging/Messages/UIMessages.h>
 #include <SpelSylt/UI/Base/UIState.h>
 
-//#include "HookGame.h"
-//#include "HookUIState.h"
+#include "Game/HookGame.h"
+#include "Game/HookUIState.h"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
@@ -40,9 +40,8 @@ void CApplication::Initialize()
 
 	AudioManager.Init(MessageQueue);
 
-	//StateStack.Push(new HookGame(), GameContext, RenderingContext);
-	//StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);
-	//StateStack.Push(new CRenderingTestState());
+	StateStack.Push(new HookGame(), GameContext, RenderingContext);
+	StateStack.Push(new UIState(1600,900), GameContext, RenderingContext);
 
 	AsyncLoader.ProvideThread(LoadThread);
 }

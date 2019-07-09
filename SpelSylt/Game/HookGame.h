@@ -1,8 +1,8 @@
 #pragma once
-#include "State.h"
+#include "SpelSylt/State/State.h"
 
-#include "DebugDrawer.h"
-#include "UILayout.h"
+#include "SpelSylt/Debugging/Rendering/DebugDrawer.h"
+#include "SpelSylt/UI/Base/UILayout.h"
 
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Graphics/View.hpp"
@@ -10,7 +10,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "Assets.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
 
 class HookGame : public CState 
 {
