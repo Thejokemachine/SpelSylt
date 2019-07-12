@@ -13,5 +13,5 @@ void CGameApplication::SetUpWindow()
 void CGameApplication::PushStartUpStates()
 {
 	CApplication::PushState(new HookGame());
-	CApplication::PushState(new UIState(1600, 900));
+	CApplication::PushState(new UIState(1600, 900, "UI/Layouts/hookGame_layout.xml"));
 }
