@@ -13,59 +13,39 @@ myLayout(aLayout),
 myXMLElement(aElement),
 myParent(aParent),
 myName(aName),
-myDockFlags(aDockFlags)
+myDockFlags(aDockFlags),
+myX(x),
+myY(y)
 {
-	if (myParent)
-	{
-		sf::Vector2f dockOffset;
-		if (myDockFlags & DockFlag::Bottom)
-		{
-			dockOffset.y = -aHeight;
-			dockOffset.y += myParent->GetHeight();
-		}
-		if (myDockFlags & DockFlag::Right)
-		{
-			dockOffset.x = -aWidth;
-			dockOffset.x += myParent->GetWidth();
-		}
-		if (myDockFlags & DockFlag::Center)
-		{
-			dockOffset = sf::Vector2f(-aWidth * 0.5f, -aHeight * 0.5f);
-			dockOffset += sf::Vector2f(myParent->GetWidth()*0.5f, myParent->GetHeight()*0.5f);
-		}
-		if (myDockFlags & DockFlag::HCenter)
-		{
-			dockOffset.x = -aWidth * 0.5f + myParent->GetWidth() * 0.5f;
-		}
-		if (myDockFlags & DockFlag::VCenter)
-		{
-			dockOffset.y = -aHeight * 0.5f + myParent->GetHeight() * 0.5f;
-		}
-
-		left += dockOffset.x;
-		top += dockOffset.y;
-
-		left += myParent->GetX();
-		top += myParent->GetY();
-	}
-	left += x;
-	top += y;
+	Layout();
 }
 
 Panel * Panel::GetPanel(const std::string & aName)
 {
-	for (auto& p : myChildren)
+	Panel* rv = nullptr;
+	if (myName == aName)
+		rv = this;
+
+	if (rv == nullptr)
 	{
-		if (p->myName == aName)
+		for (auto& p : myChildren)
 		{
-			return p.get();
+			if (p->myName == aName)
+			{
+				rv = p.get();
+				break;
+			}
+		}
+		for (auto& p : myChildren)
+		{
+			rv = p->GetPanel(aName);
+			if (rv)
+			{
+				break;
+			}
 		}
 	}
-	for (auto& p : myChildren)
-	{
-		return p->GetPanel(aName);
-	}
-	return nullptr;
+	return rv;
 }
 
 void Panel::SetImage(const std::string & aImage)
@@ -78,16 +58,70 @@ void Panel::SetColor(const sf::Color & aColor)
 	myColor = aColor;
 }
 
+void UI::Panel::SetBounds(float x, float y, float width, float height)
+{
+	this->left = x;
+	this->top = y;
+	this->width = width;
+	this->height = height;
+
+	ForEachChild([](Panel& p) { 
+		p.Layout();
+	});
+}
+
 void Panel::AddPanel(std::shared_ptr<Panel> aPanel)
 {
 	myChildren.emplace_back(aPanel);
 }
 
-void UI::Panel::Resize(float aWidth, float aHeight)
+void UI::Panel::Layout()
 {
+	left = 0.f;
+	top = 0.f;
+
+	if (myParent)
+	{
+		sf::Vector2f dockOffset;
+		if (myDockFlags & DockFlag::Bottom)
+		{
+			dockOffset.y = -height;
+			dockOffset.y += myParent->GetHeight();
+		}
+		if (myDockFlags & DockFlag::Right)
+		{
+			dockOffset.x = -width;
+			dockOffset.x += myParent->GetWidth();
+		}
+		if (myDockFlags & DockFlag::Center)
+		{
+			dockOffset = sf::Vector2f(-width * 0.5f, -height * 0.5f);
+			dockOffset += sf::Vector2f(myParent->GetWidth()*0.5f, myParent->GetHeight()*0.5f);
+		}
+		if (myDockFlags & DockFlag::HCenter)
+		{
+			dockOffset.x = -width * 0.5f + myParent->GetWidth() * 0.5f;
+		}
+		if (myDockFlags & DockFlag::VCenter)
+		{
+			dockOffset.y = -height * 0.5f + myParent->GetHeight() * 0.5f;
+		}
+
+		left += dockOffset.x;
+		top += dockOffset.y;
+
+		left += myParent->GetX();
+		top += myParent->GetY();
+	}
+	left += myX;
+	top += myY;
+
+	onLayout();
 
 	for (auto& p : myChildren)
-		p->Resize(GetWidth(), GetHeight());
+		p->Layout();
+
+	myIsDirty = false;
 }
 
 void Panel::ForEachChild(std::function<void(Panel& panel)> aFunction)
@@ -123,4 +157,9 @@ void Panel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		panel->draw(target, states);
 	}
+}
+
+void UI::Panel::setDirty()
+{
+	myIsDirty = true;
 }

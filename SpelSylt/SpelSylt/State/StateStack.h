@@ -3,7 +3,7 @@
 
 namespace sf
 {
-	class RenderWindow;
+	class Window;
 }
 
 class CState;
@@ -14,11 +14,13 @@ struct SRenderingContext;
 class CStateStack
 {
 public:
-	CStateStack();
+	CStateStack(sf::Window& aWindow);
 	~CStateStack();
 
 	void Update(SGameContext& InGameContext);
 	void Render(SRenderingContext& InRenderingContext);
+
+	const sf::Window& GetWindow() const { return myWindow; }
 
 	void Push(CState* aNewState, SGameContext& InGameContext, SRenderingContext& InRenderingContext);
 	bool Pop();
@@ -28,5 +30,6 @@ public:
 
 private:
 	std::vector<CState*> myStates;
+	sf::Window& myWindow;
 };
 

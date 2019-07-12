@@ -3,6 +3,7 @@
 #include "SpelSylt/UI/Base/UILayout.h"
 #include "SpelSylt/FileHandling/Banks/FontBank.h"
 #include "SpelSylt/Messaging/Subscribing/MessageSubscriberList.h"
+#include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
 
 #ifdef _DEBUG
 #include <SpelSylt/FileHandling/FileWatcher.h>
@@ -17,9 +18,16 @@ public:
 	UIState(unsigned int aWidth, unsigned int aHeight, const std::string& aLayoutXML);
 	~UIState() = default;
 
-	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext) override;
-	virtual void Update(SGameContext& InGameContext) override;
-	virtual void Render(SRenderingContext& InRenderingContext) override;
+	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext) final override;
+	virtual void Update(SGameContext& InGameContext) final override;
+	virtual void Render(SRenderingContext& InRenderingContext) final override;
+
+protected:
+	virtual void OnInit(SGameContext& InGameContext, SRenderingContext& InRenderingContext) {}
+	virtual void OnUpdate(SGameContext& InGameContext) {}
+	virtual void OnRender(sf::RenderTarget& target) {}
+
+	std::unique_ptr<UI::UILayout> myLayout;
 private:
 	
 	sf::Sprite mySprite;
@@ -27,7 +35,6 @@ private:
 
 	CSubscriptions mySubs;
 
-	std::unique_ptr<UI::UILayout> myLayout;
 	static CFontBank FontBank;
 
 #ifdef _DEBUG

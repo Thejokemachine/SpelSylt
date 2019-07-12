@@ -48,10 +48,13 @@ namespace UI
 		// Setters
 		void SetImage(const std::string& aImage);
 		void SetColor(const sf::Color& aColor);
+		void SetBounds(float x, float y, float width, float height);
 		// ---------------------------------------------
 
 		void AddPanel(std::shared_ptr<Panel> aPanel);
-		void Resize(float aWidth, float aHeight);
+
+		void Layout();
+		virtual void onLayout() {};
 
 		void ForEachChild(std::function<void(Panel& panel)> aFunction);
 
@@ -62,6 +65,8 @@ namespace UI
 		virtual void onDraw(sf::RenderTarget& aTarget) const {}
 
 	protected:
+
+		void setDirty();
 
 		UILayout& myLayout;
 		tinyxml2::XMLElement& myXMLElement;
@@ -75,6 +80,10 @@ namespace UI
 		const unsigned char myDockFlags;
 		sf::Texture myTexture;
 		sf::Color myColor;
+		float myX;
+		float myY;
+
+		bool myIsDirty = false;
 	};
 
 }

@@ -190,7 +190,7 @@
     <ClCompile Include="UI\Base\UIState.cpp" />
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\Panel.cpp" />
-    <ClCompile Include="UI\Text.cpp" />
+    <ClCompile Include="UI\Label.cpp" />
     <ClCompile Include="UI\UIUtilities.cpp" />
     <ClCompile Include="Utility\Input\InputManager.cpp" />
     <ClCompile Include="Utility\TimedEvent.cpp" />
@@ -254,7 +254,7 @@
     <ClInclude Include="UI\Base\UIState.h" />
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\Panel.h" />
-    <ClInclude Include="UI\Text.h" />
+    <ClInclude Include="UI\Label.h" />
     <ClInclude Include="UI\UIUtilities.h" />
     <ClInclude Include="Utility\Async\AsyncOperationInterface.h" />
     <ClInclude Include="Utility\Input\InputEventGetter.h" />

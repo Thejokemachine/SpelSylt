@@ -24,6 +24,7 @@ namespace UI
 {
 	class Panel;
 	class Button;
+	class Label;
 
 	class UILayout
 	{
@@ -37,6 +38,8 @@ namespace UI
 
 		Panel* GetPanel(const std::string& aName);
 		Button* GetButton(const std::string& aName);
+		Label* GetLabel(const std::string& aName);
+
 		CFontBank& GetFontBank() { return myFontBank; }
 
 	private:

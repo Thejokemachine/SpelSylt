@@ -5,8 +5,8 @@
 #include "SpelSylt/State/State.h"
 
 
-CStateStack::CStateStack()
-	: myStates()
+CStateStack::CStateStack(sf::Window& aWindow)
+	: myStates(), myWindow(aWindow)
 {
 }
 
