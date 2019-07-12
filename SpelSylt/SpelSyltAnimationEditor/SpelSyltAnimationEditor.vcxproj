@@ -131,11 +131,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationEditorState.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SimpleAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationEditorState.h" />
     <ClInclude Include="GameApplication.h" />
+    <ClInclude Include="SimpleAnimation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
