@@ -71,6 +71,8 @@ void CApplication::Initialize()
 	);
 	//End Build Contexts
 
+	TextureBank.ProvideLoader(Loader);
+
 	SetUpWindow();
 	PushStartUpStates();
 }
