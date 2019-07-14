@@ -59,3 +59,5 @@
 *.generated.h
 *.anmbndl
 
+# Profiling
+Diagnosis/*
