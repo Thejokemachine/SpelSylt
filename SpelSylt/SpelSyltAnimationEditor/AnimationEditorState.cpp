@@ -12,9 +12,11 @@
 
 #include "AnimationEditorMessages.h"
 
+// Needed for opening file dialog
 #pragma comment(lib, "comdlg32.lib")
-
 #include <windows.h>
+#include <filesystem>
+#include <direct.h>
 
 using namespace AnimationEditor;
 using namespace UI;
@@ -33,10 +35,6 @@ AnimationEditorState::AnimationEditorState(unsigned width, unsigned int height, 
 
 void AnimationEditorState::OnInit(SGameContext & InGameContext, SRenderingContext & InRenderingContext)
 {
-	animation.addFrame("UI/Images/TestSprite.png", 0.25f);
-	animation.addFrame("UI/Images/gradient.png", 1.5f);
-
-
 	if (auto btn = myLayout->GetButton("speed_val_up")) {
 		btn->SetCallback([&InGameContext](Button& button) {
 			InGameContext.MessageQueue.DispatchEvent<IncrementSpeedMessage>(0.05f);
@@ -58,6 +56,7 @@ void AnimationEditorState::OnInit(SGameContext & InGameContext, SRenderingContex
 			float currValue = std::stof(label->GetText());
 			currValue += msg.Param;
 			label->SetText(UIUtilities::FormatFloat(2, currValue));
+			animation.setGlobalSpeed(currValue);
 		}
 	}, mySubs);
 }
@@ -80,6 +79,9 @@ void AnimationEditorState::OnRender(sf::RenderTarget& target)
 
 void AnimationEditor::AnimationEditorState::openFileDialog()
 {
+	char dir[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, dir);
+
 	char filename[MAX_PATH];
 	OPENFILENAME ofn;
 	ZeroMemory(&filename, sizeof(filename));
@@ -94,10 +96,17 @@ void AnimationEditor::AnimationEditorState::openFileDialog()
 
 	if (GetOpenFileNameA(&ofn))
 	{
-
+		std::filesystem::path p(filename);
+		animation.addFrame(p.filename().string(), 0.25f);
+		
+		if (auto label = myLayout->GetLabel("clip_bg_text")) {
+			label->SetText("");
+		}
 	}
 	else
 	{
 		LOG_ERROR(Error, "You messed up, yo");
 	}
+
+	_chdir(dir);
 }

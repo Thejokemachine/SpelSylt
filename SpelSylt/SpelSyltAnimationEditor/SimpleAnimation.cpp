@@ -38,12 +38,21 @@ void AnimationEditor::SimpleAnimation::tick(float dt)
 	}
 }
 
+void AnimationEditor::SimpleAnimation::setGlobalSpeed(float speed)
+{
+	for (auto& frame : frames)
+		frame.duration = speed;
+}
+
 void AnimationEditor::SimpleAnimation::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	sf::Sprite sprite;
-	auto& currentFrame = frames[cursor];
-	sprite.setPosition(getPosition());
-	sprite.setOrigin(0.5f * currentFrame.texture.getSize().x, 0.5f * currentFrame.texture.getSize().y);
-	sprite.setTexture(currentFrame.texture);
-	target.draw(sprite, states);
+	if (frames.size() > 0)
+	{
+		sf::Sprite sprite;
+		auto& currentFrame = frames[cursor];
+		sprite.setPosition(getPosition());
+		sprite.setOrigin(0.5f * currentFrame.texture.getSize().x, 0.5f * currentFrame.texture.getSize().y);
+		sprite.setTexture(currentFrame.texture);
+		target.draw(sprite, states);
+	}
 }

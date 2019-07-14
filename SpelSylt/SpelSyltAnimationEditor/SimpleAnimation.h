@@ -16,6 +16,8 @@ namespace AnimationEditor {
 		void addFrame(const std::string& texturePath, float duration);
 		void tick(float dt);
 
+		void setGlobalSpeed(float speed);
+
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
