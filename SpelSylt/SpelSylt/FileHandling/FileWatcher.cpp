@@ -18,12 +18,20 @@ namespace
 		return std::filesystem::last_write_time(InFilePath);
 	}
 
-	bool IsFileReadable(const std::string& InFilePath)
+	CFileWatcher::FFileChangeTime GetFileChangeTime(const std::string& InFilePath, const CFileWatcher::FFileChangeTime& InPreviousTime)
 	{
-		std::ifstream Stream(InFilePath);
-		const bool Result = !Stream.bad();
-		Stream.close();
-		return Result;
+		CFileWatcher::FFileChangeTime ReturnTime;
+
+		try 
+		{ 
+			ReturnTime = std::filesystem::last_write_time(InFilePath); 
+		}
+		catch (const std::filesystem::filesystem_error e)
+		{
+			ReturnTime = InPreviousTime;
+		}
+
+		return ReturnTime;
 	}
 }
 
@@ -82,15 +90,12 @@ void CFileWatcher::Check()
 		const FFileChangeCallback& CurrentFileOnChange = CurrentFileData.second;
 		FFileChangeTime& CurrentFilePreviousLastChanged = FileChangeTimeLookUp[i];
 
-		if (IsFileReadable(CurrentFile))
-		{
-			FFileChangeTime LastChangeTime = GetFileChangeTime(CurrentFile);
+		FFileChangeTime LastChangeTime = GetFileChangeTime(CurrentFile, LastChangeTime);
 
-			if (LastChangeTime > CurrentFilePreviousLastChanged)
-			{
-				CurrentFileOnChange();
-				CurrentFilePreviousLastChanged = LastChangeTime;
-			}
+		if (LastChangeTime > CurrentFilePreviousLastChanged)
+		{
+			CurrentFileOnChange();
+			CurrentFilePreviousLastChanged = LastChangeTime;
 		}
 	}
 }
