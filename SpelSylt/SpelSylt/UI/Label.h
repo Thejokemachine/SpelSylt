@@ -16,8 +16,12 @@ namespace UI
 
 	public:
 
-		Label(UILayout& aLayout, const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement& aElement);
+		Label(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement& aElement);
 		virtual ~Label() = default;
+
+		//float GetWidth() const override { return myText.getLocalBounds().width + myText.getLocalBounds().left; }
+		//float GetHeight() const override { return myText.getLocalBounds().height + myText.getLocalBounds().top; }
+		std::string GetText() const { return myText.getString(); }
 
 		void SetText(const std::string& aText);
 

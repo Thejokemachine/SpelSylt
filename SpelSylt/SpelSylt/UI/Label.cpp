@@ -7,9 +7,8 @@
 #include "SpelSylt/UI/Base/UILayout.h"
 #include "SpelSylt/FileHandling/Banks/FontBank.h"
 
-UI::Label::Label(UILayout& aLayout, const Panel* aParent, const std::string & aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement & aElement) :
-	Panel(aLayout, aParent, aName, x, y, aWidth, aHeight, aDockFlags, aElement),
-	myTextAlignFlags(aDockFlags)
+UI::Label::Label(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement & aElement) :
+	Panel(aLayout, aParent, aElement)
 {
 	std::string text = "";
 	XMLUtilities::QueryAttribute(aElement, "string", text);

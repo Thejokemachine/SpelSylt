@@ -7,7 +7,7 @@
 
 namespace AnimationEditor {
 
-	class SimpleAnimation : public sf::Sprite
+	class SimpleAnimation : public sf::Transformable, public sf::Drawable
 	{
 	public:
 		SimpleAnimation();

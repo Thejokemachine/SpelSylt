@@ -35,13 +35,14 @@ namespace UI
 
 	public:
 		Panel(UILayout& aLayout, const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement& aElement);
+		Panel(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement& aElement);
 		virtual ~Panel() = default;
 
 		// Getters -------------------------------------
 		float GetX() const { return left; }
 		float GetY() const { return top; }
-		float GetWidth() const { return width; }
-		float GetHeight() const { return height; }
+		virtual float GetWidth() const { return width; }
+		virtual float GetHeight() const { return height; }
 		Panel* GetPanel(const std::string& aName);
 		// ---------------------------------------------
 
@@ -68,6 +69,8 @@ namespace UI
 
 		void setDirty();
 
+		float evaluateExpression(const std::string& aAttributeBlock);
+
 		UILayout& myLayout;
 		tinyxml2::XMLElement& myXMLElement;
 
@@ -75,9 +78,9 @@ namespace UI
 
 		std::vector<std::shared_ptr<Panel>> myChildren;
 
-		const std::string myName;
+		std::string myName;
 		const Panel* myParent;
-		const unsigned char myDockFlags;
+		unsigned char myDockFlags;
 		sf::Texture myTexture;
 		sf::Color myColor;
 		float myX;

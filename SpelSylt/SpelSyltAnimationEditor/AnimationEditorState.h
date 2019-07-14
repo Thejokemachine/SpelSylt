@@ -1,7 +1,13 @@
 #pragma once
 #include <SpelSylt/UI/Base/UIState.h>
+#include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
+#include <SpelSylt/Messaging/MessageQueue.h>
 
 #include "SimpleAnimation.h"
+
+namespace UI {
+	class Panel;
+}
 
 namespace AnimationEditor {
 
@@ -17,8 +23,13 @@ namespace AnimationEditor {
 
 	private:
 
+		void openFileDialog();
+
 		bool isPlaying = false;
 		SimpleAnimation animation;
 
+		UI::Panel* animCenter = nullptr;
+
+		CSubscriptions mySubs;
 	};
 }

@@ -1,22 +1,27 @@
 <layout>
-  <panel name="bg" width="800" height="600" dock="center" color="20,50,100" image="whiteBox">
-    <panel name="gradient" width="800" height="600" color="#FFFFFF24" image="gradient"/>
+  <panel name="bg" width="{parent.width}" height="{parent.height}" dock="center" color="20,50,100" image="whiteBox">
+    <panel name="gradient" width="{parent.width}" height="{parent.height}" color="#FFFFFF24" image="gradient"/>
     <panel width="350" height="350" color="50,50,50" x="15" y="15" image="whiteBox">
       <panel name="controller" width="350" height="35" dock="bottom" image="whiteBox" color="50,50,50"  y="35">
         <button name="play_btn" width="30" height="30" dock="vcenter" x="20" y="-10" image="playButton"/>
       </panel>
       <panel name="clip_image" width="330" height="330" dock="center" color="225,225,255" image="whiteBox">
         <text name="clip_bg_text" string="No clip :(" dock="center" align="center" font="arial" text_color="#a1b2cc"/>
+        <panel name="center" dock="center"/>
       </panel>
     </panel>
-    <panel name="settings" width="770" height="160" y="-20" dock="bottom|hcenter" image="whiteBox" color="#00000050">
-      <button name="speed_val" dock="vcenter|left" width="50" height="35" image="whiteBox" x="100" color="#FFFFFF">
-        <text string="Speed:" dock="vcenter" align="vcenter|right" x="-5" font="arial" size="24"/>
+    <panel name="settings" width="{parent.width-40}" height="160" y="-20" dock="bottom|hcenter" image="whiteBox" color="#00000050">
+      <text name="speed_val" string="0.25" dock="right|vcenter" x="-250" align="center" font="arial" size="28">
+        <button name="speed_val_up" dock="center" y="-50" image="whiteBox" width="25" height="25"/>
+        <button name="speed_val_down" dock="center" y="50" image="whiteBox" width="25" height="25"/>
+        <text string="Speed:" dock="center" align="center" x="-85" font="arial" size="28"/>
+      </text>
+      <button name="add_frame_btn" dock="right|vcenter" x="-25" y="-35" image="whiteBox" width="150" height="50">
+        <text string="Add" dock="center" align="center" font="arial" size="28" text_color="#000000"/>
+      </button>
+      <button name="save_btn" dock="right|vcenter" x="-25" y="35" image="whiteBox" width="150" height="50">
+        <text string="Save" dock="center" align="center" font="arial" size="28" text_color="#00000030"/>
       </button>
     </panel>
   </panel>
-  <panel width="25" height="25" dock="top|left" image="whiteBox"/>
-  <panel width="25" height="25" dock="top|right" image="whiteBox"/>
-  <panel width="25" height="25" dock="bottom|left" image="whiteBox"/>
-  <panel width="25" height="25" dock="bottom|right" image="whiteBox"/>
 </layout>

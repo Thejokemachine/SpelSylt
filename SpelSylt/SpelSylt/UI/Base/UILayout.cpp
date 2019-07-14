@@ -87,50 +87,30 @@ void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
 		std::string val = child->Value();
 		std::shared_ptr<Panel> panel = nullptr;
 
-		std::string name = "";
-		float x = 0;
-		float y = 0;
-		float height = 0;
-		float width = 0;
-		std::string image = "";
-		std::string dockFlagsValue = "";
-		std::string colorValue = "";
-
-		XMLUtilities::QueryAttribute(*child, "name", name);
-		XMLUtilities::QueryAttribute(*child, "x", x);
-		XMLUtilities::QueryAttribute(*child, "y", y);
-		XMLUtilities::QueryAttribute(*child, "height", height);
-		XMLUtilities::QueryAttribute(*child, "width", width);
-		XMLUtilities::QueryAttribute(*child, "dock", dockFlagsValue);
-		XMLUtilities::QueryAttribute(*child, "image", image);
-		XMLUtilities::QueryAttribute(*child, "color", colorValue);
-
-		unsigned char dockFlags = UIUtilities::EvaluateDockingFlags(dockFlagsValue);
-		sf::Color color = UIUtilities::EvaluateColor(colorValue);
-
 		if (val == "panel")
 		{
-			panel = std::make_shared<Panel>(*this, &aParent, name, x, y, width, height, dockFlags, *child);
+			panel = std::make_shared<Panel>(*this, &aParent, *child);
 		}
 		else if (val == "button")
 		{
-			panel = std::make_shared<Button>(*this, &aParent, name, x, y, width, height, dockFlags, *child);
+			panel = std::make_shared<Button>(*this, &aParent, *child);
 		}
 		else if (val == "text")
 		{
-			panel = std::make_shared<Label>(*this, &aParent, name, x, y, width, height, dockFlags, *child);
+			panel = std::make_shared<Label>(*this, &aParent, *child);
 		}
 
 		if (panel)
 		{
-			if (!image.empty())
-				panel->SetImage(image);
-			panel->SetColor(color);
-
 			addChildren(*panel, child);
+			aParent.AddPanel(panel);
 		}
 
-		aParent.AddPanel(panel);
 		child = child->NextSiblingElement();
 	}
+}
+
+float UI::UILayout::evaluateExpression(const std::string & aAttributeBlock)
+{
+	return 0.0f;
 }

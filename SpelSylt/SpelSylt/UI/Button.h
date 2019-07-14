@@ -9,7 +9,7 @@ namespace UI
 
 	public:
 
-		Button(UI::UILayout& aLayout, const Panel* aParent, const std::string& aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement& aElement);
+		Button(UI::UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement& aElement);
 
 		void SetCallback(std::function<void(Button& button)> aOnPressed);
 

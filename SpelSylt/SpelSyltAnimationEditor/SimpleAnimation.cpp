@@ -27,7 +27,7 @@ void AnimationEditor::SimpleAnimation::tick(float dt)
 		frameTime += frame.duration;
 		if (time <= frameTime)
 		{
-			cursor = i;
+			cursor = (short)i;
 			break;
 		}
 		else if (i == frames.size()-1)
@@ -41,6 +41,9 @@ void AnimationEditor::SimpleAnimation::tick(float dt)
 void AnimationEditor::SimpleAnimation::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	sf::Sprite sprite;
-	sprite.setTexture(frames[cursor].texture);
+	auto& currentFrame = frames[cursor];
+	sprite.setPosition(getPosition());
+	sprite.setOrigin(0.5f * currentFrame.texture.getSize().x, 0.5f * currentFrame.texture.getSize().y);
+	sprite.setTexture(currentFrame.texture);
 	target.draw(sprite, states);
 }

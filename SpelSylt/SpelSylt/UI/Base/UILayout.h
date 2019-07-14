@@ -46,6 +46,8 @@ namespace UI
 
 		void addChildren(Panel& aParent, tinyxml2::XMLElement* aElement);
 
+		float evaluateExpression(const std::string& aAttributeBlock);
+
 		CDebugDrawer myDrawer;
 		std::unique_ptr<Panel> myRootPanel;
 		tinyxml2::XMLDocument myDocument;

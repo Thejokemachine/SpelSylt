@@ -4,8 +4,8 @@
 
 using namespace UI;
 
-UI::Button::Button(UI::UILayout & aLayout, const Panel * aParent, const std::string & aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement& aElement) :
-	Panel(aLayout, aParent, aName, x, y, aWidth, aHeight, aDockFlags, aElement)
+UI::Button::Button(UI::UILayout & aLayout, const Panel * aParent, tinyxml2::XMLElement& aElement) :
+	Panel(aLayout, aParent, aElement)
 {
 }
 

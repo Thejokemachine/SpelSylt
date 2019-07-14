@@ -65,5 +65,4 @@ void UIState::Render(SRenderingContext & InRenderingContext)
 	mySprite.setPosition(InRenderingContext.Camera.getCenter() - 0.5f * sf::Vector2f((float)myTexture.getSize().x, (float)myTexture.getSize().y));
 
 	InRenderingContext.RenderQueue.Enqueue(ERenderLayer::UI, SSpriteRenderCommand(mySprite));
-
 }

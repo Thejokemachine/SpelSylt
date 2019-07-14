@@ -3,6 +3,9 @@
 #include "SpelSylt/Math/CommonMath.h"
 #include "SpelSylt/UI/Panel.h"
 
+#include <sstream>
+#include <iomanip>
+
 using namespace UI;
 
 std::vector<std::string> UIUtilities::SplitString(const std::string & aString, const char aDelim)
@@ -26,6 +29,23 @@ std::vector<std::string> UIUtilities::SplitString(const std::string & aString, c
 		strings.push_back(s);
 
 	return strings;
+}
+
+std::string UIUtilities::RemoveWhiteSpace(const std::string & aBlock)
+{
+	auto strings = SplitString(aBlock, ' ');
+	std::string rv = "";
+	rv.reserve(aBlock.size());
+	for (auto&& s : strings)
+		rv += s;
+	return rv;
+}
+
+std::string UIUtilities::FormatFloat(unsigned short aPrecision, float aNumber)
+{
+	std::stringstream ss;
+	ss << std::fixed << std::setprecision(aPrecision) << aNumber;
+	return ss.str();
 }
 
 int UIUtilities::HexToInt(const std::string& aHexNumber)

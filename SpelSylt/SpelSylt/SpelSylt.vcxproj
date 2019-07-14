@@ -255,6 +255,7 @@
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\Panel.h" />
     <ClInclude Include="UI\Label.h" />
+    <ClInclude Include="UI\TextInput.h" />
     <ClInclude Include="UI\UIUtilities.h" />
     <ClInclude Include="Utility\Async\AsyncOperationInterface.h" />
     <ClInclude Include="Utility\Input\InputEventGetter.h" />
