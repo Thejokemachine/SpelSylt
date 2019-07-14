@@ -42,7 +42,11 @@ namespace SS = SpelSylt;
 template<typename TWorkerType, typename ...TEmplaceArgs>
 inline TWorkerType& SpelSylt::CSSThread::EmplaceWorker(TEmplaceArgs ... Args)
 {
-	TWorkerType& Worker = WorkerStorage.AddToBuffer<TWorkerType>(TWorkerType(Args...));
-	WorkerList.push_back(&Worker);
-	return Worker;
+	TWorkerType* Created = new TWorkerType(Args...);
+	WorkerList.push_back(Created);
+	return *Created;
+
+	//TWorkerType& Worker = WorkerStorage.AddToBuffer<TWorkerType>(TWorkerType(Args...));
+	//WorkerList.push_back(&Worker);
+	//return Worker;
 }
