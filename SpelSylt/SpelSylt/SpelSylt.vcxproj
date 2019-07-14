@@ -231,6 +231,7 @@
     <ClInclude Include="FileHandling\Loading\LoadEnums.h" />
     <ClInclude Include="FileHandling\TextFileHandler.h" />
     <ClInclude Include="Math\CommonMath.h" />
+    <ClInclude Include="Memory\Containers\DoubleBuffer.h" />
     <ClInclude Include="Memory\Containers\StaticMemoryBuffer.h" />
     <ClInclude Include="Memory\MemAllocSizes.h" />
     <ClInclude Include="Messaging\MessageQueue.h" />

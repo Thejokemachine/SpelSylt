@@ -6,10 +6,8 @@
 
 #include "SpelSylt/FileHandling/Asset/Assets.h"
 #include <atomic>
-#include <queue>
-#include <list>
 #include <string>
-#include <unordered_map>
+#include "SpelSylt/Memory/Containers/DoubleBuffer.h"
 
 namespace SpelSylt
 {
@@ -20,9 +18,9 @@ namespace SpelSylt
 			, RawAsset(nullptr)
 		{}
 
-		SLoadHandle(const char* InPath, SBaseAsset& InRawAsset)
+		SLoadHandle(const char* InPath, SBaseAsset* InRawAsset)
 			: Path(InPath)
-			, RawAsset(&InRawAsset)
+			, RawAsset(InRawAsset)
 		{}
 
 		std::string Path;
@@ -48,8 +46,11 @@ namespace SpelSylt
 
 		void DoLoad(SLoadHandle& InLoadHandle);
 
-		using FLoadQueue = std::vector<SLoadHandle>;
-		FLoadQueue LoadQueue;
+		//using FLoadQueue = std::vector<SLoadHandle>;
+		//FLoadQueue LoadQueue;
+		CDoubleBuffer<SLoadHandle> LoadBuffers;
+		std::vector<SLoadHandle> Test;
+
 	};
 }
 

@@ -11,7 +11,7 @@ using namespace SpelSylt;
 //------------------------------------------------------------------
 
 CAsyncLoader::CAsyncLoader()
-	: LoadQueue()
+	: LoadBuffers()
 {
 }
 
@@ -20,20 +20,26 @@ CAsyncLoader::CAsyncLoader()
 void CAsyncLoader::LoadAsync(const char* InPath, SBaseAsset& InTo)
 {
 	InTo.LoadStatus = ELoadRequestStatus::Pending;
-	LoadQueue.push_back({ InPath, InTo });
+
+	auto& WB = LoadBuffers.GetWriteBuffer();
+	WB.push_back({ InPath, &InTo });
 }
 
 //------------------------------------------------------------------
 
 void CAsyncLoader::DoWork()
 {
+	LoadBuffers.Swap();
+	
+	auto& LoadQueue = LoadBuffers.GetReadBuffer();
+	
 	for (short i = 0; i < MaxAssetsToLoadPerCycle; ++i)
 	{
 		if (LoadQueue.empty())
 		{
 			break;
 		}
-
+	
 		DoLoad(LoadQueue.front());
 		LoadQueue.erase(LoadQueue.begin());
 	}
