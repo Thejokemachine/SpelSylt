@@ -192,6 +192,8 @@
     <ClCompile Include="UI\Panel.cpp" />
     <ClCompile Include="UI\Text.cpp" />
     <ClCompile Include="UI\UIUtilities.cpp" />
+    <ClCompile Include="Utility\Async\AsyncWorker.cpp" />
+    <ClCompile Include="Utility\Async\SpelSyltThread.cpp" />
     <ClCompile Include="Utility\Input\InputManager.cpp" />
     <ClCompile Include="Utility\TimedEvent.cpp" />
     <ClCompile Include="Utility\Time\Time.cpp" />
@@ -257,6 +259,8 @@
     <ClInclude Include="UI\Text.h" />
     <ClInclude Include="UI\UIUtilities.h" />
     <ClInclude Include="Utility\Async\AsyncOperationInterface.h" />
+    <ClInclude Include="Utility\Async\AsyncWorker.h" />
+    <ClInclude Include="Utility\Async\SpelSyltThread.h" />
     <ClInclude Include="Utility\Input\InputEventGetter.h" />
     <ClInclude Include="Utility\Input\InputManager.h" />
     <ClInclude Include="Utility\Input\KeyCodes.h" />
