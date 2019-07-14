@@ -21,6 +21,12 @@ CSSThread::CSSThread()
 CSSThread::~CSSThread()
 {
 	Thread.join();
+
+	for (CAsyncWorker*& Worker : WorkerList)
+	{
+		delete Worker;
+		Worker = nullptr;
+	}
 }
 
 //------------------------------------------------------------------

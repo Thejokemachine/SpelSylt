@@ -59,34 +59,72 @@
 *.generated.h
 *.anmbndl
 
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/f81ba4a758e3e078/HOOKGAME.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/f81ba4a758e3e078
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/f75e3ecce4e296a6/MAIN.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/f75e3ecce4e296a6
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/c711632f4cb6de9f/APPLICATION.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/c711632f4cb6de9f
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/acc03db1d126d83b/GAMEAPPLICATION.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/acc03db1d126d83b
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/8e28ee32faba43ef/APPLICATION.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/8e28ee32faba43ef
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/81032c9e8107e916/APPLICATION.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/81032c9e8107e916
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/6def9d64c0796a57/MAIN.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/6def9d64c0796a57
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/623fae28f7842221/GAMEAPPLICATION.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/623fae28f7842221
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/50942699badcf9d6/MAIN.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/50942699badcf9d6
-/SpelSylt/.vs/SpelSylt/v15/ipch/AutoPCH/474a1e702b113188/GAMEAPPLICATION.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/38101497974513e6.ipch
-/SpelSylt/.vs/SpelSylt/v15/ipch/2b0a5038919bcd39.ipch
-/SpelSylt/.vs/SpelSylt/v15/Server/sqlite3/storage.ide-wal
-/SpelSylt/.vs/SpelSylt/v15/Server/sqlite3/storage.ide-shm
-/SpelSylt/.vs/SpelSylt/v15/Server/sqlite3/storage.ide
-/SpelSylt/.vs/SpelSylt/v15/Server/sqlite3/db.lock
-/SpelSylt/.vs/SpelSylt/v15/Solution.VC.db-wal
-/SpelSylt/.vs/SpelSylt/v15/Solution.VC.db-shm
+# Profiling
+Diagnosis/*
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# VS Files
+*.suo
+*.filters
+*.db
+*.tlog
+*.lastcodeanalysissucceeded
+*nativecodeanalysis*
+/SpelSylt/.vs/SpelSylt/v15/Browse.VC.opendb
+/SpelSylt/.vs/SpelSylt/v15/ipch/62d68f747e1486e.ipch
+*v16/
+*.user
+*.ilk
+
+# Basic Files
+*.txt
+
+# CS
+*.exe.config
+*.cache
+
+#Runtime Generated Files
+*.log
+
+# Buildtime Generated Files
+*.idb
+*.iobj
+*.ipdb
+*.pdb
+*.lastbuildstate
+*.generated.h
+*.anmbndl
 
 *.enc
+*.ipch
+/SpelSylt/.vs/SpelSylt/*
 
 SpelSylt/SpelSyltEventGenerator/obj/Debug/
+

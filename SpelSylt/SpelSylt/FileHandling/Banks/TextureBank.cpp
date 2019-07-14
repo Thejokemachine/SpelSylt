@@ -5,10 +5,17 @@
 
 //------------------------------------------------------------------
 
-CTextureBank::CTextureBank(IAsyncLoader& InAssetLoader)
-	: AssetLoader(InAssetLoader)
-	, Bank()
+CTextureBank::CTextureBank()
+	: Bank()
+	, AssetLoader(nullptr)
 {
+}
+
+//------------------------------------------------------------------
+
+void CTextureBank::ProvideLoader(IAsyncLoader& InLoader)
+{
+	AssetLoader = &InLoader;
 }
 
 //------------------------------------------------------------------
@@ -35,7 +42,7 @@ bool CTextureBank::AssetLoaded(const char* InID) const
 void CTextureBank::AddAsset(const char* InID) const 
 {
 	Bank[InID] = STextureAsset();
-	AssetLoader.LoadAsync(InID, Bank[InID]);
+	AssetLoader->LoadAsync(InID, Bank[InID]);
 }
 
 //------------------------------------------------------------------

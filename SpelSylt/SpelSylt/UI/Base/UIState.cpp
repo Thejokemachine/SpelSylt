@@ -5,6 +5,10 @@
 #include "SpelSylt/Messaging/Messages/UIMessages.h"
 #include "SpelSylt/Messaging/MessageQueue.h"
 
+#ifdef _DEBUG
+#include <SpelSylt/FileHandling/FileWatcher.h>
+#endif
+
 CFontBank UIState::FontBank;
 
 UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& aLayoutXML) :
@@ -18,7 +22,7 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& a
 
 #ifdef _DEBUG
 	myLayoutFile = aLayoutXML;
-	myFileWatcher.AddFile(aLayoutXML.c_str(), [this, aWidth, aHeight](){
+	SS::CFileWatcher::AddFile(aLayoutXML.c_str(), [this, aWidth, aHeight](){
 		myShouldReload = true;
 	});
 #endif

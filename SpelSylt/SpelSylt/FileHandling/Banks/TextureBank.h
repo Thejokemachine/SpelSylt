@@ -13,8 +13,9 @@ class CTextureBank final
 	: public ITextureProvider
 {
 public:
-	CTextureBank() = delete;
-	CTextureBank(IAsyncLoader& InLoader);
+	CTextureBank();
+
+	void ProvideLoader(IAsyncLoader& InLoader);
 
 	//Begin ITextureProvider
 	virtual const STextureAsset& GetTexture(const char* InID) const;
@@ -27,5 +28,5 @@ private:
 	using FBank = std::unordered_map<std::string, STextureAsset>;
 	mutable FBank Bank;
 
-	IAsyncLoader& AssetLoader;
+	IAsyncLoader* AssetLoader;
 };

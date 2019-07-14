@@ -13,6 +13,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include "SpelSylt/FileHandling/FileWatcher.h"
+
 //------------------------------------------------------------------
 
 CApplication::CApplication()
@@ -21,14 +23,13 @@ CApplication::CApplication()
 	, InputManager()
 	, Time()
 	, Renderer()
-	, TextureBank(AsyncLoader)
+	, TextureBank()
 	, RenderQueue()
 	, MessageQueue()
 	, DebugDrawer()
 	, AudioManager("Audio")
-	, GameContext(InputManager, Time, AsyncLoader, TextureBank, MessageQueue)
-	, RenderingContext(RenderQueue, DebugDrawer)
-	, AsyncLoader()
+	, GameContext(nullptr)
+	, RenderingContext(nullptr)
 {
 }
 
@@ -37,9 +38,9 @@ CApplication::CApplication()
 CApplication::~CApplication()
 {
 	Window.close();
-	AsyncLoader.RequestShutDown();
-	while (!AsyncLoader.HasShutDown());
-	LoadThread.join();
+
+	UtilityThread.RequestStop();
+	while (!UtilityThread.HaveStopped());
 }
 
 //------------------------------------------------------------------
@@ -51,7 +52,26 @@ void CApplication::Initialize()
 
 	AudioManager.Init(MessageQueue);
 
-	AsyncLoader.ProvideThread(LoadThread);
+	SS::CAsyncLoader& Loader = UtilityThread.EmplaceWorker<SS::CAsyncLoader>();
+	UtilityThread.EmplaceWorker<SS::CFileWatcher>();
+	UtilityThread.Start();
+
+	//Begin Build Contexts
+	GameContext = ContextBuilder.BuildGameContext(
+		InputManager,
+		Time,
+		Loader,
+		TextureBank,
+		MessageQueue
+	);
+
+	RenderingContext = ContextBuilder.BuildRenderingContext(
+		RenderQueue,
+		DebugDrawer
+	);
+	//End Build Contexts
+
+	TextureBank.ProvideLoader(Loader);
 
 	SetUpWindow();
 	PushStartUpStates();
@@ -69,7 +89,7 @@ void CApplication::CreateWindow(unsigned int InWindowW, unsigned int InWindowH, 
 	Window.create(vm, "SpelSylt Application");
 	Window.setFramerateLimit(60u);
 
-	RenderingContext.Camera.setSize(static_cast<float>(vm.width), static_cast<float>(vm.height));
+	RenderingContext->Camera.setSize(static_cast<float>(vm.width), static_cast<float>(vm.height));
 }
 
 //------------------------------------------------------------------
@@ -83,7 +103,7 @@ void CApplication::SetWindowTitle(const char* InTitle)
 
 void CApplication::PushState(CState* InState)
 {
-	StateStack.Push(InState, GameContext, RenderingContext);
+	StateStack.Push(InState, *GameContext, *RenderingContext);
 }
 
 //------------------------------------------------------------------
@@ -94,7 +114,7 @@ bool CApplication::Run()
 	
 	const bool CouldHandleAllEvents = HandleEvents();
 	
-	StateStack.Update(GameContext);
+	StateStack.Update(*GameContext);
 	MessageQueue.SendAllEvents();
 
 	const bool StateStackValid = StateStack.Size() > 0;
@@ -145,12 +165,12 @@ void CApplication::PrepareForNewFrame()
 
 void CApplication::PublishNewFrame()
 {
-	float viewX = RenderingContext.Camera.getCenter().x - Window.getSize().x * 0.5f;
-	float viewY = RenderingContext.Camera.getCenter().y - Window.getSize().y * 0.5f;
+	float viewX = RenderingContext->Camera.getCenter().x - Window.getSize().x * 0.5f;
+	float viewY = RenderingContext->Camera.getCenter().y - Window.getSize().y * 0.5f;
 
 	Window.setView(sf::View(sf::FloatRect(viewX, viewY, (float)Window.getSize().x, (float)Window.getSize().y)));
 
-	StateStack.Render(RenderingContext);
+	StateStack.Render(*RenderingContext);
 
 	Renderer.RunRenderAllLayers(RenderQueue, Window);
 	DebugDrawer.draw(Window, sf::RenderStates::Default);

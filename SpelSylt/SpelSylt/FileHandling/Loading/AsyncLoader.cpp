@@ -6,32 +6,13 @@
 
 //------------------------------------------------------------------
 
+using namespace SpelSylt;
+
+//------------------------------------------------------------------
+
 CAsyncLoader::CAsyncLoader()
-	: LoadQueue()
-	, HaveStopRequest(false)
-	, IsStopped(false)
+	: LoadBuffers()
 {
-}
-
-//------------------------------------------------------------------
-
-void CAsyncLoader::ProvideThread(std::thread& InThread)
-{
-	InThread = std::thread([&]() {StartTicking(); });
-}
-
-//------------------------------------------------------------------
-
-void CAsyncLoader::RequestShutDown()
-{
-	HaveStopRequest = true;
-}
-
-//------------------------------------------------------------------
-
-bool CAsyncLoader::HasShutDown() const
-{
-	return IsStopped;
 }
 
 //------------------------------------------------------------------
@@ -39,26 +20,29 @@ bool CAsyncLoader::HasShutDown() const
 void CAsyncLoader::LoadAsync(const char* InPath, SBaseAsset& InTo)
 {
 	InTo.LoadStatus = ELoadRequestStatus::Pending;
-	LoadQueue.push({InPath, InTo});
+
+	auto& WB = LoadBuffers.GetWriteBuffer();
+	WB.push_back({ InPath, &InTo });
 }
 
 //------------------------------------------------------------------
 
-void CAsyncLoader::StartTicking()
+void CAsyncLoader::DoWork()
 {
-	while (!HaveStopRequest)
+	LoadBuffers.Swap();
+	
+	auto& LoadQueue = LoadBuffers.GetReadBuffer();
+	
+	for (short i = 0; i < MaxAssetsToLoadPerCycle; ++i)
 	{
 		if (LoadQueue.empty())
 		{
-			std::this_thread::yield();
-			continue;
+			break;
 		}
-
+	
 		DoLoad(LoadQueue.front());
-		LoadQueue.pop();
+		LoadQueue.erase(LoadQueue.begin());
 	}
-
-	IsStopped = true;
 }
 
 //------------------------------------------------------------------

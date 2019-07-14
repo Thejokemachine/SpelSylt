@@ -158,12 +158,14 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Audio\AudioManager.cpp" />
+    <ClCompile Include="Contexts\ContextBuilder.cpp" />
     <ClCompile Include="Debugging\Logging\DebugLogger.cpp" />
     <ClCompile Include="Debugging\Rendering\DebugCommands.cpp" />
     <ClCompile Include="Debugging\Rendering\DebugDrawer.cpp" />
     <ClCompile Include="FileHandling\Asset\AnimationAsset.cpp" />
     <ClCompile Include="FileHandling\Banks\FontBank.cpp" />
     <ClCompile Include="FileHandling\Banks\TextureBank.cpp" />
+    <ClCompile Include="FileHandling\ConfigReader.cpp" />
     <ClCompile Include="FileHandling\DirectoryHelpers.cpp" />
     <ClCompile Include="FileHandling\FileWatcher.cpp" />
     <ClCompile Include="FileHandling\Loading\AsyncLoader.cpp" />
@@ -192,6 +194,8 @@
     <ClCompile Include="UI\Panel.cpp" />
     <ClCompile Include="UI\Label.cpp" />
     <ClCompile Include="UI\UIUtilities.cpp" />
+    <ClCompile Include="Utility\Async\AsyncWorker.cpp" />
+    <ClCompile Include="Utility\Async\SpelSyltThread.cpp" />
     <ClCompile Include="Utility\Input\InputManager.cpp" />
     <ClCompile Include="Utility\TimedEvent.cpp" />
     <ClCompile Include="Utility\Time\Time.cpp" />
@@ -200,6 +204,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Audio\AudioManager.h" />
+    <ClInclude Include="Contexts\ContextBuilder.h" />
     <ClInclude Include="Contexts\GameContext.h" />
     <ClInclude Include="Contexts\RenderingContext.h" />
     <ClInclude Include="Debugging\Logging\DebugLogger.h" />
@@ -217,6 +222,7 @@
     <ClInclude Include="FileHandling\Banks\FontBank.h" />
     <ClInclude Include="FileHandling\Banks\TextureBank.h" />
     <ClInclude Include="FileHandling\Banks\TextureProviderInterface.h" />
+    <ClInclude Include="FileHandling\ConfigReader.h" />
     <ClInclude Include="FileHandling\DirectoryHelpers.h" />
     <ClInclude Include="FileHandling\FileWatcher.h" />
     <ClInclude Include="FileHandling\Loading\AsyncLoader.h" />
@@ -225,6 +231,7 @@
     <ClInclude Include="FileHandling\Loading\LoadEnums.h" />
     <ClInclude Include="FileHandling\TextFileHandler.h" />
     <ClInclude Include="Math\CommonMath.h" />
+    <ClInclude Include="Memory\Containers\DoubleBuffer.h" />
     <ClInclude Include="Memory\Containers\StaticMemoryBuffer.h" />
     <ClInclude Include="Memory\MemAllocSizes.h" />
     <ClInclude Include="Messaging\MessageQueue.h" />
@@ -258,6 +265,8 @@
     <ClInclude Include="UI\TextInput.h" />
     <ClInclude Include="UI\UIUtilities.h" />
     <ClInclude Include="Utility\Async\AsyncOperationInterface.h" />
+    <ClInclude Include="Utility\Async\AsyncWorker.h" />
+    <ClInclude Include="Utility\Async\SpelSyltThread.h" />
     <ClInclude Include="Utility\Input\InputEventGetter.h" />
     <ClInclude Include="Utility\Input\InputManager.h" />
     <ClInclude Include="Utility\Input\KeyCodes.h" />

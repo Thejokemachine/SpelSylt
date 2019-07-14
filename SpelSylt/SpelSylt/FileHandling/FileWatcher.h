@@ -2,40 +2,36 @@
 
 #include <functional>
 #include <chrono>
-
-#include <thread>
-#include <atomic>
 #include <string>
 #include <filesystem>
 #include <vector>
+#include <atomic>
 
-class CFileWatcher
+#include "SpelSylt/Utility/Async/AsyncWorker.h"
+
+namespace SpelSylt
 {
-public:
-	using FFileChangeCallback = std::function<void()>;
-	using FFileChangeTime = std::filesystem::file_time_type;
+	class CFileWatcher
+		: public CAsyncWorker
+	{
+	public:
+		using FFileChangeCallback = std::function<void()>;
+		using FFileChangeTime = std::filesystem::file_time_type;
+		using FWatchedFileData = std::pair<std::string, FFileChangeCallback>;
 
-	CFileWatcher();
-	~CFileWatcher();
+		CFileWatcher();
+		~CFileWatcher();
 
-	bool AddFile(const char* InFileToWatch, const FFileChangeCallback& InOnChangeCallback);
-	void RequestStop();
-	bool IsStopped() const;
-private:
-	void StartWatch();
-	void Check();
-	FFileChangeTime GetFileChangeTime(const std::string& InFilePath);
+		static bool AddFile(const char* InFileToWatch, const FFileChangeCallback& InOnChangeCallback);
+		virtual void DoWork() override;
+	private:
+		void Check();
 
-	FFileChangeCallback OnChange;
+		static std::vector<FWatchedFileData> FilesToWatch;
+		static std::vector<FFileChangeTime> FileChangeTimeLookUp;
 
-	std::atomic_bool ShouldStop;
-	std::atomic_bool HaveStopped;
-	
-	using FWatchedFileData = std::pair<std::string, FFileChangeCallback>;
-	std::vector<FWatchedFileData> FilesToWatch;
-	std::vector<FFileChangeTime> FileChangeTimeLookUp;
+		FFileChangeTime PreviousChangeTime;
+	};
+}
 
-	std::thread WatchThread;
-
-	FFileChangeTime PreviousChangeTime;
-};
+namespace SS = SpelSylt;

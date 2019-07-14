@@ -40,16 +40,6 @@ void HookGame::Init(SGameContext& InGameContext, SRenderingContext& InRenderingC
 
 void HookGame::Update(SGameContext& InGameContext)
 {
-	if (TestTexture.GetLoadStatus() != ELoadRequestStatus::Pending)
-	{
-		InGameContext.Loader.LoadAsync("Graphics/Sprites/BigTest.png", TestTexture);
-	}
-	if (!SetTexture && TestTexture.GetLoadStatus() == ELoadRequestStatus::Done)
-	{
-		TestSprite.setTexture(TestTexture);
-		SetTexture = true;
-	}
-
 	const float dt = InGameContext.Time.GetDeltaTime();
 
 	Anchor = myPlayerPos;

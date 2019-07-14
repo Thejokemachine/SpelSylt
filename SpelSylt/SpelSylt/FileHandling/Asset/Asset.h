@@ -5,8 +5,6 @@
 
 struct SBaseAsset
 {
-	friend class CAsyncLoader;
-
 	SBaseAsset()
 		: LoadStatus(ELoadRequestStatus::None)
 	{}
@@ -16,14 +14,13 @@ struct SBaseAsset
 		return LoadStatus;
 	}
 
-protected:
+	//These should probably be friended to the Loader for safety?
 	void SetData(char* InDataLocation, B InDataSize)
 	{
 		AssignData(InDataLocation, InDataSize);
 	}
 
-	virtual void AssignData(char* InDataLocation, B InDataSize) = 0;
-
-private:
 	ELoadRequestStatus LoadStatus;
+protected:
+	virtual void AssignData(char* InDataLocation, B InDataSize) = 0;
 };
