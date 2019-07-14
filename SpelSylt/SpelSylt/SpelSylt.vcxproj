@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Audio\AudioManager.cpp" />
+    <ClCompile Include="Contexts\ContextBuilder.cpp" />
     <ClCompile Include="Debugging\Logging\DebugLogger.cpp" />
     <ClCompile Include="Debugging\Rendering\DebugCommands.cpp" />
     <ClCompile Include="Debugging\Rendering\DebugDrawer.cpp" />
@@ -202,6 +203,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Audio\AudioManager.h" />
+    <ClInclude Include="Contexts\ContextBuilder.h" />
     <ClInclude Include="Contexts\GameContext.h" />
     <ClInclude Include="Contexts\RenderingContext.h" />
     <ClInclude Include="Debugging\Logging\DebugLogger.h" />

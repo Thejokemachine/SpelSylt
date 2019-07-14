@@ -1,6 +1,6 @@
 #pragma once
-#include "SpelSylt/Utility/Async/AsyncOperationInterface.h"
 #include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
+#include "SpelSylt/Utility/Async/AsyncWorker.h"
 
 #include "SpelSylt/Memory/MemAllocSizes.h"
 
@@ -11,45 +11,46 @@
 #include <string>
 #include <unordered_map>
 
-struct SLoadHandle
+namespace SpelSylt
 {
-	SLoadHandle()
-		: Path("")
-		, RawAsset(nullptr)
-	{}
+	struct SLoadHandle
+	{
+		SLoadHandle()
+			: Path("")
+			, RawAsset(nullptr)
+		{}
 
-	SLoadHandle(const char* InPath, SBaseAsset& InRawAsset)
-		: Path(InPath)
-		, RawAsset(&InRawAsset)
-	{}
+		SLoadHandle(const char* InPath, SBaseAsset& InRawAsset)
+			: Path(InPath)
+			, RawAsset(&InRawAsset)
+		{}
 
-	std::string Path;
-	SBaseAsset* RawAsset;
-};
+		std::string Path;
+		SBaseAsset* RawAsset;
+	};
 
-class CAsyncLoader final
-	: public IAsyncOperation
-	, public IAsyncLoader
-{
-public:
-	CAsyncLoader();
+	class CAsyncLoader final
+		: public CAsyncWorker
+		, public IAsyncLoader
+	{
+	public:
+		CAsyncLoader();
 
-	//Begin IAsyncOperation
-	virtual void ProvideThread(std::thread& InThread) override;
-	virtual void RequestShutDown() override;
-	virtual bool HasShutDown() const override;
-	//End IAsyncOperation
+		//Begin CAsyncWorker
+		virtual void DoWork() override;
+		//End CAsyncWorker
 
-	//Begin IAsyncLoader
-	virtual void LoadAsync(const char* InPath, SBaseAsset& InTo) override;
-	//End IAsyncLoader
-private:
-	void StartTicking();
-	void DoLoad(SLoadHandle& InLoadHandle);
-	
-	using FLoadQueue = std::queue<SLoadHandle, std::list<SLoadHandle>>;
-	FLoadQueue LoadQueue;
+		//Begin IAsyncLoader
+		virtual void LoadAsync(const char* InPath, SBaseAsset& InTo) override;
+		//End IAsyncLoader
+	private:
+		const short MaxAssetsToLoadPerCycle = 5;
 
-	std::atomic_bool HaveStopRequest;
-	std::atomic_bool IsStopped;
-};
+		void DoLoad(SLoadHandle& InLoadHandle);
+
+		using FLoadQueue = std::vector<SLoadHandle>;
+		FLoadQueue LoadQueue;
+	};
+}
+
+namespace SS = SpelSylt;
