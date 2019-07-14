@@ -165,6 +165,7 @@
     <ClCompile Include="FileHandling\Asset\AnimationAsset.cpp" />
     <ClCompile Include="FileHandling\Banks\FontBank.cpp" />
     <ClCompile Include="FileHandling\Banks\TextureBank.cpp" />
+    <ClCompile Include="FileHandling\ConfigReader.cpp" />
     <ClCompile Include="FileHandling\DirectoryHelpers.cpp" />
     <ClCompile Include="FileHandling\FileWatcher.cpp" />
     <ClCompile Include="FileHandling\Loading\AsyncLoader.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="FileHandling\Banks\FontBank.h" />
     <ClInclude Include="FileHandling\Banks\TextureBank.h" />
     <ClInclude Include="FileHandling\Banks\TextureProviderInterface.h" />
+    <ClInclude Include="FileHandling\ConfigReader.h" />
     <ClInclude Include="FileHandling\DirectoryHelpers.h" />
     <ClInclude Include="FileHandling\FileWatcher.h" />
     <ClInclude Include="FileHandling\Loading\AsyncLoader.h" />
