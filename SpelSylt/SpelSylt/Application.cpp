@@ -16,10 +16,10 @@
 //------------------------------------------------------------------
 
 CApplication::CApplication()
-	: StateStack()
+	: Window()
+	, StateStack(Window)
 	, InputManager()
 	, Time()
-	, Window()
 	, Renderer()
 	, TextureBank(AsyncLoader)
 	, RenderQueue()
@@ -118,6 +118,7 @@ bool CApplication::HandleEvents()
 		else if (e.type == sf::Event::Resized)
 		{
 			MessageQueue.DispatchEvent<SResizedWindowMessage>(e.size.width, e.size.height);
+			Window.setView(sf::View(sf::FloatRect(0.f, 0.f, (float)e.size.width, (float)e.size.height)));
 		}
 		else
 		{
@@ -144,7 +145,10 @@ void CApplication::PrepareForNewFrame()
 
 void CApplication::PublishNewFrame()
 {
-	Window.setView(RenderingContext.Camera);
+	float viewX = RenderingContext.Camera.getCenter().x - Window.getSize().x * 0.5f;
+	float viewY = RenderingContext.Camera.getCenter().y - Window.getSize().y * 0.5f;
+
+	Window.setView(sf::View(sf::FloatRect(viewX, viewY, (float)Window.getSize().x, (float)Window.getSize().y)));
 
 	StateStack.Render(RenderingContext);
 

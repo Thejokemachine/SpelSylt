@@ -38,6 +38,7 @@ private:
 	float myMusicFade = 0.f;
 	std::string myMusicAlias;
 	bool myShouldSwitchMusic = false;
+	float myMusicVolume = 50.f;
 
 	CSubscriptions Subscriptions;
 };

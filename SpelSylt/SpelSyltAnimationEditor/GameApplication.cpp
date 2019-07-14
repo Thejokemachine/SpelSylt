@@ -1,6 +1,8 @@
 #include "Game/GameApplication.h"
 
-#include <SpelSylt/UI/Base/UIState.h>
+#include "AnimationEditorState.h"
+
+using namespace AnimationEditor;
 
 void CGameApplication::SetUpWindow()
 {
@@ -10,5 +12,5 @@ void CGameApplication::SetUpWindow()
 
 void CGameApplication::PushStartUpStates()
 {
-	CApplication::PushState(new UIState(800, 600, "UI/Layouts/layout.xml"));
+	CApplication::PushState(new AnimationEditorState(800, 600, "UI/Layouts/layout.xml"));
 }

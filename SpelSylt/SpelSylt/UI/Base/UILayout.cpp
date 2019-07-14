@@ -3,7 +3,7 @@
 #include "SpelSylt/UI/Base/UILayout.h"
 #include "SFML/Graphics/RenderTarget.hpp"
 #include "SpelSylt/UI/Button.h"
-#include "SpelSylt/UI/Text.h"
+#include "SpelSylt/UI/Label.h"
 #include "SpelSylt/tinyxml2.h"
 #include "SpelSylt/Utility/Input/InputEventGetter.h"
 #include "SpelSylt/UI/UIUtilities.h"
@@ -33,9 +33,9 @@ void UILayout::Update(IInputEventGetter* aInputManager)
 {
 	sf::Vector2f mPos = aInputManager->GetMousePosFloat();
 
-	if (aInputManager && aInputManager->IsKeyPressed(EKeyCode::MouseLeft))
-	{
-		myRootPanel->ForEachChild([mPos](Panel& panel) {
+	myRootPanel->ForEachChild([mPos, aInputManager](Panel& panel) {
+		if (aInputManager && aInputManager->IsKeyPressed(EKeyCode::MouseLeft))
+		{
 			if (panel.contains(mPos))
 			{
 				if (auto btn = dynamic_cast<Button*>(&panel))
@@ -44,8 +44,10 @@ void UILayout::Update(IInputEventGetter* aInputManager)
 						btn->myOnPressed(*btn);
 				}
 			}
-		});
-	}
+		}
+		if (panel.myIsDirty)
+			panel.Layout();
+	});
 }
 
 void UILayout::Render(sf::RenderTarget & aRenderTarget)
@@ -59,7 +61,7 @@ void UILayout::Render(sf::RenderTarget & aRenderTarget)
 void UILayout::Resize(int aWidth, int aHeight)
 {
 	LOG_VERBOSE(UI, "Resized window: width: %i height: %i", aWidth, aHeight);
-	myRootPanel->Resize((float)aWidth, (float)aHeight);
+	myRootPanel->SetBounds(0.f, 0.f, static_cast<float>(aWidth), static_cast<float>(aHeight));
 }
 
 Panel * UILayout::GetPanel(const std::string & aName)
@@ -70,6 +72,11 @@ Panel * UILayout::GetPanel(const std::string & aName)
 Button * UILayout::GetButton(const std::string & aName)
 {
 	return dynamic_cast<Button*>(GetPanel(aName));
+}
+
+Label * UI::UILayout::GetLabel(const std::string & aName)
+{
+	return dynamic_cast<Label*>(GetPanel(aName));
 }
 
 void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
@@ -111,7 +118,7 @@ void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
 		}
 		else if (val == "text")
 		{
-			panel = std::make_shared<Text>(*this, &aParent, name, x, y, width, height, dockFlags, *child);
+			panel = std::make_shared<Label>(*this, &aParent, name, x, y, width, height, dockFlags, *child);
 		}
 
 		if (panel)
