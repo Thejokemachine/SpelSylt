@@ -5,10 +5,6 @@
 #include "SpelSylt/Messaging/Subscribing/MessageSubscriberList.h"
 #include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
 
-#ifdef _DEBUG
-#include <SpelSylt/FileHandling/FileWatcher.h>
-#endif
-
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"
 
@@ -38,7 +34,6 @@ private:
 	static CFontBank FontBank;
 
 #ifdef _DEBUG
-	CFileWatcher myFileWatcher;
 	bool myShouldReload = false;
 	std::string myLayoutFile;
 #endif

@@ -12,6 +12,7 @@
 #include <SpelSylt/State/StateStack.h>
 #include <SpelSylt/Utility/Input/InputManager.h>
 #include <SpelSylt/Utility/Time/Time.h>
+#include <SpelSylt/Utility/Async/SpelSyltThread.h>
 
 #include <thread>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -61,6 +62,8 @@ private:
 	//Contexts
 	SGameContext GameContext;
 	SRenderingContext RenderingContext;
+
+	SS::CSSThread UtilityThread;
 
 	CAsyncLoader AsyncLoader;
 	std::thread LoadThread;

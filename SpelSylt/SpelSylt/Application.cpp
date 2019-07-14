@@ -13,6 +13,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include "SpelSylt/FileHandling/FileWatcher.h"
+
 //------------------------------------------------------------------
 
 CApplication::CApplication()
@@ -37,6 +39,10 @@ CApplication::CApplication()
 CApplication::~CApplication()
 {
 	Window.close();
+
+	UtilityThread.RequestStop();
+	while (!UtilityThread.HaveStopped());
+
 	AsyncLoader.RequestShutDown();
 	while (!AsyncLoader.HasShutDown());
 	LoadThread.join();
@@ -50,6 +56,9 @@ void CApplication::Initialize()
 	Time.Init();
 
 	AudioManager.Init(MessageQueue);
+
+	UtilityThread.EmplaceWorker<SS::CFileWatcher>();
+	UtilityThread.Start();
 
 	AsyncLoader.ProvideThread(LoadThread);
 
