@@ -2,7 +2,7 @@
 
 namespace sf
 {
-	class RenderWindow;
+	class RenderTarget;
 }
 
 class CStateStack;
@@ -29,9 +29,9 @@ public:
 	StateFlags GetStateFlags() const { return myStateFlags; }
 	CStateStack* GetStateStack() const { return myOwner; }
 
-	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext) = 0;
+	virtual void Init(SGameContext& InGameContext) = 0;
 	virtual void Update(SGameContext& InGameContext) = 0;
-	virtual void Render(SRenderingContext& InRenderingContext) = 0;
+	virtual void Render(sf::RenderTarget& InTarget) = 0;
 
 protected:
 	bool Pop();

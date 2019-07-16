@@ -48,7 +48,6 @@ private:
 
 	sf::RenderWindow Window;
 	
-	CRenderer Renderer;
 	CDebugDrawer DebugDrawer;
 	CAudioManager AudioManager;
 	CTextureBank TextureBank;
@@ -58,7 +57,6 @@ private:
 	//Contexts
 	CContextBuilder ContextBuilder;
 	SGameContext* GameContext;
-	SRenderingContext* RenderingContext;
 
 	SS::CSSThread UtilityThread;
 };

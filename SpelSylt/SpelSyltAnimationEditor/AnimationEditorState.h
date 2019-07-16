@@ -17,7 +17,7 @@ namespace AnimationEditor {
 		AnimationEditorState(unsigned width, unsigned int height, const std::string& aLayoutXML);
 		virtual ~AnimationEditorState() = default;
 
-		virtual void OnInit(SGameContext& InGameContext, SRenderingContext& InRenderingContext) override;
+		virtual void OnInit(SGameContext& InGameContext) override;
 		virtual void OnUpdate(SGameContext& InGameContext) override;
 		virtual void OnRender(sf::RenderTarget& target) override;
 

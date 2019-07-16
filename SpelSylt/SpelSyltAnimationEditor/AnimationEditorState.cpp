@@ -12,6 +12,8 @@
 
 #include "AnimationEditorMessages.h"
 
+#include <SFML/Graphics/RenderTarget.hpp>
+
 // Needed for opening file dialog
 #pragma comment(lib, "comdlg32.lib")
 #include <windows.h>
@@ -33,7 +35,7 @@ AnimationEditorState::AnimationEditorState(unsigned width, unsigned int height, 
 	animCenter = myLayout->GetPanel("center");
 }
 
-void AnimationEditorState::OnInit(SGameContext & InGameContext, SRenderingContext & InRenderingContext)
+void AnimationEditorState::OnInit(SGameContext & InGameContext)
 {
 	if (auto btn = myLayout->GetButton("speed_val_up")) {
 		btn->SetCallback([&InGameContext](Button& button) {

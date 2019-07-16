@@ -40,6 +40,9 @@ namespace UI
 		Button* GetButton(const std::string& aName);
 		Label* GetLabel(const std::string& aName);
 
+		float GetWidth() const;
+		float GetHeight() const;
+
 		CFontBank& GetFontBank() { return myFontBank; }
 
 	private:

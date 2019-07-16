@@ -79,6 +79,16 @@ Label * UI::UILayout::GetLabel(const std::string & aName)
 	return dynamic_cast<Label*>(GetPanel(aName));
 }
 
+float UI::UILayout::GetWidth() const
+{
+	return myRootPanel->GetWidth();
+}
+
+float UI::UILayout::GetHeight() const
+{
+	return myRootPanel->GetHeight();
+}
+
 void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
 {
 	auto child = aElement->FirstChildElement();

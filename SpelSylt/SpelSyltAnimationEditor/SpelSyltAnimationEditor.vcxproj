@@ -137,6 +137,7 @@
     <ClCompile Include="SimpleAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationEditorMessages.h" />
     <ClInclude Include="AnimationEditorState.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="SimpleAnimation.h" />

@@ -9,8 +9,12 @@
 
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 #include "SpelSylt/FileHandling/Asset/Assets.h"
+
+#include <SpelSylt/Rendering/Renderer.h>
+#include <SpelSylt/Rendering/RenderQueue.h>
 
 class HookGame : public CState 
 {
@@ -19,9 +23,9 @@ public:
 	~HookGame();
 
 	//Begin CState
-	virtual void Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext) override;
+	virtual void Init(SGameContext& InGameContext) override;
 	virtual void Update(SGameContext& InGameContext) override;
-	virtual void Render(SRenderingContext& InContext) override;
+	virtual void Render(sf::RenderTarget& InTarget) override;
 	//End CState
 private:
 
@@ -39,4 +43,9 @@ private:
 	bool SetTexture;
 	STextureAsset TestTexture;
 	sf::Sprite TestSprite;
+
+	CRenderer myRenderer;
+	CRenderQueue myRenderQueue;
+	CDebugDrawer myDebugDrawer;
+	sf::View myCamera;
 };

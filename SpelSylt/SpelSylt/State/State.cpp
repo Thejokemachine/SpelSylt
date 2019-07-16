@@ -4,6 +4,8 @@
 
 #include "SpelSylt/State/StateStack.h"
 
+#include <SFML/Graphics/RenderTarget.hpp>
+
 CState::CState()
 	: myOwner(nullptr)
 {
