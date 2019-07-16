@@ -27,6 +27,8 @@ myFontBank(aFontBank)
 		myRootPanel = std::make_unique<Panel>(*this, nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None, *root);
 		addChildren(*myRootPanel, root);
 	}
+
+	Resize((int)aWidth, (int)aHeight);
 }
 
 void UILayout::Update(IInputEventGetter* aInputManager)

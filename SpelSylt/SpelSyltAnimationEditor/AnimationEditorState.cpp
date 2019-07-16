@@ -33,6 +33,10 @@ AnimationEditorState::AnimationEditorState(unsigned width, unsigned int height, 
 	}
 
 	animCenter = myLayout->GetPanel("center");
+
+	if (auto p = myLayout->GetPanel("clip_image")) {
+		animation.setMaxSize(p->GetWidth(), p->GetHeight());
+	}
 }
 
 void AnimationEditorState::OnInit(SGameContext & InGameContext)
