@@ -19,7 +19,7 @@
 
 CApplication::CApplication()
 	: Window()
-	, StateStack(Window)
+	, StateStack()
 	, InputManager()
 	, Time()
 	, Renderer()
