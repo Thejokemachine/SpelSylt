@@ -23,9 +23,7 @@ CApplication::CApplication()
 	, InputManager()
 	, Time()
 	, TextureBank()
-	, RenderQueue()
 	, MessageQueue()
-	, DebugDrawer()
 	, AudioManager("Audio")
 	, GameContext(nullptr)
 {
@@ -147,9 +145,7 @@ void CApplication::PrepareForNewFrame()
 	InputManager.OncePerFrameUpdate();
 	Time.Update();
 
-	Window.clear(sf::Color::Blue);
-	RenderQueue.Clear();
-	DebugDrawer.clear();
+	Window.clear(sf::Color(100, 100, 100, 255));
 }
 
 //------------------------------------------------------------------

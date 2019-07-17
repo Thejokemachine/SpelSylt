@@ -1,31 +1,28 @@
 #pragma once
-#include "SpelSylt/State/State.h"
-
-#include "SpelSylt/Debugging/Rendering/DebugDrawer.h"
-#include "SpelSylt/UI/Base/UILayout.h"
+#include "SpelSylt/GameState2D.h"
 
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Graphics/View.hpp"
 
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-
 #include "SpelSylt/FileHandling/Asset/Assets.h"
 
-#include <SpelSylt/Rendering/Renderer.h>
-#include <SpelSylt/Rendering/RenderQueue.h>
+namespace sf {
+	class RenderTarget;
+}
 
-class HookGame : public CState 
+class CRenderQueue;
+
+
+class HookGame : public GameState2D 
 {
 public:
 	HookGame();
 	~HookGame();
 
 	//Begin CState
-	virtual void Init(SGameContext& InGameContext) override;
-	virtual void Update(SGameContext& InGameContext) override;
-	virtual void Render(sf::RenderTarget& InTarget) override;
+	virtual void OnInit(SGameContext& InGameContext) override;
+	virtual void OnUpdate(SGameContext& InGameContext) override;
+	virtual void OnRender(CRenderQueue& InRenderQueue) override;
 	//End CState
 private:
 
@@ -44,8 +41,15 @@ private:
 	STextureAsset TestTexture;
 	sf::Sprite TestSprite;
 
-	CRenderer myRenderer;
-	CRenderQueue myRenderQueue;
-	CDebugDrawer myDebugDrawer;
-	sf::View myCamera;
+	float myRotation = 0.f;
+	float myTargetRotation = 0.f;
+
+	sf::Sprite myPlayer;
+	sf::Sprite myRope;
+
+	STextureAsset myPlayerTexture;
+	STextureAsset myPlayerHookedTexture;
+	STextureAsset myRopeTexture;
+	STextureAsset myHookPointTexture;
+	STextureAsset myFloorTexture;
 };

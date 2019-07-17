@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/System/Vector2.hpp"
 
+#define M_PI 3.141592654f
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 #define MIN(a, b) ((a) < (b)) ? (a) : (b)
@@ -25,6 +26,16 @@ namespace Math
 	T Clamp(T aValueToClamp, T aMin, T aMax)
 	{
 		return CLAMP(aValueToClamp, aMin, aMax);
+	}
+
+	static float ToDegrees(float aInRadians)
+	{
+		return (aInRadians * 180.f) / M_PI;
+	}
+
+	static float ToRadians(float aInDegree)
+	{
+		return (aInDegree * M_PI) / 180.f;
 	}
 
 	float Length2(const sf::Vector2f& aVector);

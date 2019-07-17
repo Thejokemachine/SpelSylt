@@ -28,13 +28,20 @@ void CStateStack::Update(SGameContext& InGameContext)
 
 void CStateStack::Render(sf::RenderTarget& InTarget)
 {
-	for (int i = static_cast<int>(myStates.size()) - 1; i >= 0; --i)
-	{
-		CState& state = *myStates[i];
+	int index = (int)myStates.size() - 1;
+
+	std::function<void()> func;
+	func = [this, &InTarget, &index, &func]() {
+		if (index < 0)
+			return;
+
+		CState& state = *myStates[index--];
+		if (state.GetStateFlags() & CState::StateFlags::DRAW_BELOW)
+			func();
 		state.Render(InTarget);
-		if (!(state.GetStateFlags() & CState::StateFlags::DRAW_BELOW))
-			break;
-	}
+	};
+
+	func();
 }
 
 void CStateStack::Push(CState * aNewState, SGameContext& InGameContext)

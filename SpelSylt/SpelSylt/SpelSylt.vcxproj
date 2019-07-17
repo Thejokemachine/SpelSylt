@@ -185,6 +185,7 @@
     <ClCompile Include="FileHandling\Loading\AsyncLoader.cpp" />
     <ClCompile Include="FileHandling\Loading\FileLoader.cpp" />
     <ClCompile Include="FileHandling\TextFileHandler.cpp" />
+    <ClCompile Include="GameState2D.cpp" />
     <ClCompile Include="Math\CommonMath.cpp" />
     <ClCompile Include="Memory\Containers\StaticMemoryBuffer.cpp" />
     <ClCompile Include="Messaging\MessageQueue.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="FileHandling\Loading\FileLoader.h" />
     <ClInclude Include="FileHandling\Loading\LoadEnums.h" />
     <ClInclude Include="FileHandling\TextFileHandler.h" />
+    <ClInclude Include="GameState2D.h" />
     <ClInclude Include="Math\CommonMath.h" />
     <ClInclude Include="Memory\Containers\DoubleBuffer.h" />
     <ClInclude Include="Memory\Containers\StaticMemoryBuffer.h" />

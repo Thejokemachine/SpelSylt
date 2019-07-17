@@ -48,10 +48,8 @@ private:
 
 	sf::RenderWindow Window;
 	
-	CDebugDrawer DebugDrawer;
 	CAudioManager AudioManager;
 	CTextureBank TextureBank;
-	CRenderQueue RenderQueue;
 	CMessageQueue MessageQueue;
 
 	//Contexts

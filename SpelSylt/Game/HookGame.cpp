@@ -4,6 +4,8 @@
 #include "SpelSylt/Math/CommonMath.h"
 #include "SpelSylt/Utility/Input/InputManager.h"
 
+#include "SpelSylt/Rendering/RenderQueue.h"
+
 #include <iostream>
 
 #include "SpelSylt/FileHandling/Asset/Assets.h"
@@ -26,7 +28,7 @@ HookGame::~HookGame()
 {
 }
 
-void HookGame::Init(SGameContext& InGameContext)
+void HookGame::OnInit(SGameContext& InGameContext)
 {
 	myPlayerPos = sf::Vector2f(800.f, 900.f);
 
@@ -36,10 +38,24 @@ void HookGame::Init(SGameContext& InGameContext)
 	}
 
 	InGameContext.MessageQueue.DispatchEvent<SMusicMessage>("HookGameOst", false);
+
+	myPlayerTexture.loadFromFile("Graphics/Sprites/Player.png");
+	myPlayerHookedTexture.loadFromFile("Graphics/Sprites/Player_hooked.png");
+	myRopeTexture.loadFromFile("Graphics/Sprites/Rope.png");
+	myRopeTexture.setRepeated(true);
+	myHookPointTexture.loadFromFile("Graphics/Sprites/Hookpoint.png");
+	myFloorTexture.loadFromFile("Graphics/Sprites/Floor.png");
+	myFloorTexture.setRepeated(true);
+
+	myRope.setTexture(myRopeTexture);
+	myRope.setOrigin(myRopeTexture.getSize().x * 0.5f, 0.f);
+
+	myPlayer.setOrigin(myPlayerTexture.getSize().x * 0.5f, myPlayerTexture.getSize().y * 1.f);
 }
 
-void HookGame::Update(SGameContext& InGameContext)
+void HookGame::OnUpdate(SGameContext& InGameContext)
 {
+
 	const float dt = InGameContext.Time.GetDeltaTime();
 
 	Anchor = myPlayerPos;
@@ -64,6 +80,7 @@ void HookGame::Update(SGameContext& InGameContext)
 		{
 			InGameContext.MessageQueue.DispatchEvent<SSoundMessage>("HookNoise");
 			myRopeLength = Math::Length(myHookPoint - Anchor);
+			myRotation = myTargetRotation;
 		}
 		myIsHooked = !myIsHooked;
 	}
@@ -86,6 +103,15 @@ void HookGame::Update(SGameContext& InGameContext)
 			myVelocity.x = 0.f;
 
 		myPlayerPos += myVelocity * dt;
+		if (!myIsGrounded)
+		{
+			myRotation += (myVelocity.x < 0.f ? 1.f : -1.f) * 720.f * InGameContext.Time.GetDeltaTime();
+		}
+		else
+		{
+			myRotation = 0.f;
+			myTargetRotation = 0.f;
+		}
 	}
 	else
 	{
@@ -106,38 +132,40 @@ void HookGame::Update(SGameContext& InGameContext)
 	myPlayerPos.y = Math::Min(myPlayerPos.y, 900.f);
 	myIsGrounded = myPlayerPos.y == 900.f;
 
-	myCamera.setCenter(myCamera.getCenter().x, myPlayerPos.y);
+	myPlayer.setPosition(myPlayerPos);
+
+	myRotation = myRotation + InGameContext.Time.GetDeltaTime() * (myTargetRotation - myRotation);
+
+	GetCamera().setCenter(myPlayerPos.x, myPlayerPos.y);
 }
 
-void HookGame::Render(sf::RenderTarget& InTarget)
+void HookGame::OnRender(CRenderQueue& InRenderQueue)
 {
-	myCamera.setSize((float)InTarget.getSize().x, (float)InTarget.getSize().y);
+	sf::Vector2f pToAnchor = Anchor - myHookPoint;
+	myRope.setPosition(myHookPoint);
+	float rot = Math::ToDegrees(atan2f(-pToAnchor.x, pToAnchor.y));
+	if (myIsHooked) myTargetRotation = -rot;
+	myRope.setRotation(rot);
+	myRope.setTextureRect(sf::IntRect(0, 0, myRopeTexture.getSize().x, 10 + (Math::Length(pToAnchor) / myRopeTexture.getSize().y) * (myRopeTexture.getSize().y)));
 
-	myRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(TestSprite));
+	sf::Texture& texture = myIsHooked ? myPlayerHookedTexture : myPlayerTexture;
+	myPlayer.setTexture(texture, true);
+	myPlayer.setOrigin(texture.getSize().x * 0.5f, myPlayer.getOrigin().y);
+	myPlayer.setRotation(myRotation);
 
-	myDebugDrawer.DrawCircle(myHookPoint, 5.f, true, sf::Color::Blue);
-
+	sf::Sprite floor;
+	floor.setPosition(-1000.f, 900.f);
+	floor.setTexture(myFloorTexture);
+	floor.setTextureRect({ 0, 0, 5000, 1000 });
+	InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(floor));
+	if (myIsHooked) InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(myRope));
 	for (auto hookPoint : myHookPoints)
 	{
-		myDebugDrawer.DrawCircle(hookPoint, 2.f, true);
+		sf::Sprite s;
+		s.setOrigin(myHookPointTexture.getSize().x * 0.5f, myHookPointTexture.getSize().y * 0.5f);
+		s.setTexture(myHookPointTexture);
+		s.setPosition(hookPoint);
+		InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(s));
 	}
-
-	sf::Vector2f playerOffset = myPlayerPos;
-	playerOffset.y -= 50.f;
-	myDebugDrawer.DrawRectangle(playerOffset, 50.f, 100.f, true);
-
-	if (myIsHooked)
-	{
-		myDebugDrawer.DrawLine(Anchor, myHookPoint);
-	}
-
-
-	myDebugDrawer.DrawLine(myPlayerPos, myPlayerPos + myVelocity, sf::Color::Blue);
-
-	InTarget.setView(myCamera);
-
-	myRenderer.RunRenderAllLayers(myRenderQueue, InTarget);
-	InTarget.draw(myDebugDrawer);
-
-	myDebugDrawer.clear();
+	InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(myPlayer));
 }
