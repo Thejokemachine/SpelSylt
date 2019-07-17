@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugHMtNM|Win32">
+      <Configuration>DebugHMtNM</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugHMtNM|x64">
+      <Configuration>DebugHMtNM</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -50,6 +58,12 @@
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|Win32'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|x64'">
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -182,6 +196,9 @@
     <ClCompile Include="Physics\Collision\RectangleCollider.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderQueue.cpp" />
+    <ClCompile Include="Rendering\Window\Window.cpp" />
+    <ClCompile Include="Messaging\WindowEventHandler.cpp" />
+    <ClCompile Include="Rendering\Window\WindowHandler.cpp" />
     <ClCompile Include="SpelSyltPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -252,6 +269,10 @@
     <ClInclude Include="Rendering\RenderQueue.h" />
     <ClInclude Include="Rendering\RenderQueueInput.h" />
     <ClInclude Include="Rendering\RenderQueueOutput.h" />
+    <ClInclude Include="Rendering\Window\AspectRatio.h" />
+    <ClInclude Include="Rendering\Window\Window.h" />
+    <ClInclude Include="Messaging\WindowEventHandler.h" />
+    <ClInclude Include="Rendering\Window\WindowHandler.h" />
     <ClInclude Include="SpelSyltPCH.h" />
     <ClInclude Include="State\State.h" />
     <ClInclude Include="State\StateStack.h" />
@@ -262,9 +283,7 @@
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\Panel.h" />
     <ClInclude Include="UI\Label.h" />
-    <ClInclude Include="UI\TextInput.h" />
     <ClInclude Include="UI\UIUtilities.h" />
-    <ClInclude Include="Utility\Async\AsyncOperationInterface.h" />
     <ClInclude Include="Utility\Async\AsyncWorker.h" />
     <ClInclude Include="Utility\Async\SpelSyltThread.h" />
     <ClInclude Include="Utility\Input\InputEventGetter.h" />
