@@ -16,7 +16,7 @@
 
 #include "SpelSylt/Messaging/Messages/AudioMessages.h"
 
-HookGame::HookGame() 
+HookGame::HookGame()
 	: myIsGrounded(true)
 	, SetTexture(false)
 {
@@ -26,7 +26,7 @@ HookGame::~HookGame()
 {
 }
 
-void HookGame::Init(SGameContext& InGameContext, SRenderingContext& InRenderingContext)
+void HookGame::Init(SGameContext& InGameContext)
 {
 	myPlayerPos = sf::Vector2f(800.f, 900.f);
 
@@ -105,32 +105,39 @@ void HookGame::Update(SGameContext& InGameContext)
 
 	myPlayerPos.y = Math::Min(myPlayerPos.y, 900.f);
 	myIsGrounded = myPlayerPos.y == 900.f;
+
+	myCamera.setCenter(myCamera.getCenter().x, myPlayerPos.y);
 }
 
-void HookGame::Render(SRenderingContext& InContext)
+void HookGame::Render(sf::RenderTarget& InTarget)
 {
-	TestSprite.setPosition(InContext.Camera.getCenter());
+	myCamera.setSize((float)InTarget.getSize().x, (float)InTarget.getSize().y);
 
-	InContext.Camera.setCenter(InContext.Camera.getCenter().x, myPlayerPos.y - 300.f);
-	
-	InContext.RenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(TestSprite));
+	myRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(TestSprite));
 
-	InContext.DebugDrawer.DrawCircle(myHookPoint, 5.f, true, sf::Color::Blue);
+	myDebugDrawer.DrawCircle(myHookPoint, 5.f, true, sf::Color::Blue);
 
 	for (auto hookPoint : myHookPoints)
 	{
-		InContext.DebugDrawer.DrawCircle(hookPoint, 2.f, true);
+		myDebugDrawer.DrawCircle(hookPoint, 2.f, true);
 	}
 
 	sf::Vector2f playerOffset = myPlayerPos;
 	playerOffset.y -= 50.f;
-	InContext.DebugDrawer.DrawRectangle(playerOffset, 50.f, 100.f, true);
+	myDebugDrawer.DrawRectangle(playerOffset, 50.f, 100.f, true);
 
 	if (myIsHooked)
 	{
-		InContext.DebugDrawer.DrawLine(Anchor, myHookPoint);
+		myDebugDrawer.DrawLine(Anchor, myHookPoint);
 	}
-	
 
-	InContext.DebugDrawer.DrawLine(myPlayerPos, myPlayerPos + myVelocity, sf::Color::Blue);
+
+	myDebugDrawer.DrawLine(myPlayerPos, myPlayerPos + myVelocity, sf::Color::Blue);
+
+	InTarget.setView(myCamera);
+
+	myRenderer.RunRenderAllLayers(myRenderQueue, InTarget);
+	InTarget.draw(myDebugDrawer);
+
+	myDebugDrawer.clear();
 }

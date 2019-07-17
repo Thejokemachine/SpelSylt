@@ -22,14 +22,12 @@ CApplication::CApplication()
 	, StateStack()
 	, InputManager()
 	, Time()
-	, Renderer()
 	, TextureBank()
 	, RenderQueue()
 	, MessageQueue()
 	, DebugDrawer()
 	, AudioManager("Audio")
 	, GameContext(nullptr)
-	, RenderingContext(nullptr)
 {
 }
 
@@ -64,11 +62,6 @@ void CApplication::Initialize()
 		TextureBank,
 		MessageQueue
 	);
-
-	RenderingContext = ContextBuilder.BuildRenderingContext(
-		RenderQueue,
-		DebugDrawer
-	);
 	//End Build Contexts
 
 	TextureBank.ProvideLoader(Loader);
@@ -88,8 +81,6 @@ void CApplication::CreateWindow(unsigned int InWindowW, unsigned int InWindowH, 
 
 	Window.create(vm, "SpelSylt Application");
 	Window.setFramerateLimit(60u);
-
-	RenderingContext->Camera.setSize(static_cast<float>(vm.width), static_cast<float>(vm.height));
 }
 
 //------------------------------------------------------------------
@@ -103,7 +94,7 @@ void CApplication::SetWindowTitle(const char* InTitle)
 
 void CApplication::PushState(CState* InState)
 {
-	StateStack.Push(InState, *GameContext, *RenderingContext);
+	StateStack.Push(InState, *GameContext);
 }
 
 //------------------------------------------------------------------
@@ -165,15 +156,12 @@ void CApplication::PrepareForNewFrame()
 
 void CApplication::PublishNewFrame()
 {
-	float viewX = RenderingContext->Camera.getCenter().x - Window.getSize().x * 0.5f;
-	float viewY = RenderingContext->Camera.getCenter().y - Window.getSize().y * 0.5f;
+	//float viewX = RenderingContext->Camera.getCenter().x - Window.getSize().x * 0.5f;
+	//float viewY = RenderingContext->Camera.getCenter().y - Window.getSize().y * 0.5f;
 
-	Window.setView(sf::View(sf::FloatRect(viewX, viewY, (float)Window.getSize().x, (float)Window.getSize().y)));
+	//Window.setView(sf::View(sf::FloatRect(viewX, viewY, (float)Window.getSize().x, (float)Window.getSize().y)));
 
-	StateStack.Render(*RenderingContext);
-
-	Renderer.RunRenderAllLayers(RenderQueue, Window);
-	DebugDrawer.draw(Window, sf::RenderStates::Default);
+	StateStack.Render(Window);
 
 	Window.display();
 }

@@ -18,9 +18,9 @@ public:
 	~CStateStack();
 
 	void Update(SGameContext& InGameContext);
-	void Render(SRenderingContext& InRenderingContext);
+	void Render(sf::RenderTarget& InTarget);
 
-	void Push(CState* aNewState, SGameContext& InGameContext, SRenderingContext& InRenderingContext);
+	void Push(CState* aNewState, SGameContext& InGameContext);
 	bool Pop();
 	void PopAll();
 

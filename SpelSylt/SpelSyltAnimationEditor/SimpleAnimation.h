@@ -13,8 +13,12 @@ namespace AnimationEditor {
 		SimpleAnimation();
 		~SimpleAnimation();
 
+		void setMaxSize(float width, float height);
+
 		void addFrame(const std::string& texturePath, float duration);
 		void tick(float dt);
+
+		void setGlobalSpeed(float speed);
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -25,6 +29,9 @@ namespace AnimationEditor {
 			float duration;
 			sf::Texture texture;
 		};
+
+		float maxWidth = -1.f;
+		float maxHeight = -1.f;
 
 		std::vector<SFrame> frames;
 		short cursor = 0;

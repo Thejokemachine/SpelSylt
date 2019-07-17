@@ -27,6 +27,8 @@ myFontBank(aFontBank)
 		myRootPanel = std::make_unique<Panel>(*this, nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None, *root);
 		addChildren(*myRootPanel, root);
 	}
+
+	Resize((int)aWidth, (int)aHeight);
 }
 
 void UILayout::Update(IInputEventGetter* aInputManager)
@@ -77,6 +79,16 @@ Button * UILayout::GetButton(const std::string & aName)
 Label * UI::UILayout::GetLabel(const std::string & aName)
 {
 	return dynamic_cast<Label*>(GetPanel(aName));
+}
+
+float UI::UILayout::GetWidth() const
+{
+	return myRootPanel->GetWidth();
+}
+
+float UI::UILayout::GetHeight() const
+{
+	return myRootPanel->GetHeight();
 }
 
 void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
