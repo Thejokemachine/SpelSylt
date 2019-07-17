@@ -13,6 +13,9 @@
 
 #include "HeightMapToNormalMapConverter/MessagePrinter.h"
 #include "HeightMapToNormalMapConverter/NormalMapBuilder.h"
+#include "HeightMapToNormalMapConverter/GfxFileBundler.h"
+#include "HeightMapToNormalMapConverter/FileMerger.h"
+#include "HeightMapToNormalMapConverter/FileMutator.h"
 
 bool ReadPaths(std::string& OutInputPath, std::string& OutOutputPath)
 {
@@ -46,6 +49,24 @@ int main()
 
 	CNormalMapBuilder NMBuilder;
 	NMBuilder.GenerateNMForEachHMInDirectory(InPath);
+
+	CFileBundler Bundler;
+	CFileBundler::FBundledFiles BundledFiles;
+	Bundler.BundleFiles(BundledFiles, InPath, EFileType::AlbedoMap, EFileType::NormalMap);
+
+	for (CFileBundler::FFileBundle& Bundle : BundledFiles)
+	{
+		CFileMerger Merger;
+		Merger.SetExtension(".ssta");
+		Merger.AddPathForMerge(Bundle.first);
+		Merger.AddPathForMerge(Bundle.second);
+
+		std::filesystem::path FilePath(Bundle.first);
+		std::string FileNameWithSuffix = FilePath.stem().string();
+		std::string FileNameNoSuffix = FileMutator::GetFileNameWithoutSuffix(FileNameWithSuffix);
+
+		Merger.Merge(OutPath + FileNameNoSuffix);
+	}
 
 	std::cin.get();
 	return 0;

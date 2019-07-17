@@ -90,7 +90,7 @@
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)Tools\</OutDir>
+    <OutDir>$(SolutionDir)Tools\TextureAssetBuilder\</OutDir>
     <IntDir>$(SolutionDir)trash\$(ProjectName)$(Configuration)\</IntDir>
     <TargetName>SpelSyltTextureAssetBuilder</TargetName>
   </PropertyGroup>
@@ -165,11 +165,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileMerger.cpp" />
     <ClCompile Include="GfxFileBundler.cpp" />
     <ClCompile Include="NormalMapBuilder.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FileMerger.h" />
     <ClInclude Include="FileMutator.h" />
     <ClInclude Include="GfxFileBundler.h" />
     <ClInclude Include="MessagePrinter.h" />

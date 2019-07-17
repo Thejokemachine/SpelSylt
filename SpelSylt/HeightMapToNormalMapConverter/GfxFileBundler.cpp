@@ -4,7 +4,7 @@
 #include "HeightMapToNormalMapConverter/FileMutator.h"
 
 
-#include <set>
+#include <unordered_set>
 
 //------------------------------------------------------------------
 
@@ -25,10 +25,15 @@ void CFileBundler::BundleFiles(FBundledFiles& OutBundledFiles, const std::string
 		return;
 	}
 
-	std::set<std::string> FilesAlreadyBundled;
+	std::unordered_set<std::string> FilesAlreadyBundled;
 
 	for (auto&& File : std::filesystem::directory_iterator(InDirectoryPath))
 	{
+		if (File.is_directory())
+		{
+			continue;
+		}
+
 		std::filesystem::path FilePath = File.path();
 		const std::string FileName = FilePath.stem().string();
 		std::string FileNameNoSuffix = FileMutator::GetFileNameWithoutSuffix(FileName);
@@ -40,6 +45,13 @@ void CFileBundler::BundleFiles(FBundledFiles& OutBundledFiles, const std::string
 		}
 
 		const EFileType FileType = GetFileType(FileName);
+
+		if (FileType != InFirstType && FileType != InSecondType)
+		{
+			//Ignore
+			continue;
+		}
+
 		const EFileType PairWithType = FileType == InFirstType ? InSecondType : InFirstType;
 		OutBundledFiles.push_back(BundleFile( FilePath, PairWithType ));
 
@@ -73,7 +85,7 @@ bool CFileBundler::FileIsOfType(const std::string& InFileName, const EFileType I
 
 //------------------------------------------------------------------
 
-const CFileBundler::FFileBundle& CFileBundler::BundleFile(const std::filesystem::path& InFullPathToBundle, const EFileType InBundleWith)
+CFileBundler::FFileBundle CFileBundler::BundleFile(const std::filesystem::path& InFullPathToBundle, const EFileType InBundleWith)
 {
 	const std::string FileName = InFullPathToBundle.stem().string();
 	const std::string FileNameNoSuffix = FileMutator::GetFileNameWithoutSuffix(FileName);

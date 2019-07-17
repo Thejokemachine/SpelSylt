@@ -24,7 +24,7 @@ public:
 private:
 	EFileType GetFileType(const std::string& InFileName) const;
 	bool FileIsOfType(const std::string& InFileName, const EFileType InType) const;
-	const FFileBundle& BundleFile(const std::filesystem::path& InFullPathToBundle, const EFileType InBundleWith);
+	FFileBundle BundleFile(const std::filesystem::path& InFullPathToBundle, const EFileType InBundleWith);
 
 	std::array<std::string, EFileType::Count> SuffixLookup;
 };
