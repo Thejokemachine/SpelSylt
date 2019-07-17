@@ -15,7 +15,7 @@ namespace FileMutator
 	
 	static std::string GetFileSuffix(const std::string& InFileName)
 	{
-		std::string::const_iterator SuffixStart(InFileName.begin() + (InFileName.find_last_of('_') - 1u));
+		std::string::const_iterator SuffixStart(InFileName.begin() + (InFileName.find_last_of('_')));
 		std::string::const_iterator SuffixEnd(SuffixStart + 3);
 		std::string Suffix(SuffixStart, SuffixEnd);
 		return Suffix;
