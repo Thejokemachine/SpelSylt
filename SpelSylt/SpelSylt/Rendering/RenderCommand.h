@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics/Sprite.hpp>
+#include "SpelSylt/Rendering/Sprite/Sprite.h"
 
 enum class ECommandType
 {
@@ -25,7 +25,7 @@ struct SSpriteRenderCommand final
 
 	}
 
-	SSpriteRenderCommand(const sf::Sprite& InSFSprite)
+	SSpriteRenderCommand(const SS::CSprite& InSFSprite)
 		: Sprite(InSFSprite)
 	{
 	}
@@ -41,5 +41,5 @@ struct SSpriteRenderCommand final
 	}
 
 private:
-	sf::Sprite Sprite;
+	SS::CSprite Sprite;
 };

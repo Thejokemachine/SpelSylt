@@ -20,7 +20,6 @@
 
 HookGame::HookGame()
 	: myIsGrounded(true)
-	, SetTexture(false)
 {
 }
 
@@ -39,18 +38,18 @@ void HookGame::OnInit(SGameContext& InGameContext)
 
 	InGameContext.MessageQueue.DispatchEvent<SMusicMessage>("HookGameOst", false);
 
-	myPlayerTexture.loadFromFile("Graphics/Sprites/Player.png");
-	myPlayerHookedTexture.loadFromFile("Graphics/Sprites/Player_hooked.png");
-	myRopeTexture.loadFromFile("Graphics/Sprites/Rope.png");
-	myRopeTexture.setRepeated(true);
-	myHookPointTexture.loadFromFile("Graphics/Sprites/Hookpoint.png");
-	myFloorTexture.loadFromFile("Graphics/Sprites/Floor.png");
-	myFloorTexture.setRepeated(true);
+	myPlayerTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Player.png");
+	myPlayerHookedTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Player_hooked.png");
+	myRopeTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Rope.png");
+	//myRopeTexture.setRepeated(true);
+	myHookPointTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Hookpoint.png");
+	myFloorTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Floor.png");
+	//myFloorTexture.setRepeated(true);
 
-	myRope.setTexture(myRopeTexture);
-	myRope.setOrigin(myRopeTexture.getSize().x * 0.5f, 0.f);
+	myRope.SetTextureAsset(*myRopeTexture);
+	//myRope.setOrigin(myRopeTexture.getSize().x * 0.5f, 0.f);
 
-	myPlayer.setOrigin(myPlayerTexture.getSize().x * 0.5f, myPlayerTexture.getSize().y * 1.f);
+	//myPlayer.setOrigin(myPlayerTexture.getSize().x * 0.5f, myPlayerTexture.getSize().y * 1.f);
 }
 
 void HookGame::OnUpdate(SGameContext& InGameContext)
@@ -146,24 +145,24 @@ void HookGame::OnRender(CRenderQueue& InRenderQueue)
 	float rot = Math::ToDegrees(atan2f(-pToAnchor.x, pToAnchor.y));
 	if (myIsHooked) myTargetRotation = -rot;
 	myRope.setRotation(rot);
-	myRope.setTextureRect(sf::IntRect(0, 0, myRopeTexture.getSize().x, 10 + (Math::Length(pToAnchor) / myRopeTexture.getSize().y) * (myRopeTexture.getSize().y)));
+	//myRope.setTextureRect(sf::IntRect(0, 0, myRopeTexture->GetSize().x, 10 + (Math::Length(pToAnchor) / myRopeTexture->GetSize().y) * (myRopeTexture->GetSize().y)));
 
-	sf::Texture& texture = myIsHooked ? myPlayerHookedTexture : myPlayerTexture;
-	myPlayer.setTexture(texture, true);
-	myPlayer.setOrigin(texture.getSize().x * 0.5f, myPlayer.getOrigin().y);
+	const STextureAsset* texture = myIsHooked ? myPlayerHookedTexture : myPlayerTexture;
+	myPlayer.SetTextureAsset(*texture);
+	myPlayer.setOrigin(texture->GetSize().x * 0.5f, myPlayer.getOrigin().y);
 	myPlayer.setRotation(myRotation);
 
-	sf::Sprite floor;
+	SS::CSprite floor;
 	floor.setPosition(-1000.f, 900.f);
-	floor.setTexture(myFloorTexture);
-	floor.setTextureRect({ 0, 0, 5000, 1000 });
+	floor.SetTextureAsset(*myFloorTexture);
+	//floor.setTextureRect({ 0, 0, 5000, 1000 });
 	InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(floor));
 	if (myIsHooked) InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(myRope));
 	for (auto hookPoint : myHookPoints)
 	{
-		sf::Sprite s;
-		s.setOrigin(myHookPointTexture.getSize().x * 0.5f, myHookPointTexture.getSize().y * 0.5f);
-		s.setTexture(myHookPointTexture);
+		SS::CSprite s;
+		s.setOrigin(myHookPointTexture->GetSize().x * 0.5f, myHookPointTexture->getSize().y * 0.5f);
+		s.SetTextureAsset(*myHookPointTexture);
 		s.setPosition(hookPoint);
 		InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(s));
 	}

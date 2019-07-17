@@ -36,20 +36,15 @@ private:
 	sf::Vector2f myHookPoint;
 	sf::Vector2f Anchor;
 
-	//UILayout myUI;
-	bool SetTexture;
-	STextureAsset TestTexture;
-	sf::Sprite TestSprite;
-
 	float myRotation = 0.f;
 	float myTargetRotation = 0.f;
 
-	sf::Sprite myPlayer;
-	sf::Sprite myRope;
+	SS::CSprite myPlayer;
+	SS::CSprite myRope;
 
-	STextureAsset myPlayerTexture;
-	STextureAsset myPlayerHookedTexture;
-	STextureAsset myRopeTexture;
-	STextureAsset myHookPointTexture;
-	STextureAsset myFloorTexture;
+	const STextureAsset* myPlayerTexture;
+	const STextureAsset* myPlayerHookedTexture;
+	const STextureAsset* myRopeTexture;
+	const STextureAsset* myHookPointTexture;
+	const STextureAsset* myFloorTexture;
 };
