@@ -128,3 +128,9 @@ Diagnosis/*
 
 SpelSylt/SpelSyltEventGenerator/obj/Debug/
 
+
+# Allow exes and dll in Tools
+!SpelSylt/Tools/*.exe
+!SpelSylt/Tools/*/*.exe
+!SpelSylt/Tools/*.dll
+!SpelSylt/Tools/*/*.dll
