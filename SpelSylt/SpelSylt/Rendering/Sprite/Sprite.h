@@ -21,6 +21,8 @@ namespace SpelSylt
 		CSprite();
 
 		void SetTextureAsset(const STextureAsset& Asset);
+		const sf::Texture* GetTexture(int InTextureID) const;
+		
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	private:
 		const STextureAsset* TextureAsset;
