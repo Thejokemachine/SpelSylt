@@ -12,7 +12,6 @@ struct IRenderCommand
 {
 	virtual ECommandType GetCommandType() const = 0; 
 	virtual const sf::Drawable& GetRaw() const = 0;
-	virtual const sf::Texture* GetTexture(int InTextureID) const = 0;
 };
 
 //Note: For now this is just a pure sf::Sprite
@@ -39,11 +38,6 @@ struct SSpriteRenderCommand final
 	virtual const sf::Drawable& GetRaw() const override
 	{
 		return Sprite;
-	}
-
-	virtual const sf::Texture* GetTexture(int InTextureID) const override
-	{
-		return Sprite.GetTexture(InTextureID);
 	}
 
 private:

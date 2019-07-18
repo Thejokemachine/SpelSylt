@@ -27,24 +27,6 @@ void SpelSylt::CSprite::SetTextureAsset(const STextureAsset& Asset)
 
 //------------------------------------------------------------------
 
-const sf::Texture * SpelSylt::CSprite::GetTexture(int InTextureID) const
-{
-	switch (InTextureID)
-	{
-	case 0:
-		return TextureAsset;
-		break;
-	case 1:
-		return &TextureAsset->GetNormalMap();
-		break;
-	default:
-		return nullptr;
-		break;
-	}
-}
-
-//------------------------------------------------------------------
-
 void SpelSylt::CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	sf::Drawable* Drawable = nullptr;

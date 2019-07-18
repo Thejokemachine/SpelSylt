@@ -24,15 +24,9 @@ struct STextureAsset
 		return getSize();
 	}
 
-	const sf::Texture& GetNormalMap() const { return NormalMap; };
-
 protected:
 	virtual void AssignData(char* InDataLocation, B InDataSize) override
 	{
 		loadFromMemory(InDataLocation, InDataSize);
-		NormalMap.loadFromFile("Graphics/Sprites/Player_NM.png");
 	}
-
-private:
-	sf::Texture NormalMap;
 };

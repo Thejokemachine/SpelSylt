@@ -8,24 +8,10 @@
 
 //------------------------------------------------------------------
 
-CRenderer::CRenderer()
-{
-	NormalShader.loadFromFile("Shaders/SpriteNormal_FRAG.fx", sf::Shader::Type::Fragment);
-}
-
 void CRenderer::RunRenderLayer(ERenderLayer InLayer, IRenderQueueOutput& InOutputRenderQueue, sf::RenderTarget& InTargetToRenderTo)
 {
-	static sf::Vector3f light = {1, -0.5f, -1.0f};
-	static float f = 0.f;
-	f += 0.01f;
-	light.x = sinf(f);
-
-	NormalShader.setUniform("lightDir", light);
-
-	InOutputRenderQueue.ForEachCommandAtLayer(InLayer, [this, &InTargetToRenderTo](const IRenderCommand& InCommand) {
-			NormalShader.setUniform("albedo", *InCommand.GetTexture(0));
-			NormalShader.setUniform("normal", *InCommand.GetTexture(1));
-			InTargetToRenderTo.draw(InCommand.GetRaw(), &NormalShader);
+	InOutputRenderQueue.ForEachCommandAtLayer(InLayer, [&InTargetToRenderTo](const IRenderCommand& InCommand) {
+			InTargetToRenderTo.draw(InCommand.GetRaw());
 		}
 	);
 }
