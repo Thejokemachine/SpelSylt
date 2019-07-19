@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SpelSylt/FileHandling/Banks/TextureProviderInterface.h"
+#include "SpelSylt/FileHandling/Asset/AssetProvider.h"
 
 #include "SpelSylt/FileHandling/Asset/Assets.h"
 
@@ -9,24 +9,29 @@
 
 class IAsyncLoader;
 
-class CTextureBank final
-	: public ITextureProvider
+namespace SpelSylt
 {
-public:
-	CTextureBank();
+	class CTextureBank final
+		: public IAssetProvider
+	{
+	public:
+		CTextureBank();
+	
+		void ProvideLoader(IAsyncLoader& InLoader);
+	
+		//Begin ITextureProvider
+		virtual SBaseAsset* GetAsset(const char* InID) override;
+		//End ITextureProvider
+	
+	private:
+		bool AssetLoaded(const char* InID) const;
+		void AddAsset(const char* InID);
+	
+		using FBank = std::unordered_map<std::string, STextureAsset>;
+		FBank Bank;
+	
+		IAsyncLoader* AssetLoader;
+	};
+}
 
-	void ProvideLoader(IAsyncLoader& InLoader);
-
-	//Begin ITextureProvider
-	virtual const STextureAsset& GetTexture(const char* InID) const;
-	//End ITextureProvider
-
-private:
-	bool AssetLoaded(const char* InID) const;
-	void AddAsset(const char* InID) const;
-
-	using FBank = std::unordered_map<std::string, STextureAsset>;
-	mutable FBank Bank;
-
-	IAsyncLoader* AssetLoader;
-};
+namespace SS = SpelSylt;
