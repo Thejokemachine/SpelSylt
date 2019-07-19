@@ -5,10 +5,14 @@
 class ITimeGetter;
 class IInputEventGetter;
 class IAsyncLoader;
-class ITextureProvider;
 class CMessageQueue;
 class IRenderQueueInput;
 class IDebugDrawerInput;
+
+namespace SpelSylt
+{
+	class CAssetManager;
+}
 
 class CContextBuilder
 {
@@ -19,8 +23,8 @@ public:
 		IInputEventGetter& InInputEventGetter,
 		ITimeGetter& InTimeGetter,
 		IAsyncLoader& InAsyncLoader,
-		ITextureProvider& InTextureProvider,
-		CMessageQueue& InMessageQueue );
+		CMessageQueue& InMessageQueue,
+		SS::CAssetManager& InAssetManager );
 
 	SRenderingContext* BuildRenderingContext(
 		IRenderQueueInput& InRenderQueueInput,

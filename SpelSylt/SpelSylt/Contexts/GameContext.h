@@ -3,8 +3,12 @@
 class ITimeGetter;
 class IInputEventGetter;
 class IAsyncLoader;
-class ITextureProvider;
 class CMessageQueue;
+
+namespace SpelSylt
+{
+	class CAssetManager;
+}
 
 struct SGameContext
 {
@@ -14,19 +18,19 @@ public:
 		IInputEventGetter& InInputEventGetter,
 		ITimeGetter& InTimeGetter,
 		IAsyncLoader& InAsyncLoader,
-		ITextureProvider& InTextureProvider,
-		CMessageQueue& InMessageQueue
+		CMessageQueue& InMessageQueue,
+		SpelSylt::CAssetManager& InAssetManager
 	)
 		: Input(InInputEventGetter)
 		, Time(InTimeGetter)
 		, Loader(InAsyncLoader)
-		, TextureProvider(InTextureProvider)
 		, MessageQueue(InMessageQueue)
+		, AssetManager(InAssetManager)
 	{}
 
 	IInputEventGetter& Input;
 	ITimeGetter& Time;
 	IAsyncLoader& Loader;
-	ITextureProvider& TextureProvider;
 	CMessageQueue& MessageQueue;
+	SpelSylt::CAssetManager& AssetManager;
 };

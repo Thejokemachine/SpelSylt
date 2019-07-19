@@ -1,16 +1,23 @@
 #pragma once
 
 #include "SpelSylt/Audio/AudioManager.h"
+
 #include "SpelSylt/Contexts/ContextBuilder.h"
 #include "SpelSylt/Contexts/GameContext.h"
 #include "SpelSylt/Contexts/RenderingContext.h"
+
 #include "SpelSylt/Debugging/Rendering/DebugDrawer.h"
-#include "SpelSylt/FileHandling/Banks/TextureBank.h"
+
+#include "SpelSylt/FileHandling/Asset/AssetManager.h"
 #include "SpelSylt/FileHandling/Loading/AsyncLoader.h"
+
 #include "SpelSylt/Messaging/MessageQueue.h"
+
 #include "SpelSylt/Rendering/Renderer.h"
 #include "SpelSylt/Rendering/RenderQueue.h"
+
 #include "SpelSylt/State/StateStack.h"
+
 #include "SpelSylt/Utility/Input/InputManager.h"
 #include "SpelSylt/Utility/Time/Time.h"
 #include "SpelSylt/Utility/Async/SpelSyltThread.h"
@@ -49,8 +56,9 @@ private:
 	sf::RenderWindow Window;
 	
 	CAudioManager AudioManager;
-	CTextureBank TextureBank;
 	CMessageQueue MessageQueue;
+
+	SS::CAssetManager AssetManager;
 
 	//Contexts
 	CContextBuilder ContextBuilder;

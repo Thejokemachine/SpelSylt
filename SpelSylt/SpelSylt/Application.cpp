@@ -22,8 +22,8 @@ CApplication::CApplication()
 	, StateStack()
 	, InputManager()
 	, Time()
-	, TextureBank()
 	, MessageQueue()
+	, AssetManager()
 	, AudioManager("Audio")
 	, GameContext(nullptr)
 {
@@ -57,12 +57,12 @@ void CApplication::Initialize()
 		InputManager,
 		Time,
 		Loader,
-		TextureBank,
-		MessageQueue
+		MessageQueue,
+		AssetManager
 	);
 	//End Build Contexts
 
-	TextureBank.ProvideLoader(Loader);
+	AssetManager.Initialize(Loader);
 
 	SetUpWindow();
 	PushStartUpStates();

@@ -16,8 +16,8 @@ SGameContext* CContextBuilder::BuildGameContext(
 	IInputEventGetter& InInputEventGetter,
 	ITimeGetter& InTimeGetter,
 	IAsyncLoader& InAsyncLoader,
-	ITextureProvider& InTextureProvider,
-	CMessageQueue& InMessageQueue)
+	CMessageQueue& InMessageQueue,
+	SS::CAssetManager& InAssetManager )
 {
 #ifdef _DEBUG
 	if (BuiltGameContext)
@@ -30,8 +30,8 @@ SGameContext* CContextBuilder::BuildGameContext(
 		InInputEventGetter,
 		InTimeGetter,
 		InAsyncLoader,
-		InTextureProvider,
-		InMessageQueue);
+		InMessageQueue,
+		InAssetManager );
 
 	return BuiltGameContext;
 }
