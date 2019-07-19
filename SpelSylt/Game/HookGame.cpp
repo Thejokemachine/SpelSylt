@@ -8,13 +8,14 @@
 
 #include <iostream>
 
-#include "SpelSylt/FileHandling/Asset/Assets.h"
+#include <SpelSylt/FileHandling/Asset/Assets.h>
+#include <SpelSylt/FileHandling/Asset/AssetManager.h>
 
-#include "SpelSylt/Contexts/GameContext.h"
-#include "SpelSylt/Contexts/RenderingContext.h"
-#include "SpelSylt/Messaging/MessageQueue.h"
-#include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
-#include "SpelSylt/Utility/Time/TimeGetter.h"
+#include <SpelSylt/Contexts/GameContext.h>
+#include <SpelSylt/Contexts/RenderingContext.h>
+#include <SpelSylt/Messaging/MessageQueue.h>
+#include <SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h>
+#include <SpelSylt/Utility/Time/TimeGetter.h>
 
 #include "SpelSylt/Messaging/Messages/AudioMessages.h"
 
@@ -38,23 +39,25 @@ void HookGame::OnInit(SGameContext& InGameContext)
 
 	InGameContext.MessageQueue.DispatchEvent<SMusicMessage>("HookGameOst", false);
 
-	myPlayerTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Player.png");
-	myPlayerHookedTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Player_hooked.png");
-	myRopeTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Rope.png");
-	//myRopeTexture.setRepeated(true);
-	myHookPointTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Hookpoint.png");
-	myFloorTexture = &InGameContext.TextureProvider.GetTexture("Graphics/Sprites/Floor.png");
-	//myFloorTexture.setRepeated(true);
+	SS::CAssetManager& AssetManager = InGameContext.AssetManager;
 
-	myRope.SetTextureAsset(*myRopeTexture);
-	//myRope.setOrigin(myRopeTexture.getSize().x * 0.5f, 0.f);
+	myPlayerTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Player.png");
+	myPlayerHookedTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Player_hooked.png");
+	myRopeTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Rope.png");
+	myRopeTexture.Get().SetShouldRepeat(true);
+	myHookPointTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Hookpoint.png");
+	myFloorTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Floor.png");
+	myFloorTexture.Get().SetShouldRepeat(true);
 
-	//myPlayer.setOrigin(myPlayerTexture.getSize().x * 0.5f, myPlayerTexture.getSize().y * 1.f);
+	myRope.SetTextureAsset(myRopeTexture.Get());
+
 }
 
 void HookGame::OnUpdate(SGameContext& InGameContext)
 {
 
+	myRope.setOrigin(myRopeTexture.Get().GetSize().x * 0.5f, 0.f);
+	myPlayer.setOrigin(myPlayerTexture.Get().GetSize().x * 0.5f, myPlayerTexture.Get().GetSize().y * 1.f);
 	const float dt = InGameContext.Time.GetDeltaTime();
 
 	Anchor = myPlayerPos;
@@ -145,24 +148,24 @@ void HookGame::OnRender(CRenderQueue& InRenderQueue)
 	float rot = Math::ToDegrees(atan2f(-pToAnchor.x, pToAnchor.y));
 	if (myIsHooked) myTargetRotation = -rot;
 	myRope.setRotation(rot);
-	//myRope.setTextureRect(sf::IntRect(0, 0, myRopeTexture->GetSize().x, 10 + (Math::Length(pToAnchor) / myRopeTexture->GetSize().y) * (myRopeTexture->GetSize().y)));
+	myRope.setTextureRect(sf::IntRect(0, 0, myRopeTexture.Get().GetSize().x, 10 + (Math::Length(pToAnchor) / myRopeTexture.Get().GetSize().y) * (myRopeTexture.Get().GetSize().y)));
 
-	const STextureAsset* texture = myIsHooked ? myPlayerHookedTexture : myPlayerTexture;
-	myPlayer.SetTextureAsset(*texture);
-	myPlayer.setOrigin(texture->GetSize().x * 0.5f, myPlayer.getOrigin().y);
+	SS::CTexture texture(myIsHooked ? myPlayerHookedTexture : myPlayerTexture);
+	myPlayer.SetTextureAsset(texture.Get());
+	myPlayer.setOrigin(texture.Get().GetSize().x * 0.5f, myPlayer.getOrigin().y);
 	myPlayer.setRotation(myRotation);
 
 	SS::CSprite floor;
 	floor.setPosition(-1000.f, 900.f);
-	floor.SetTextureAsset(*myFloorTexture);
-	//floor.setTextureRect({ 0, 0, 5000, 1000 });
+	floor.SetTextureAsset(myFloorTexture.Get());
+	floor.setTextureRect({ 0, 0, 5000, 1000 });
 	InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(floor));
 	if (myIsHooked) InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(myRope));
 	for (auto hookPoint : myHookPoints)
 	{
 		SS::CSprite s;
-		s.setOrigin(myHookPointTexture->GetSize().x * 0.5f, myHookPointTexture->getSize().y * 0.5f);
-		s.SetTextureAsset(*myHookPointTexture);
+		s.setOrigin(myHookPointTexture.Get().GetSize().x * 0.5f, myHookPointTexture.Get().getSize().y * 0.5f);
+		s.SetTextureAsset(myHookPointTexture.Get());
 		s.setPosition(hookPoint);
 		InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(s));
 	}

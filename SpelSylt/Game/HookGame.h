@@ -4,7 +4,7 @@
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Graphics/View.hpp"
 
-#include "SpelSylt/FileHandling/Asset/Assets.h"
+#include "SpelSylt/Rendering/Sprite/Texture.h"
 
 namespace sf {
 	class RenderTarget;
@@ -42,9 +42,9 @@ private:
 	SS::CSprite myPlayer;
 	SS::CSprite myRope;
 
-	const STextureAsset* myPlayerTexture;
-	const STextureAsset* myPlayerHookedTexture;
-	const STextureAsset* myRopeTexture;
-	const STextureAsset* myHookPointTexture;
-	const STextureAsset* myFloorTexture;
+	SS::CTexture myPlayerTexture;
+	SS::CTexture myPlayerHookedTexture;
+	SS::CTexture myRopeTexture;
+	SS::CTexture myHookPointTexture;
+	SS::CTexture myFloorTexture;
 };
