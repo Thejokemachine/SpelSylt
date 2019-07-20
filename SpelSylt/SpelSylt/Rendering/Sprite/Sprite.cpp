@@ -41,6 +41,7 @@ void SpelSylt::CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) 
 		Sprite.setScale(getScale());
 		Sprite.setRotation(getRotation());
 		Sprite.setColor(sf::Color::White);
+		if (getTextureRect().width > 0) { Sprite.setTextureRect(getTextureRect()); }
 		Drawable = &Sprite;
 	}
 	else
