@@ -11,7 +11,13 @@ struct STextureAsset
 	STextureAsset()
 		: SBaseAsset()
 		, sf::Texture()
+		, ShouldRepeat(false)
 	{
+	}
+
+	void SetShouldRepeat(const bool InRepeat) const
+	{
+		ShouldRepeat = InRepeat;
 	}
 
 	sf::Vector2u GetSize() const
@@ -28,5 +34,9 @@ protected:
 	virtual void AssignData(char* InDataLocation, B InDataSize) override
 	{
 		loadFromMemory(InDataLocation, InDataSize);
+		setRepeated(ShouldRepeat);
 	}
+
+private:
+	mutable bool ShouldRepeat : 1;
 };
