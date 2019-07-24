@@ -1,16 +1,27 @@
 #pragma once
-#include "SFML/Graphics/Font.hpp"
+#include "SpelSylt/FileHandling/Asset/AssetProvider.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
 
-#include <unordered_map>
+#include "SpelSylt/FileHandling/Banks/AssetBank.h"
 
-class CFontBank
+namespace SpelSylt
 {
-public:
-	CFontBank();
-	~CFontBank() = default;
+	class CFontBank
+		: public IAssetProvider
+	{
+	public:
+		CFontBank();
 
-	const sf::Font* GetFont(const std::string& aFontName) const;
+		//Begin ITextureProvider
+		virtual void ProvideLoader(IAsyncLoader& InLoader) override;
+		virtual SBaseAsset& GetAsset(const char* InID) override;
+		//End ITextureProvider
 
-private:
-	std::unordered_map<std::string, sf::Font> myFonts;
-};
+	private:
+		CAssetBank<SFontAsset> Bank;
+
+		IAsyncLoader* Loader;
+	};
+}
+
+namespace SS = SpelSylt;
