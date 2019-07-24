@@ -6,6 +6,8 @@
 #include "SpelSylt/Math/CommonMath.h"
 #include "SpelSylt/FileHandling/DirectoryHelpers.h"
 
+using namespace SpelSylt;
+
 CAudioManager::CAudioManager(const std::string & aAudioFolder)
 {
 }

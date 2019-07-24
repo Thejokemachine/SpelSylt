@@ -3,24 +3,29 @@
 #include "SpelSylt/FileHandling/Loading/LoadEnums.h"
 #include "SpelSylt/Memory/MemAllocSizes.h"
 
-struct SBaseAsset
+namespace SpelSylt
 {
-	SBaseAsset()
-		: LoadStatus(ELoadRequestStatus::None)
-	{}
-
-	ELoadRequestStatus GetLoadStatus() const
+	struct SBaseAsset
 	{
-		return LoadStatus;
-	}
+		SBaseAsset()
+			: LoadStatus(ELoadRequestStatus::None)
+		{}
 
-	//These should probably be friended to the Loader for safety?
-	void SetData(char* InDataLocation, B InDataSize)
-	{
-		AssignData(InDataLocation, InDataSize);
-	}
+		ELoadRequestStatus GetLoadStatus() const
+		{
+			return LoadStatus;
+		}
 
-	ELoadRequestStatus LoadStatus;
-protected:
-	virtual void AssignData(char* InDataLocation, B InDataSize) = 0;
-};
+		//These should probably be friended to the Loader for safety?
+		void SetData(char* InDataLocation, B InDataSize)
+		{
+			AssignData(InDataLocation, InDataSize);
+		}
+
+		ELoadRequestStatus LoadStatus;
+	protected:
+		virtual void AssignData(char* InDataLocation, B InDataSize) = 0;
+	};
+}
+
+namespace SS = SpelSylt;

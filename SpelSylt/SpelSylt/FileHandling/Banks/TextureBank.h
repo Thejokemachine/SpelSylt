@@ -8,10 +8,11 @@
 
 #include <string>
 
-class IAsyncLoader;
 
 namespace SpelSylt
 {
+	class IAsyncLoader;
+
 	class CTextureBank final
 		: public IAssetProvider
 	{

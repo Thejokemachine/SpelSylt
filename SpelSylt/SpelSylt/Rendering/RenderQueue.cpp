@@ -2,6 +2,8 @@
 
 #include "SpelSylt/Rendering/RenderQueue.h"
 
+using namespace SpelSylt;
+
 //------------------------------------------------------------------
 
 namespace

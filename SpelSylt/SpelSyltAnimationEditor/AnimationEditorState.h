@@ -11,7 +11,7 @@ namespace UI {
 
 namespace AnimationEditor {
 
-	class AnimationEditorState : public UIState
+	class AnimationEditorState : public UI::UIState
 	{
 	public:
 		AnimationEditorState(unsigned width, unsigned int height, const std::string& aLayoutXML);

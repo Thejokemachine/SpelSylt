@@ -8,30 +8,33 @@
 
 #include <SFML/Graphics/View.hpp>
 
-class GameState2D : public CState
+namespace SpelSylt
 {
-public:
-	GameState2D();
-	virtual ~GameState2D();
+	class GameState2D : public CState
+	{
+	public:
+		GameState2D();
+		virtual ~GameState2D();
 
-	virtual void Init(SGameContext& InGameContext) final override;
-	virtual void Update(SGameContext& InGameContext) final override;
-	virtual void Render(sf::RenderTarget& InTarget) final override;
+		virtual void Init(SGameContext& InGameContext) final override;
+		virtual void Update(SGameContext& InGameContext) final override;
+		virtual void Render(sf::RenderTarget& InTarget) final override;
 
-	virtual void OnInit(SGameContext& InGameContext) {};
-	virtual void OnUpdate(SGameContext& InGameContext) {};
-	virtual void OnRender(CRenderQueue& InRenderQueue) {};
+		virtual void OnInit(SGameContext& InGameContext) {};
+		virtual void OnUpdate(SGameContext& InGameContext) {};
+		virtual void OnRender(CRenderQueue& InRenderQueue) {};
 
-protected:
+	protected:
 
-	sf::View& GetCamera() { return myCamera;; };
+		sf::View& GetCamera() { return myCamera;; };
 
-	CDebugDrawer myDebugDrawer;
+		CDebugDrawer myDebugDrawer;
 
-private:
+	private:
 
-	sf::View myCamera;
+		sf::View myCamera;
 
-	CRenderer myRenderer;
-	CRenderQueue myRenderQueue;
-};
+		CRenderer myRenderer;
+		CRenderQueue myRenderQueue;
+	};
+}

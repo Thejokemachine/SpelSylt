@@ -10,28 +10,33 @@
 #include <vector>
 #include <utility>
 
-class CRenderQueue final
-	: public IRenderQueueInput
-	, public IRenderQueueOutput
+namespace SpelSylt
 {
-public:
-	CRenderQueue();
-	CRenderQueue(const CRenderQueue&) = delete;
-	CRenderQueue(CRenderQueue&&) = delete;
-	
-	//Begin IRenderQueueInput
-	virtual void Enqueue(ERenderLayer InLayer, const IRenderCommand& InRenderCmd) override;
-	//End IRenderQueueInput
+	class CRenderQueue final
+		: public IRenderQueueInput
+		, public IRenderQueueOutput
+	{
+	public:
+		CRenderQueue();
+		CRenderQueue(const CRenderQueue&) = delete;
+		CRenderQueue(CRenderQueue&&) = delete;
 
-	//Begin IRenderQueueOutput
-	virtual void ForEachCommandAtLayer(ERenderLayer InLayer, const FRenderFunction& InRenderFunc) override;
-	//End IRenderQueueOutput
+		//Begin IRenderQueueInput
+		virtual void Enqueue(ERenderLayer InLayer, const IRenderCommand& InRenderCmd) override;
+		//End IRenderQueueInput
 
-	void Clear();
+		//Begin IRenderQueueOutput
+		virtual void ForEachCommandAtLayer(ERenderLayer InLayer, const FRenderFunction& InRenderFunc) override;
+		//End IRenderQueueOutput
 
-private:
-	using FRenderQueue = std::array<std::vector<IRenderCommand*>, static_cast<unsigned int>(ERenderLayer::Count)>;
-	FRenderQueue Queue;
+		void Clear();
 
-	CStaticMemoryBuffer CommandsBuffer;
-};
+	private:
+		using FRenderQueue = std::array<std::vector<IRenderCommand*>, static_cast<unsigned int>(ERenderLayer::Count)>;
+		FRenderQueue Queue;
+
+		CStaticMemoryBuffer CommandsBuffer;
+	};
+}
+
+namespace SS = SpelSylt;

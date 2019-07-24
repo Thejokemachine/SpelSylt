@@ -6,6 +6,8 @@
 
 #include <SpelSylt/FileHandling/ConfigReader.h>
 
+using namespace SpelSylt;
+
 void CGameApplication::SetUpWindow()
 {
 	CConfigReader CfgReader;

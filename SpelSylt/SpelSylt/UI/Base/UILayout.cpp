@@ -16,6 +16,7 @@
 
 using namespace tinyxml2;
 using namespace UI;
+using namespace SpelSylt;
 
 UILayout::UILayout(float aWidth, float aHeight, const std::string& aLayoutXML)
 	: myAssetManager(nullptr)

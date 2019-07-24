@@ -7,13 +7,19 @@ namespace sf
 	class RenderTarget;
 }
 
-struct IRenderCommand;
-
-using FRenderFunction = std::function<void(const IRenderCommand&)>;
-
-
-class IRenderQueueOutput
+namespace SpelSylt
 {
-public:
-	virtual void ForEachCommandAtLayer(ERenderLayer InLayer, const FRenderFunction& InRenderFunc) = 0;
-};
+
+	struct IRenderCommand;
+
+	using FRenderFunction = std::function<void(const IRenderCommand&)>;
+
+
+	class IRenderQueueOutput
+	{
+	public:
+		virtual void ForEachCommandAtLayer(ERenderLayer InLayer, const FRenderFunction& InRenderFunc) = 0;
+	};
+}
+
+namespace SS = SpelSylt;

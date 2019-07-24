@@ -7,38 +7,43 @@
 
 #include "SFML/Audio.hpp"
 
-class IAsyncLoader;
-class CMessageQueue;
-
-struct SMusicMessage;
-struct SSoundMessage;
-
-class CAudioManager
+namespace SpelSylt
 {
-public:
-	CAudioManager(const std::string& aAudioFolder);
-	~CAudioManager() = default;
+	class IAsyncLoader;
+	class CMessageQueue;
 
-	void Init(CMessageQueue& InMessageQueue);
+	struct SMusicMessage;
+	struct SSoundMessage;
 
-	void LoadSounds(/*IAsyncLoader& InAsyncLoader,*/ const std::string& InAudioFolder);
-	void Update(const float dt);
+	class CAudioManager
+	{
+	public:
+		CAudioManager(const std::string& aAudioFolder);
+		~CAudioManager() = default;
 
-	void PlaySound(const std::string& aAlias, sf::Sound* aSoundHandle = nullptr);
-	void PlayMusic(const std::string& aAlias, bool aFadeOutCurrent);
+		void Init(CMessageQueue& InMessageQueue);
 
-private:
-	void OnMusicMessage(const SMusicMessage& InMessage);
-	void OnSoundMessage(const SSoundMessage& InMessage);
+		void LoadSounds(/*IAsyncLoader& InAsyncLoader,*/ const std::string& InAudioFolder);
+		void Update(const float dt);
 
-	std::unordered_map<std::string, SSoundAsset> mySoundBuffers;
-	std::vector<sf::Sound*> mySoundHandles;
+		void PlaySound(const std::string& aAlias, sf::Sound* aSoundHandle = nullptr);
+		void PlayMusic(const std::string& aAlias, bool aFadeOutCurrent);
 
-	sf::Music myMusic;
-	float myMusicFade = 0.f;
-	std::string myMusicAlias;
-	bool myShouldSwitchMusic = false;
-	float myMusicVolume = 5.f;
+	private:
+		void OnMusicMessage(const SMusicMessage& InMessage);
+		void OnSoundMessage(const SSoundMessage& InMessage);
 
-	CSubscriptions Subscriptions;
-};
+		std::unordered_map<std::string, SSoundAsset> mySoundBuffers;
+		std::vector<sf::Sound*> mySoundHandles;
+
+		sf::Music myMusic;
+		float myMusicFade = 0.f;
+		std::string myMusicAlias;
+		bool myShouldSwitchMusic = false;
+		float myMusicVolume = 5.f;
+
+		CSubscriptions Subscriptions;
+	};
+}
+
+namespace SS = SpelSylt;

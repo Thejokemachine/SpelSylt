@@ -10,19 +10,21 @@ namespace sf {
 	class RenderTarget;
 }
 
-class CRenderQueue;
+namespace SpelSylt {
+	class CRenderQueue;
+}
 
 
-class HookGame : public GameState2D 
+class HookGame : public SpelSylt::GameState2D
 {
 public:
 	HookGame();
 	~HookGame();
 
 	//Begin CState
-	virtual void OnInit(SGameContext& InGameContext) override;
-	virtual void OnUpdate(SGameContext& InGameContext) override;
-	virtual void OnRender(CRenderQueue& InRenderQueue) override;
+	virtual void OnInit(SpelSylt::SGameContext& InGameContext) override;
+	virtual void OnUpdate(SpelSylt::SGameContext& InGameContext) override;
+	virtual void OnRender(SpelSylt::CRenderQueue& InRenderQueue) override;
 	//End CState
 private:
 

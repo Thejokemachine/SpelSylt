@@ -6,27 +6,31 @@ namespace sf
 	class Window;
 }
 
-class CState;
-struct SGameContext;
-struct SRenderingContext;
-
-
-class CStateStack
+namespace SpelSylt
 {
-public:
-	CStateStack();
-	~CStateStack();
+	class CState;
+	struct SGameContext;
+	struct SRenderingContext;
 
-	void Update(SGameContext& InGameContext);
-	void Render(sf::RenderTarget& InTarget);
 
-	void Push(CState* aNewState, SGameContext& InGameContext);
-	bool Pop();
-	void PopAll();
+	class CStateStack
+	{
+	public:
+		CStateStack();
+		~CStateStack();
 
-	short Size();
+		void Update(SGameContext& InGameContext);
+		void Render(sf::RenderTarget& InTarget);
 
-private:
-	std::vector<CState*> myStates;
-};
+		void Push(CState* aNewState, SGameContext& InGameContext);
+		bool Pop();
+		void PopAll();
 
+		short Size();
+
+	private:
+		std::vector<CState*> myStates;
+	};
+}
+
+namespace SS = SpelSylt;

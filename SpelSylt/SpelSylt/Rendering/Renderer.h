@@ -5,15 +5,21 @@ namespace sf
 {
 	class RenderTarget;
 }
-class IRenderQueueOutput;
 
-class CRenderer
+namespace SpelSylt
 {
-public:
-	CRenderer() = default;
-	CRenderer(const CRenderer&) = delete;
-	CRenderer(CRenderer&&) = delete;
+	class IRenderQueueOutput;
 
-	void RunRenderLayer(ERenderLayer InLayer, IRenderQueueOutput& InOutputRenderQueue, sf::RenderTarget& InTargetToRenderTo);
-	void RunRenderAllLayers(IRenderQueueOutput& InOutputRenderQueue, sf::RenderTarget& InTargetToRenderTo);
-};
+	class CRenderer
+	{
+	public:
+		CRenderer() = default;
+		CRenderer(const CRenderer&) = delete;
+		CRenderer(CRenderer&&) = delete;
+
+		void RunRenderLayer(ERenderLayer InLayer, IRenderQueueOutput& InOutputRenderQueue, sf::RenderTarget& InTargetToRenderTo);
+		void RunRenderAllLayers(IRenderQueueOutput& InOutputRenderQueue, sf::RenderTarget& InTargetToRenderTo);
+	};
+}
+
+namespace SS = SpelSylt;

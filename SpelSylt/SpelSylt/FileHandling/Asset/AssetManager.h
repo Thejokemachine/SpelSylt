@@ -9,10 +9,10 @@
 #include "SpelSylt/FileHandling/Banks/TextureBank.h"
 #include "SpelSylt/FileHandling/Banks/FontBank.h"
 
-class IAsyncLoader;
-
 namespace SpelSylt
 {
+	class IAsyncLoader;
+
 	class CAssetManager
 	{
 	public:

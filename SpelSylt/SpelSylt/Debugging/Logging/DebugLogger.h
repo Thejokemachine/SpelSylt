@@ -28,56 +28,58 @@ Exceptions are when rebinding colors
 
 //------------------------------------------------------------------
 
-class CTime;
-
-//------------------------------------------------------------------
-
-class CDebugLogger
+namespace SpelSylt
 {
-public:
-	enum class ETextColor
+	class CTime;
+	class CDebugLogger
 	{
-		Green,
-		Blue,
-		Yellow,
-		Red,
-		White,
+	public:
+		enum class ETextColor
+		{
+			Green,
+			Blue,
+			Yellow,
+			Red,
+			White,
+		};
+
+	public:
+		static CDebugLogger& GetInstance();
+
+		void SetShouldLogToFile();
+
+		void PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage, ...);
+
+		void SetLogLevel(LogLevels::ELogLevel InLogLevel);
+		void BindColorToLogLevel(LogLevels::ELogLevel InLogLevel, ETextColor InColor);
+
+	private:
+		using FLogColorMap = std::unordered_map<LogLevels::ELogLevel, ETextColor>;
+
+		CDebugLogger();
+
+		void BindDefaultColors();
+		void SetTextColor(ETextColor InColor);
+
+		bool CurrentLogLevelAllowsRequestedLogLevel(LogLevels::ELogLevel InRequestedLogLevel) const;
+
+		void PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
+
+		void MakeLogFileName(const CTime& InTime);
+
+		void VerbosityLevelToString(const LogLevels::ELogLevel InLogLevel, std::string& OutString) const;
+
+		FLogColorMap LogColorMap;
+		LogLevels::ELogLevel CurrentLogLevel;
+
+		//File Logging
+		CTextFileHandler LogFileHandler;
+		void PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
+		std::string LogFileName;
+		bool ShouldLogToFile;
 	};
+}
 
-public:
-	static CDebugLogger& GetInstance();
-
-	void SetShouldLogToFile();
-	
-	void PrintLog(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage, ...);
-
-	void SetLogLevel(LogLevels::ELogLevel InLogLevel);
-	void BindColorToLogLevel(LogLevels::ELogLevel InLogLevel, ETextColor InColor);
-
-private:
-	using FLogColorMap = std::unordered_map<LogLevels::ELogLevel, ETextColor>;
-	
-	CDebugLogger();
-
-	void BindDefaultColors();
-	void SetTextColor(ETextColor InColor);
-
-	bool CurrentLogLevelAllowsRequestedLogLevel(LogLevels::ELogLevel InRequestedLogLevel) const;
-
-	void PrintToConsole(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
-
-	void MakeLogFileName(const CTime& InTime);
-
-	void VerbosityLevelToString(const LogLevels::ELogLevel InLogLevel, std::string& OutString) const;
-
-	FLogColorMap LogColorMap;
-	LogLevels::ELogLevel CurrentLogLevel;
-
-	//File Logging
-	CTextFileHandler LogFileHandler;
-	void PrintToFile(LogLevels::ELogLevel InLogLevel, const char* InLogCat, const char* InLogMessage);
-	std::string LogFileName;
-	bool ShouldLogToFile;
-};
+namespace SS = SpelSylt;
 
 //------------------------------------------------------------------

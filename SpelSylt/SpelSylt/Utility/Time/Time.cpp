@@ -5,23 +5,25 @@
 #include <ctime>
 #include <iomanip>
 
-CTime::CTime()
+using namespace SpelSylt;
+
+SS::CTime::CTime()
 	: myDeltaTime()
 	, myTotalTime()
 {
 }
 
 
-CTime::~CTime()
+SS::CTime::~CTime()
 {
 }
 
-void CTime::Init()
+void SS::CTime::Init()
 {
 	myStartingTimePoint = std::chrono::high_resolution_clock::now();
 }
 
-void CTime::Update()
+void SS::CTime::Update()
 {
 	myLastTimePoint = myCurrentTimePoint;
 
@@ -31,17 +33,17 @@ void CTime::Update()
 	myTotalTime = myCurrentTimePoint - myStartingTimePoint;
 }
 
-float CTime::GetDeltaTime()
+float SS::CTime::GetDeltaTime()
 {
 	return myDeltaTime.count();
 }
 
-float CTime::GetTotalTime()
+float SS::CTime::GetTotalTime()
 {
 	return myTotalTime.count();
 }
 
-void CTime::GetNowAsDateTime(SDateTime& OutDateTime) const
+void SS::CTime::GetNowAsDateTime(SS::SDateTime& OutDateTime) const
 {
 	std::time_t TimeTNow = std::time(0);
 	std::tm LocalTime;// = std::localtime(&TimeTNow);

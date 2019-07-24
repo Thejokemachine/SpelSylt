@@ -8,10 +8,12 @@
 
 //------------------------------------------------------------------
 
+using namespace SpelSylt;
+
 void CRenderer::RunRenderLayer(ERenderLayer InLayer, IRenderQueueOutput& InOutputRenderQueue, sf::RenderTarget& InTargetToRenderTo)
 {
 	InOutputRenderQueue.ForEachCommandAtLayer(InLayer, [&InTargetToRenderTo](const IRenderCommand& InCommand) {
-			InTargetToRenderTo.draw(InCommand.GetRaw());
+		InTargetToRenderTo.draw(InCommand.GetRaw(), InCommand.RenderState.Shader);
 		}
 	);
 }

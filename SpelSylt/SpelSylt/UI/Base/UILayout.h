@@ -17,11 +17,11 @@ namespace tinyxml2
 	class XMLDocument;
 }
 
-class IInputEventGetter;
-
 namespace SpelSylt
 {
 	class CAssetManager;
+	class IInputEventGetter;
+	struct SGameContext;
 }
 
 namespace UI
@@ -36,7 +36,7 @@ namespace UI
 		UILayout(float aWidth, float aHeight, const std::string& aLayoutXML);
 		virtual ~UILayout() = default;
 
-		void Update(SGameContext& InGameContext);
+		void Update(SS::SGameContext& InGameContext);
 		void Render(sf::RenderTarget& aRenderTarget);
 		void Resize(int aWidth, int aHeight);
 
@@ -57,7 +57,7 @@ namespace UI
 
 		float evaluateExpression(const std::string& aAttributeBlock);
 
-		CDebugDrawer myDrawer;
+		SpelSylt::CDebugDrawer myDrawer;
 		std::unique_ptr<Panel> myRootPanel;
 		tinyxml2::XMLDocument myDocument;
 	};

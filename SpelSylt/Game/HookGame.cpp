@@ -28,6 +28,8 @@ HookGame::~HookGame()
 {
 }
 
+using namespace SpelSylt;
+
 void HookGame::OnInit(SGameContext& InGameContext)
 {
 	myPlayerPos = sf::Vector2f(800.f, 900.f);

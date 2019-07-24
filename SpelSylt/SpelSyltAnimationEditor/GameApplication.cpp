@@ -3,6 +3,7 @@
 #include "AnimationEditorState.h"
 
 using namespace AnimationEditor;
+using namespace SpelSylt;
 
 void CGameApplication::SetUpWindow()
 {

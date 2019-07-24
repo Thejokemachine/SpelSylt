@@ -6,42 +6,46 @@
 #include "SFML\Window\Window.hpp"
 #include "SFML\System\Vector2.hpp"
 
-class CInputManager final
-	: public IInputEventGetter
+namespace SpelSylt
 {
-public:
-	CInputManager();
-	~CInputManager();
+	class CInputManager final
+		: public IInputEventGetter
+	{
+	public:
+		CInputManager();
+		~CInputManager();
 
-	void Init(sf::Window* aClientWindow);
-	void Update(const sf::Event& aWindowsMessage);
-	void UpdateKeys(const sf::Event& aWindowsMessage);
-	void UpdateMouse(const sf::Event& aWindowsMessage);
-	void OncePerFrameUpdate();
+		void Init(sf::Window* aClientWindow);
+		void Update(const sf::Event& aWindowsMessage);
+		void UpdateKeys(const sf::Event& aWindowsMessage);
+		void UpdateMouse(const sf::Event& aWindowsMessage);
+		void OncePerFrameUpdate();
 
-	//Begin IInputEventGetter
-	virtual bool IsKeyPressed(EKeyCode aKey) override;
-	virtual bool IsKeyDown(EKeyCode aKey) override;
-	virtual bool IsKeyReleased(EKeyCode aKey) override;
+		//Begin IInputEventGetter
+		virtual bool IsKeyPressed(EKeyCode aKey) override;
+		virtual bool IsKeyDown(EKeyCode aKey) override;
+		virtual bool IsKeyReleased(EKeyCode aKey) override;
 
-	virtual int GetScrollWheelDelta() override;
-	virtual sf::Vector2f GetMousePosFloat() override;
-	virtual sf::Vector2i GetMousePosInt() override;
+		virtual int GetScrollWheelDelta() override;
+		virtual sf::Vector2f GetMousePosFloat() override;
+		virtual sf::Vector2i GetMousePosInt() override;
 
-	virtual std::string GetTextInput() override;
-	//End IInputEventGetter
+		virtual std::string GetTextInput() override;
+		//End IInputEventGetter
 
-private:
-	std::map<EKeyCode, EKeyState> myKeyStates;
-	std::map<EKeyCode, EKeyState> myPreviousKeyStates;
+	private:
+		std::map<EKeyCode, EKeyState> myKeyStates;
+		std::map<EKeyCode, EKeyState> myPreviousKeyStates;
 
-	std::map<EKeyCode, EKeyState> myMouseButtonStates;
-	std::map<EKeyCode, EKeyState> myPreviousMouseButtonStates;
+		std::map<EKeyCode, EKeyState> myMouseButtonStates;
+		std::map<EKeyCode, EKeyState> myPreviousMouseButtonStates;
 
-	float myWheelDelta;
+		float myWheelDelta;
 
-	std::string myTextInput;
+		std::string myTextInput;
 
-	sf::Window* myHWND;
-};
+		sf::Window* myHWND;
+	};
+}
 
+namespace SS = SpelSylt;

@@ -6,6 +6,8 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
+using namespace SpelSylt;
+
 CState::CState()
 	: myOwner(nullptr)
 {

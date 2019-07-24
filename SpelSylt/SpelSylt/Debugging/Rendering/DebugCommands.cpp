@@ -3,6 +3,8 @@
 #include "SpelSylt/Debugging/Rendering/DebugCommands.h"
 #include "SFML/Graphics/RenderTarget.hpp"
 
+using namespace SpelSylt;
+
 LineCommand::LineCommand(const sf::Vector2f & aFrom, const sf::Vector2f & aTo, const sf::Color& aColor)
 {
 	myLine[0].position = aFrom;

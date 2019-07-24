@@ -4,6 +4,8 @@
 #include "SFML\Window\Mouse.hpp"
 #include "SFML\Window.hpp"
 
+using namespace SpelSylt;
+
 CInputManager::CInputManager()
 	: myKeyStates()
 	, myPreviousKeyStates()

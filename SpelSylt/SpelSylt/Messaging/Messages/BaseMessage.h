@@ -1,22 +1,27 @@
 #pragma once
 
-struct SBaseMessage
+namespace SpelSylt
 {
-	void SetMessageHash(size_t InEventHash)
+	struct SBaseMessage
 	{
-		EventHash = InEventHash;
-	}
+		void SetMessageHash(size_t InEventHash)
+		{
+			EventHash = InEventHash;
+		}
 
-	size_t GetMessageHash() const
-	{
-		return EventHash;
-	}
+		size_t GetMessageHash() const
+		{
+			return EventHash;
+		}
 
-private:
-	size_t EventHash;
-};
+	private:
+		size_t EventHash;
+	};
+}
 
-#define DEFINE_MSG(NAME) struct NAME : public SBaseMessage { NAME(){} };
-#define DEFINE_MSG_ONEPARAM(NAME, PARAMTYPE) struct NAME : public SBaseMessage { NAME(const PARAMTYPE& InParam) : Param(InParam) {} PARAMTYPE Param; };
-#define DEFINE_MSG_TWOPARAM(NAME, PARAMTYPE, PARAMTYPETWO) struct NAME : public SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo) : Param(InParam), ParamTwo(InParamTwo) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; };
-#define DEFINE_MSG_THREEPARAM(NAME, PARAMTYPE, PARAMTYPETWO, PARAMTYPETHREE) struct NAME : public SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo, const PARAMTYPETHREE& InParamThree) : Param(InParam), ParamTwo(InParamTwo), ParamThree(InParamThree) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; PARAMTYPETHREE ParamThree; };
+namespace SS = SpelSylt;
+
+#define DEFINE_MSG(NAME) struct NAME : public SS::SBaseMessage { NAME(){} };
+#define DEFINE_MSG_ONEPARAM(NAME, PARAMTYPE) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam) : Param(InParam) {} PARAMTYPE Param; };
+#define DEFINE_MSG_TWOPARAM(NAME, PARAMTYPE, PARAMTYPETWO) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo) : Param(InParam), ParamTwo(InParamTwo) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; };
+#define DEFINE_MSG_THREEPARAM(NAME, PARAMTYPE, PARAMTYPETWO, PARAMTYPETHREE) struct NAME : public SS::SBaseMessage { NAME(const PARAMTYPE& InParam, const PARAMTYPETWO& InParamTwo, const PARAMTYPETHREE& InParamThree) : Param(InParam), ParamTwo(InParamTwo), ParamThree(InParamThree) {} PARAMTYPE Param; PARAMTYPETWO ParamTwo; PARAMTYPETHREE ParamThree; };

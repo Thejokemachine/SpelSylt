@@ -4,6 +4,8 @@
 
 //------------------------------------------------------------------
 
+using namespace SpelSylt;
+
 CContextBuilder::CContextBuilder()
 	: BuiltGameContext(nullptr)
 	, BuiltRenderingContext(nullptr)

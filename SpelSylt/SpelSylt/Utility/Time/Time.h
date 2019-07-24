@@ -5,38 +5,42 @@
 #include <chrono>
 #include <string>
 
-struct SDateTime;
-
-class CTime
-	: public ITimeGetter
+namespace SpelSylt
 {
-public:
-	CTime();
-	~CTime();
-	
-	void Init();
-	void Update();
+	struct SDateTime;
 
-	//Begin ITimeGetter
-	virtual float GetDeltaTime() override;
-	virtual float GetTotalTime() override;
-
-	virtual void GetNowAsDateTime(SDateTime& OutDateTime) const override;
-	//End ITimeGetter
-
-	struct STimeData
+	class CTime
+		: public ITimeGetter
 	{
-		float deltaTime;
-		float totalTime;
-		float trash[2];
+	public:
+		CTime();
+		~CTime();
+
+		void Init();
+		void Update();
+
+		//Begin ITimeGetter
+		virtual float GetDeltaTime() override;
+		virtual float GetTotalTime() override;
+
+		virtual void GetNowAsDateTime(SDateTime& OutDateTime) const override;
+		//End ITimeGetter
+
+		struct STimeData
+		{
+			float deltaTime;
+			float totalTime;
+			float trash[2];
+		};
+
+	private:
+		std::chrono::time_point<std::chrono::high_resolution_clock> myLastTimePoint;
+		std::chrono::time_point<std::chrono::high_resolution_clock> myCurrentTimePoint;
+		std::chrono::time_point<std::chrono::high_resolution_clock> myStartingTimePoint;
+
+		std::chrono::duration<float> myDeltaTime;
+		std::chrono::duration<float> myTotalTime;
 	};
+}
 
-private:
-	std::chrono::time_point<std::chrono::high_resolution_clock> myLastTimePoint;
-	std::chrono::time_point<std::chrono::high_resolution_clock> myCurrentTimePoint;
-	std::chrono::time_point<std::chrono::high_resolution_clock> myStartingTimePoint;
-
-	std::chrono::duration<float> myDeltaTime;
-	std::chrono::duration<float> myTotalTime;
-};
-
+namespace SS = SpelSylt;

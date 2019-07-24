@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
+using namespace SpelSylt;
+
 GameState2D::GameState2D()
 {
 }

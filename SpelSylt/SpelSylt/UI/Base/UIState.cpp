@@ -11,6 +11,9 @@
 #include <SpelSylt/FileHandling/FileWatcher.h>
 #endif
 
+using namespace SpelSylt;
+using namespace UI;
+
 UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& aLayoutXML) :
 	CState(),
 	myLayout(std::make_unique<UI::UILayout>((float)aWidth, (float)aHeight, aLayoutXML))

@@ -22,6 +22,7 @@
 
 using namespace AnimationEditor;
 using namespace UI;
+using namespace SpelSylt;
 
 AnimationEditorState::AnimationEditorState(unsigned width, unsigned int height, const std::string & aLayoutXML) :
 	UIState(width, height, aLayoutXML)

@@ -4,6 +4,7 @@
 
 #include "SpelSylt/State/State.h"
 
+using namespace SpelSylt;
 
 CStateStack::CStateStack()
 	: myStates()

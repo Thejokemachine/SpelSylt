@@ -6,26 +6,33 @@
 #include <functional>
 #include "SpelSylt/Messaging/Subscribing/SubscriptionHandle.h"
 
-template<typename MessageType>
-class TMessageSubscriberList final
-	: public IMessageSubscriberList
+namespace SpelSylt
 {
-public:
-	TMessageSubscriberList();
 
-	size_t AddSubscriber(std::function<void(const MessageType&)> InCallback);
-	
-	//Begin IMessageSubscriberList
-	virtual void Unsubscribe(const SSubscriptionHandle& InHandle) override;
-	virtual void DispatchToAllSubscribers(const SBaseMessage* InEvent) override;
-	//End IMessageSubscriberList
+	template<typename MessageType>
+	class TMessageSubscriberList final
+		: public IMessageSubscriberList
+	{
+	public:
+		TMessageSubscriberList();
 
-private:
-	using FSubscriberData = std::pair<size_t, std::function<void(const MessageType&)>>;
-	using FSubscriberList = std::vector<FSubscriberData>;
-	FSubscriberList SubscriberList;
-	size_t NextIdentifier;
-};
+		size_t AddSubscriber(std::function<void(const MessageType&)> InCallback);
+
+		//Begin IMessageSubscriberList
+		virtual void Unsubscribe(const SSubscriptionHandle& InHandle) override;
+		virtual void DispatchToAllSubscribers(const SBaseMessage* InEvent) override;
+		//End IMessageSubscriberList
+
+	private:
+		using FSubscriberData = std::pair<size_t, std::function<void(const MessageType&)>>;
+		using FSubscriberList = std::vector<FSubscriberData>;
+		FSubscriberList SubscriberList;
+		size_t NextIdentifier;
+	};
+}
+
+
+using namespace SpelSylt;
 
 //------------------------------------------------------------------
 //BEGIN IMPL

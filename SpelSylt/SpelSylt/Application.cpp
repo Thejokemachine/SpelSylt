@@ -15,6 +15,8 @@
 
 #include "SpelSylt/FileHandling/FileWatcher.h"
 
+using namespace SpelSylt;
+
 //------------------------------------------------------------------
 
 CApplication::CApplication()

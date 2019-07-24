@@ -24,45 +24,50 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-class CApplication
+namespace SpelSylt
 {
-public:
-	CApplication();
-	CApplication(const CApplication&) = delete;
-	CApplication(CApplication&&) = delete;
-	~CApplication();
+	class CApplication
+	{
+	public:
+		CApplication();
+		CApplication(const CApplication&) = delete;
+		CApplication(CApplication&&) = delete;
+		~CApplication();
 
-	void Initialize();
-	bool Run();
-	
-protected:
-	virtual void SetUpWindow() = 0;
-	virtual void PushStartUpStates() = 0;
+		void Initialize();
+		bool Run();
 
-	void CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen = false);
-	void SetWindowTitle(const char* InTitle);
-	void PushState(CState* InState);
-private:
-	void PrepareForNewFrame();
-	void PublishNewFrame();
+	protected:
+		virtual void SetUpWindow() = 0;
+		virtual void PushStartUpStates() = 0;
 
-	bool HandleEvents();
+		void CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen = false);
+		void SetWindowTitle(const char* InTitle);
+		void PushState(CState* InState);
+	private:
+		void PrepareForNewFrame();
+		void PublishNewFrame();
 
-	CInputManager InputManager;
-	CTime Time;
+		bool HandleEvents();
 
-	CStateStack StateStack;
+		CInputManager InputManager;
+		SS::CTime Time;
 
-	sf::RenderWindow Window;
-	
-	CAudioManager AudioManager;
-	CMessageQueue MessageQueue;
+		CStateStack StateStack;
 
-	SS::CAssetManager AssetManager;
+		sf::RenderWindow Window;
 
-	//Contexts
-	CContextBuilder ContextBuilder;
-	SGameContext* GameContext;
+		CAudioManager AudioManager;
+		CMessageQueue MessageQueue;
 
-	SS::CSSThread UtilityThread;
-};
+		SS::CAssetManager AssetManager;
+
+		//Contexts
+		CContextBuilder ContextBuilder;
+		SGameContext* GameContext;
+
+		SS::CSSThread UtilityThread;
+	};
+}
+
+namespace SS = SpelSylt;

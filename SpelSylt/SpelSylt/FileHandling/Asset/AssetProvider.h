@@ -2,14 +2,10 @@
 
 #include "SpelSylt/FileHandling/Asset/Asset.h"
 
-//------------------------------------------------------------------
-
-class IAsyncLoader;
-
-//------------------------------------------------------------------
-
 namespace SpelSylt
 {
+	class IAsyncLoader;
+
 	class IAssetProvider
 	{
 		friend class CAssetManager;
