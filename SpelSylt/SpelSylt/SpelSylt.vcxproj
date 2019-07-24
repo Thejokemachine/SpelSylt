@@ -183,7 +183,7 @@
     <ClCompile Include="Debugging\Logging\DebugLogger.cpp" />
     <ClCompile Include="Debugging\Rendering\DebugCommands.cpp" />
     <ClCompile Include="Debugging\Rendering\DebugDrawer.cpp" />
-    <ClCompile Include="FileHandling\Asset\AnimationAsset.cpp" />
+    <ClCompile Include="FileHandling\Asset\AssetTypes\AnimationAsset.cpp" />
     <ClCompile Include="FileHandling\Asset\AssetManager.cpp" />
     <ClCompile Include="FileHandling\Banks\FontBank.cpp" />
     <ClCompile Include="FileHandling\Banks\TextureBank.cpp" />
@@ -241,7 +241,7 @@
     <ClInclude Include="Debugging\Rendering\DebugDrawerInput.h" />
     <ClInclude Include="EngineMinimal.h" />
     <ClInclude Include="EngineStartUp.h" />
-    <ClInclude Include="FileHandling\Asset\AnimationAsset.h" />
+    <ClInclude Include="FileHandling\Asset\AssetTypes\AnimationAsset.h" />
     <ClInclude Include="FileHandling\Asset\Asset.h" />
     <ClInclude Include="FileHandling\Asset\AssetManager.h" />
     <ClInclude Include="FileHandling\Asset\AssetProvider.h" />

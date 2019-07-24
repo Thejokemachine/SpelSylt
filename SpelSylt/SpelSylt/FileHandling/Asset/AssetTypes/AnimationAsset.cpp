@@ -1,6 +1,6 @@
 #include "SpelSylt/SpelSyltPCH.h"
 #include "SpelSylt/../RapidJsonLibrary/JsonDocument.h"
-#include "SpelSylt/FileHandling/Asset/AnimationAsset.h"
+#include "SpelSylt/FileHandling/Asset/AssetTypes/AnimationAsset.h"
 
 #define ANIMATION_HEADER_OFFSET_BYTES 8ull
 
