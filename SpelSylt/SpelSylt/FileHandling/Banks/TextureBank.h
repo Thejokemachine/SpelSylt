@@ -4,8 +4,9 @@
 
 #include "SpelSylt/FileHandling/Asset/Assets.h"
 
+#include "SpelSylt/FileHandling/Banks/AssetBank.h"
+
 #include <string>
-#include <unordered_map>
 
 class IAsyncLoader;
 
@@ -17,19 +18,15 @@ namespace SpelSylt
 	public:
 		CTextureBank();
 	
-		void ProvideLoader(IAsyncLoader& InLoader);
-	
 		//Begin ITextureProvider
-		virtual SBaseAsset* GetAsset(const char* InID) override;
+		virtual void ProvideLoader(IAsyncLoader& InLoader) override;
+		virtual SBaseAsset& GetAsset(const char* InID) override;
 		//End ITextureProvider
 	
 	private:
-		bool AssetLoaded(const char* InID) const;
-		void AddAsset(const char* InID);
 	
-		using FBank = std::unordered_map<std::string, STextureAsset>;
-		FBank Bank;
-	
+		CAssetBank<STextureAsset> Bank;
+
 		IAsyncLoader* AssetLoader;
 	};
 }

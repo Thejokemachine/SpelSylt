@@ -24,29 +24,15 @@ void CTextureBank::ProvideLoader(IAsyncLoader& InLoader)
 
 //------------------------------------------------------------------
 
-SBaseAsset* CTextureBank::GetAsset(const char* InID)
+SBaseAsset& CTextureBank::GetAsset(const char* InID)
 {
-	if (!AssetLoaded(InID))
+	if (!Bank.Contains(InID))
 	{
-		AddAsset(InID);
+		Bank.Add(InID);
+		AssetLoader->LoadAsync(InID, Bank.GetAsset(InID));
 	}
 
-	return &Bank[InID];
-}
-
-//------------------------------------------------------------------
-
-bool CTextureBank::AssetLoaded(const char* InID) const
-{
-	return (Bank.find(InID) != Bank.end());
-}
-
-//------------------------------------------------------------------
-
-void CTextureBank::AddAsset(const char* InID)
-{
-	Bank[InID] = STextureAsset();
-	AssetLoader->LoadAsync(InID, Bank[InID]);
+	return Bank.GetAsset(InID);
 }
 
 //------------------------------------------------------------------
