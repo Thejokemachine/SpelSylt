@@ -11,25 +11,17 @@ using namespace SpelSylt;
 
 CTextureBank::CTextureBank()
 	: Bank()
-	, AssetLoader(nullptr)
 {
 }
 
 //------------------------------------------------------------------
 
-void CTextureBank::ProvideLoader(ILoader& InLoader)
-{
-	AssetLoader = &InLoader;
-}
-
-//------------------------------------------------------------------
-
-SBaseAsset& CTextureBank::GetAsset(const char* InID)
+SBaseAsset& CTextureBank::GetAsset(const char* InID, ILoader& InLoader)
 {
 	if (!Bank.Contains(InID))
 	{
 		Bank.Add(InID);
-		AssetLoader->Load(InID, Bank.GetAsset(InID));
+		InLoader.Load(InID, Bank.GetAsset(InID));
 	}
 
 	return Bank.GetAsset(InID);

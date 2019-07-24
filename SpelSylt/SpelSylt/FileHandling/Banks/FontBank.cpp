@@ -8,25 +8,17 @@ using namespace SpelSylt;
 
 CFontBank::CFontBank()
 	: Bank()
-	, Loader(nullptr)
 {
 }
 
 //------------------------------------------------------------------
 
-void CFontBank::ProvideLoader(ILoader& InLoader)
-{
-	Loader = &InLoader;
-}
-
-//------------------------------------------------------------------
-
-SBaseAsset& CFontBank::GetAsset(const char* InID)
+SBaseAsset& CFontBank::GetAsset(const char* InID, ILoader& InLoader)
 {
 	if (!Bank.Contains(InID))
 	{
 		Bank.Add(InID);
-		Loader->Load(InID, Bank.GetAsset(InID));
+		InLoader.Load(InID, Bank.GetAsset(InID));
 	}
 
 	return Bank.GetAsset(InID);

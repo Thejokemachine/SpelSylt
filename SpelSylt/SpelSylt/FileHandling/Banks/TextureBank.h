@@ -20,15 +20,11 @@ namespace SpelSylt
 		CTextureBank();
 	
 		//Begin ITextureProvider
-		virtual void ProvideLoader(ILoader& InLoader) override;
-		virtual SBaseAsset& GetAsset(const char* InID) override;
+		virtual SBaseAsset& GetAsset(const char* InID, ILoader& InLoader) override;
 		//End ITextureProvider
 	
 	private:
-	
 		CAssetBank<STextureAsset> Bank;
-
-		ILoader* AssetLoader;
 	};
 }
 

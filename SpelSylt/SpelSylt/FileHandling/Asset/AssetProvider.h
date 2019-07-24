@@ -11,8 +11,7 @@ namespace SpelSylt
 		friend class CAssetManager;
 
 	public:
-		virtual void ProvideLoader(ILoader& InLoader) = 0;
-		virtual SBaseAsset& GetAsset(const char* InAssetPath) = 0;
+		virtual SBaseAsset& GetAsset(const char* InAssetPath, ILoader& InLoader) = 0;
 	};
 }
 

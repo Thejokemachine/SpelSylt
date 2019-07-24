@@ -65,7 +65,7 @@ void CApplication::Initialize()
 	);
 	//End Build Contexts
 
-	AssetManager.Initialize(AsyncLoader);
+	AssetManager.ProvideLoaders(AsyncLoader, SynchronousLoader);
 
 	SetUpWindow();
 	PushStartUpStates();

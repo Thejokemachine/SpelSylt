@@ -9,7 +9,9 @@ using namespace SpelSylt;
 //------------------------------------------------------------------
 
 CAssetManager::CAssetManager()
-	: TextureProvider()
+	: AsyncLoader(nullptr)
+	, SynchronousLoader(nullptr)
+	, TextureProvider()
 	, FontProvider()
 {
 	AddAssetProvider<STextureAsset>(TextureProvider);
@@ -18,13 +20,10 @@ CAssetManager::CAssetManager()
 
 //------------------------------------------------------------------
 
-void CAssetManager::Initialize(ILoader& InAsyncLoader)
+void CAssetManager::ProvideLoaders(CAsyncLoader& InAsyncLoader, CSynchronousLoader& InSynchronousLoader)
 {
-	for (auto& AssetHashProviderPair : TypeToProvider)
-	{
-		auto& AssetProvider = AssetHashProviderPair.second;
-		AssetProvider->ProvideLoader(InAsyncLoader);
-	}
+	AsyncLoader = &InAsyncLoader;
+	SynchronousLoader = &InSynchronousLoader;
 }
 
 //------------------------------------------------------------------

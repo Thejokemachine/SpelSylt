@@ -5,23 +5,30 @@
 #include <unordered_map>
 #include <type_traits>
 
+#include "SpelSylt/FileHandling/Loading/AsyncLoader.h"
+#include "SpelSylt/FileHandling/Loading/SynchronousLoader.h"
+
 //Providers
 #include "SpelSylt/FileHandling/Banks/TextureBank.h"
 #include "SpelSylt/FileHandling/Banks/FontBank.h"
 
 namespace SpelSylt
 {
-	class ILoader;
+	enum ELoadSettings : bool
+	{
+		Async = true,
+		Synchronous = false
+	};
 
 	class CAssetManager
 	{
 	public:
 		CAssetManager();
 
-		void Initialize(ILoader& InAsyncLoader);
+		void ProvideLoaders(CAsyncLoader& InAsyncLoader, CSynchronousLoader& InSynchronousLoader);
 
 		template<typename TAssetType>
-		TAssetType& GetAsset(const char* InAssetPath);
+		TAssetType& GetAsset(const char* InAssetPath, ELoadSettings InSetting = ELoadSettings::Async);
 
 		template<typename TAssetType>
 		void AddAssetProvider(IAssetProvider& InProvider);
@@ -35,10 +42,12 @@ namespace SpelSylt
 
 		FTypeHashToProviderLookupTable TypeToProvider;
 
+		CAsyncLoader* AsyncLoader;
+		CSynchronousLoader* SynchronousLoader;
+
 		//Todo: Add all asset providers here. Ensure they are also added in construction
 		CTextureBank TextureProvider;
 		CFontBank FontProvider;
-
 	};
 }
 
@@ -47,7 +56,7 @@ namespace SS = SpelSylt;
 //------------------------------------------------------------------
 
 template<typename TAssetType>
-inline TAssetType& SpelSylt::CAssetManager::GetAsset(const char* InAssetPath)
+inline TAssetType& SpelSylt::CAssetManager::GetAsset(const char* InAssetPath, ELoadSettings InSetting)
 {
 	static_assert(std::is_base_of<SBaseAsset, TAssetType>::value, "Can only get asset types derrived from the Base Asset");
 
@@ -59,7 +68,17 @@ inline TAssetType& SpelSylt::CAssetManager::GetAsset(const char* InAssetPath)
 		LOG_ERROR(LogAssetManager, "Tried getting asset provider for type that did not exist?");
 	}
 
-	SBaseAsset* RawAsset = &AssetProvider->GetAsset(InAssetPath);
+	ILoader* UseLoader = nullptr;
+	if (InSetting == ELoadSettings::Async)
+	{
+		UseLoader = AsyncLoader;
+	}
+	else
+	{
+		UseLoader = SynchronousLoader;
+	}
+
+	SBaseAsset* RawAsset = &AssetProvider->GetAsset(InAssetPath, *UseLoader);
 	TAssetType* Asset = reinterpret_cast<TAssetType*>(RawAsset);
 	return *Asset;
 }
