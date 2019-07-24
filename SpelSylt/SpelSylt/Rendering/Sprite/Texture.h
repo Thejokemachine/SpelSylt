@@ -1,9 +1,9 @@
 #pragma once
 
-struct STextureAsset;
-
 namespace SpelSylt
 {
+	struct STextureAsset;
+
 	class CTexture
 	{
 	public:
@@ -13,7 +13,6 @@ namespace SpelSylt
 
 		void operator=(const CTexture& InRHS);
 		void operator=(STextureAsset& InRHS);
-		void operator=(STextureAsset* InRHS);
 
 		bool Valid() const;
 		STextureAsset& Get();

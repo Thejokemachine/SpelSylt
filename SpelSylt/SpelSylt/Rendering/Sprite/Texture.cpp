@@ -40,13 +40,6 @@ void CTexture::operator=(STextureAsset& InRHS)
 
 //------------------------------------------------------------------
 
-void SpelSylt::CTexture::operator=(STextureAsset* InRHS)
-{
-	Asset = InRHS;
-}
-
-//------------------------------------------------------------------
-
 bool CTexture::Valid() const
 {
 	return Asset != nullptr;
@@ -54,7 +47,7 @@ bool CTexture::Valid() const
 
 //------------------------------------------------------------------
 
-STextureAsset& CTexture::Get()
+SS::STextureAsset& CTexture::Get()
 {
 	return *Asset;
 }
