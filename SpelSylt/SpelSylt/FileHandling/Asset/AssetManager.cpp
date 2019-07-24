@@ -10,13 +10,15 @@ using namespace SpelSylt;
 
 CAssetManager::CAssetManager()
 	: TextureProvider()
+	, FontProvider()
 {
 	AddAssetProvider<STextureAsset>(TextureProvider);
+	AddAssetProvider<SFontAsset>(FontProvider);
 }
 
 //------------------------------------------------------------------
 
-void SpelSylt::CAssetManager::Initialize(IAsyncLoader& InAsyncLoader)
+void CAssetManager::Initialize(IAsyncLoader& InAsyncLoader)
 {
 	for (auto& AssetHashProviderPair : TypeToProvider)
 	{

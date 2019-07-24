@@ -5,7 +5,9 @@
 #include <unordered_map>
 #include <type_traits>
 
+//Providers
 #include "SpelSylt/FileHandling/Banks/TextureBank.h"
+#include "SpelSylt/FileHandling/Banks/FontBank.h"
 
 class IAsyncLoader;
 
@@ -19,7 +21,7 @@ namespace SpelSylt
 		void Initialize(IAsyncLoader& InAsyncLoader);
 
 		template<typename TAssetType>
-		TAssetType* GetAsset(const char* InAssetPath);
+		TAssetType& GetAsset(const char* InAssetPath);
 
 		template<typename TAssetType>
 		void AddAssetProvider(IAssetProvider& InProvider);
@@ -35,6 +37,7 @@ namespace SpelSylt
 
 		//Todo: Add all asset providers here. Ensure they are also added in construction
 		CTextureBank TextureProvider;
+		CFontBank FontProvider;
 
 	};
 }
@@ -44,7 +47,7 @@ namespace SS = SpelSylt;
 //------------------------------------------------------------------
 
 template<typename TAssetType>
-inline TAssetType* SpelSylt::CAssetManager::GetAsset(const char* InAssetPath)
+inline TAssetType& SpelSylt::CAssetManager::GetAsset(const char* InAssetPath)
 {
 	static_assert(std::is_base_of<SBaseAsset, TAssetType>::value, "Can only get asset types derrived from the Base Asset");
 
@@ -56,9 +59,9 @@ inline TAssetType* SpelSylt::CAssetManager::GetAsset(const char* InAssetPath)
 		LOG_ERROR(LogAssetManager, "Tried getting asset provider for type that did not exist?");
 	}
 
-	SBaseAsset* RawAsset = AssetProvider->GetAsset(InAssetPath);
+	SBaseAsset* RawAsset = &AssetProvider->GetAsset(InAssetPath);
 	TAssetType* Asset = reinterpret_cast<TAssetType*>(RawAsset);
-	return Asset;
+	return *Asset;
 }
 
 //------------------------------------------------------------------
