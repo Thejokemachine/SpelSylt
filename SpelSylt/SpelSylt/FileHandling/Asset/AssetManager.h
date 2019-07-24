@@ -9,7 +9,7 @@
 #include "SpelSylt/FileHandling/Banks/TextureBank.h"
 #include "SpelSylt/FileHandling/Banks/FontBank.h"
 
-class IAsyncLoader;
+class ILoader;
 
 namespace SpelSylt
 {
@@ -18,7 +18,7 @@ namespace SpelSylt
 	public:
 		CAssetManager();
 
-		void Initialize(IAsyncLoader& InAsyncLoader);
+		void Initialize(ILoader& InAsyncLoader);
 
 		template<typename TAssetType>
 		TAssetType& GetAsset(const char* InAssetPath);

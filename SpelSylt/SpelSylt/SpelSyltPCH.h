@@ -17,7 +17,7 @@
 //Utility
 #include "SpelSylt/Utility/Time/TimeGetter.h"
 #include "SpelSylt/Utility/Input/InputEventGetter.h"
-#include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
+#include "SpelSylt/FileHandling/Loading/LoaderInterface.h"
 
 //Asset
 #include "SpelSylt/FileHandling/Asset/Assets.h"

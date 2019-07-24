@@ -1,5 +1,5 @@
 #pragma once
-#include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
+#include "SpelSylt/FileHandling/Loading/LoaderInterface.h"
 #include "SpelSylt/Utility/Async/AsyncWorker.h"
 
 #include "SpelSylt/Memory/MemAllocSizes.h"
@@ -29,7 +29,7 @@ namespace SpelSylt
 
 	class CAsyncLoader final
 		: public CAsyncWorker
-		, public IAsyncLoader
+		, public ILoader
 	{
 	public:
 		CAsyncLoader();
@@ -38,9 +38,9 @@ namespace SpelSylt
 		virtual void DoWork() override;
 		//End CAsyncWorker
 
-		//Begin IAsyncLoader
-		virtual void LoadAsync(const char* InPath, SBaseAsset& InTo) override;
-		//End IAsyncLoader
+		//Begin ILoader
+		virtual void Load(const char* InPath, SBaseAsset& InTo) override;
+		//End ILoader
 	private:
 		const short MaxAssetsToLoadPerCycle = 5;
 

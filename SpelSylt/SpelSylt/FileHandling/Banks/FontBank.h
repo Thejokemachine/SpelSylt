@@ -13,14 +13,14 @@ namespace SpelSylt
 		CFontBank();
 
 		//Begin ITextureProvider
-		virtual void ProvideLoader(IAsyncLoader& InLoader) override;
+		virtual void ProvideLoader(ILoader& InLoader) override;
 		virtual SBaseAsset& GetAsset(const char* InID) override;
 		//End ITextureProvider
 
 	private:
 		CAssetBank<SFontAsset> Bank;
 
-		IAsyncLoader* Loader;
+		ILoader* Loader;
 	};
 }
 

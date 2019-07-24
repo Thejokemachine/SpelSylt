@@ -15,7 +15,7 @@ CContextBuilder::CContextBuilder()
 SGameContext* CContextBuilder::BuildGameContext(
 	IInputEventGetter& InInputEventGetter,
 	ITimeGetter& InTimeGetter,
-	IAsyncLoader& InAsyncLoader,
+	ILoader& InAsyncLoader,
 	CMessageQueue& InMessageQueue,
 	SS::CAssetManager& InAssetManager )
 {

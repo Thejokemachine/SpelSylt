@@ -17,7 +17,7 @@ CAsyncLoader::CAsyncLoader()
 
 //------------------------------------------------------------------
 
-void CAsyncLoader::LoadAsync(const char* InPath, SBaseAsset& InTo)
+void CAsyncLoader::Load(const char* InPath, SBaseAsset& InTo)
 {
 	InTo.LoadStatus = ELoadRequestStatus::Pending;
 

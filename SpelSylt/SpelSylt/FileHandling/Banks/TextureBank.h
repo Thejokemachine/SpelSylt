@@ -8,7 +8,7 @@
 
 #include <string>
 
-class IAsyncLoader;
+class ILoader;
 
 namespace SpelSylt
 {
@@ -19,7 +19,7 @@ namespace SpelSylt
 		CTextureBank();
 	
 		//Begin ITextureProvider
-		virtual void ProvideLoader(IAsyncLoader& InLoader) override;
+		virtual void ProvideLoader(ILoader& InLoader) override;
 		virtual SBaseAsset& GetAsset(const char* InID) override;
 		//End ITextureProvider
 	
@@ -27,7 +27,7 @@ namespace SpelSylt
 	
 		CAssetBank<STextureAsset> Bank;
 
-		IAsyncLoader* AssetLoader;
+		ILoader* AssetLoader;
 	};
 }
 

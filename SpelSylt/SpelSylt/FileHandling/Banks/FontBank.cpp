@@ -14,7 +14,7 @@ CFontBank::CFontBank()
 
 //------------------------------------------------------------------
 
-void CFontBank::ProvideLoader(IAsyncLoader& InLoader)
+void CFontBank::ProvideLoader(ILoader& InLoader)
 {
 	Loader = &InLoader;
 }
@@ -26,7 +26,7 @@ SBaseAsset& CFontBank::GetAsset(const char* InID)
 	if (!Bank.Contains(InID))
 	{
 		Bank.Add(InID);
-		Loader->LoadAsync(InID, Bank.GetAsset(InID));
+		Loader->Load(InID, Bank.GetAsset(InID));
 	}
 
 	return Bank.GetAsset(InID);

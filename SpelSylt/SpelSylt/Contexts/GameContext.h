@@ -2,7 +2,7 @@
 
 class ITimeGetter;
 class IInputEventGetter;
-class IAsyncLoader;
+class ILoader;
 class CMessageQueue;
 
 namespace SpelSylt
@@ -17,7 +17,7 @@ public:
 	SGameContext(
 		IInputEventGetter& InInputEventGetter,
 		ITimeGetter& InTimeGetter,
-		IAsyncLoader& InAsyncLoader,
+		ILoader& InAsyncLoader,
 		CMessageQueue& InMessageQueue,
 		SpelSylt::CAssetManager& InAssetManager
 	)
@@ -30,7 +30,7 @@ public:
 
 	IInputEventGetter& Input;
 	ITimeGetter& Time;
-	IAsyncLoader& Loader;
+	ILoader& Loader;
 	CMessageQueue& MessageQueue;
 	SpelSylt::CAssetManager& AssetManager;
 };

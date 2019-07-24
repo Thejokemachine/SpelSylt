@@ -7,7 +7,7 @@
 
 #include "SFML/Audio.hpp"
 
-class IAsyncLoader;
+class ILoader;
 class CMessageQueue;
 
 struct SMusicMessage;

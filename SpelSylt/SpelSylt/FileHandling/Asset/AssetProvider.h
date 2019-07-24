@@ -4,7 +4,7 @@
 
 //------------------------------------------------------------------
 
-class IAsyncLoader;
+class ILoader;
 
 //------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ namespace SpelSylt
 		friend class CAssetManager;
 
 	public:
-		virtual void ProvideLoader(IAsyncLoader& InLoader) = 0;
+		virtual void ProvideLoader(ILoader& InLoader) = 0;
 		virtual SBaseAsset& GetAsset(const char* InAssetPath) = 0;
 	};
 }
