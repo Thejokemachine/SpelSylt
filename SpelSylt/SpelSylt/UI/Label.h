@@ -1,7 +1,8 @@
 #pragma once
 #include "SpelSylt/UI/Panel.h"
-#include "SFML/Graphics/Font.hpp"
-#include "SFML/Graphics/Text.hpp"
+
+#include "SpelSylt/Rendering/Text/Font.h"
+#include "SpelSylt/Rendering/Text/Text.h"
 
 namespace tinyxml2 {
 	class XMLElement;
@@ -30,7 +31,7 @@ namespace UI
 		virtual void onDraw(sf::RenderTarget& aTarget) const override;
 
 	private:
-		sf::Text myText;
+		SS::CText myText;
 		unsigned char myTextAlignFlags = 0;
 	};
 }

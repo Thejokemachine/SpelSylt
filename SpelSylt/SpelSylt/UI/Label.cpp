@@ -5,7 +5,9 @@
 #include "SFML/Graphics/RenderTarget.hpp"
 #include "SpelSylt/UI/UIUtilities.h"
 #include "SpelSylt/UI/Base/UILayout.h"
-#include "SpelSylt/FileHandling/Banks/FontBank.h"
+
+#include "SpelSylt/FileHandling/Asset/AssetTypes/FontAsset.h"
+#include "SpelSylt/FileHandling/Asset/AssetManager.h"
 
 UI::Label::Label(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement & aElement) :
 	Panel(aLayout, aParent, aElement)
@@ -25,8 +27,9 @@ UI::Label::Label(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement &
 	myText.setCharacterSize(size);
 	std::string font = "default";
 	XMLUtilities::QueryAttribute(aElement, "font", font);
-	if (auto f = myLayout.GetFontBank().GetFont(font))
-		myText.setFont(*f);
+
+	std::string FullFontPath = "Graphics/Fonts/" + font;
+	myText.SetFontAsset(myLayout.GetFontBank()->GetAsset<SS::SFontAsset>(FullFontPath.c_str()));
 	
 	onLayout();
 

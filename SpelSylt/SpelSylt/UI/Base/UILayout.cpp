@@ -10,11 +10,15 @@
 #include "SpelSylt/Math/CommonMath.h"
 #include "SpelSylt/XMLUtilities.h"
 
+#include "SpelSylt/Contexts/GameContext.h"
+
+#include "SpelSylt/FileHandling/Banks/FontBank.h"
+
 using namespace tinyxml2;
 using namespace UI;
 
-UILayout::UILayout(float aWidth, float aHeight, CFontBank& aFontBank, const std::string& aLayoutXML) :
-myFontBank(aFontBank)
+UILayout::UILayout(float aWidth, float aHeight, const std::string& aLayoutXML)
+	: myAssetManager(nullptr)
 {
 	bool loaded = false;
 	while (!loaded)
@@ -31,8 +35,15 @@ myFontBank(aFontBank)
 	Resize((int)aWidth, (int)aHeight);
 }
 
-void UILayout::Update(IInputEventGetter* aInputManager)
+void UILayout::Update(SGameContext& InGameContext)
 {
+	if (myAssetManager == nullptr)
+	{
+		myAssetManager = &InGameContext.AssetManager;
+	}
+
+	IInputEventGetter* aInputManager = &InGameContext.Input;
+
 	sf::Vector2f mPos = aInputManager->GetMousePosFloat();
 
 	myRootPanel->ForEachChild([mPos, aInputManager](Panel& panel) {

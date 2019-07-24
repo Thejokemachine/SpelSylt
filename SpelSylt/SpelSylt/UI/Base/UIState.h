@@ -28,8 +28,8 @@ protected:
 private:
 
 	CSubscriptions mySubs;
-
-	static CFontBank FontBank;
+	float myWidth;
+	float myHeight;
 
 #ifdef _DEBUG
 	bool myShouldReload = false;

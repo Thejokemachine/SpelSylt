@@ -11,13 +11,14 @@
 #include <SpelSylt/FileHandling/FileWatcher.h>
 #endif
 
-CFontBank UIState::FontBank;
-
 UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& aLayoutXML) :
 	CState(),
-	myLayout(std::make_unique<UI::UILayout>((float)aWidth, (float)aHeight, FontBank, aLayoutXML))
+	myLayout(std::make_unique<UI::UILayout>((float)aWidth, (float)aHeight, aLayoutXML))
 {
 	SetStateFlags(CState::DRAW_BELOW | CState::UPDATE_BELOW);
+
+	myWidth = (float)aWidth;
+	myHeight = (float)aHeight;
 
 #ifdef _DEBUG
 	myLayoutFile = aLayoutXML;
@@ -29,6 +30,8 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& a
 
 void UIState::Init(SGameContext& InGameContext)
 {
+	myLayout = std::make_unique<UI::UILayout>(myWidth, myHeight, myLayoutFile);
+
 	InGameContext.MessageQueue.Subscribe<SResizedWindowMessage>([this](const SResizedWindowMessage& msg) {
 		myLayout->Resize(msg.Param, msg.ParamTwo);
 	}, mySubs);
@@ -38,7 +41,7 @@ void UIState::Init(SGameContext& InGameContext)
 
 void UIState::Update(SGameContext & InGameContext)
 {
-	myLayout->Update(&InGameContext.Input);
+	myLayout->Update(InGameContext);
 
 #ifdef _DEBUG
 	if (myShouldReload)
@@ -46,7 +49,7 @@ void UIState::Update(SGameContext & InGameContext)
 		float width = myLayout->GetWidth();
 		float height = myLayout->GetHeight();
 		myLayout = nullptr;
-		myLayout = std::make_unique<UI::UILayout>(width, height, FontBank, myLayoutFile);
+		myLayout = std::make_unique<UI::UILayout>(width, height, myLayoutFile);
 		myShouldReload = false;
 		LOG_VERBOSE(UI, "Reloaded UI");
 	}

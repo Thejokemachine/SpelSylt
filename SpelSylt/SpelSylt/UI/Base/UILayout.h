@@ -18,7 +18,11 @@ namespace tinyxml2
 }
 
 class IInputEventGetter;
-class CFontBank;
+
+namespace SpelSylt
+{
+	class CAssetManager;
+}
 
 namespace UI
 {
@@ -29,10 +33,10 @@ namespace UI
 	class UILayout
 	{
 	public:
-		UILayout(float aWidth, float aHeight, CFontBank& aFontBank, const std::string& aLayoutXML);
+		UILayout(float aWidth, float aHeight, const std::string& aLayoutXML);
 		virtual ~UILayout() = default;
 
-		void Update(IInputEventGetter* aInputManager);
+		void Update(SGameContext& InGameContext);
 		void Render(sf::RenderTarget& aRenderTarget);
 		void Resize(int aWidth, int aHeight);
 
@@ -43,9 +47,11 @@ namespace UI
 		float GetWidth() const;
 		float GetHeight() const;
 
-		CFontBank& GetFontBank() { return myFontBank; }
+		SpelSylt::CAssetManager* GetFontBank() { return myAssetManager; }
 
 	private:
+		//Temp fix!
+		SpelSylt::CAssetManager* myAssetManager;
 
 		void addChildren(Panel& aParent, tinyxml2::XMLElement* aElement);
 
@@ -54,7 +60,5 @@ namespace UI
 		CDebugDrawer myDrawer;
 		std::unique_ptr<Panel> myRootPanel;
 		tinyxml2::XMLDocument myDocument;
-
-		CFontBank& myFontBank;
 	};
 }
