@@ -4,6 +4,8 @@
 
 #define ANIMATION_HEADER_OFFSET_BYTES 8ull
 
+using namespace SpelSylt;
+
 //------------------------------------------------------------------
 
 void SAnimationAsset::AssignData(char* InDataLocation, B InDataSize)
