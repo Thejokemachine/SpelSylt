@@ -41,13 +41,13 @@ void HookGame::OnInit(SGameContext& InGameContext)
 
 	SS::CAssetManager& AssetManager = InGameContext.AssetManager;
 
-	myPlayerTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Player.png");
-	myPlayerHookedTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Player_hooked.png");
-	myRopeTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Rope.png");
-	myRopeTexture.Get().SetShouldRepeat(true);
-	myHookPointTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Hookpoint.png");
-	myFloorTexture = AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/Floor.png");
-	myFloorTexture.Get().SetShouldRepeat(true);
+	myPlayerTexture = AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/Player.png");
+	myPlayerHookedTexture = AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/Player_hooked.png");
+	myRopeTexture = AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/Rope.png");
+	myRopeTexture.Get().setRepeated(true);
+	myHookPointTexture = AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/Hookpoint.png");
+	myFloorTexture = AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/Floor.png");
+	myFloorTexture.Get().setRepeated(true);
 
 	myRope.SetTextureAsset(myRopeTexture.Get());
 
