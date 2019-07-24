@@ -14,7 +14,7 @@
 #include <SpelSylt/Contexts/GameContext.h>
 #include <SpelSylt/Contexts/RenderingContext.h>
 #include <SpelSylt/Messaging/MessageQueue.h>
-#include <SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h>
+#include <SpelSylt/FileHandling/Loading/LoaderInterface.h>
 #include <SpelSylt/Utility/Time/TimeGetter.h>
 
 #include "SpelSylt/Messaging/Messages/AudioMessages.h"

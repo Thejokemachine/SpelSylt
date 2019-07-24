@@ -18,7 +18,7 @@ CAssetManager::CAssetManager()
 
 //------------------------------------------------------------------
 
-void CAssetManager::Initialize(IAsyncLoader& InAsyncLoader)
+void CAssetManager::Initialize(ILoader& InAsyncLoader)
 {
 	for (auto& AssetHashProviderPair : TypeToProvider)
 	{

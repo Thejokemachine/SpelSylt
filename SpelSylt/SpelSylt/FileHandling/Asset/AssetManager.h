@@ -11,14 +11,14 @@
 
 namespace SpelSylt
 {
-	class IAsyncLoader;
+	class ILoader;
 
 	class CAssetManager
 	{
 	public:
 		CAssetManager();
 
-		void Initialize(IAsyncLoader& InAsyncLoader);
+		void Initialize(ILoader& InAsyncLoader);
 
 		template<typename TAssetType>
 		TAssetType& GetAsset(const char* InAssetPath);

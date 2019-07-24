@@ -17,7 +17,7 @@
 #include <SpelSylt/Debugging/Rendering/DebugDrawerInput.h>
 
 //File handling
-#include <SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h>
+#include <SpelSylt/FileHandling/Loading/LoaderInterface.h>
 
 //Banks
 #include <SpelSylt/FileHandling/Banks/TextureProviderInterface.h>

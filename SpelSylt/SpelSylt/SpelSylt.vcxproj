@@ -115,6 +115,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +158,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -174,6 +176,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|x64'">
     <ClCompile>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -192,6 +195,7 @@
     <ClCompile Include="FileHandling\FileWatcher.cpp" />
     <ClCompile Include="FileHandling\Loading\AsyncLoader.cpp" />
     <ClCompile Include="FileHandling\Loading\FileLoader.cpp" />
+    <ClCompile Include="FileHandling\Loading\SynchronousLoader.cpp" />
     <ClCompile Include="FileHandling\TextFileHandler.cpp" />
     <ClCompile Include="GameState2D.cpp" />
     <ClCompile Include="Math\CommonMath.cpp" />
@@ -256,9 +260,10 @@
     <ClInclude Include="FileHandling\DirectoryHelpers.h" />
     <ClInclude Include="FileHandling\FileWatcher.h" />
     <ClInclude Include="FileHandling\Loading\AsyncLoader.h" />
-    <ClInclude Include="FileHandling\Loading\AsyncLoaderInterface.h" />
+    <ClInclude Include="FileHandling\Loading\LoaderInterface.h" />
     <ClInclude Include="FileHandling\Loading\FileLoader.h" />
     <ClInclude Include="FileHandling\Loading\LoadEnums.h" />
+    <ClInclude Include="FileHandling\Loading\SynchronousLoader.h" />
     <ClInclude Include="FileHandling\TextFileHandler.h" />
     <ClInclude Include="GameState2D.h" />
     <ClInclude Include="Math\CommonMath.h" />

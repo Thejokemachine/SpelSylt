@@ -1,7 +1,7 @@
 #include "SpelSylt/SpelSyltPCH.h"
 
 #include "SpelSylt/FileHandling/Banks/TextureBank.h"
-#include "SpelSylt/FileHandling/Loading/AsyncLoaderInterface.h"
+#include "SpelSylt/FileHandling/Loading/LoaderInterface.h"
 
 //------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ CTextureBank::CTextureBank()
 
 //------------------------------------------------------------------
 
-void CTextureBank::ProvideLoader(IAsyncLoader& InLoader)
+void CTextureBank::ProvideLoader(ILoader& InLoader)
 {
 	AssetLoader = &InLoader;
 }
@@ -29,7 +29,7 @@ SBaseAsset& CTextureBank::GetAsset(const char* InID)
 	if (!Bank.Contains(InID))
 	{
 		Bank.Add(InID);
-		AssetLoader->LoadAsync(InID, Bank.GetAsset(InID));
+		AssetLoader->Load(InID, Bank.GetAsset(InID));
 	}
 
 	return Bank.GetAsset(InID);

@@ -9,8 +9,8 @@
 
 namespace SpelSylt
 {
-	class IAsyncLoader;
 	class CMessageQueue;
+    class ILoader;
 
 	struct SMusicMessage;
 	struct SSoundMessage;
