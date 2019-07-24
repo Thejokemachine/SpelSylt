@@ -188,8 +188,6 @@
     <ClCompile Include="Debugging\Rendering\DebugDrawer.cpp" />
     <ClCompile Include="FileHandling\Asset\AssetTypes\AnimationAsset.cpp" />
     <ClCompile Include="FileHandling\Asset\AssetManager.cpp" />
-    <ClCompile Include="FileHandling\Banks\FontBank.cpp" />
-    <ClCompile Include="FileHandling\Banks\TextureBank.cpp" />
     <ClCompile Include="FileHandling\ConfigReader.cpp" />
     <ClCompile Include="FileHandling\DirectoryHelpers.cpp" />
     <ClCompile Include="FileHandling\FileWatcher.cpp" />
@@ -254,8 +252,6 @@
     <ClInclude Include="FileHandling\Asset\AssetTypes\SoundAsset.h" />
     <ClInclude Include="FileHandling\Asset\AssetTypes\TextureAsset.h" />
     <ClInclude Include="FileHandling\Banks\AssetBank.h" />
-    <ClInclude Include="FileHandling\Banks\FontBank.h" />
-    <ClInclude Include="FileHandling\Banks\TextureBank.h" />
     <ClInclude Include="FileHandling\ConfigReader.h" />
     <ClInclude Include="FileHandling\DirectoryHelpers.h" />
     <ClInclude Include="FileHandling\FileWatcher.h" />

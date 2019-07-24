@@ -12,8 +12,6 @@
 
 #include "SpelSylt/Contexts/GameContext.h"
 
-#include "SpelSylt/FileHandling/Banks/FontBank.h"
-
 using namespace tinyxml2;
 using namespace UI;
 using namespace SpelSylt;

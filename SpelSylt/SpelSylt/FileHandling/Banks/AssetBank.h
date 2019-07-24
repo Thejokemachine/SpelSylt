@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SpelSylt/FileHandling/Asset/AssetProvider.h"
+
 #include <string>
 #include <unordered_map>
 #include <type_traits>
@@ -8,18 +10,22 @@
 namespace SpelSylt
 {
 	template<typename TAssetType>
-	class CAssetBank
+	class CAssetBank final
+		: public IAssetProvider
 	{
 	public:
 		CAssetBank();
 
-		bool Contains(const char* InID) const;
-		void Add(const char* InID);
-
-		TAssetType& GetAsset(const char* InID);
+		//Begin IAssetProvider
+		virtual TAssetType& GetAsset(const char* InAssetPath, ILoader& InLoader) override;
+		//End IAssetProvider
 
 	private:
-		std::unordered_map<std::string, TAssetType> Vault;
+		bool ContainsAsset(const char* InAssetPath) const;
+		void AddAsset(const char* InAssetPath, ILoader& InLoader);
+
+		using TVault = std::unordered_map<std::string, TAssetType>;
+		TVault Vault;
 	};
 }
 
@@ -31,45 +37,36 @@ template<typename TAssetType>
 inline SpelSylt::CAssetBank<TAssetType>::CAssetBank()
 	: Vault()
 {
-	static_assert(std::is_base_of<SBaseAsset, TAssetType>().value, "Asset bank must hold assets!");
 }
 
 //------------------------------------------------------------------
 
 template<typename TAssetType>
-inline bool SpelSylt::CAssetBank<TAssetType>::Contains(const char* InID) const
+inline TAssetType& SpelSylt::CAssetBank<TAssetType>::GetAsset(const char* InAssetPath, ILoader& InLoader)
 {
-	return Vault.find(InID) != Vault.end();
-}
-
-//------------------------------------------------------------------
-
-template<typename TAssetType>
-inline void SpelSylt::CAssetBank<TAssetType>::Add(const char* InID)
-{
-#ifdef _DEBUG
-	if (Contains(InID))
+	if (!ContainsAsset(InAssetPath))
 	{
-		assert(false && "Always check that the asset does not already exist before calling Add!");
+		AddAsset(InAssetPath, InLoader);
 	}
-#endif
 
-	Vault[InID] = TAssetType();
+	return Vault[InAssetPath];
 }
 
 //------------------------------------------------------------------
 
 template<typename TAssetType>
-inline TAssetType& SpelSylt::CAssetBank<TAssetType>::GetAsset(const char* InID)
+inline bool SpelSylt::CAssetBank<TAssetType>::ContainsAsset(const char* InAssetPath) const
 {
-#ifdef _DEBUG
-	if (!Contains(InID))
-	{
-		assert(false && "Always check that the asset does not already exist before calling GetAsset!");
-	}
-#endif
+	return Vault.find(InAssetPath) != Vault.end();
+}
 
-	return Vault[InID];
+//------------------------------------------------------------------
+
+template<typename TAssetType>
+inline void SpelSylt::CAssetBank<TAssetType>::AddAsset(const char* InAssetPath, ILoader& InLoader)
+{
+	Vault[InAssetPath] = TAssetType();
+	InLoader.Load(InAssetPath, Vault[InAssetPath]);
 }
 
 //------------------------------------------------------------------

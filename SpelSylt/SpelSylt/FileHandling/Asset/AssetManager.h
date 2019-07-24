@@ -8,9 +8,8 @@
 #include "SpelSylt/FileHandling/Loading/AsyncLoader.h"
 #include "SpelSylt/FileHandling/Loading/SynchronousLoader.h"
 
-//Providers
-#include "SpelSylt/FileHandling/Banks/TextureBank.h"
-#include "SpelSylt/FileHandling/Banks/FontBank.h"
+#include "SpelSylt/FileHandling/Banks/AssetBank.h"
+#include "SpelSylt/FileHandling/Asset/Assets.h"
 
 namespace SpelSylt
 {
@@ -46,8 +45,8 @@ namespace SpelSylt
 		CSynchronousLoader* SynchronousLoader;
 
 		//Todo: Add all asset providers here. Ensure they are also added in construction
-		CTextureBank TextureProvider;
-		CFontBank FontProvider;
+		CAssetBank<STextureAsset> TextureProvider;
+		CAssetBank<SFontAsset> FontProvider;
 	};
 }
 
@@ -106,7 +105,5 @@ inline SpelSylt::CAssetManager::FAssetTypeHash SpelSylt::CAssetManager::GetAsset
 {
 	return typeid(TAssetType).hash_code();
 }
-
-//------------------------------------------------------------------
 
 //------------------------------------------------------------------

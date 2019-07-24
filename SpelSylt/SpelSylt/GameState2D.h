@@ -4,7 +4,6 @@
 #include "SpelSylt/Rendering/Renderer.h"
 #include "SpelSylt/Rendering/RenderQueue.h"
 #include "SpelSylt/Debugging/Rendering/DebugDrawer.h"
-#include "SpelSylt/FileHandling/Banks/TextureBank.h"
 
 #include <SFML/Graphics/View.hpp>
 
