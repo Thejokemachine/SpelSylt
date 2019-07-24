@@ -50,7 +50,7 @@ void CApplication::Initialize()
 
 	AudioManager.Init(MessageQueue);
 
-	SS::CAsyncLoader& Loader = UtilityThread.EmplaceWorker<SS::CAsyncLoader>();
+	SS::CAsyncLoader& AsyncLoader = UtilityThread.EmplaceWorker<SS::CAsyncLoader>();
 	UtilityThread.EmplaceWorker<SS::CFileWatcher>();
 	UtilityThread.Start();
 
@@ -58,13 +58,14 @@ void CApplication::Initialize()
 	GameContext = ContextBuilder.BuildGameContext(
 		InputManager,
 		Time,
-		Loader,
+		AsyncLoader,
+		SynchronousLoader,
 		MessageQueue,
 		AssetManager
 	);
 	//End Build Contexts
 
-	AssetManager.Initialize(Loader);
+	AssetManager.Initialize(AsyncLoader);
 
 	SetUpWindow();
 	PushStartUpStates();

@@ -6,7 +6,8 @@ namespace SpelSylt
 {
 	class ITimeGetter;
 	class IInputEventGetter;
-	class ILoader;
+	class CAsyncLoader;
+	class CSynchronousLoader;
 	class CMessageQueue;
 	class IRenderQueueInput;
 	class IDebugDrawerInput;
@@ -20,7 +21,8 @@ namespace SpelSylt
 		SGameContext* BuildGameContext(
 			IInputEventGetter& InInputEventGetter,
 			ITimeGetter& InTimeGetter,
-			ILoader& InAsyncLoader,
+			CAsyncLoader& InAsyncLoader,
+			CSynchronousLoader& InSynchronousLoader,
 			CMessageQueue& InMessageQueue,
 			SS::CAssetManager& InAssetManager);
 

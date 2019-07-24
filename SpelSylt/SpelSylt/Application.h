@@ -10,6 +10,7 @@
 
 #include "SpelSylt/FileHandling/Asset/AssetManager.h"
 #include "SpelSylt/FileHandling/Loading/AsyncLoader.h"
+#include "SpelSylt/FileHandling/Loading/SynchronousLoader.h"
 
 #include "SpelSylt/Messaging/MessageQueue.h"
 
@@ -61,6 +62,8 @@ namespace SpelSylt
 		CMessageQueue MessageQueue;
 
 		SS::CAssetManager AssetManager;
+
+		SS::CSynchronousLoader SynchronousLoader;
 
 		//Contexts
 		CContextBuilder ContextBuilder;

@@ -4,7 +4,8 @@ namespace SpelSylt
 {
 	class ITimeGetter;
 	class IInputEventGetter;
-	class ILoader;
+	class CAsyncLoader;
+	class CSynchronousLoader;
 	class CMessageQueue;
 	class CAssetManager;
 
@@ -15,20 +16,23 @@ namespace SpelSylt
 		SGameContext(
 			IInputEventGetter& InInputEventGetter,
 			ITimeGetter& InTimeGetter,
-			ILoader& InAsyncLoader,
+			CAsyncLoader& InAsyncLoader,
+			CSynchronousLoader& InSynchronousLoader,
 			CMessageQueue& InMessageQueue,
 			SpelSylt::CAssetManager& InAssetManager
 		)
 			: Input(InInputEventGetter)
 			, Time(InTimeGetter)
-			, Loader(InAsyncLoader)
+			, AsyncLoader(InAsyncLoader)
+			, SynchronousLoader(InSynchronousLoader)
 			, MessageQueue(InMessageQueue)
 			, AssetManager(InAssetManager)
 		{}
 
 		IInputEventGetter& Input;
 		ITimeGetter& Time;
-		ILoader& Loader;
+		CAsyncLoader& AsyncLoader;
+		CSynchronousLoader& SynchronousLoader;
 		CMessageQueue& MessageQueue;
 		SpelSylt::CAssetManager& AssetManager;
 	};
