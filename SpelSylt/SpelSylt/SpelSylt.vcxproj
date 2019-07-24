@@ -241,7 +241,6 @@
     <ClInclude Include="FileHandling\Asset\TextureAsset.h" />
     <ClInclude Include="FileHandling\Banks\FontBank.h" />
     <ClInclude Include="FileHandling\Banks\TextureBank.h" />
-    <ClInclude Include="FileHandling\Banks\TextureProviderInterface.h" />
     <ClInclude Include="FileHandling\ConfigReader.h" />
     <ClInclude Include="FileHandling\DirectoryHelpers.h" />
     <ClInclude Include="FileHandling\FileWatcher.h" />
