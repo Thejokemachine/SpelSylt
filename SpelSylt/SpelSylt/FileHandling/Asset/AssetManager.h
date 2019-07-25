@@ -9,6 +9,7 @@
 #include "SpelSylt/FileHandling/Loading/SynchronousLoader.h"
 
 #include "SpelSylt/FileHandling/Banks/AssetBank.h"
+#include "SpelSylt/FileHandling/Banks/ShaderBank.h"
 #include "SpelSylt/FileHandling/Asset/Assets.h"
 
 namespace SpelSylt
@@ -47,6 +48,7 @@ namespace SpelSylt
 		//Todo: Add all asset providers here. Ensure they are also added in construction
 		CAssetBank<STextureAsset> TextureProvider;
 		CAssetBank<SFontAsset> FontProvider;
+		CShaderBank ShaderProvider;
 	};
 }
 

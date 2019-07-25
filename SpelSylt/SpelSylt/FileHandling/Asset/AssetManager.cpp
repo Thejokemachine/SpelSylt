@@ -16,6 +16,7 @@ CAssetManager::CAssetManager()
 {
 	AddAssetProvider<STextureAsset>(TextureProvider);
 	AddAssetProvider<SFontAsset>(FontProvider);
+	AddAssetProvider<SShaderAsset>(ShaderProvider);
 }
 
 //------------------------------------------------------------------
