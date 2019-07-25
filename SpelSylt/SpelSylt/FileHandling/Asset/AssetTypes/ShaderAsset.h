@@ -11,14 +11,11 @@ namespace SpelSylt
 		: public SBaseAsset
 		, sf::Shader
 	{
+		friend class CShaderBank;
+		
 		SShaderAsset()
+			: Type(sf::Shader::Type::Error)
 		{
-		}
-
-		SShaderAsset(sf::Shader::Type InType)
-			: Type(InType)
-		{
-
 		}
 
 		void operator=(const SShaderAsset& InRHS)
