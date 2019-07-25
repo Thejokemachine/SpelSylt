@@ -9,6 +9,7 @@
 namespace SpelSylt
 {
 	class ILoader;
+	class CSmallString;
 
 	class CShaderBank
 		: public IAssetProvider
@@ -21,6 +22,8 @@ namespace SpelSylt
 		//End IAssetProvider
 
 	private:
+		sf::Shader::Type TranslateToType(CSmallString& InExtension) const;
+
 		std::unordered_map<std::string, SShaderAsset> Bank;
 	};
 }

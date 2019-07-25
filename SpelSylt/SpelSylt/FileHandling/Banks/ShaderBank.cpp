@@ -4,6 +4,8 @@
 
 #include <filesystem>
 
+#include "SpelSylt/Utility/SmallString.h"
+
 //------------------------------------------------------------------
 
 SBaseAsset& SpelSylt::CShaderBank::GetAsset(const char* InAssetPath, ILoader& InLoader)
@@ -11,41 +13,45 @@ SBaseAsset& SpelSylt::CShaderBank::GetAsset(const char* InAssetPath, ILoader& In
 	if (Bank.find(InAssetPath) == Bank.end())
 	{
 		std::filesystem::path Path(InAssetPath);
-		std::string Extension = Path.extension().string();
 
-		/*
-		ASSUMING EXTENSIONS
-		.frag [5]
-		.geometry [9]
-		.vertex [7]
-		*/
-		sf::Shader::Type ShaderType;
-		size_t ExtLen = Extension.size();
-		bool Failed = false;
-		switch (ExtLen)
-		{
-		case 5:
-			ShaderType = sf::Shader::Type::Fragment;
-			break;
-		case 9:
-			ShaderType = sf::Shader::Type::Geometry;
-			break;
-		case 7:
-			ShaderType = sf::Shader::Type::Vertex;
-			break;
-		default:
-			Failed = true;
-			break;
-		}
+		CSmallString Extension(Path.extension().string().c_str());
+		sf::Shader::Type ShaderType = TranslateToType(Extension); 
 		
-		Bank[InAssetPath] = SShaderAsset(ShaderType);
-		if (!Failed)
+		Bank[InAssetPath].Type = ShaderType;
+		
+		if (ShaderType != sf::Shader::Type::Error)
 		{
 			InLoader.Load(InAssetPath, Bank[InAssetPath]);
+		}
+		else
+		{
+			Bank[InAssetPath].LoadStatus = ELoadRequestStatus::Fail;
 		}
 	}
 
 	return Bank[InAssetPath];
+}
+
+//------------------------------------------------------------------
+
+sf::Shader::Type SpelSylt::CShaderBank::TranslateToType(CSmallString& InExtension) const
+{
+	if (InExtension == CSmallString(".frag") || InExtension == CSmallString(".fragment"))
+	{
+		return sf::Shader::Type::Fragment;
+	}
+
+	if (InExtension == CSmallString(".vert") || InExtension == CSmallString(".vertex"))
+	{
+		return sf::Shader::Type::Vertex;
+	}
+
+	if (InExtension == CSmallString(".geom") || InExtension == CSmallString(".geometry"))
+	{
+		return sf::Shader::Type::Geometry;
+	}
+
+	return sf::Shader::Type::Error;
 }
 
 //------------------------------------------------------------------
