@@ -59,6 +59,9 @@ public:
     ////////////////////////////////////////////////////////////
     enum Type
     {
+		//BEGIN THIRD PARTY CODE SPELSYLT
+		Error,	  /// ERROR TYPE 
+		//END THIRD PARTY CODE SPELSYLT
         Vertex,   ///< %Vertex shader
         Geometry, ///< Geometry shader
         Fragment  ///< Fragment (pixel) shader
