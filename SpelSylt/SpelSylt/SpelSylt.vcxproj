@@ -188,6 +188,7 @@
     <ClCompile Include="Debugging\Rendering\DebugDrawer.cpp" />
     <ClCompile Include="FileHandling\Asset\AssetTypes\AnimationAsset.cpp" />
     <ClCompile Include="FileHandling\Asset\AssetManager.cpp" />
+    <ClCompile Include="FileHandling\Banks\ShaderBank.cpp" />
     <ClCompile Include="FileHandling\ConfigReader.cpp" />
     <ClCompile Include="FileHandling\DirectoryHelpers.cpp" />
     <ClCompile Include="FileHandling\FileWatcher.cpp" />
@@ -207,6 +208,7 @@
     <ClCompile Include="Physics\Collision\RectangleCollider.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderQueue.cpp" />
+    <ClCompile Include="Rendering\Shader\Shader.cpp" />
     <ClCompile Include="Rendering\Sprite\Sprite.cpp" />
     <ClCompile Include="Rendering\Sprite\Texture.cpp" />
     <ClCompile Include="Rendering\Text\Font.cpp" />
@@ -226,6 +228,7 @@
     <ClCompile Include="Utility\Async\AsyncWorker.cpp" />
     <ClCompile Include="Utility\Async\SpelSyltThread.cpp" />
     <ClCompile Include="Utility\Input\InputManager.cpp" />
+    <ClCompile Include="Utility\SmallString.cpp" />
     <ClCompile Include="Utility\TimedEvent.cpp" />
     <ClCompile Include="Utility\Time\Time.cpp" />
     <ClCompile Include="XMLUtilities.cpp" />
@@ -249,9 +252,11 @@
     <ClInclude Include="FileHandling\Asset\AssetProvider.h" />
     <ClInclude Include="FileHandling\Asset\Assets.h" />
     <ClInclude Include="FileHandling\Asset\AssetTypes\FontAsset.h" />
+    <ClInclude Include="FileHandling\Asset\AssetTypes\ShaderAsset.h" />
     <ClInclude Include="FileHandling\Asset\AssetTypes\SoundAsset.h" />
     <ClInclude Include="FileHandling\Asset\AssetTypes\TextureAsset.h" />
     <ClInclude Include="FileHandling\Banks\AssetBank.h" />
+    <ClInclude Include="FileHandling\Banks\ShaderBank.h" />
     <ClInclude Include="FileHandling\ConfigReader.h" />
     <ClInclude Include="FileHandling\DirectoryHelpers.h" />
     <ClInclude Include="FileHandling\FileWatcher.h" />
@@ -284,6 +289,7 @@
     <ClInclude Include="Rendering\RenderQueue.h" />
     <ClInclude Include="Rendering\RenderQueueInput.h" />
     <ClInclude Include="Rendering\RenderQueueOutput.h" />
+    <ClInclude Include="Rendering\Shader\Shader.h" />
     <ClInclude Include="Rendering\Sprite\Sprite.h" />
     <ClInclude Include="Rendering\Sprite\Texture.h" />
     <ClInclude Include="Rendering\Text\Font.h" />
@@ -305,6 +311,7 @@
     <ClInclude Include="Utility\Input\InputEventGetter.h" />
     <ClInclude Include="Utility\Input\InputManager.h" />
     <ClInclude Include="Utility\Input\KeyCodes.h" />
+    <ClInclude Include="Utility\SmallString.h" />
     <ClInclude Include="Utility\TimedEvent.h" />
     <ClInclude Include="Utility\Time\Time.h" />
     <ClInclude Include="Utility\Time\TimeGetter.h" />
