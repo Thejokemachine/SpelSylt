@@ -17,7 +17,8 @@ namespace SpelSylt
 	private:
 		virtual void AssignData(char* InDataLocation, B InDataSize)
 		{
-			loadFromMemory(InDataLocation, InDataSize);
+			//loadFromMemory(InDataLocation, InDataSize);
+			loadFromFile("Graphics/Fonts/default.ttf"); // InDataLocation must contain the font data during the font's lifetime
 		}
 	};
 }

@@ -19,10 +19,11 @@ namespace SpelSylt
 		CText();
 
 		//This function is deleted due to SS::CText working with SS::SFontAssets instead
-		void setFont(const sf::Font& font) = delete;
+		//void setFont(const sf::Font& font) = delete;
 
 		void SetFontAsset(const SFontAsset& Asset);
-		virtual void draw(sf::RenderTarget& InTarget, sf::RenderStates InStates) const override;
+
+		//virtual void draw(sf::RenderTarget& InTarget, sf::RenderStates InStates) const override;
 	private:
 		const SFontAsset* FontAsset;
 	};
