@@ -33,6 +33,9 @@ void CRenderQueue::Enqueue(ERenderLayer InLayer, const IRenderCommand& InRenderC
 	case ECommandType::Sprite:
 		SizeOfCommandType = sizeof(SSpriteRenderCommand);
 		break;
+	case ECommandType::Animation:
+		SizeOfCommandType = sizeof(SSpriteAnimationRenderCommand);
+		break;
 	default:
 		break;
 	}

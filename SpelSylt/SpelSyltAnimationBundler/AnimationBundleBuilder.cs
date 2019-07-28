@@ -10,8 +10,8 @@ namespace SpelSyltAnimationBundler
 {
     class AnimationBundleBuilder
     {
-        private FileStream ImgStream;
-        private FileStream DataStream;
+        private byte[] ImgStream;
+        private byte[] DataStream;
         private FileStream BundleStream;
 
         readonly int HeaderByteSize = 8;
@@ -19,15 +19,15 @@ namespace SpelSyltAnimationBundler
         {
             if(OpenStreams(InAnimImgPath, InAnimDataPath, InBundleFilePath))
             {
-                try { WriteHeader(ImgStream.Length); }
+                try { WriteHeader((ulong)ImgStream.Length); }
                 catch (ArgumentOutOfRangeException) { Console.WriteLine("Img file " + InAnimImgPath + " is too large to be bundled!"); goto OnExcept; }
 
                 int HeaderOffset = HeaderByteSize;
-                try { WriteData(ref ImgStream, HeaderOffset); }
+                try { WriteData(ref ImgStream); }
                 catch (IOException) { Console.WriteLine("Failed to write img data to Bundle"); goto OnExcept; }
 
                 int HeaderAndImgOffset = HeaderOffset + (int)ImgStream.Length;
-                try { WriteData(ref DataStream, HeaderAndImgOffset); }
+                try { WriteData(ref DataStream); }
                 catch (IOException) { Console.WriteLine("Failed to write anim data to Bundle"); goto OnExcept; }
             }
 
@@ -37,11 +37,9 @@ namespace SpelSyltAnimationBundler
 
         private bool OpenStreams(string InAnimImgPath, string InAnimDataPath, string InBundleFilePath)
         {
-            try { ImgStream = new FileStream(InAnimImgPath, FileMode.Open, FileAccess.Read); }
-            catch (FileNotFoundException) { PrintFileNotFoundError(InAnimImgPath); return false; }
+            ImgStream = File.ReadAllBytes(InAnimImgPath);
 
-            try { DataStream = new FileStream(InAnimDataPath, FileMode.Open, FileAccess.Read); }
-            catch(FileNotFoundException){ PrintFileNotFoundError(InAnimDataPath); return false; }
+            DataStream = File.ReadAllBytes(InAnimDataPath);
 
             BundleStream = new FileStream(InBundleFilePath, FileMode.OpenOrCreate, FileAccess.Write);
             return true;
@@ -54,12 +52,10 @@ namespace SpelSyltAnimationBundler
 
         private void CloseStreams()
         {
-            ImgStream.Close();
-            DataStream.Close();
             BundleStream.Close();
         }
 
-        private void WriteHeader(long InAnimImgFileSize)
+        private void WriteHeader(ulong InAnimImgFileSize)
         {
             byte[] AsBytes = BitConverter.GetBytes(InAnimImgFileSize);
 
@@ -71,12 +67,9 @@ namespace SpelSyltAnimationBundler
             BundleStream.Write(AsBytes, 0, HeaderByteSize);
         }
 
-        private void WriteData(ref FileStream InStreamToWriteFrom, int InOffset)
+        private void WriteData(ref byte[] InStreamToWriteFrom)
         {
-            byte[] Data = new byte[InStreamToWriteFrom.Length];
-            InStreamToWriteFrom.Read(Data, 0, Data.Length);
-
-            try { BundleStream.Write(Data, 0, Data.Length); }
+            try { BundleStream.Write(InStreamToWriteFrom, 0, InStreamToWriteFrom.Length); }
             catch(IOException)
             {
                 throw new IOException();
