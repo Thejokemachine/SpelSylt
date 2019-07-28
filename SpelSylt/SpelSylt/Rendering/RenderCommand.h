@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SpelSylt/Rendering/Sprite/Sprite.h"
+#include "SpelSylt/Rendering/Animation/SpriteAnimation.h"
 
 #include <SFML/Graphics/BlendMode.hpp>
 #include <SFML/Graphics/Shader.hpp>
@@ -11,6 +12,7 @@ namespace SpelSylt
 	{
 		None, //Should never be used!
 		Sprite,
+		Animation,
 	};
 
 	struct SRenderState
@@ -55,6 +57,33 @@ namespace SpelSylt
 
 	private:
 		SS::CSprite Sprite;
+	};
+
+	struct SSpriteAnimationRenderCommand final
+		: public IRenderCommand
+	{
+		SSpriteAnimationRenderCommand()
+			: Animation()
+		{
+		}
+
+		explicit SSpriteAnimationRenderCommand(const SS::CSpriteAnimation& InAnimation)
+			: Animation(InAnimation)
+		{
+		}
+
+		virtual ECommandType GetCommandType() const override
+		{
+			return ECommandType::Animation;
+		};
+
+		virtual const sf::Drawable& GetRaw() const override
+		{
+			return Animation;
+		}
+
+	private:
+		SS::CSpriteAnimation Animation;
 	};
 }
 

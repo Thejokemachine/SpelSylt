@@ -48,6 +48,7 @@ namespace SpelSylt
 		//Todo: Add all asset providers here. Ensure they are also added in construction
 		CAssetBank<STextureAsset> TextureProvider;
 		CAssetBank<SFontAsset> FontProvider;
+		CAssetBank<SAnimationAsset> AnimationProvider;
 		CShaderBank ShaderProvider;
 	};
 }
