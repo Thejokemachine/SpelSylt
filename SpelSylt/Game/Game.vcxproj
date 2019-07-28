@@ -154,13 +154,18 @@
   <ItemGroup>
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="HookGame.cpp" />
+    <ClCompile Include="HookGameMainMenuState.cpp" />
     <ClCompile Include="HookUIState.cpp" />
+    <ClCompile Include="LoadingState.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApplication.h" />
+    <ClInclude Include="GameMessages.h" />
     <ClInclude Include="HookGame.h" />
+    <ClInclude Include="HookGameMainMenuState.h" />
     <ClInclude Include="HookUIState.h" />
+    <ClInclude Include="LoadingState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

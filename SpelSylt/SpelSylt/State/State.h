@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 namespace sf
 {
 	class RenderTarget;
@@ -13,6 +15,8 @@ namespace SpelSylt
 
 	class CState
 	{
+		friend CStateStack;
+
 	public:
 
 		enum StateFlags : int {
@@ -38,12 +42,15 @@ namespace SpelSylt
 	protected:
 		bool Pop();
 		void PopAll();
+		void PopAndPushNew(std::shared_ptr<CState> aNewState);
 
-		//void Push(CState* aNewState);
+		void Push(std::shared_ptr<CState> aNewState);
 
 	private:
 		CStateStack* myOwner;
 		StateFlags myStateFlags;
+		bool myShouldPop = false;
+		CState* myPendingState = nullptr;
 	};
 }
 

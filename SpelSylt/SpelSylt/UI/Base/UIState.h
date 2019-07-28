@@ -26,9 +26,9 @@ namespace UI
 		virtual void OnRender(sf::RenderTarget& InTarget) {}
 
 		std::unique_ptr<UI::UILayout> myLayout;
-	private:
-
 		CSubscriptions mySubs;
+
+	private:
 		float myWidth;
 		float myHeight;
 

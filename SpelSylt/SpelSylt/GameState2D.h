@@ -5,6 +5,8 @@
 #include "SpelSylt/Rendering/RenderQueue.h"
 #include "SpelSylt/Debugging/Rendering/DebugDrawer.h"
 
+#include <memory>
+
 #include <SFML/Graphics/View.hpp>
 
 namespace SpelSylt
@@ -25,7 +27,7 @@ namespace SpelSylt
 
 	protected:
 
-		sf::View& GetCamera() { return myCamera;; };
+		sf::View& GetCamera() { return myCamera; };
 
 		CDebugDrawer myDebugDrawer;
 
@@ -33,7 +35,7 @@ namespace SpelSylt
 
 		sf::View myCamera;
 
-		CRenderer myRenderer;
+		std::unique_ptr<CRenderer> myRenderer;
 		CRenderQueue myRenderQueue;
 	};
 }

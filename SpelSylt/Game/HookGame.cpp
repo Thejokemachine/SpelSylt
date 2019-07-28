@@ -19,6 +19,8 @@
 
 #include "SpelSylt/Messaging/Messages/AudioMessages.h"
 
+#include "LoadingState.h"
+
 HookGame::HookGame()
 	: myIsGrounded(true)
 {
@@ -32,6 +34,8 @@ using namespace SpelSylt;
 
 void HookGame::OnInit(SGameContext& InGameContext)
 {
+	CState::Push(std::make_shared<LoadingState>(1600.f, 900.f));
+
 	myPlayerPos = sf::Vector2f(800.f, 900.f);
 
 	for (int i = 0; i < 100; ++i)

@@ -35,15 +35,22 @@ void CState::SetStateFlags(CState::StateFlags aStateFlags)
 
 bool CState::Pop()
 {
-	return myOwner->Pop();
+	myShouldPop = true;
+	return false;
 }
 
 void CState::PopAll()
 {
-	myOwner->PopAll();
+	myShouldPop = true;
 }
 
-/*void CState::Push(CState * aNewState)
+void SpelSylt::CState::PopAndPushNew(std::shared_ptr<CState> aNewState)
+{
+	myShouldPop = true;
+	myOwner->Push(aNewState);
+}
+
+void CState::Push(std::shared_ptr<CState> aNewState)
 {
 	myOwner->Push(aNewState);
-}*/
+}

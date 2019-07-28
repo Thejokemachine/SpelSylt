@@ -22,14 +22,16 @@ namespace SpelSylt
 		void Update(SGameContext& InGameContext);
 		void Render(sf::RenderTarget& InTarget);
 
-		void Push(CState* aNewState, SGameContext& InGameContext);
+		void Push(std::shared_ptr<CState> aNewState);
 		bool Pop();
 		void PopAll();
+		void PopAndPush(std::shared_ptr<CState> aNewState);
 
 		short Size();
 
 	private:
-		std::vector<CState*> myStates;
+		std::vector<std::shared_ptr<CState>> myStates;
+		std::vector<std::shared_ptr<CState>> myStatesToPush;
 	};
 }
 

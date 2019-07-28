@@ -16,8 +16,8 @@ using namespace tinyxml2;
 using namespace UI;
 using namespace SpelSylt;
 
-UILayout::UILayout(float aWidth, float aHeight, const std::string& aLayoutXML)
-	: myAssetManager(nullptr)
+UILayout::UILayout(float aWidth, float aHeight, const std::string& aLayoutXML, SpelSylt::CAssetManager& aAssetManager)
+	: myAssetManager(aAssetManager)
 {
 	bool loaded = false;
 	while (!loaded)
@@ -36,11 +36,6 @@ UILayout::UILayout(float aWidth, float aHeight, const std::string& aLayoutXML)
 
 void UILayout::Update(SGameContext& InGameContext)
 {
-	if (myAssetManager == nullptr)
-	{
-		myAssetManager = &InGameContext.AssetManager;
-	}
-
 	IInputEventGetter* aInputManager = &InGameContext.Input;
 
 	sf::Vector2f mPos = aInputManager->GetMousePosFloat();

@@ -33,7 +33,7 @@ namespace UI
 	class UILayout
 	{
 	public:
-		UILayout(float aWidth, float aHeight, const std::string& aLayoutXML);
+		UILayout(float aWidth, float aHeight, const std::string& aLayoutXML, SpelSylt::CAssetManager& aAssetManager);
 		virtual ~UILayout() = default;
 
 		void Update(SS::SGameContext& InGameContext);
@@ -47,11 +47,11 @@ namespace UI
 		float GetWidth() const;
 		float GetHeight() const;
 
-		SpelSylt::CAssetManager* GetFontBank() { return myAssetManager; }
+		SpelSylt::CAssetManager& GetFontBank() { return myAssetManager; }
 
 	private:
 		//Temp fix!
-		SpelSylt::CAssetManager* myAssetManager;
+		SpelSylt::CAssetManager& myAssetManager;
 
 		void addChildren(Panel& aParent, tinyxml2::XMLElement* aElement);
 
