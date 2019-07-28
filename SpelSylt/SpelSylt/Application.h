@@ -44,7 +44,7 @@ namespace SpelSylt
 
 		void CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen = false);
 		void SetWindowTitle(const char* InTitle);
-		void PushState(CState* InState);
+		void PushState(std::shared_ptr<CState> InState);
 	private:
 		void PrepareForNewFrame();
 		void PublishNewFrame();

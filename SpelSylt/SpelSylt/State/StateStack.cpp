@@ -4,6 +4,8 @@
 
 #include "SpelSylt/State/State.h"
 
+#include <assert.h>
+
 using namespace SpelSylt;
 
 CStateStack::CStateStack()
@@ -21,10 +23,27 @@ void CStateStack::Update(SGameContext& InGameContext)
 	for (int i = static_cast<int>(myStates.size()) - 1; i >= 0; --i)
 	{
 		CState& state = *myStates[i];
+
 		state.Update(InGameContext);
+
+		if (state.myShouldPop)
+		{
+			assert(i == myStates.size() - 1); // Only allowed to pop the highest layer!
+			Pop();
+			break;
+		}
+
 		if (!(state.GetStateFlags() & CState::StateFlags::UPDATE_BELOW))
 			break;
 	}
+
+	for (int i = 0; i < myStatesToPush.size(); ++i)
+	{
+		auto state = myStatesToPush[i];
+		state->Init(InGameContext);
+		myStates.push_back(state);
+	}
+	myStatesToPush.clear();
 }
 
 void CStateStack::Render(sf::RenderTarget& InTarget)
@@ -45,20 +64,16 @@ void CStateStack::Render(sf::RenderTarget& InTarget)
 	func();
 }
 
-void CStateStack::Push(CState * aNewState, SGameContext& InGameContext)
+void CStateStack::Push(std::shared_ptr<CState> aNewState)
 {
-	myStates.push_back(aNewState);
 	aNewState->SetOwner(this);
-	aNewState->Init(InGameContext);
+	myStatesToPush.push_back(aNewState);
 }
 
 bool CStateStack::Pop()
 {
 	if (myStates.size() > 0)
 	{
-		delete myStates.back();
-		myStates.back() = nullptr;
-
 		myStates.pop_back();
 		return true;
 	}
@@ -71,6 +86,12 @@ void CStateStack::PopAll()
 	{
 		Pop();
 	}
+}
+
+void CStateStack::PopAndPush(std::shared_ptr<CState> aNewState)
+{
+	Pop();
+	Push(aNewState);
 }
 
 short CStateStack::Size()

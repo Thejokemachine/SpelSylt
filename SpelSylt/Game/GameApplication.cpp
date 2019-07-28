@@ -2,7 +2,7 @@
 
 #include "Game/HookGame.h"
 #include "Game/HookUIState.h"
-#include <SpelSylt/UI/Base/UIState.h>
+#include "HookGameMainMenuState.h"
 
 #include <SpelSylt/FileHandling/ConfigReader.h>
 
@@ -22,6 +22,5 @@ void CGameApplication::SetUpWindow()
 
 void CGameApplication::PushStartUpStates()
 {
-	CApplication::PushState(new HookGame());
-	//CApplication::PushState(new UIState(1600, 900, "UI/Layouts/hookGame_layout.xml"));
+	CApplication::PushState(std::make_shared<HookGameMainMenuState>(1600, 900));
 }

@@ -32,6 +32,7 @@ namespace UI
 
 	private:
 		SS::CText myText;
+		//sf::Text myText;
 		unsigned char myTextAlignFlags = 0;
 	};
 }

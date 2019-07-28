@@ -207,6 +207,8 @@
     <ClCompile Include="Physics\Collision\PointCollider.cpp" />
     <ClCompile Include="Physics\Collision\RectangleCollider.cpp" />
     <ClCompile Include="Rendering\Animation\SpriteAnimation.cpp" />
+    <ClCompile Include="Rendering\BlackAndWhitePass.cpp" />
+    <ClCompile Include="Rendering\FullScreenPass.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderQueue.cpp" />
     <ClCompile Include="Rendering\Shader\Shader.cpp" />
@@ -285,6 +287,8 @@
     <ClInclude Include="Physics\Collision\PointCollider.h" />
     <ClInclude Include="Physics\Collision\RectangleCollider.h" />
     <ClInclude Include="Rendering\Animation\SpriteAnimation.h" />
+    <ClInclude Include="Rendering\BlackAndWhitePass.h" />
+    <ClInclude Include="Rendering\FullScreenPass.h" />
     <ClInclude Include="Rendering\RenderCommand.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderLayer.h" />

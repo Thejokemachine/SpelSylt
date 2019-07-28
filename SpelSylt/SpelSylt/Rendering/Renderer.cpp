@@ -6,9 +6,18 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
+#include "FullScreenPass.h"
+#include "BlackAndWhitePass.h"
+
 //------------------------------------------------------------------
 
 using namespace SpelSylt;
+
+CRenderer::CRenderer(CAssetManager& aAssetManager) :
+	AssetManager(aAssetManager)
+{
+
+}
 
 void CRenderer::RunRenderLayer(ERenderLayer InLayer, IRenderQueueOutput& InOutputRenderQueue, sf::RenderTarget& InTargetToRenderTo)
 {
@@ -28,6 +37,25 @@ void CRenderer::RunRenderAllLayers(IRenderQueueOutput& InOutputRenderQueue, sf::
 	{
 		RunRenderLayer(static_cast<ERenderLayer>(i), InOutputRenderQueue, InTargetToRenderTo);
 	}
+
+	// Fullscreen pass example:
+	/*
+	if (FullScreenTexture.getSize().x <= 0) {
+		FullScreenTexture.create(InTargetToRenderTo.getSize().x, InTargetToRenderTo.getSize().y);
+	}
+
+	FullScreenTexture.clear();
+	FullScreenTexture.setActive();
+	FullScreenTexture.setView(InTargetToRenderTo.getView());
+
+	for (unsigned int i = 0; i < MaxLayersAsInt; ++i)
+	{
+		RunRenderLayer(static_cast<ERenderLayer>(i), InOutputRenderQueue, FullScreenTexture);
+	}
+
+	BlackAndWhitePass pass(AssetManager);
+	pass.RunPass(InTargetToRenderTo, { &FullScreenTexture.getTexture() });
+	*/
 }
 
 //------------------------------------------------------------------

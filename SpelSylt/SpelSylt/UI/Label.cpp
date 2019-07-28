@@ -27,10 +27,21 @@ UI::Label::Label(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement &
 	myText.setCharacterSize(size);
 	std::string font = "default";
 	XMLUtilities::QueryAttribute(aElement, "font", font);
+	float outlineThickness = 0.f;
+	XMLUtilities::QueryAttribute(aElement, "outline_size", outlineThickness);
+	std::string outlineColor;
+	XMLUtilities::QueryAttribute(aElement, "outline_color", outlineColor);
 
-	std::string FullFontPath = "Graphics/Fonts/" + font;
-	myText.SetFontAsset(myLayout.GetFontBank()->GetAsset<SS::SFontAsset>(FullFontPath.c_str()));
-	
+	std::string FullFontPath = "Graphics/Fonts/" + font + ".ttf";
+	myText.SetFontAsset(myLayout.GetFontBank().GetAsset<SS::SFontAsset>(FullFontPath.c_str(), ELoadSettings::Synchronous));
+
+	myText.setOutlineThickness(outlineThickness);
+	if (!outlineColor.empty())
+		myText.setOutlineColor(UIUtilities::EvaluateColor(outlineColor));
+	float spacing = 1.f;
+	XMLUtilities::QueryAttribute(aElement, "spacing", spacing);
+	myText.setLetterSpacing(spacing);
+
 	onLayout();
 
 	myText.setFillColor(UIUtilities::EvaluateColor(color));

@@ -93,9 +93,9 @@ void CApplication::SetWindowTitle(const char* InTitle)
 
 //------------------------------------------------------------------
 
-void CApplication::PushState(CState* InState)
+void CApplication::PushState(std::shared_ptr<CState> InState)
 {
-	StateStack.Push(InState, *GameContext);
+	StateStack.Push(InState);
 }
 
 //------------------------------------------------------------------

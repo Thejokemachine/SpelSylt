@@ -15,8 +15,7 @@ using namespace SpelSylt;
 using namespace UI;
 
 UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& aLayoutXML) :
-	CState(),
-	myLayout(std::make_unique<UI::UILayout>((float)aWidth, (float)aHeight, aLayoutXML))
+	CState()
 {
 	SetStateFlags(CState::DRAW_BELOW | CState::UPDATE_BELOW);
 
@@ -33,7 +32,7 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& a
 
 void UIState::Init(SGameContext& InGameContext)
 {
-	myLayout = std::make_unique<UI::UILayout>(myWidth, myHeight, myLayoutFile);
+	myLayout = std::make_unique<UI::UILayout>(myWidth, myHeight, myLayoutFile, InGameContext.AssetManager);
 
 	InGameContext.MessageQueue.Subscribe<SResizedWindowMessage>([this](const SResizedWindowMessage& msg) {
 		myLayout->Resize(msg.Param, msg.ParamTwo);
@@ -52,7 +51,7 @@ void UIState::Update(SGameContext & InGameContext)
 		float width = myLayout->GetWidth();
 		float height = myLayout->GetHeight();
 		myLayout = nullptr;
-		myLayout = std::make_unique<UI::UILayout>(width, height, myLayoutFile);
+		myLayout = std::make_unique<UI::UILayout>(width, height, myLayoutFile, InGameContext.AssetManager);
 		myShouldReload = false;
 		LOG_VERBOSE(UI, "Reloaded UI");
 	}
