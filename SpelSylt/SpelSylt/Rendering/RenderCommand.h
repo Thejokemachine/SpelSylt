@@ -2,6 +2,7 @@
 
 #include "SpelSylt/Rendering/Sprite/Sprite.h"
 #include "SpelSylt/Rendering/Animation/SpriteAnimation.h"
+#include "SpelSylt/Rendering/Text/Text.h"
 
 #include <SFML/Graphics/BlendMode.hpp>
 #include <SFML/Graphics/Shader.hpp>
@@ -12,6 +13,7 @@ namespace SpelSylt
 	{
 		None, //Should never be used!
 		Sprite,
+		Text,
 		Animation,
 	};
 
@@ -57,6 +59,33 @@ namespace SpelSylt
 
 	private:
 		SS::CSprite Sprite;
+	};
+
+	struct STextRenderCommand final
+		: public IRenderCommand
+	{
+		STextRenderCommand()
+			: Text()
+		{
+		}
+
+		explicit STextRenderCommand(const SS::CText& InText)
+			: Text(InText)
+		{
+		}
+
+		virtual ECommandType GetCommandType() const override
+		{
+			return ECommandType::Text;
+		};
+
+		virtual const sf::Drawable& GetRaw() const override
+		{
+			return Text;
+		}
+
+	private:
+		SS::CText Text;
 	};
 
 	struct SSpriteAnimationRenderCommand final

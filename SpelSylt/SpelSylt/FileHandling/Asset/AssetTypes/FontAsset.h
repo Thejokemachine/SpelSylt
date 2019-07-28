@@ -17,8 +17,16 @@ namespace SpelSylt
 	private:
 		virtual void AssignData(char* InDataLocation, B InDataSize)
 		{
-			loadFromMemory(InDataLocation, InDataSize);
+			Data = new char[InDataSize];
+			DataSize = InDataSize;
+
+			memcpy_s(Data, DataSize, InDataLocation, InDataSize);
+
+			loadFromMemory(Data, DataSize);
 		}
+	
+		char* Data;
+		B DataSize;
 	};
 }
 
