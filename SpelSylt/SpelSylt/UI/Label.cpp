@@ -15,7 +15,7 @@ UI::Label::Label(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement &
 	std::string text = "";
 	XMLUtilities::QueryAttribute(aElement, "string", text);
 
-	myText.setString(text);
+	myText.SetString(text.c_str());
 
 	std::string color;
 	XMLUtilities::QueryAttribute(aElement, "text_color", color);
@@ -52,7 +52,7 @@ void UI::Label::SetText(const std::string & aText)
 	if (aText != myText.getString())
 		setDirty();
 
-	myText.setString(aText);
+	myText.SetString(aText.c_str());
 }
 
 void UI::Label::onLayout()
