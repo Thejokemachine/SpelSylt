@@ -12,12 +12,14 @@ namespace SpelSyltAnimationBundler
     {
         public string DirectoryPath;
         public string[] Extensions;
+        private int BundleCount;
         public FileWalker()
         {
             DirectoryPath = "";
             Extensions = new string[2];
             Extensions[0] = ".json";
             Extensions[1] = ".png";
+            BundleCount = 1;
         }
 
         public void SetDirectoryPath(string InDirPath)
@@ -67,6 +69,7 @@ namespace SpelSyltAnimationBundler
 
                 InBundler.BundleAnimation(PathToImg, PathToData, PathToBundle);
                 VisitedFiles.Add(FileName);
+                Console.WriteLine("[" + BundleCount.ToString() + "] Bundled " + FileName);
             }
         }
 
