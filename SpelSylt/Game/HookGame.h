@@ -5,6 +5,7 @@
 #include "SFML/Graphics/View.hpp"
 
 #include "SpelSylt/Rendering/Sprite/Texture.h"
+#include "SpelSylt/Rendering/Animation/SpriteAnimation.h"
 
 namespace sf {
 	class RenderTarget;
@@ -43,6 +44,9 @@ private:
 
 	SS::CSprite myPlayer;
 	SS::CSprite myRope;
+
+	SS::CSpriteAnimation PlayerStandingAnimation;
+	SS::CSpriteAnimation PlayerSwingingAnimation;
 
 	SS::CTexture myPlayerTexture;
 	SS::CTexture myPlayerHookedTexture;

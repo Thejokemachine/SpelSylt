@@ -47,6 +47,8 @@ void HookGame::OnInit(SGameContext& InGameContext)
 
 	SS::CAssetManager& AssetManager = InGameContext.AssetManager;
 
+	PlayerStandingAnimation = AssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/CharacterStanding.anmbndl");
+	PlayerSwingingAnimation = AssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/CharacterSwinging.anmbndl");
 	myPlayerTexture = AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/Player.png");
 	myPlayerHookedTexture = AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/Player_hooked.png");
 	myRopeTexture = AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/Rope.png");
@@ -61,10 +63,12 @@ void HookGame::OnInit(SGameContext& InGameContext)
 
 void HookGame::OnUpdate(SGameContext& InGameContext)
 {
+	const float dt = InGameContext.Time.GetDeltaTime();
+	PlayerStandingAnimation.Tick(dt);
+	PlayerSwingingAnimation.Tick(dt);
 
 	myRope.setOrigin(myRopeTexture.Get().GetSize().x * 0.5f, 0.f);
 	myPlayer.setOrigin(myPlayerTexture.Get().GetSize().x * 0.5f, myPlayerTexture.Get().GetSize().y * 1.f);
-	const float dt = InGameContext.Time.GetDeltaTime();
 
 	Anchor = myPlayerPos;
 	Anchor.y -= 100.f;
@@ -141,8 +145,19 @@ void HookGame::OnUpdate(SGameContext& InGameContext)
 	myIsGrounded = myPlayerPos.y == 900.f;
 
 	myPlayer.setPosition(myPlayerPos);
-
+	
 	myRotation = myRotation + InGameContext.Time.GetDeltaTime() * (myTargetRotation - myRotation);
+
+	sf::Vector2f PlayerStandingAnimFloatSize(PlayerStandingAnimation.GetFrameSize());
+	PlayerStandingAnimation.setOrigin(PlayerStandingAnimFloatSize.x * 0.5f, PlayerStandingAnimFloatSize.y);
+	PlayerStandingAnimation.setRotation(myRotation);
+
+	sf::Vector2f PlayerSwingingAnimFloatSize(PlayerSwingingAnimation.GetFrameSize());
+	PlayerSwingingAnimation.setOrigin(PlayerSwingingAnimFloatSize.x * 0.5f, PlayerSwingingAnimFloatSize.y);
+	PlayerSwingingAnimation.setRotation(myRotation);
+	
+	PlayerStandingAnimation.setPosition(myPlayerPos);
+	PlayerSwingingAnimation.setPosition(myPlayerPos);
 
 	GetCamera().setCenter(myPlayerPos.x, myPlayerPos.y);
 }
@@ -155,12 +170,12 @@ void HookGame::OnRender(CRenderQueue& InRenderQueue)
 	if (myIsHooked) myTargetRotation = -rot;
 	myRope.setRotation(rot);
 	myRope.setTextureRect(sf::IntRect(0, 0, myRopeTexture.Get().GetSize().x, 10 + (Math::Length(pToAnchor) / myRopeTexture.Get().GetSize().y) * (myRopeTexture.Get().GetSize().y)));
-
-	SS::CTexture texture(myIsHooked ? myPlayerHookedTexture : myPlayerTexture);
-	myPlayer.SetTextureAsset(texture.Get());
-	myPlayer.setOrigin(texture.Get().GetSize().x * 0.5f, myPlayer.getOrigin().y);
-	myPlayer.setRotation(myRotation);
-
+	
+	//SS::CTexture texture(myIsHooked ? myPlayerHookedTexture : myPlayerTexture);
+	//myPlayer.SetTextureAsset(texture.Get());
+	//myPlayer.setOrigin(texture.Get().GetSize().x * 0.5f, myPlayer.getOrigin().y);
+	//myPlayer.setRotation(myRotation);
+	
 	SS::CSprite floor;
 	floor.setPosition(-1000.f, 900.f);
 	floor.SetTextureAsset(myFloorTexture.Get());
@@ -175,5 +190,13 @@ void HookGame::OnRender(CRenderQueue& InRenderQueue)
 		s.setPosition(hookPoint);
 		InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(s));
 	}
-	InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteRenderCommand(myPlayer));
+	
+	if (!myIsHooked)
+	{
+		InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteAnimationRenderCommand(PlayerStandingAnimation));
+	}
+	else
+	{
+		InRenderQueue.Enqueue(ERenderLayer::Game, SSpriteAnimationRenderCommand(PlayerSwingingAnimation));
+	}
 }
