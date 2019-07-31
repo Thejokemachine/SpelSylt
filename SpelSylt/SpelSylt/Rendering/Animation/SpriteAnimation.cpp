@@ -40,6 +40,20 @@ void CSpriteAnimation::operator=(const SAnimationAsset& InRHS)
 
 //------------------------------------------------------------------
 
+sf::Vector2u CSpriteAnimation::GetFrameSize() const
+{
+	if (AnimationAsset->GetLoadStatus() == ELoadRequestStatus::Done)
+	{
+		const SAnimationFrame& CurrentFrameData = AnimationAsset->GetAnimationData().Frames[CurrentFrame];
+
+		return sf::Vector2u(CurrentFrameData.W, CurrentFrameData.H);
+	}
+
+	return sf::Vector2u(0, 0);
+}
+
+//------------------------------------------------------------------
+
 void CSpriteAnimation::Tick(float InDeltaTime)
 {
 	if (!DataLoaded)
@@ -72,14 +86,18 @@ void CSpriteAnimation::draw(sf::RenderTarget& InTarget, sf::RenderStates InState
 
 	const SAnimationFrame& CurrentFrameData = AnimationAsset->GetAnimationData().Frames[CurrentFrame];
 
-	CSprite Sprite;
-	Sprite.SetTextureAsset(*AnimationAsset);
+	sf::Sprite Sprite = *this;
+	Sprite.setTexture(*AnimationAsset);
 	Sprite.setTextureRect(sf::IntRect(CurrentFrameData.X, CurrentFrameData.Y, CurrentFrameData.W, CurrentFrameData.H));
-	Sprite.setPosition(getPosition());
-	Sprite.setOrigin(getOrigin());
-	Sprite.setColor(getColor());
 
-	Sprite.draw(InTarget, InStates);
+	//CSprite Sprite;
+	//Sprite.SetTextureAsset(*AnimationAsset);
+	//Sprite.setTextureRect(sf::IntRect(CurrentFrameData.X, CurrentFrameData.Y, CurrentFrameData.W, CurrentFrameData.H));
+	//Sprite.setPosition(getPosition());
+	//Sprite.setOrigin(getOrigin());
+	//Sprite.setColor(getColor());
+	InTarget.draw(Sprite, InStates);
+	//Sprite.draw(InTarget, InStates);
 }
 
 //------------------------------------------------------------------

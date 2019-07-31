@@ -23,6 +23,8 @@ namespace SpelSylt
 
 		void setTexture(const sf::Texture& texture, bool resetRect /* = false */) = delete;
 
+		sf::Vector2u GetFrameSize() const;
+
 		void Tick(float InDeltaTime);
 		virtual void draw(sf::RenderTarget& InTarget, sf::RenderStates InStates) const override;
 	private:
