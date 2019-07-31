@@ -137,3 +137,4 @@ SpelSylt/SpelSyltEventGenerator/obj/Debug/
 
 #Ignore Anim bundler trash
 */SpelSyltAnimationBundler/*
+*/Tools/*/*.cfg
