@@ -146,18 +146,28 @@ void HookGame::OnUpdate(SGameContext& InGameContext)
 
 	myPlayer.setPosition(myPlayerPos);
 	
-	myRotation = myRotation + InGameContext.Time.GetDeltaTime() * (myTargetRotation - myRotation);
+	sf::Vector2f pToAnchor = Anchor - myHookPoint;
+	myRotation = Math::ToDegrees(atan2f(-pToAnchor.x, pToAnchor.y));;
 
 	sf::Vector2f PlayerStandingAnimFloatSize(PlayerStandingAnimation.GetFrameSize());
-	PlayerStandingAnimation.setOrigin(PlayerStandingAnimFloatSize.x * 0.5f, PlayerStandingAnimFloatSize.y);
+	PlayerStandingAnimation.setOrigin(PlayerStandingAnimFloatSize.x * 0.5f, 0.f);//PlayerStandingAnimFloatSize.y);
 	PlayerStandingAnimation.setRotation(myRotation);
 
 	sf::Vector2f PlayerSwingingAnimFloatSize(PlayerSwingingAnimation.GetFrameSize());
-	PlayerSwingingAnimation.setOrigin(PlayerSwingingAnimFloatSize.x * 0.5f, PlayerSwingingAnimFloatSize.y);
+	PlayerSwingingAnimation.setOrigin(PlayerSwingingAnimFloatSize.x * 0.5f, 0.f);// PlayerSwingingAnimFloatSize.y);
 	PlayerSwingingAnimation.setRotation(myRotation);
 	
-	PlayerStandingAnimation.setPosition(myPlayerPos);
-	PlayerSwingingAnimation.setPosition(myPlayerPos);
+	PlayerStandingAnimation.setPosition(Anchor);
+	PlayerSwingingAnimation.setPosition(Anchor);
+
+	if (myVelocity.x < 0.f)
+	{
+		PlayerSwingingAnimation.setScale(-1.f, 1.f);
+	}
+	else
+	{
+		PlayerSwingingAnimation.setScale(1.f, 1.f);
+	}
 
 	GetCamera().setCenter(myPlayerPos.x, myPlayerPos.y);
 }
@@ -167,7 +177,7 @@ void HookGame::OnRender(CRenderQueue& InRenderQueue)
 	sf::Vector2f pToAnchor = Anchor - myHookPoint;
 	myRope.setPosition(myHookPoint);
 	float rot = Math::ToDegrees(atan2f(-pToAnchor.x, pToAnchor.y));
-	if (myIsHooked) myTargetRotation = -rot;
+	//if (myIsHooked) myTargetRotation = -rot;
 	myRope.setRotation(rot);
 	myRope.setTextureRect(sf::IntRect(0, 0, myRopeTexture.Get().GetSize().x, 10 + (Math::Length(pToAnchor) / myRopeTexture.Get().GetSize().y) * (myRopeTexture.Get().GetSize().y)));
 	

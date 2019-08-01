@@ -36,6 +36,11 @@ namespace SpelSyltAnimationBundler
 
         static bool GotDirectory(ref string OutDir)
         {
+            if(Directory.Exists(OutDir))
+            {
+                return true;
+            }
+
             CommonOpenFileDialog DirectoryPicker = new CommonOpenFileDialog();
             DirectoryPicker.Title = "Pick directory of animation files";
             DirectoryPicker.IsFolderPicker = true;
@@ -52,12 +57,12 @@ namespace SpelSyltAnimationBundler
         }
 
         [STAThread]
-        static void Main()
+        static void Main(string[] InArgs)
         {
             Console.WriteLine("Started SpelSylt Animation Bundler");
             Console.WriteLine("Awaiting Directory pick");
 
-            string AnimationFolderPath = "";
+            string AnimationFolderPath = InArgs[0];
 
             if (GotDirectory(ref AnimationFolderPath))
             {
