@@ -136,9 +136,11 @@ SpelSylt/SpelSyltEventGenerator/obj/Debug/
 !SpelSylt/Tools/*/*.dll
 
 #Ignore Anim Data File Trash
-*/AnimationDataFileCreator/*
+*/AnimationDataFileCreator/bin/*
+*/AnimationDataFileCreator/obj/*
 
 #Ignore Anim bundler trash
-*/SpelSyltAnimationBundler/*
+*/SpelSyltAnimationBundler/bin/*
+*/SpelSyltAnimationBundler/obj/*
 */Tools/*/*xml
 */Tools/*/*.cfg
