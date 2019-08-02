@@ -22,15 +22,15 @@ namespace SpelSylt
 		void OncePerFrameUpdate();
 
 		//Begin IInputEventGetter
-		virtual bool IsKeyPressed(EKeyCode aKey) override;
-		virtual bool IsKeyDown(EKeyCode aKey) override;
-		virtual bool IsKeyReleased(EKeyCode aKey) override;
+		virtual bool IsKeyPressed(EKeyCode aKey) const override;
+		virtual bool IsKeyDown(EKeyCode aKey) const override;
+		virtual bool IsKeyReleased(EKeyCode aKey) const override;
 
-		virtual int GetScrollWheelDelta() override;
-		virtual sf::Vector2f GetMousePosFloat() override;
-		virtual sf::Vector2i GetMousePosInt() override;
+		virtual int GetScrollWheelDelta() const override;
+		virtual sf::Vector2f GetMousePosFloat() const override;
+		virtual sf::Vector2i GetMousePosInt() const override;
 
-		virtual std::string GetTextInput() override;
+		virtual std::string GetTextInput() const override;
 		//End IInputEventGetter
 
 	private:

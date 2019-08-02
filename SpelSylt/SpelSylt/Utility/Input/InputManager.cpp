@@ -133,47 +133,47 @@ void CInputManager::OncePerFrameUpdate()
 	myTextInput.clear();
 }
 
-bool CInputManager::IsKeyPressed(EKeyCode aKey)
+bool CInputManager::IsKeyPressed(EKeyCode aKey) const
 {
 	if (static_cast<int>(aKey) - 200 <= 0)
-		return myKeyStates[aKey] == EKeyState::Down && myPreviousKeyStates[aKey] == EKeyState::Up;
+		return myKeyStates.at(aKey) == EKeyState::Down && myPreviousKeyStates[aKey] == EKeyState::Up;
 	else
-		return myMouseButtonStates[aKey] == EKeyState::Down && myPreviousMouseButtonStates[aKey] == EKeyState::Up;
+		return myMouseButtonStates.at(aKey) == EKeyState::Down && myPreviousMouseButtonStates[aKey] == EKeyState::Up;
 }
 
-bool CInputManager::IsKeyDown(EKeyCode aKey)
+bool CInputManager::IsKeyDown(EKeyCode aKey) const
 {
 	if (static_cast<int>(aKey) - 200 <= 0)
-		return myKeyStates[aKey] == EKeyState::Down;
+		return myKeyStates.at(aKey) == EKeyState::Down;
 	else
-		return myMouseButtonStates[aKey] == EKeyState::Down;
+		return myMouseButtonStates.at(aKey) == EKeyState::Down;
 }
 
-bool CInputManager::IsKeyReleased(EKeyCode aKey)
+bool CInputManager::IsKeyReleased(EKeyCode aKey) const
 {
 	if (static_cast<int>(aKey) - 200 <= 0)
-		return myKeyStates[aKey] == EKeyState::Up && myPreviousKeyStates[aKey] == EKeyState::Down;
+		return myKeyStates.at(aKey) == EKeyState::Up && myPreviousKeyStates[aKey] == EKeyState::Down;
 	else
-		return myMouseButtonStates[aKey] == EKeyState::Up && myPreviousMouseButtonStates[aKey] == EKeyState::Down;
+		return myMouseButtonStates.at(aKey) == EKeyState::Up && myPreviousMouseButtonStates[aKey] == EKeyState::Down;
 }
 
-int CInputManager::GetScrollWheelDelta()
+int CInputManager::GetScrollWheelDelta() const
 {
 	return static_cast<int>(myWheelDelta);
 }
 
-sf::Vector2f CInputManager::GetMousePosFloat()
+sf::Vector2f CInputManager::GetMousePosFloat() const
 {
 	sf::Vector2i mPos = sf::Mouse::getPosition(*myHWND);
 	return sf::Vector2f(static_cast<float>(mPos.x), static_cast<float>(mPos.y));
 }
 
-sf::Vector2i CInputManager::GetMousePosInt()
+sf::Vector2i CInputManager::GetMousePosInt() const
 {
 	return sf::Mouse::getPosition(*myHWND);
 }
 
-std::string CInputManager::GetTextInput()
+std::string CInputManager::GetTextInput() const
 {
 	return std::move(myTextInput);
 }
