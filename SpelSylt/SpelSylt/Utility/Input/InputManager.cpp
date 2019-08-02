@@ -136,9 +136,9 @@ void CInputManager::OncePerFrameUpdate()
 bool CInputManager::IsKeyPressed(EKeyCode aKey) const
 {
 	if (static_cast<int>(aKey) - 200 <= 0)
-		return myKeyStates.at(aKey) == EKeyState::Down && myPreviousKeyStates[aKey] == EKeyState::Up;
+		return myKeyStates.at(aKey) == EKeyState::Down && myPreviousKeyStates.at(aKey) == EKeyState::Up;
 	else
-		return myMouseButtonStates.at(aKey) == EKeyState::Down && myPreviousMouseButtonStates[aKey] == EKeyState::Up;
+		return myMouseButtonStates.at(aKey) == EKeyState::Down && myPreviousMouseButtonStates.at(aKey) == EKeyState::Up;
 }
 
 bool CInputManager::IsKeyDown(EKeyCode aKey) const
@@ -152,9 +152,9 @@ bool CInputManager::IsKeyDown(EKeyCode aKey) const
 bool CInputManager::IsKeyReleased(EKeyCode aKey) const
 {
 	if (static_cast<int>(aKey) - 200 <= 0)
-		return myKeyStates.at(aKey) == EKeyState::Up && myPreviousKeyStates[aKey] == EKeyState::Down;
+		return myKeyStates.at(aKey) == EKeyState::Up && myPreviousKeyStates.at(aKey) == EKeyState::Down;
 	else
-		return myMouseButtonStates.at(aKey) == EKeyState::Up && myPreviousMouseButtonStates[aKey] == EKeyState::Down;
+		return myMouseButtonStates.at(aKey) == EKeyState::Up && myPreviousMouseButtonStates.at(aKey) == EKeyState::Down;
 }
 
 int CInputManager::GetScrollWheelDelta() const
