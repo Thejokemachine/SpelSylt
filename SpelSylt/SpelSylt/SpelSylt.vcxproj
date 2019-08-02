@@ -210,6 +210,7 @@
     <ClCompile Include="Rendering\BlackAndWhitePass.cpp" />
     <ClCompile Include="Rendering\FullScreenPass.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
+    <ClCompile Include="Rendering\RenderingScissor.cpp" />
     <ClCompile Include="Rendering\RenderQueue.cpp" />
     <ClCompile Include="Rendering\Shader\Shader.cpp" />
     <ClCompile Include="Rendering\Sprite\Sprite.cpp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="Rendering\OpenGL.h" />
     <ClInclude Include="Rendering\RenderCommand.h" />
     <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\RenderingScissor.h" />
     <ClInclude Include="Rendering\RenderLayer.h" />
     <ClInclude Include="Rendering\RenderQueue.h" />
     <ClInclude Include="Rendering\RenderQueueInput.h" />
