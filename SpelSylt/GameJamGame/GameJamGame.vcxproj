@@ -135,11 +135,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\GameApplication.cpp" />
+    <ClCompile Include="Gameplay\Controller\ControllerContainer.cpp" />
+    <ClCompile Include="Gameplay\Controller\InputController.cpp" />
+    <ClCompile Include="Gameplay\Pawn.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="States\TreeGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\GameApplication.h" />
+    <ClInclude Include="Gameplay\Controller\ControllerContainer.h" />
+    <ClInclude Include="Gameplay\Controller\ControllerInterface.h" />
+    <ClInclude Include="Gameplay\Controller\InputController.h" />
+    <ClInclude Include="Gameplay\Pawn.h" />
     <ClInclude Include="States\TreeGameState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
