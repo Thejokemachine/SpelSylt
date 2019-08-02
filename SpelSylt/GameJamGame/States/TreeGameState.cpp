@@ -6,6 +6,8 @@
 #include <SpelSylt/Contexts/RenderingContext.h>
 
 #include <SpelSylt/Utility/Time/TimeGetter.h>
+#include <SpelSylt/FileHandling/ConfigReader.h>
+#include <SpelSylt/FileHandling/FileWatcher.h>
 
 //------------------------------------------------------------------
 
@@ -15,8 +17,11 @@ using namespace tree;
 
 void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
-	TestPawn.AttachController(Controllers.CreateInputController(InGameContext.Input));
-	TestPawn.SetSpeed(128.f);
+	PlayerPawn.AttachController(Controllers.CreateInputController(InGameContext.Input));
+
+	ReadPlayerPawnSpeedFromConfig();
+
+	SS::CFileWatcher::AddFile("player.cfg", [this] { ReadPlayerPawnSpeedFromConfig(); });
 }
 
 //------------------------------------------------------------------
@@ -24,14 +29,24 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 {
 	Controllers.Update();
-	TestPawn.Tick(InGameContext.Time.GetDeltaTime());
+	PlayerPawn.Tick(InGameContext.Time.GetDeltaTime());
 }
 
 //------------------------------------------------------------------
 
-void tree::CTreeGameState::OnRender(SS::CRenderQueue& InRenderQueue)
+void CTreeGameState::OnRender(SS::CRenderQueue& InRenderQueue)
 {
-	myDebugDrawer.DrawCircle(TestPawn.GetPosition(), 32.f, true, sf::Color::Green);
+	myDebugDrawer.DrawCircle(PlayerPawn.GetPosition(), 32.f, true, sf::Color::Green);
+}
+
+//------------------------------------------------------------------
+
+void CTreeGameState::ReadPlayerPawnSpeedFromConfig()
+{
+	SS::CConfigReader ConfigReader;
+	ConfigReader.ReadConfigFile("player.cfg");
+
+	PlayerPawn.SetSpeed(ConfigReader.GetAsFloat("speed"));
 }
 
 //------------------------------------------------------------------

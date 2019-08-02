@@ -20,22 +20,27 @@ namespace ConfigReaderInternal
 	};
 }
 
-class CConfigReader
+namespace SpelSylt
 {
-public:
-	CConfigReader();
+	class CConfigReader
+	{
+	public:
+		CConfigReader();
 
-	void ReadConfigFile(const std::string& InPath);
+		void ReadConfigFile(const std::string& InPath);
 
-	bool ParamExists(const std::string& InParamName) const;
+		bool ParamExists(const std::string& InParamName) const;
 
-	int GetAsInt(const std::string& InParamName) const;
-	unsigned int GetAsUint(const std::string& InParamName) const;
-	float GetAsFloat(const std::string& InParamName) const;
-	std::string GetAsString(const std::string& InParamName) const;
-private:
-	ConfigReaderInternal::SParamData GetParamData(const std::string& InParamName) const;
+		int GetAsInt(const std::string& InParamName) const;
+		unsigned int GetAsUint(const std::string& InParamName) const;
+		float GetAsFloat(const std::string& InParamName) const;
+		std::string GetAsString(const std::string& InParamName) const;
+	private:
+		ConfigReaderInternal::SParamData GetParamData(const std::string& InParamName) const;
 
-	CTextFileHandler TextFileHandler;
-	std::string CfgBuffer;
-};
+		CTextFileHandler TextFileHandler;
+		std::string CfgBuffer;
+	};
+}
+
+namespace SS = SpelSylt;

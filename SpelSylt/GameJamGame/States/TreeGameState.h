@@ -15,7 +15,9 @@ namespace tree
 		virtual void OnUpdate(SS::SGameContext& InGameContext) override;
 		virtual void OnRender(SS::CRenderQueue& InRenderQueue) override;
 
-		CPawn TestPawn;
+		void ReadPlayerPawnSpeedFromConfig();
+
+		CPawn PlayerPawn;
 		CControllerContainer Controllers;
 	};
 }
