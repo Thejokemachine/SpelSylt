@@ -22,8 +22,8 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& a
 	myWidth = (float)aWidth;
 	myHeight = (float)aHeight;
 
-#ifdef _DEBUG
 	myLayoutFile = aLayoutXML;
+#ifdef _DEBUG
 	SS::CFileWatcher::AddFile(aLayoutXML.c_str(), [this, aWidth, aHeight](){
 		myShouldReload = true;
 	});
@@ -33,7 +33,7 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& a
 void UIState::Init(SGameContext& InGameContext)
 {
 	myLayout = std::make_unique<UI::UILayout>(myWidth, myHeight, myLayoutFile, InGameContext.AssetManager);
-
+	
 	InGameContext.MessageQueue.Subscribe<SResizedWindowMessage>([this](const SResizedWindowMessage& msg) {
 		myLayout->Resize(msg.Param, msg.ParamTwo);
 	}, mySubs);

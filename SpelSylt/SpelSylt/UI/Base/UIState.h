@@ -32,9 +32,9 @@ namespace UI
 		float myWidth;
 		float myHeight;
 
+		std::string myLayoutFile;
 #ifdef _DEBUG
 		bool myShouldReload = false;
-		std::string myLayoutFile;
 #endif
 	};
 }
