@@ -13,9 +13,9 @@ namespace UI
 
 		void SetCallback(std::function<void(Button& button)> aOnPressed);
 
+		virtual void onHover() override;
 	private:
 
 		std::function<void(Button& button)> myOnPressed;
-
 	};
 }

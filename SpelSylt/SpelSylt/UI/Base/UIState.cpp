@@ -32,8 +32,8 @@ UIState::UIState(unsigned int aWidth, unsigned int aHeight, const std::string& a
 
 void UIState::Init(SGameContext& InGameContext)
 {
-	myLayout = std::make_unique<UI::UILayout>(myWidth, myHeight, myLayoutFile, InGameContext.AssetManager);
-	
+	myLayout = std::make_unique<UI::UILayout>(myWidth, myHeight, myLayoutFile, InGameContext.AssetManager, InGameContext.Input);
+
 	InGameContext.MessageQueue.Subscribe<SResizedWindowMessage>([this](const SResizedWindowMessage& msg) {
 		myLayout->Resize(msg.Param, msg.ParamTwo);
 	}, mySubs);
@@ -51,7 +51,7 @@ void UIState::Update(SGameContext & InGameContext)
 		float width = myLayout->GetWidth();
 		float height = myLayout->GetHeight();
 		myLayout = nullptr;
-		myLayout = std::make_unique<UI::UILayout>(width, height, myLayoutFile, InGameContext.AssetManager);
+		myLayout = std::make_unique<UI::UILayout>(width, height, myLayoutFile, InGameContext.AssetManager, InGameContext.Input);
 		myShouldReload = false;
 		LOG_VERBOSE(UI, "Reloaded UI");
 	}

@@ -4,11 +4,13 @@
 #include "SFML/Graphics/RenderTarget.hpp"
 #include "SpelSylt/UI/Button.h"
 #include "SpelSylt/UI/Label.h"
+#include "SpelSylt/UI/List.h"
 #include "SpelSylt/tinyxml2.h"
 #include "SpelSylt/Utility/Input/InputEventGetter.h"
 #include "SpelSylt/UI/UIUtilities.h"
 #include "SpelSylt/Math/CommonMath.h"
 #include "SpelSylt/XMLUtilities.h"
+#include "SpelSylt/Utility/Time/Time.h"
 
 #include "SpelSylt/Contexts/GameContext.h"
 
@@ -16,8 +18,9 @@ using namespace tinyxml2;
 using namespace UI;
 using namespace SpelSylt;
 
-UILayout::UILayout(float aWidth, float aHeight, const std::string& aLayoutXML, SpelSylt::CAssetManager& aAssetManager)
-	: myAssetManager(aAssetManager)
+UILayout::UILayout(float aWidth, float aHeight, const std::string& aLayoutXML, SpelSylt::CAssetManager& aAssetManager, SpelSylt::IInputEventGetter& aInputManager) :
+	myAssetManager(aAssetManager),
+	myInputManager(aInputManager)
 {
 	bool loaded = false;
 	while (!loaded)
@@ -28,7 +31,6 @@ UILayout::UILayout(float aWidth, float aHeight, const std::string& aLayoutXML, S
 	if (auto root = myDocument.FirstChildElement("layout"))
 	{
 		myRootPanel = std::make_unique<Panel>(*this, nullptr, "root", 0.f, 0.f, aWidth, aHeight, DockFlag::None, *root);
-		addChildren(*myRootPanel, root);
 	}
 
 	Resize((int)aWidth, (int)aHeight);
@@ -40,10 +42,12 @@ void UILayout::Update(SGameContext& InGameContext)
 
 	sf::Vector2f mPos = aInputManager->GetMousePosFloat();
 
-	myRootPanel->ForEachChild([mPos, aInputManager](Panel& panel) {
-		if (aInputManager && aInputManager->IsKeyPressed(EKeyCode::MouseLeft))
+	myRootPanel->ForEachChild([&mPos, &aInputManager, &InGameContext](Panel& panel) {
+		panel.Update(InGameContext.Time.GetDeltaTime());
+		if (panel.contains(mPos))
 		{
-			if (panel.contains(mPos))
+			panel.onHover();
+			if (aInputManager && aInputManager->IsKeyPressed(EKeyCode::MouseLeft))
 			{
 				if (auto btn = dynamic_cast<Button*>(&panel))
 				{
@@ -52,8 +56,6 @@ void UILayout::Update(SGameContext& InGameContext)
 				}
 			}
 		}
-		if (panel.myIsDirty)
-			panel.Layout();
 	});
 }
 
@@ -86,6 +88,11 @@ Label * UI::UILayout::GetLabel(const std::string & aName)
 	return dynamic_cast<Label*>(GetPanel(aName));
 }
 
+List * UI::UILayout::GetList(const std::string & aName)
+{
+	return dynamic_cast<List*>(GetPanel(aName));
+}
+
 float UI::UILayout::GetWidth() const
 {
 	return myRootPanel->GetWidth();
@@ -94,37 +101,6 @@ float UI::UILayout::GetWidth() const
 float UI::UILayout::GetHeight() const
 {
 	return myRootPanel->GetHeight();
-}
-
-void UILayout::addChildren(Panel& aParent, XMLElement* aElement)
-{
-	auto child = aElement->FirstChildElement();
-	while (child)
-	{
-		std::string val = child->Value();
-		std::shared_ptr<Panel> panel = nullptr;
-
-		if (val == "panel")
-		{
-			panel = std::make_shared<Panel>(*this, &aParent, *child);
-		}
-		else if (val == "button")
-		{
-			panel = std::make_shared<Button>(*this, &aParent, *child);
-		}
-		else if (val == "text")
-		{
-			panel = std::make_shared<Label>(*this, &aParent, *child);
-		}
-
-		if (panel)
-		{
-			addChildren(*panel, child);
-			aParent.AddPanel(panel);
-		}
-
-		child = child->NextSiblingElement();
-	}
 }
 
 float UI::UILayout::evaluateExpression(const std::string & aAttributeBlock)

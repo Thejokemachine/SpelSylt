@@ -13,3 +13,8 @@ void Button::SetCallback(std::function<void(Button&button)> aOnPressed)
 {
 	myOnPressed = aOnPressed;
 }
+
+void UI::Button::onHover()
+{
+	myHoveredColor = sf::Color(100, 100, 100, 255);
+}

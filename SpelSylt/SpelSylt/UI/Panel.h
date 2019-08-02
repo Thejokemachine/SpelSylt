@@ -47,7 +47,7 @@ namespace UI
 		// ---------------------------------------------
 
 		// Setters
-		void SetImage(const std::string& aImage);
+		void SetImage(const std::string& aImage, bool aAbsolutePath = false);
 		void SetColor(const sf::Color& aColor);
 		void SetBounds(float x, float y, float width, float height);
 		// ---------------------------------------------
@@ -65,14 +65,19 @@ namespace UI
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		virtual void onDraw(sf::RenderTarget& aTarget) const {}
 
+		virtual void onHover() {};
+
 	protected:
 
 		void setDirty();
 
 		float evaluateExpression(const std::string& aAttributeBlock);
+		void addChildren(Panel& aParent, tinyxml2::XMLElement* aElement);
 
 		UILayout& myLayout;
 		tinyxml2::XMLElement& myXMLElement;
+		sf::Color myHoveredColor;
+		bool myIsScissor = false;
 
 	private:
 
@@ -85,6 +90,7 @@ namespace UI
 		sf::Color myColor;
 		float myX;
 		float myY;
+
 
 		bool myIsDirty = false;
 	};

@@ -29,11 +29,12 @@ namespace UI
 	class Panel;
 	class Button;
 	class Label;
+	class List;
 
 	class UILayout
 	{
 	public:
-		UILayout(float aWidth, float aHeight, const std::string& aLayoutXML, SpelSylt::CAssetManager& aAssetManager);
+		UILayout(float aWidth, float aHeight, const std::string& aLayoutXML, SpelSylt::CAssetManager& aAssetManager, SpelSylt::IInputEventGetter& aInputManager);
 		virtual ~UILayout() = default;
 
 		void Update(SS::SGameContext& InGameContext);
@@ -43,17 +44,19 @@ namespace UI
 		Panel* GetPanel(const std::string& aName);
 		Button* GetButton(const std::string& aName);
 		Label* GetLabel(const std::string& aName);
+		List* GetList(const std::string& aName);
 
 		float GetWidth() const;
 		float GetHeight() const;
 
 		SpelSylt::CAssetManager& GetFontBank() { return myAssetManager; }
+		SpelSylt::IInputEventGetter& GetInputManager() { return myInputManager; }
 
 	private:
 		//Temp fix!
 		SpelSylt::CAssetManager& myAssetManager;
 
-		void addChildren(Panel& aParent, tinyxml2::XMLElement* aElement);
+		SpelSylt::IInputEventGetter& myInputManager;
 
 		float evaluateExpression(const std::string& aAttributeBlock);
 

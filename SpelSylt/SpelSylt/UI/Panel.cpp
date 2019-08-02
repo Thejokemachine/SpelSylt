@@ -7,6 +7,12 @@
 #include "SpelSylt/XMLUtilities.h"
 #include "SpelSylt/UI/UIUtilities.h"
 
+#include "SpelSylt/UI/Button.h"
+#include "SpelSylt/UI/List.h"
+#include "SpelSylt/UI/Label.h"
+
+#include "SpelSylt/Rendering/RenderingScissor.h"
+
 #include <unordered_map>
 
 using namespace UI;
@@ -15,16 +21,19 @@ Panel::Panel(UILayout & aLayout, const Panel * aParent, const std::string & aNam
 sf::FloatRect(0, 0, aWidth, aHeight),
 myLayout(aLayout),
 myXMLElement(aElement),
-myParent(aParent)
+myParent(aParent),
+myHoveredColor(sf::Color::White)
 {
 	setDirty();
+	addChildren(*this, &aElement);
 }
 
 Panel::Panel(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement& aElement) :
 sf::FloatRect(0, 0, 0, 0),
 myLayout(aLayout),
 myXMLElement(aElement),
-myParent(aParent)
+myParent(aParent),
+myHoveredColor(sf::Color::White)
 {
 	std::string image, dockFlagsValue, colorValue;
 
@@ -32,6 +41,7 @@ myParent(aParent)
 	XMLUtilities::QueryAttribute(myXMLElement, "dock", dockFlagsValue);
 	XMLUtilities::QueryAttribute(myXMLElement, "image", image);
 	XMLUtilities::QueryAttribute(myXMLElement, "color", colorValue);
+	XMLUtilities::QueryAttribute(myXMLElement, "scissor", myIsScissor);
 
 	myDockFlags = UIUtilities::EvaluateDockingFlags(dockFlagsValue);
 	myColor = UIUtilities::EvaluateColor(colorValue);
@@ -40,6 +50,7 @@ myParent(aParent)
 		SetImage(image);
 
 	setDirty();
+	addChildren(*this, &aElement);
 }
 
 Panel * Panel::GetPanel(const std::string & aName)
@@ -70,9 +81,16 @@ Panel * Panel::GetPanel(const std::string & aName)
 	return rv;
 }
 
-void Panel::SetImage(const std::string & aImage)
+void Panel::SetImage(const std::string & aImage, bool aAbsolutePath)
 {
-	myTexture.loadFromFile("UI/Images/" + aImage + ".png");
+	if (!aAbsolutePath)
+	{
+		myTexture.loadFromFile("UI/Images/" + aImage + ".png");
+	}
+	else
+	{
+		myTexture.loadFromFile(aImage);
+	}
 }
 
 void Panel::SetColor(const sf::Color & aColor)
@@ -87,7 +105,7 @@ void UI::Panel::SetBounds(float x, float y, float width, float height)
 	this->width = width;
 	this->height = height;
 
-	ForEachChild([](Panel& p) { 
+	ForEachChild([](Panel& p) {
 		p.Layout();
 	});
 }
@@ -172,18 +190,28 @@ void Panel::ForEachChild(std::function<void(Panel& panel)> aFunction)
 
 void Panel::Update(const float dt)
 {
+	if (myIsDirty)
+		Layout();
+
+	myHoveredColor = sf::Color::White;
 	onUpdate(dt);
 }
 
 void Panel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
+	if (myIsScissor)
+	{
+		RenderingScissor::EnableScissor(true);
+		RenderingScissor::SetRectangle(GetX(), target.getSize().y - (GetY() + GetHeight()), GetWidth(), GetHeight());
+	}
+
 	if (myTexture.getSize().x > 0)
 	{
 		sf::Sprite sprite;
 		sprite.setTexture(myTexture);
 		sprite.setPosition(left, top);
 		sprite.setScale(width / myTexture.getSize().x, height / myTexture.getSize().y);
-		sprite.setColor(myColor);
+		sprite.setColor(myColor * myHoveredColor);
 
 		target.draw(sprite, states);
 	}
@@ -193,6 +221,10 @@ void Panel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	for (auto& panel : myChildren)
 	{
 		panel->draw(target, states);
+	}
+	if (myIsScissor)
+	{
+		RenderingScissor::EnableScissor(false);
 	}
 }
 
@@ -288,4 +320,39 @@ float UI::Panel::evaluateExpression(const std::string & aAttributeBlock)
 	}
 
 	return evaluatedValue;
+}
+
+#include <iostream>
+void Panel::addChildren(Panel& aParent, tinyxml2::XMLElement* aElement)
+{
+	auto child = aElement->FirstChildElement();
+	while (child)
+	{
+		std::string val = child->Value();
+		std::shared_ptr<Panel> panel = nullptr;
+
+		if (val == "panel")
+		{
+			panel = std::make_shared<Panel>(myLayout, &aParent, *child);
+		}
+		else if (val == "button")
+		{
+			panel = std::make_shared<Button>(myLayout, &aParent, *child);
+		}
+		else if (val == "text")
+		{
+			panel = std::make_shared<Label>(myLayout, &aParent, *child);
+		}
+		else if (val == "list")
+		{
+			panel = std::make_shared<List>(myLayout, &aParent, *child);
+		}
+
+		if (panel)
+		{
+			aParent.AddPanel(panel);
+		}
+
+		child = child->NextSiblingElement();
+	}
 }
