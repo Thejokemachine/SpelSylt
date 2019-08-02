@@ -1,6 +1,7 @@
 #include "GameJamGame/Core/GameApplication.h"
 
 #include "GameJamGame/States/TreeGameState.h"
+#include "GameJamGame/States/InGameUIState.h"
 
 //------------------------------------------------------------------
 
@@ -19,6 +20,7 @@ void CGameApplication::SetUpWindow()
 void CGameApplication::PushStartUpStates()
 {
 	CApplication::PushState(std::make_shared<CTreeGameState>());
+	CApplication::PushState(std::make_shared<CInGameUIState>(1600, 900));
 }
 
 //------------------------------------------------------------------
