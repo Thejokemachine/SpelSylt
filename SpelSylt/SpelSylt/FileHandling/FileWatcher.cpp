@@ -74,21 +74,22 @@ void CFileWatcher::DoWork()
 
 void CFileWatcher::Check()
 {
-	const unsigned int FilesCount = static_cast<unsigned int>(FilesToWatch.size());
+	std::vector<CFileWatcher::FWatchedFileData> FilesToWatchCache = FilesToWatch;
+	std::vector<CFileWatcher::FFileChangeTime> FileChangeTimeLookUpCache = FileChangeTimeLookUp;
 
-	const bool IsMidAdd = FilesToWatch.size() != FileChangeTimeLookUp.size();
+	const bool IsMidAdd = FilesToWatchCache.size() != FileChangeTimeLookUpCache.size();
 
 	if (IsMidAdd)
 	{
 		return;
 	}
 
-	for (unsigned int i = 0; i < FilesCount; ++i)
+	for (unsigned int i = 0; i < FilesToWatchCache.size(); ++i)
 	{
-		const FWatchedFileData& CurrentFileData = FilesToWatch[i];
+		const FWatchedFileData& CurrentFileData = FilesToWatchCache[i];
 		const std::string& CurrentFile = CurrentFileData.first;
 		const FFileChangeCallback& CurrentFileOnChange = CurrentFileData.second;
-		FFileChangeTime& CurrentFilePreviousLastChanged = FileChangeTimeLookUp[i];
+		FFileChangeTime& CurrentFilePreviousLastChanged = FileChangeTimeLookUpCache[i];
 
 		FFileChangeTime LastChangeTime = GetFileChangeTime(CurrentFile, LastChangeTime);
 
