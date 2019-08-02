@@ -4,6 +4,7 @@
 #include <Spelsylt/UI/Button.h>
 #include <SpelSylt/UI/Label.h>
 #include <SpelSylt/UI/Panel.h>
+#include <SpelSylt/UI/List.h>
 #include <SpelSylt/Contexts/GameContext.h>
 #include <SpelSylt/Contexts/RenderingContext.h>
 #include <SpelSylt/Utility/Time/Time.h>
@@ -27,6 +28,12 @@ using namespace SpelSylt;
 AnimationEditorState::AnimationEditorState(unsigned width, unsigned int height, const std::string & aLayoutXML) :
 	UIState(width, height, aLayoutXML)
 {
+}
+
+void AnimationEditorState::OnInit(SGameContext & InGameContext)
+{
+	frameList = myLayout->GetList("frame_list");
+
 	if (auto btn = myLayout->GetButton("play_btn")) {
 		btn->SetCallback([this](Button& button) {
 			isPlaying = !isPlaying;
@@ -38,10 +45,7 @@ AnimationEditorState::AnimationEditorState(unsigned width, unsigned int height, 
 	if (auto p = myLayout->GetPanel("clip_image")) {
 		animation.setMaxSize(p->GetWidth(), p->GetHeight());
 	}
-}
 
-void AnimationEditorState::OnInit(SGameContext & InGameContext)
-{
 	if (auto btn = myLayout->GetButton("speed_val_up")) {
 		btn->SetCallback([&InGameContext](Button& button) {
 			InGameContext.MessageQueue.DispatchEvent<IncrementSpeedMessage>(0.05f);
@@ -54,7 +58,21 @@ void AnimationEditorState::OnInit(SGameContext & InGameContext)
 	}
 	if (auto btn = myLayout->GetButton("add_frame_btn")) {
 		btn->SetCallback([&](Button& button) {
-			openFileDialog();
+			std::string filePath = openFileDialog();
+			if (!filePath.empty())
+			{
+				std::filesystem::path p(filePath);
+				animation.addFrame(p.string(), 0.25f);
+
+				if (auto label = myLayout->GetLabel("clip_bg_text")) {
+					label->SetText("");
+				}
+				if (frameList)
+				{
+					auto item = frameList->AddItem("frame");
+					item->GetPanel("image")->SetImage(p.string(), true);
+				}
+			}
 		});
 	}
 
@@ -84,7 +102,7 @@ void AnimationEditorState::OnRender(sf::RenderTarget& target)
 	target.draw(animation);
 }
 
-void AnimationEditor::AnimationEditorState::openFileDialog()
+std::string AnimationEditor::AnimationEditorState::openFileDialog()
 {
 	char dir[MAX_PATH];
 	GetCurrentDirectory(MAX_PATH, dir);
@@ -101,14 +119,11 @@ void AnimationEditor::AnimationEditorState::openFileDialog()
 	ofn.lpstrTitle = "Select an image.";
 	ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
 
+	std::string path = "";
+
 	if (GetOpenFileNameA(&ofn))
 	{
-		std::filesystem::path p(filename);
-		animation.addFrame(p.filename().string(), 0.25f);
-		
-		if (auto label = myLayout->GetLabel("clip_bg_text")) {
-			label->SetText("");
-		}
+		path = filename;
 	}
 	else
 	{
@@ -116,4 +131,6 @@ void AnimationEditor::AnimationEditorState::openFileDialog()
 	}
 
 	_chdir(dir);
+
+	return filename;
 }

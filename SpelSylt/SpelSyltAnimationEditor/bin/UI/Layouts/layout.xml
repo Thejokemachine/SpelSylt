@@ -10,6 +10,16 @@
         <panel name="center" dock="center"/>
       </panel>
     </panel>
+
+    <panel image="whiteBox" color="#262B3D70" dock="top|right" width="{parent.width - 400}" height="350" x="-20" y="20">
+      <list name="frame_list" scissor="true" width="{parent.width}" height="{parent.height}" item_margin="10">
+        <list_item name="frame" dock="hcenter" width="{parent.width-20}" height="100">
+          <panel width="{parent.width}" height="{parent.height}" image="whiteBox" color="225,225,255">
+            <panel name="image" image="whiteBox" dock="vcenter|left" height="{parent.height-20}" width="{parent.height-20}" x="10"/>
+          </panel>
+        </list_item>
+      </list>
+    </panel>
     <panel name="settings" width="{parent.width-40}" height="160" y="-20" dock="bottom|hcenter" image="whiteBox" color="#00000050">
       <text name="speed_val" string="0.25" dock="right|vcenter" x="-250" align="center" font="arial" size="28">
         <button name="speed_val_up" dock="center" y="-50" image="whiteBox" width="25" height="25"/>
@@ -17,10 +27,10 @@
         <text string="Speed:" dock="center" align="center" x="-85" font="arial" size="28"/>
       </text>
       <button name="add_frame_btn" dock="right|vcenter" x="-25" y="-35" image="whiteBox" width="150" height="50">
-        <text string="Add" dock="center" align="center" font="arial" size="28" text_color="#000000"/>
+        <text string="Add Frame" dock="center" align="center" font="default" size="28" text_color="#000000"/>
       </button>
       <button name="save_btn" dock="right|vcenter" x="-25" y="35" image="whiteBox" width="150" height="50">
-        <text string="Save" dock="center" align="center" font="arial" size="28" text_color="#00000030"/>
+        <text string="Save" dock="center" align="center" font="default" size="28" text_color="#00000030"/>
       </button>
     </panel>
   </panel>

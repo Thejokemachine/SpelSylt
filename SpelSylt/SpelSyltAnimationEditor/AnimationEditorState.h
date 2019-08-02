@@ -7,6 +7,7 @@
 
 namespace UI {
 	class Panel;
+	class List;
 }
 
 namespace AnimationEditor {
@@ -23,12 +24,13 @@ namespace AnimationEditor {
 
 	private:
 
-		void openFileDialog();
+		std::string openFileDialog();
 
 		bool isPlaying = false;
 		SimpleAnimation animation;
 
 		UI::Panel* animCenter = nullptr;
+		UI::List* frameList = nullptr;
 
 		CSubscriptions mySubs;
 	};

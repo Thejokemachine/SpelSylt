@@ -13,5 +13,5 @@ void CGameApplication::SetUpWindow()
 
 void CGameApplication::PushStartUpStates()
 {
-	CApplication::PushState(new AnimationEditorState(800, 600, "UI/Layouts/layout.xml"));
+	CApplication::PushState(std::make_shared<AnimationEditorState>(800, 600, "UI/Layouts/layout.xml"));
 }
