@@ -14,17 +14,17 @@ Note: All Logging should be done through these macros
 Exceptions are when rebinding colors
 */
 
-#define LOG_TO_FILE								CDebugLogger::GetInstance().SetShouldLogToFile()
+#define LOG_TO_FILE								SS::CDebugLogger::GetInstance().SetShouldLogToFile()
 
-#define SET_LOG_LEVEL_VERBOSE					CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Verbose)
-#define SET_LOG_LEVEL_LOG						CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Log)
-#define SET_LOG_LEVEL_WARNING					CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Warning)
-#define SET_LOG_LEVEL_ERROR						CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Error)
+#define SET_LOG_LEVEL_VERBOSE					SS::CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Verbose)
+#define SET_LOG_LEVEL_LOG						SS::CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Log)
+#define SET_LOG_LEVEL_WARNING					SS::CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Warning)
+#define SET_LOG_LEVEL_ERROR						SS::CDebugLogger::GetInstance().SetLogLevel(LogLevels::ELogLevel::Error)
 
-#define LOG_VERBOSE(LogCat, LogMessage, ...)	CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Verbose, #LogCat, LogMessage, __VA_ARGS__)
-#define LOG_LOG(LogCat, LogMessage, ...)		CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Log, #LogCat, LogMessage, __VA_ARGS__)
-#define LOG_WARNING(LogCat, LogMessage, ...)	CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Warning, #LogCat, LogMessage, __VA_ARGS__)
-#define LOG_ERROR(LogCat, LogMessage, ...)		CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Error, #LogCat, LogMessage, __VA_ARGS__)
+#define LOG_VERBOSE(LogCat, LogMessage, ...)	SS::CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Verbose, #LogCat, LogMessage, __VA_ARGS__)
+#define LOG_LOG(LogCat, LogMessage, ...)		SS::CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Log, #LogCat, LogMessage, __VA_ARGS__)
+#define LOG_WARNING(LogCat, LogMessage, ...)	SS::CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Warning, #LogCat, LogMessage, __VA_ARGS__)
+#define LOG_ERROR(LogCat, LogMessage, ...)		SS::CDebugLogger::GetInstance().PrintLog(LogLevels::ELogLevel::Error, #LogCat, LogMessage, __VA_ARGS__)
 
 //------------------------------------------------------------------
 
