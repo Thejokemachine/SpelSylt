@@ -150,6 +150,8 @@
     <ClCompile Include="Gameplay\Pawn.cpp" />
     <ClCompile Include="Gameplay\Player.cpp" />
     <ClCompile Include="Gameplay\Tree\Tree.cpp" />
+    <ClCompile Include="Gameplay\WaterSpawner.cpp" />
+    <ClCompile Include="Gameplay\Weapon\HandGun.cpp" />
     <ClCompile Include="Gameplay\Water\WaterPit.cpp" />
     <ClCompile Include="Gameplay\Water\WaterSpawner.cpp" />
     <ClCompile Include="Gameplay\Weapon\HandGun.cpp" />
@@ -181,6 +183,8 @@
     <ClInclude Include="Gameplay\Pawn.h" />
     <ClInclude Include="Gameplay\Player.h" />
     <ClInclude Include="Gameplay\Tree\Tree.h" />
+    <ClInclude Include="Gameplay\WaterSpawner.h" />
+    <ClInclude Include="Gameplay\Weapon\HandGun.h" />
     <ClInclude Include="Gameplay\Water\WaterPit.h" />
     <ClInclude Include="Gameplay\Water\WaterSpawner.h" />
     <ClInclude Include="Gameplay\Weapon\HandGun.h" />
