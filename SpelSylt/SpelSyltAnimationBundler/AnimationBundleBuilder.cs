@@ -41,7 +41,7 @@ namespace SpelSyltAnimationBundler
 
             DataStream = File.ReadAllBytes(InAnimDataPath);
 
-            BundleStream = new FileStream(InBundleFilePath, FileMode.OpenOrCreate | FileMode.Truncate, FileAccess.Write);
+            BundleStream = new FileStream(InBundleFilePath, FileMode.Create, FileAccess.Write);
             return true;
         }
 

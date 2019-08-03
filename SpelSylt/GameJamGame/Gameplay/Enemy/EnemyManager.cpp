@@ -4,10 +4,19 @@
 #include <SpelSylt/Rendering/RenderCommand.h>
 #include <SpelSylt/Rendering/RenderQueue.h>
 #include <SpelSylt/Contexts/GameContext.h>
+#include <SpelSylt/Messaging/MessageQueue.h>
+
+#include <SpelSylt/Physics/Collision/CircleCollider.h>
+#include <SpelSylt/Physics/Collision/PointCollider.h>
+#include <SpelSylt/Math/CommonMath.h>
+#include <SpelSylt/FileHandling/Asset/AssetManager.h>
+#include <SpelSylt/FileHandling/Asset/AssetTypes/AnimationAsset.h>
 
 #include "GameJamGame/Gameplay/Controller/ControllerContainer.h"
 
 #include "GameJamGame/Core/WindowDefines.h"
+
+#include <SpelSylt/Debugging/Logging/DebugLogger.h>
 
 //------------------------------------------------------------------
 
@@ -30,6 +39,10 @@ CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSy
 		SimpleEnemyList.back().GetPawn().AttachController(InControllerContainer.CreateAIController());
 		SimpleEnemyList.back().GetPawn().SetSpeed(64.f);
 	}
+
+	InGameContext.MessageQueue.Subscribe<HitscanShotMsg>([this](auto & Msg) { OnHitscanMsg(Msg); }, Subscriptions);
+
+	SplatterAnimation = InGameContext.AssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/splatter.anmbndl");
 }
 
 //------------------------------------------------------------------
@@ -44,6 +57,8 @@ void CEnemyManager::SetTexture(SS::CTexture& InTexture)
 void CEnemyManager::Update(float InDT)
 {
 	TimeUntilNextSpawn -= InDT;
+
+	SplatterAnimation.Tick(InDT);
 
 	if (TimeUntilNextSpawn <= 0.f)
 	{
@@ -68,6 +83,8 @@ void CEnemyManager::Render(SpelSylt::CRenderQueue& aRenderQueue)
 		Sprite.setPosition(ActiveEnemyPawn->GetPawn().GetPosition());
 		aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteRenderCommand(Sprite));
 	}
+
+	aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteAnimationRenderCommand(SplatterAnimation));
 }
 
 //------------------------------------------------------------------
@@ -115,6 +132,80 @@ void CEnemyManager::SpawnEnemy()
 	NextEnemy.GetPawn().SetPositon(PositionToSpawn); //Todo: Should be random
 
 	ActiveEnemies.push_back(&NextEnemy);
+}
+
+//------------------------------------------------------------------
+
+void CEnemyManager::KillEnemies(std::vector<int>& InEnemiesMarkedForKill)
+{
+	std::sort(InEnemiesMarkedForKill.begin(), InEnemiesMarkedForKill.end());
+
+	int ErasedCount = 0;
+
+	for (int IndexToErase : InEnemiesMarkedForKill)
+	{
+		IndexToErase -= ErasedCount;
+		SplatterAnimation.setPosition(ActiveEnemies[IndexToErase]->GetPawn().GetPosition());
+		ActiveEnemies.erase(ActiveEnemies.begin() + IndexToErase);
+		ErasedCount++;
+	}
+}
+
+//------------------------------------------------------------------
+
+void CEnemyManager::OnHitscanMsg(const HitscanShotMsg& InMsg)
+{
+	std::vector<int> EnemiesToKill;
+	EnemiesToKill.reserve(MAX_SIMPLE_ENEMY_TYPE);
+
+	const sf::Vector2f& LineStart = InMsg.Param.first;
+	const sf::Vector2f& LineEnd = InMsg.Param.second;
+
+	CPointCollider LineStartCollider;
+	LineStartCollider.setPosition(LineStart);
+	CPointCollider LineEndCollider;
+	LineEndCollider.setPosition(LineEnd);
+
+	for (int i = 0; i < ActiveEnemies.size(); ++i)
+	{
+		CEnemy* Enemy = ActiveEnemies[i];
+
+		CCircleCollider EnemyCollider;
+		EnemyCollider.SetRadius(32.f);
+		EnemyCollider.setPosition(Enemy->GetPawn().GetPosition());
+
+		if (LineStartCollider.IsColliding(EnemyCollider) || LineEndCollider.IsColliding(EnemyCollider))
+		{
+			EnemiesToKill.push_back(i);
+			continue;
+		}
+
+		float LineLength = Math::Length(LineStart - LineEnd);
+		float Dot = ((EnemyCollider.getPosition().x - LineStart.x) * (LineEnd.x - LineStart.x)) + ((EnemyCollider.getPosition().y - LineStart.y) * (LineEnd.y - LineStart.y));
+		Dot /= (LineLength * LineLength);
+
+		sf::Vector2f ClosestPoint = LineStart + (Dot * (LineEnd - LineStart));
+
+		//Line vs point collision
+		float Tolerance = 0.1f;
+		float StartToClosestPoint = Math::Length(LineStart - ClosestPoint);
+		float EndToClosestPoint = Math::Length(LineEnd - ClosestPoint);
+
+		if (StartToClosestPoint + EndToClosestPoint >= LineLength - Tolerance
+			&& StartToClosestPoint + EndToClosestPoint <= LineLength + Tolerance)
+		{
+			if(Math::Length(ClosestPoint - EnemyCollider.getPosition()) < 32.f)
+			{
+				EnemiesToKill.push_back(i);
+			}
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+	KillEnemies(EnemiesToKill);
 }
 
 //------------------------------------------------------------------

@@ -57,7 +57,6 @@
 *.pdb
 *.lastbuildstate
 *.generated.h
-*.anmbndl
 
 # Profiling
 Diagnosis/*
@@ -120,7 +119,6 @@ Diagnosis/*
 *.pdb
 *.lastbuildstate
 *.generated.h
-*.anmbndl
 
 *.enc
 *.ipch
