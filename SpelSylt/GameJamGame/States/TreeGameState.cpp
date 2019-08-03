@@ -23,6 +23,20 @@ using namespace tree;
 
 //------------------------------------------------------------------
 
+CTreeGameState::CTreeGameState()
+	: GameState2D()
+	, ProbeConstructor(WorldState)
+	, Controllers()
+	, PlayerPawn()
+	, EnemyPawn()
+	, Systems()
+	, AreaBG()
+	, WorldState()
+{
+}
+
+//------------------------------------------------------------------
+
 void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
 	Systems.emplace_back(std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
@@ -30,6 +44,9 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	Systems.emplace_back(std::make_unique<CInventory>(InGameContext.MessageQueue));
 	
 	PlayerPawn.AttachController(Controllers.CreateInputController(InGameContext.Input, InGameContext.MessageQueue));
+	PlayerWorldObjectID = WorldState.AddToWorld<CPlayer>(PlayerPawn.GetPosition(), { 32.f, 32.f });
+	EnemyPawn.AttachController(Controllers.CreateAIController());
+	EnemyPawn.SetSpeed(64.f);
 
 	ReadPlayerPawnSpeedFromConfig();
 
@@ -38,8 +55,9 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	GetCamera().setCenter({ 0,0 });
 	GetCamera().setSize(1920.f, 1080.f);
 
-	AreaBG.SetTextureAsset(InGameContext.AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/area.png"));
+	AreaBG.SetTextureAsset(InGameContext.AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/area.png", SS::ELoadSettings::Async));
 	AreaBG.setOrigin(960, 540);
+	AreaBG.setColor(sf::Color::Green);
 }
 
 //------------------------------------------------------------------
@@ -51,8 +69,11 @@ void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 		system->Update(InGameContext.Time.GetDeltaTime());
 	}
 
+	WorldState.SetWorldObjectPosition(PlayerWorldObjectID, PlayerPawn.GetPosition());
+
 	Controllers.Update();
 	PlayerPawn.Tick(InGameContext.Time.GetDeltaTime());
+	EnemyPawn.Tick(InGameContext.Time.GetDeltaTime());
 
 	if (Math::Length2(PlayerPawn.GetPosition()) < 100 * 100.f)
 	{
@@ -77,6 +98,7 @@ void CTreeGameState::OnRender(SS::CRenderQueue& InRenderQueue)
 	InRenderQueue.Enqueue(ERenderLayer::Background, SS::SSpriteRenderCommand(AreaBG));
 
 	myDebugDrawer.DrawCircle(PlayerPawn.GetPosition(), 32.f, true, sf::Color::Green);
+	myDebugDrawer.DrawCircle(EnemyPawn.GetPosition(), 32.f, true, sf::Color::Red);
 }
 
 //------------------------------------------------------------------

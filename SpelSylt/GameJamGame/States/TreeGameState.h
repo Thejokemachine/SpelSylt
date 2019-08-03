@@ -7,11 +7,16 @@
 
 #include "GameJamGame/Core/System.h"
 
+#include "GameJamGame/Gameplay/World/WorldState.h"
+#include "GameJamGame/Gameplay/World/ProbeConstructor.h"
+
 namespace tree
 {
 	class CTreeGameState
 		: public SS::GameState2D
 	{
+	public:
+		CTreeGameState();
 	private:
 		virtual void OnInit(SS::SGameContext& InGameContext) override;
 		virtual void OnUpdate(SS::SGameContext& InGameContext) override;
@@ -19,12 +24,18 @@ namespace tree
 
 		void ReadPlayerPawnSpeedFromConfig();
 
-		CPlayer PlayerPawn;
-
+		CProbeConstructor ProbeConstructor;
 		CControllerContainer Controllers;
+
+		CPlayer PlayerPawn;
+		FWorldObjectID PlayerWorldObjectID;
+
+		CPawn EnemyPawn;
 
 		std::vector<std::unique_ptr<ISystem>> Systems;
 
 		SS::CSprite AreaBG;
+
+		CWorldState WorldState;
 	};
 }
