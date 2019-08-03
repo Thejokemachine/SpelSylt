@@ -150,6 +150,7 @@
     <ClCompile Include="Gameplay\Player.cpp" />
     <ClCompile Include="Gameplay\Tree\Tree.cpp" />
     <ClCompile Include="Gameplay\WaterSpawner.cpp" />
+    <ClCompile Include="Gameplay\Weapon\HandGun.cpp" />
     <ClCompile Include="Gameplay\World\ProbeConstructor.cpp" />
     <ClCompile Include="Gameplay\World\WorldProbe.cpp" />
     <ClCompile Include="Gameplay\World\WorldState.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Gameplay\Player.h" />
     <ClInclude Include="Gameplay\Tree\Tree.h" />
     <ClInclude Include="Gameplay\WaterSpawner.h" />
+    <ClInclude Include="Gameplay\Weapon\HandGun.h" />
     <ClInclude Include="Gameplay\World\ProbeConstructor.h" />
     <ClInclude Include="Gameplay\World\WorldProbe.h" />
     <ClInclude Include="Gameplay\World\WorldState.h" />
