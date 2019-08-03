@@ -15,6 +15,7 @@ tree::CWaterSpawner::CWaterSpawner(SpelSylt::CMessageQueue& aMessageQueue, SpelS
 {
 	myWater.SetTextureAsset(aAssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/water.png"));
 	myWater.setOrigin(32, 32);
+	DespawnWater();
 
 	myTimer.Init(CTimedEvent::EType::Repeat, 3.f, [this]() {
 		SpawnWater();
