@@ -33,7 +33,7 @@ CSSThread::~CSSThread()
 
 void CSSThread::Start()
 {
-	Thread = std::thread([&] { Run(); });
+	Thread = std::thread([&] { Run(); } );
 }
 
 //------------------------------------------------------------------
@@ -57,6 +57,8 @@ void CSSThread::Run()
 	while (!StopRequested)
 	{
 		CAsyncWorker& CurrentWorker = *WorkerList[NextWorkerIndex];
+
+		std::this_thread::yield();
 
 		if (CurrentWorker.ShouldWork())
 		{
