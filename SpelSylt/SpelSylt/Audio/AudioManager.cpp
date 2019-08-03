@@ -8,7 +8,7 @@
 
 using namespace SpelSylt;
 
-CAudioManager::CAudioManager(const std::string & aAudioFolder)
+CAudioManager::CAudioManager()
 {
 }
 

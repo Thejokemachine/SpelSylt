@@ -18,7 +18,7 @@ namespace SpelSylt
 	class CAudioManager
 	{
 	public:
-		CAudioManager(const std::string& aAudioFolder);
+		CAudioManager();
 		~CAudioManager() = default;
 
 		void Init(CMessageQueue& InMessageQueue);
