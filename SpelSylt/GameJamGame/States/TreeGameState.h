@@ -3,7 +3,9 @@
 #include <SpelSylt/GameState2D.h>
 
 #include "GameJamGame/Gameplay/Controller/ControllerContainer.h"
-#include "GameJamGame/Gameplay/Pawn.h"
+#include "GameJamGame/Gameplay/Player.h"
+
+#include "GameJamGame/Gameplay/Tree/Tree.h"
 
 namespace tree
 {
@@ -17,7 +19,9 @@ namespace tree
 
 		void ReadPlayerPawnSpeedFromConfig();
 
-		CPawn PlayerPawn;
+		CPlayer PlayerPawn;
 		CControllerContainer Controllers;
+
+		std::unique_ptr<CTree> Tree = nullptr;
 	};
 }

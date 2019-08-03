@@ -10,6 +10,7 @@
 namespace SpelSylt
 {
 	class IInputEventGetter;
+	class CMessageQueue;
 }
 
 namespace tree
@@ -20,7 +21,7 @@ namespace tree
 	{
 	public:
 		CControllerContainer();
-		CInputController& CreateInputController(const SpelSylt::IInputEventGetter& InInputHandler);
+		CInputController& CreateInputController(const SpelSylt::IInputEventGetter& InInputHandler, SpelSylt::CMessageQueue& InMessageQueue);
 		void Update();
 	private:
 		std::vector<IController*> AllControllers;

@@ -22,32 +22,32 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{E9A7F385-5866-4E02-93D0-1BE119C8797F}</ProjectGuid>
     <RootNamespace>GameJamGame</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\include\;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,6 +102,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,6 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\include\;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,6 +129,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,15 +142,24 @@
     <ClCompile Include="Gameplay\Controller\ControllerContainer.cpp" />
     <ClCompile Include="Gameplay\Controller\InputController.cpp" />
     <ClCompile Include="Gameplay\Pawn.cpp" />
+    <ClCompile Include="Gameplay\Player.cpp" />
+    <ClCompile Include="Gameplay\Tree\Tree.cpp" />
+    <ClCompile Include="Gameplay\WaterSpawner.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="States\InGameUIState.cpp" />
     <ClCompile Include="States\TreeGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\GameApplication.h" />
+    <ClInclude Include="Core\GameMessages.h" />
     <ClInclude Include="Gameplay\Controller\ControllerContainer.h" />
     <ClInclude Include="Gameplay\Controller\ControllerInterface.h" />
     <ClInclude Include="Gameplay\Controller\InputController.h" />
     <ClInclude Include="Gameplay\Pawn.h" />
+    <ClInclude Include="Gameplay\Player.h" />
+    <ClInclude Include="Gameplay\Tree\Tree.h" />
+    <ClInclude Include="Gameplay\WaterSpawner.h" />
+    <ClInclude Include="States\InGameUIState.h" />
     <ClInclude Include="States\TreeGameState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

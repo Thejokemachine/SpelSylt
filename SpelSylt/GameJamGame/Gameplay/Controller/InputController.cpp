@@ -3,14 +3,18 @@
 #include <SpelSylt/Math/CommonMath.h>
 #include <SpelSylt/Utility/Input/InputEventGetter.h>
 
+#include <SpelSylt/Messaging/MessageQueue.h>
+#include "GameJamGame/Core/GameMessages.h"
+
 //------------------------------------------------------------------
 
 using namespace tree;
 
 //------------------------------------------------------------------
 
-CInputController::CInputController(const SS::IInputEventGetter& InInputGetter)
+CInputController::CInputController(const SS::IInputEventGetter& InInputGetter, SpelSylt::CMessageQueue& InMessageQueue)
 	: InputGetter(InInputGetter)
+	, MessageQueue(InMessageQueue)
 	, CurrentDirection(0.f, 0.f)
 {
 }
@@ -37,6 +41,10 @@ void CInputController::Update()
 	if(InputGetter.IsKeyDown(EKeyCode::Left))
 	{
 		CurrentDirection.x -= 1;
+	}
+	if (InputGetter.IsKeyPressed(EKeyCode::Space))
+	{
+		MessageQueue.DispatchEvent<InteractMsg>();
 	}
 
 	if (Math::Length2(CurrentDirection) > 1.f)

@@ -13,10 +13,10 @@ namespace tree
 		void SetSpeed(float InSpeed);
 
 		void AttachController(const IController& InController);
-		void Tick(float InDT);
+		virtual void Tick(float InDT);
 
 		const sf::Vector2f& GetPosition() const;
-	private:
+	protected:
 		sf::Vector2f Position;
 		float Speed;
 		const IController* Controller;
