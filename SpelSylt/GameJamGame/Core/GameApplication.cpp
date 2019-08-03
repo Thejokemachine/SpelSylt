@@ -12,7 +12,7 @@ using namespace tree;
 void CGameApplication::SetUpWindow()
 {
 	CApplication::SetWindowTitle("Game");
-	CApplication::CreateWindow(1600, 900);
+	CApplication::CreateWindow(1920, 1080);
 }
 
 //------------------------------------------------------------------
@@ -20,7 +20,7 @@ void CGameApplication::SetUpWindow()
 void CGameApplication::PushStartUpStates()
 {
 	CApplication::PushState(std::make_shared<CTreeGameState>());
-	CApplication::PushState(std::make_shared<CInGameUIState>(1600, 900));
+	CApplication::PushState(std::make_shared<CInGameUIState>(1920, 1080));
 }
 
 //------------------------------------------------------------------

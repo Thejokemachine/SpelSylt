@@ -3,7 +3,9 @@
 #include <SpelSylt/GameState2D.h>
 
 #include "GameJamGame/Gameplay/Controller/ControllerContainer.h"
-#include "GameJamGame/Gameplay/Pawn.h"
+#include "GameJamGame/Gameplay/Player.h"
+
+#include "GameJamGame/Core/System.h"
 
 namespace tree
 {
@@ -17,7 +19,12 @@ namespace tree
 
 		void ReadPlayerPawnSpeedFromConfig();
 
-		CPawn PlayerPawn;
+		CPlayer PlayerPawn;
+
 		CControllerContainer Controllers;
+
+		std::vector<std::unique_ptr<ISystem>> Systems;
+
+		SS::CSprite AreaBG;
 	};
 }

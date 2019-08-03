@@ -26,7 +26,7 @@ CApplication::CApplication()
 	, Time()
 	, MessageQueue()
 	, AssetManager()
-	, AudioManager("Audio")
+	, AudioManager()
 	, GameContext(nullptr)
 {
 }

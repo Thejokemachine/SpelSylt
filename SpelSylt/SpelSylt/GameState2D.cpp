@@ -26,7 +26,8 @@ void GameState2D::Update(SGameContext & InGameContext)
 
 void GameState2D::Render(sf::RenderTarget & InTarget)
 {
-	myCamera.setSize((float)InTarget.getSize().x, (float)InTarget.getSize().y);
+	// Uncomment to use fixed-sized drawing.
+	//myCamera.setSize((float)InTarget.getSize().x, (float)InTarget.getSize().y);
 	InTarget.setView(myCamera);
 
 	OnRender(myRenderQueue);

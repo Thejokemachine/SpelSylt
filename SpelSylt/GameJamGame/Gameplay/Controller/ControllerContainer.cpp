@@ -21,7 +21,7 @@ CControllerContainer::CControllerContainer()
 
 //------------------------------------------------------------------
 
-CInputController& CControllerContainer::CreateInputController(const SS::IInputEventGetter& InInputHandler)
+CInputController& CControllerContainer::CreateInputController(const SS::IInputEventGetter& InInputHandler, SS::CMessageQueue& InMessageQueue)
 {
 #ifdef _DEBUG
 	if (!InputControllers.size() == MAX_INPUT_CONTROLLERS)
@@ -31,7 +31,7 @@ CInputController& CControllerContainer::CreateInputController(const SS::IInputEv
 	}
 #endif
 
-	InputControllers.emplace_back(InInputHandler);
+	InputControllers.emplace_back(CInputController{ InInputHandler, InMessageQueue });
 	AllControllers.push_back(&InputControllers.back());
 	return InputControllers.back();
 }
