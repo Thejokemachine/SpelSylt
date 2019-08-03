@@ -48,7 +48,16 @@ void CPawn::Tick(float InDT)
 
 //------------------------------------------------------------------
 
+void tree::CPawn::SetPositon(const sf::Vector2f& InPosition)
+{
+	Position = InPosition;
+}
+
+//------------------------------------------------------------------
+
 const sf::Vector2f& CPawn::GetPosition() const
 {
 	return Position;
 }
+
+//------------------------------------------------------------------

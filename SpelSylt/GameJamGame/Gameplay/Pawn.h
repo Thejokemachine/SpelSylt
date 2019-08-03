@@ -15,6 +15,7 @@ namespace tree
 		void AttachController(const IController& InController);
 		virtual void Tick(float InDT);
 
+		void SetPositon(const sf::Vector2f& InPosition);
 		const sf::Vector2f& GetPosition() const;
 	protected:
 		sf::Vector2f Position;
