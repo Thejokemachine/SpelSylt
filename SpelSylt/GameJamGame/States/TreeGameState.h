@@ -23,5 +23,6 @@ namespace tree
 		CControllerContainer Controllers;
 
 		std::unique_ptr<CTree> Tree = nullptr;
+		SS::CSprite AreaBG;
 	};
 }

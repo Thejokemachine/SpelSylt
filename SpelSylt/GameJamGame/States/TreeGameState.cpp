@@ -30,12 +30,20 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 
 	GetCamera().setCenter({ 0,0 });
 	GetCamera().setSize(1920.f, 1080.f);
+
+	AreaBG.SetTextureAsset(InGameContext.AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/area.png"));
+	AreaBG.setOrigin(960, 540);
 }
 
 //------------------------------------------------------------------
 
 void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 {
+	for (auto& system : Systems)
+	{
+		system->Update(InGameContext.Time.GetDeltaTime());
+	}
+
 	Controllers.Update();
 	PlayerPawn.Tick(InGameContext.Time.GetDeltaTime());
 
@@ -59,6 +67,8 @@ void CTreeGameState::OnRender(SS::CRenderQueue& InRenderQueue)
 	{
 		Tree->Render(InRenderQueue);
 	}
+	InRenderQueue.Enqueue(ERenderLayer::Background, SS::SSpriteRenderCommand(AreaBG));
+
 	myDebugDrawer.DrawCircle(PlayerPawn.GetPosition(), 32.f, true, sf::Color::Green);
 }
 
