@@ -15,6 +15,8 @@ DEFINE_MSG(HideWaterPrompt)
 DEFINE_MSG_ONEPARAM(FireWeaponMsg, sf::Vector2f)
 DEFINE_MSG_ONEPARAM(SwitchWeaponMsg, int)
 
+DEFINE_MSG_ONEPARAM(AmmoMsg, int)
+
 using FHitscanMessageParam = std::pair<sf::Vector2f, sf::Vector2f>;
 DEFINE_MSG_ONEPARAM(HitscanShotMsg, FHitscanMessageParam)
 

@@ -5,12 +5,14 @@
 #include <SpelSylt/Contexts/GameContext.h>
 #include <SpelSylt/Messaging/MessageQueue.h>
 #include <SpelSylt/Messaging/Messages/AudioMessages.h>
+#include "GameJamGame/Core/GameMessages.h"
 
 tree::ShotGun::ShotGun(SpelSylt::SGameContext& aGameContext) :
 	IHitScanWeapon(aGameContext)
 {
 	myRange = 500.f;
 	myTimer.SetDuration(1.f);
+	myAmmo = 100;
 }
 
 void tree::ShotGun::PrepareForShoot()
@@ -24,12 +26,20 @@ void tree::ShotGun::PrepareForShoot()
 	Math::Normalize(spread);
 	float s = 250.f * (l / 500.f);
 
-	for (int i = 0; i < 15; ++i)
+	int shots = Math::Min(myAmmo, 15);
+	if (myAmmo < 0)
+		shots = 15;
+	for (int i = 0; i < shots; ++i)
 	{
 		float amp = s * (-1.f + 2.f * ((rand() % 100) / 100.f));
 
 		AddShot(p, a + amp * spread);
+		if (myAmmo > 0)
+			--myAmmo;
 	}
 
-	myContext.MessageQueue.DispatchEvent<SSoundMessage>("shotgun");
+	if (shots > 0)
+		myContext.MessageQueue.DispatchEvent<SSoundMessage>("shotgun");
+
+	myContext.MessageQueue.DispatchEvent<AmmoMsg>(myAmmo);
 }

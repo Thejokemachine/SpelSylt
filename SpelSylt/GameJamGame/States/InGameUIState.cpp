@@ -27,6 +27,11 @@ void tree::CInGameUIState::OnInit(SGameContext & InGameContext)
 			myWaterPrompt->SetVisible(false);
 		}
 	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<AmmoMsg>([this](const auto& msg) {
+		if (auto label = myLayout->GetLabel("ammo")) {
+			label->SetText("AMMO: " + std::to_string(msg.Param));
+		}
+	}, mySubs);
 }
 
 void tree::CInGameUIState::OnUpdate(SGameContext & InGameContext)

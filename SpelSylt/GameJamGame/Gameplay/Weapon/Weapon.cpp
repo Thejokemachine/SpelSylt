@@ -2,7 +2,8 @@
 
 tree::IWeapon::IWeapon(SpelSylt::SGameContext& aGameContext) :
 	myContext(aGameContext),
-	myCanFire(true)
+	myCanFire(true),
+	myAmmo(-1)
 {
 	myTimer.Init(CTimedEvent::EType::Repeat, 0.f, [this]() {
 		myCanFire = true;

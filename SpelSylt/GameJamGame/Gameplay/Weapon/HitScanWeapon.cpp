@@ -6,6 +6,8 @@
 #include <SpelSylt/Rendering/RenderCommand.h>
 #include <SpelSylt/Rendering/RenderQueue.h>
 #include <SpelSylt/Contexts/GameContext.h>
+#include <SpelSylt/Messaging/MessageQueue.h>
+#include "GameJamGame/Core/GameMessages.h"
 
 tree::IHitScanWeapon::IHitScanWeapon(SpelSylt::SGameContext& aGameContext) :
 	IWeapon(aGameContext),
@@ -21,7 +23,7 @@ void tree::IHitScanWeapon::Shoot()
 
 	for (auto& line : myShotsThisFrame)
 	{
-		// Check against enemies
+		myContext.MessageQueue.DispatchEvent<HitscanShotMsg>(std::make_pair(line.first, line.second));
 	}
 	myShotsThisFrame.clear();
 
