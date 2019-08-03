@@ -25,7 +25,7 @@ CControllerContainer::CControllerContainer()
 CInputController& CControllerContainer::CreateInputController(const SS::IInputEventGetter& InInputHandler, SS::CMessageQueue& InMessageQueue)
 {
 #ifdef _DEBUG
-	if (!InputControllers.size() == MAX_INPUT_CONTROLLERS)
+	if (InputControllers.size() >= MAX_INPUT_CONTROLLERS)
 	{
 		LOG_ERROR(CInputController, "Input controller buffer full. Consider incrementing MAX_INPUT_CONTROLLERS macro");
 		assert(false);
@@ -42,7 +42,7 @@ CInputController& CControllerContainer::CreateInputController(const SS::IInputEv
 CAIController& tree::CControllerContainer::CreateAIController()
 {
 #ifdef _DEBUG
-	if (!AIControllers.size() == MAX_AI_CONTROLLERS)
+	if (AIControllers.size() >= MAX_AI_CONTROLLERS)
 	{
 		LOG_ERROR(CAIController, "AI controller buffer full. Consider incrementing MAX_AI_CONTROLLERS macro");
 		assert(false);

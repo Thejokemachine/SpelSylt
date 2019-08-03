@@ -142,6 +142,7 @@
     <ClCompile Include="Gameplay\Controller\AIController.cpp" />
     <ClCompile Include="Gameplay\Controller\ControllerContainer.cpp" />
     <ClCompile Include="Gameplay\Controller\InputController.cpp" />
+    <ClCompile Include="Gameplay\Enemy\EnemySpawner.cpp" />
     <ClCompile Include="Gameplay\Inventory\Inventory.cpp" />
     <ClCompile Include="Gameplay\Pawn.cpp" />
     <ClCompile Include="Gameplay\Player.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Gameplay\Controller\ControllerContainer.h" />
     <ClInclude Include="Gameplay\Controller\ControllerInterface.h" />
     <ClInclude Include="Gameplay\Controller\InputController.h" />
+    <ClInclude Include="Gameplay\Enemy\EnemySpawner.h" />
     <ClInclude Include="Gameplay\Inventory\Inventory.h" />
     <ClInclude Include="Gameplay\Pawn.h" />
     <ClInclude Include="Gameplay\Player.h" />

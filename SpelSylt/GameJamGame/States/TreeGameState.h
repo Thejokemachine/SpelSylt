@@ -10,6 +10,9 @@
 #include "GameJamGame/Gameplay/World/WorldState.h"
 #include "GameJamGame/Gameplay/World/ProbeConstructor.h"
 
+#include "GameJamGame/Gameplay/Enemy/EnemySpawner.h"
+#include <SpelSylt/Rendering/Sprite/Texture.h>
+
 namespace tree
 {
 	class CTreeGameState
@@ -30,11 +33,10 @@ namespace tree
 		CPlayer PlayerPawn;
 		FWorldObjectID PlayerWorldObjectID;
 
-		CPawn EnemyPawn;
-
 		std::vector<std::unique_ptr<ISystem>> Systems;
 
 		SS::CSprite AreaBG;
+		SS::CTexture EnemyTexture;
 
 		CWorldState WorldState;
 	};
