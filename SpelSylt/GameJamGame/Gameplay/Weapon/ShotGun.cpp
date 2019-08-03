@@ -38,8 +38,10 @@ void tree::ShotGun::PrepareForShoot()
 			--myAmmo;
 	}
 
-	if (shots > 0)
-		myContext.MessageQueue.DispatchEvent<SSoundMessage>("shotgun");
+	std::string alias = "shotgun";
+	if (shots <= 0)
+		alias.append("_empty");
 
+	myContext.MessageQueue.DispatchEvent<SSoundMessage>(alias);
 	myContext.MessageQueue.DispatchEvent<AmmoMsg>(myAmmo);
 }
