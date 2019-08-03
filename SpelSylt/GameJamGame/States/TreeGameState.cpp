@@ -16,6 +16,7 @@
 #include "GameJamGame/Gameplay/Tree/Tree.h"
 #include "GameJamGame/Gameplay/WaterSpawner.h"
 #include "GameJamGame/Gameplay/Inventory/Inventory.h"
+#include "GameJamGame/Gameplay/Weapon/WeaponSystem.h"
 
 //------------------------------------------------------------------
 
@@ -41,6 +42,7 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	Systems.emplace_back(std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
 	Systems.emplace_back(std::make_unique<CWaterSpawner>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
 	Systems.emplace_back(std::make_unique<CInventory>(InGameContext.MessageQueue));
+	Systems.emplace_back(std::make_unique<CWeaponSystem>(myDebugDrawer, InGameContext, PlayerPawn));
 	Systems.emplace_back(std::make_unique<CEnemySpawner>(Controllers));
 	CEnemySpawner* EnemySpawner = reinterpret_cast<CEnemySpawner*>(Systems.back().get());
 

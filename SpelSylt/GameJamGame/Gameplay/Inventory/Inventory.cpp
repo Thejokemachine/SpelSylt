@@ -7,9 +7,10 @@
 
 tree::CInventory::CInventory(SpelSylt::CMessageQueue & aMessageQueue)
 {
-	aMessageQueue.Subscribe<PickedUpWater>([this](const auto& msg) {
+	aMessageQueue.Subscribe<PickedUpWater>([this, &aMessageQueue](const auto& msg) {
 		myRefilledThisFrame = true;
 		myHasWater = true;
+		aMessageQueue.DispatchEvent<SSoundMessage>("water_fill");
 	}, mySubs);
 
 	aMessageQueue.Subscribe<InteractMsg>([this, &aMessageQueue](const auto& msg) {
@@ -17,7 +18,7 @@ tree::CInventory::CInventory(SpelSylt::CMessageQueue & aMessageQueue)
 		{
 			myHasWater = false;
 			aMessageQueue.DispatchEvent<WaterMsg>();
-			aMessageQueue.DispatchEvent<SSoundMessage>("water_can");
+			aMessageQueue.DispatchEvent<SSoundMessage>("water_pour");
 		}
 	}, mySubs);
 }

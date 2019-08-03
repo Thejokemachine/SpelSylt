@@ -151,6 +151,10 @@
     <ClCompile Include="Gameplay\World\ProbeConstructor.cpp" />
     <ClCompile Include="Gameplay\World\WorldProbe.cpp" />
     <ClCompile Include="Gameplay\World\WorldState.cpp" />
+    <ClCompile Include="Gameplay\Weapon\HitScanWeapon.cpp" />
+    <ClCompile Include="Gameplay\Weapon\ShotGun.cpp" />
+    <ClCompile Include="Gameplay\Weapon\Weapon.cpp" />
+    <ClCompile Include="Gameplay\Weapon\WeaponSystem.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="States\InGameUIState.cpp" />
     <ClCompile Include="States\TreeGameState.cpp" />
@@ -174,6 +178,10 @@
     <ClInclude Include="Gameplay\World\WorldProbe.h" />
     <ClInclude Include="Gameplay\World\WorldState.h" />
     <ClInclude Include="Gameplay\World\WorldObject.h" />
+    <ClInclude Include="Gameplay\Weapon\HitScanWeapon.h" />
+    <ClInclude Include="Gameplay\Weapon\ShotGun.h" />
+    <ClInclude Include="Gameplay\Weapon\Weapon.h" />
+    <ClInclude Include="Gameplay\Weapon\WeaponSystem.h" />
     <ClInclude Include="States\InGameUIState.h" />
     <ClInclude Include="States\TreeGameState.h" />
   </ItemGroup>

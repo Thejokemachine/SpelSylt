@@ -46,6 +46,22 @@ void CInputController::Update()
 	{
 		MessageQueue.DispatchEvent<InteractMsg>();
 	}
+	if (InputGetter.IsKeyDown(EKeyCode::MouseLeft))
+	{
+		MessageQueue.DispatchEvent<FireWeaponMsg>(InputGetter.GetMousePosFloat());
+	}
+	if (InputGetter.IsKeyDown(EKeyCode::One))
+	{
+		MessageQueue.DispatchEvent<SwitchWeaponMsg>(0);
+	}
+	if (InputGetter.IsKeyDown(EKeyCode::Two))
+	{
+		MessageQueue.DispatchEvent<SwitchWeaponMsg>(1);
+	}
+	if (InputGetter.IsKeyDown(EKeyCode::Three))
+	{
+		MessageQueue.DispatchEvent<SwitchWeaponMsg>(2);
+	}
 
 	if (Math::Length2(CurrentDirection) > 1.f)
 	{
