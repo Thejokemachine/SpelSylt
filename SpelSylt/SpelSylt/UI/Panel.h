@@ -43,6 +43,8 @@ namespace UI
 		float GetY() const { return top; }
 		virtual float GetWidth() const { return width; }
 		virtual float GetHeight() const { return height; }
+		const sf::Color& GetColor() const { return myColor; }
+		bool IsVisible() const { return myVisible; }
 		Panel* GetPanel(const std::string& aName);
 		// ---------------------------------------------
 
@@ -50,6 +52,7 @@ namespace UI
 		void SetImage(const std::string& aImage, bool aAbsolutePath = false);
 		void SetColor(const sf::Color& aColor);
 		void SetBounds(float x, float y, float width, float height);
+		void SetVisible(bool aVisible);
 		// ---------------------------------------------
 
 		void AddPanel(std::shared_ptr<Panel> aPanel);
@@ -91,7 +94,7 @@ namespace UI
 		float myX;
 		float myY;
 
-
+		bool myVisible = true;
 		bool myIsDirty = false;
 	};
 

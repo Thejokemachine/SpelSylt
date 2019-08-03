@@ -42,6 +42,7 @@ myHoveredColor(sf::Color::White)
 	XMLUtilities::QueryAttribute(myXMLElement, "image", image);
 	XMLUtilities::QueryAttribute(myXMLElement, "color", colorValue);
 	XMLUtilities::QueryAttribute(myXMLElement, "scissor", myIsScissor);
+	XMLUtilities::QueryAttribute(myXMLElement, "visible", myVisible);
 
 	myDockFlags = UIUtilities::EvaluateDockingFlags(dockFlagsValue);
 	myColor = UIUtilities::EvaluateColor(colorValue);
@@ -108,6 +109,11 @@ void UI::Panel::SetBounds(float x, float y, float width, float height)
 	ForEachChild([](Panel& p) {
 		p.Layout();
 	});
+}
+
+void UI::Panel::SetVisible(bool aVisible)
+{
+	myVisible = aVisible;
 }
 
 void Panel::AddPanel(std::shared_ptr<Panel> aPanel)
@@ -199,6 +205,9 @@ void Panel::Update(const float dt)
 
 void Panel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
+	if (!myVisible)
+		return;
+
 	if (myIsScissor)
 	{
 		RenderingScissor::EnableScissor(true);

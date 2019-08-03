@@ -23,8 +23,10 @@ namespace UI
 		//float GetWidth() const override { return myText.getLocalBounds().width + myText.getLocalBounds().left; }
 		//float GetHeight() const override { return myText.getLocalBounds().height + myText.getLocalBounds().top; }
 		std::string GetText() const { return myText.getString(); }
+		const sf::Color& GetTextColor() const { return myText.getFillColor(); }
 
 		void SetText(const std::string& aText);
+		void SetTextColor(const sf::Color& aColor);
 
 		virtual void onLayout() override;
 

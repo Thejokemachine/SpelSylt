@@ -55,6 +55,11 @@ void UI::Label::SetText(const std::string & aText)
 	myText.SetString(aText.c_str());
 }
 
+void UI::Label::SetTextColor(const sf::Color & aColor)
+{
+	myText.setFillColor(aColor);
+}
+
 void UI::Label::onLayout()
 {
 	sf::Vector2f dockOffset;
