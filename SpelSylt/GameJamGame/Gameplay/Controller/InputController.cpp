@@ -26,19 +26,19 @@ void CInputController::Update()
 	CurrentDirection.x = 0.f;
 	CurrentDirection.y = 0.f;
 
-	if (InputGetter.IsKeyDown(EKeyCode::Up))
+	if (InputGetter.IsKeyDown(EKeyCode::Up) || InputGetter.IsKeyDown(EKeyCode::W))
 	{
 		CurrentDirection.y -= 1;
 	}
-	if (InputGetter.IsKeyDown(EKeyCode::Down))
+	if (InputGetter.IsKeyDown(EKeyCode::Down) || InputGetter.IsKeyDown(EKeyCode::S))
 	{
 		CurrentDirection.y += 1;
 	}
-	if (InputGetter.IsKeyDown(EKeyCode::Right))
+	if (InputGetter.IsKeyDown(EKeyCode::Right) || InputGetter.IsKeyDown(EKeyCode::D))
 	{
 		CurrentDirection.x += 1;
 	}
-	if(InputGetter.IsKeyDown(EKeyCode::Left))
+	if(InputGetter.IsKeyDown(EKeyCode::Left) || InputGetter.IsKeyDown(EKeyCode::A))
 	{
 		CurrentDirection.x -= 1;
 	}
