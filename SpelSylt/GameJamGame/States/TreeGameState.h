@@ -5,9 +5,6 @@
 #include "GameJamGame/Gameplay/Controller/ControllerContainer.h"
 #include "GameJamGame/Gameplay/Player.h"
 
-#include "GameJamGame/Gameplay/Tree/Tree.h"
-#include "GameJamGame/Gameplay/WaterSpawner.h"
-
 #include "GameJamGame/Core/System.h"
 
 namespace tree

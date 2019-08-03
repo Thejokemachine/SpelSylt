@@ -25,13 +25,13 @@ CTree::CTree(SS::CMessageQueue & aMsgQueue, SS::CAssetManager& aAssetManager, co
 		mySprites[i].setOrigin(256, 512);
 	}
 
-	myMsgQueue.Subscribe<InteractMsg>([this](const auto& msg) {
+	myMsgQueue.Subscribe<WaterMsg>([this](const auto& msg) {
 		float distToPlayer = Math::Length2(myPlayerPawn.GetPosition());
 		if (distToPlayer < 100.f * 100.f)
 		{
 			LOG_LOG(hej, "Watered the tree.");
 			myWaterLevel += 10; // Balance how much water per level is needed. Exponential?
-			myCurrentLevel = Math::Clamp(myWaterLevel / 20, 0, 4);
+			myCurrentLevel = Math::Clamp(myWaterLevel / 10, 0, 4);
 		}
 	}, mySubs);
 }

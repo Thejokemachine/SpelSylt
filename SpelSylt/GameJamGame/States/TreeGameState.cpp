@@ -13,6 +13,10 @@
 #include <SpelSylt/FileHandling/FileWatcher.h>
 #include <SpelSylt/Math/CommonMath.h>
 
+#include "GameJamGame/Gameplay/Tree/Tree.h"
+#include "GameJamGame/Gameplay/WaterSpawner.h"
+#include "GameJamGame/Gameplay/Inventory/Inventory.h"
+
 //------------------------------------------------------------------
 
 using namespace tree;
@@ -23,6 +27,7 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
 	Systems.emplace_back(std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
 	Systems.emplace_back(std::make_unique<CWaterSpawner>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
+	Systems.emplace_back(std::make_unique<CInventory>(InGameContext.MessageQueue));
 	
 	PlayerPawn.AttachController(Controllers.CreateInputController(InGameContext.Input, InGameContext.MessageQueue));
 

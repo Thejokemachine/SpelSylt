@@ -3,6 +3,7 @@
 
 #include <SpelSylt/Rendering/Sprite/Sprite.h>
 #include <SpelSylt/Utility/TimedEvent.h>
+#include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
 
 namespace SpelSylt
 {
@@ -25,12 +26,15 @@ namespace tree
 		virtual void Render(SpelSylt::CRenderQueue& aRenderQueue) override;
 
 	private:
-
 		void SpawnWater();
+		void DespawnWater();
+
+		bool myIsPaused;
 
 		CTimedEvent myTimer;
 		SS::CSprite myWater;
 
+		SS::CSubscriptions mySubs;
 
 		const CPawn& myPlayerPawn;
 	};
