@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\AnimationSequencer.cpp" />
     <ClCompile Include="Core\GameApplication.cpp" />
     <ClCompile Include="Gameplay\Controller\AIController.cpp" />
     <ClCompile Include="Gameplay\Controller\ControllerContainer.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="States\TreeGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\AnimationSequencer.h" />
     <ClInclude Include="Core\GameApplication.h" />
     <ClInclude Include="Core\GameMessages.h" />
     <ClInclude Include="Core\System.h" />

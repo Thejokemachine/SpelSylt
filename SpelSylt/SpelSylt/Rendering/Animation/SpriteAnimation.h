@@ -12,6 +12,12 @@ namespace SpelSylt
 {
 	struct SAnimationAsset;
 
+	enum class EAnimationPlayType
+	{
+		OneShot,
+		Looping,
+	};
+
 	class CSpriteAnimation
 		: public sf::Sprite
 	{
@@ -20,6 +26,9 @@ namespace SpelSylt
 
 		void operator=(const CSpriteAnimation& InRHS);
 		void operator=(const SAnimationAsset& InRHS);
+
+		void SetPlayType(EAnimationPlayType InPlayType);
+		bool IsFinished() const;
 
 		void setTexture(const sf::Texture& texture, bool resetRect /* = false */) = delete;
 
@@ -35,9 +44,11 @@ namespace SpelSylt
 		unsigned int CurrentFrame;
 		unsigned int MaxFrames;
 
+		EAnimationPlayType PlayType;
 		const SAnimationAsset* AnimationAsset;
 
 		bool DataLoaded : 1;
+		bool FinishedPlaying : 1;
 	};
 }
 
