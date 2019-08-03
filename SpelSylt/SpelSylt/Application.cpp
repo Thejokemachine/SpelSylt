@@ -81,7 +81,7 @@ void CApplication::CreateWindow(unsigned int InWindowW, unsigned int InWindowH, 
 	vm.bitsPerPixel = 32;
 
 	Window.create(vm, "SpelSylt Application");
-	Window.setFramerateLimit(60u);
+	//Window.setFramerateLimit(60u);
 }
 
 //------------------------------------------------------------------
