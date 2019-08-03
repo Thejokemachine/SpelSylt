@@ -76,12 +76,14 @@ void CAudioManager::PlaySound(const std::string& aAlias, sf::Sound * aSoundHandl
 		{
 			aSoundHandle->setBuffer(mySoundBuffers.at(aAlias));
 			aSoundHandle->play();
+			aSoundHandle->setVolume(25);
 		}
 		else
 		{
 			mySoundHandles.push_back(new sf::Sound());
 			mySoundHandles.back()->setBuffer(mySoundBuffers.at(aAlias));
 			mySoundHandles.back()->play();
+			mySoundHandles.back()->setVolume(25);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-#include "ShotGun.h"
+#include "HandGun.h"
 #include "GameJamGame/Gameplay/Weapon/WeaponSystem.h"
 
 #include <SpelSylt/Math/CommonMath.h>
@@ -7,15 +7,15 @@
 #include <SpelSylt/Messaging/Messages/AudioMessages.h>
 #include "GameJamGame/Core/GameMessages.h"
 
-tree::ShotGun::ShotGun(SpelSylt::SGameContext& aGameContext) :
+tree::HandGun::HandGun(SpelSylt::SGameContext & aGameContext) :
 	IHitScanWeapon(aGameContext)
 {
-	myRange = 500.f;
-	myTimer.SetDuration(1.f);
+	myRange = 750.f;
+	myTimer.SetDuration(0.35f);
 	myAmmo = -1;
 }
 
-void tree::ShotGun::PrepareForShoot()
+void tree::HandGun::PrepareForShoot()
 {
 	sf::Vector2f p = WeaponSystem->GetPlayerPos();
 	sf::Vector2f a = WeaponSystem->GetAimPos();
@@ -24,23 +24,19 @@ void tree::ShotGun::PrepareForShoot()
 	float l = Math::Length(dir);
 	sf::Vector2f spread(dir.y, -dir.x);
 	Math::Normalize(spread);
-	float s = 250.f * (l / myRange);
+	float s = 50.f * (l / myRange);
 
-	int shots = Math::Min(myAmmo, 15);
+	int shots = Math::Min(myAmmo, 1);
 	if (myAmmo < 0)
-		shots = 15;
-	for (int i = 0; i < shots; ++i)
-	{
-		float amp = s * (-1.f + 2.f * ((rand() % 100) / 100.f));
+		shots = 1;
 
-		AddShot(p, a + amp * spread);
-		if (myAmmo > 0)
-			--myAmmo;
-	}
+	float amp = s * (-1.f + 2.f * ((rand() % 100) / 100.f));
 
-	std::string alias = "shotgun";
-	if (shots <= 0)
-		alias.append("_empty");
+	AddShot(p, a + amp * spread);
+	if (myAmmo > 0)
+		--myAmmo;
+
+	std::string alias = "handgun";
 
 	myContext.MessageQueue.DispatchEvent<SSoundMessage>(alias);
 	myContext.MessageQueue.DispatchEvent<AmmoMsg>(myAmmo);
