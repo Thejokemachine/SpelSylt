@@ -4,6 +4,16 @@
 
 #include "GameJamGame/Core/GameApplication.h"
 
+//#define FPS_PROFILING_ENABLED
+
+#ifdef FPS_PROFILING_ENABLED
+#include "ittnotify.h"
+
+#pragma comment(lib, "jitprofiling")
+#pragma comment(lib, "libittnotify")
+#pragma comment(lib, "prog_api")
+#endif
+
 void LoggingSetup()
 {
 	/*
@@ -28,9 +38,27 @@ int main()
 {
 	LoggingSetup();
 
+#ifdef FPS_PROFILING_ENABLED
+	__itt_domain* Domain = __itt_domain_create("SpelSyltDomain");
+	Domain->flags = 1;
+#endif
+
 	tree::CGameApplication GameApplication;
 	GameApplication.Initialize();
-	while (GameApplication.Run());
+
+	bool ShouldRun = true;
+	while (ShouldRun)
+	{
+#ifdef FPS_PROFILING_ENABLED
+		__itt_frame_begin_v3(Domain, NULL);
+#endif
+
+		ShouldRun = GameApplication.Run();
+
+#ifdef FPS_PROFILING_ENABLED
+		__itt_frame_end_v3(Domain, NULL);
+#endif
+	}
 
 	return 0;
 }
