@@ -29,14 +29,17 @@ void CAsyncLoader::Load(const char* InPath, SBaseAsset& InTo)
 
 bool CAsyncLoader::ShouldWork() const
 {
-	return LoadBuffers.GetWriteBufferSize() != 0;
+	return LoadBuffers.GetWriteBufferSize() != 0 || LoadBuffers.GetReadBufferSize() != 0;
 }
 
 //------------------------------------------------------------------
 
 void CAsyncLoader::DoWork()
 {
-	LoadBuffers.Swap();
+	if (LoadBuffers.GetReadBuffer().size() == 0)
+	{
+		LoadBuffers.Swap();
+	}
 	
 	auto& LoadQueue = LoadBuffers.GetReadBuffer();
 	

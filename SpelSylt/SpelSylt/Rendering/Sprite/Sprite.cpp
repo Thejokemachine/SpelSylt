@@ -35,12 +35,13 @@ void SpelSylt::CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) 
 
 	if (TextureAsset->GetLoadStatus() == ELoadRequestStatus::Done)
 	{
+		Sprite = *this;
 		Sprite.setTexture(*TextureAsset, true);
-		Sprite.setPosition(getPosition());
-		Sprite.setOrigin(getOrigin());
-		Sprite.setScale(getScale());
-		Sprite.setRotation(getRotation());
-		Sprite.setColor(sf::Color::White);
+		//Sprite.setPosition(getPosition());
+		//Sprite.setOrigin(getOrigin());
+		//Sprite.setScale(getScale());
+		//Sprite.setRotation(getRotation());
+		//Sprite.setColor(sf::Color::White);
 		if (getTextureRect().width > 0) { Sprite.setTextureRect(getTextureRect()); }
 		Drawable = &Sprite;
 	}
