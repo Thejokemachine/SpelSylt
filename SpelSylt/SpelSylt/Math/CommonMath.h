@@ -11,6 +11,12 @@
 namespace Math
 {
 	template<typename T>
+	T Sign(T aValue)
+	{
+		return aValue > 0 ? 1 : -1;
+	}
+
+	template<typename T>
 	T Max(T aValue0, T aValue1)
 	{
 		return MAX(aValue0, aValue1);
