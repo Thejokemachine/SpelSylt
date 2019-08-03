@@ -45,7 +45,7 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	CEnemySpawner* EnemySpawner = reinterpret_cast<CEnemySpawner*>(Systems.back().get());
 
 	PlayerPawn.AttachController(Controllers.CreateInputController(InGameContext.Input, InGameContext.MessageQueue));
-	PlayerWorldObjectID = WorldState.AddToWorld<CPlayer>(PlayerPawn.GetPosition(), { 32.f, 32.f });
+	PlayerWorldObjectID = WorldState.AddToWorld<CTree>({0.f, 0.f}, { 32.f, 32.f });
 
 	ReadPlayerPawnSpeedFromConfig();
 
@@ -70,7 +70,7 @@ void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 		system->Update(InGameContext.Time.GetDeltaTime());
 	}
 
-	WorldState.SetWorldObjectPosition(PlayerWorldObjectID, PlayerPawn.GetPosition());
+	//WorldState.SetWorldObjectPosition(PlayerWorldObjectID, PlayerPawn.GetPosition());
 
 	Controllers.Update();
 	PlayerPawn.Tick(InGameContext.Time.GetDeltaTime());

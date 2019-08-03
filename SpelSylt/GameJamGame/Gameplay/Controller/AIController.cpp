@@ -2,7 +2,7 @@
 
 #include "GameJamGame/Gameplay/World/WorldProbe.h"
 
-#include "GameJamGame/Gameplay/Player.h"
+#include "GameJamGame/Gameplay/Tree/Tree.h"
 #include "GameJamGame/Gameplay/Pawn.h"
 
 #include "GameJamGame/Gameplay/World/ProbeConstructor.h"
@@ -22,7 +22,7 @@ CAIController::CAIController()
 	, Direction(0.f, 0.f)
 	, Target(0.f, 0.f)
 {
-	Probe.AddFilter<CPlayer>();
+	Probe.AddFilter<CTree>();
 }
 
 //------------------------------------------------------------------

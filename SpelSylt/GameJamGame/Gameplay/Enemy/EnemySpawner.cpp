@@ -6,6 +6,8 @@
 
 #include "GameJamGame/Gameplay/Controller/ControllerContainer.h"
 
+#include "GameJamGame/Core/WindowDefines.h"
+
 //------------------------------------------------------------------
 
 using namespace tree;
@@ -75,7 +77,40 @@ void CEnemySpawner::SpawnEnemy()
 	CPawn& NextEnemy = SimpleEnemyList[NextSimpleEnemy];
 	NextSimpleEnemy++;
 
-	NextEnemy.SetPositon({ 1920.f / 2.f, 1080.f / 2.f }); //Todo: Should be random
+	int RandomVal = rand() % 8;
+
+	sf::Vector2f PositionToSpawn = { 0.f, 0.f };
+
+	switch (RandomVal)
+	{
+	case 0:
+		PositionToSpawn = POS_TOP_LEFT;
+		break;
+	case 1:
+		PositionToSpawn = POS_TOP_CENTER;
+		break;
+	case 2:
+		PositionToSpawn = POS_TOP_RIGHT;
+		break;
+	case 3:
+		PositionToSpawn = POS_CENTER_RIGHT;
+		break;
+	case 4:
+		PositionToSpawn = POS_BOT_RIGHT;
+		break;
+	case 5:
+		PositionToSpawn = POS_BOT_CENTER;
+		break;
+	case 6:
+		PositionToSpawn = POS_BOT_LEFT;
+		break;
+	case 7:
+		PositionToSpawn = POS_CENTER_LEFT;
+	default:
+		break;
+	}
+
+	NextEnemy.SetPositon(PositionToSpawn); //Todo: Should be random
 
 	ActiveEnemies.push_back(&NextEnemy);
 }
