@@ -27,6 +27,13 @@ void CAsyncLoader::Load(const char* InPath, SBaseAsset& InTo)
 
 //------------------------------------------------------------------
 
+bool CAsyncLoader::ShouldWork() const
+{
+	return LoadBuffers.GetWriteBufferSize() != 0;
+}
+
+//------------------------------------------------------------------
+
 void CAsyncLoader::DoWork()
 {
 	LoadBuffers.Swap();

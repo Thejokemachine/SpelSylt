@@ -12,6 +12,7 @@ namespace SpelSylt
 
 		std::vector<TElementType>& GetReadBuffer();
 		std::vector<TElementType>& GetWriteBuffer();
+		size_t GetWriteBufferSize() const;
 	private:
 		std::vector<TElementType> Buffers[2];
 		std::vector<TElementType> V1;
@@ -60,6 +61,14 @@ std::vector<TElementType>& SpelSylt::CDoubleBuffer<TElementType>::GetReadBuffer(
 {
 	//return V2;
 	return Buffers[CurrentReadBuffer];
+}
+
+//------------------------------------------------------------------
+
+template<typename TElementType>
+inline size_t SpelSylt::CDoubleBuffer<TElementType>::GetWriteBufferSize() const
+{
+	return Buffers[CurrentWriteBuffer].size();
 }
 
 //------------------------------------------------------------------

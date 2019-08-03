@@ -35,6 +35,7 @@ namespace SpelSylt
 		CAsyncLoader();
 
 		//Begin CAsyncWorker
+		virtual bool ShouldWork() const override;
 		virtual void DoWork() override;
 		//End CAsyncWorker
 

@@ -7,7 +7,7 @@ namespace SpelSylt
 	{
 	public:
 		CAsyncWorker();
-		bool ShouldWork() const;
+		virtual bool ShouldWork() const;
 		virtual void DoWork();
 		void EndWork();
 	protected:
