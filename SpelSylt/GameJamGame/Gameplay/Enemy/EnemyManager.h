@@ -44,7 +44,6 @@ namespace tree
 		SpelSylt::SGameContext& GameContext;
 
 		SS::CTexture SimpleEnemyTexture;
-		SS::CSpriteAnimation SplatterAnimation;
 
 		float TimeBetweenSpawns;
 		float TimeUntilNextSpawn;

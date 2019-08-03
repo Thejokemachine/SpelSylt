@@ -17,6 +17,8 @@ CSpriteAnimation::CSpriteAnimation()
 	, MaxFrames(0)
 	, AnimationAsset(nullptr)
 	, DataLoaded(false)
+	, PlayType(EAnimationPlayType::Looping)
+	, FinishedPlaying(false)
 {
 }
 
@@ -29,6 +31,7 @@ void CSpriteAnimation::operator=(const CSpriteAnimation& InRHS)
 	CurrentFrame = InRHS.CurrentFrame;
 	MaxFrames = InRHS.MaxFrames;
 	DataLoaded = InRHS.DataLoaded;
+	PlayType = InRHS.PlayType;
 }
 
 //------------------------------------------------------------------
@@ -36,6 +39,20 @@ void CSpriteAnimation::operator=(const CSpriteAnimation& InRHS)
 void CSpriteAnimation::operator=(const SAnimationAsset& InRHS)
 {
 	AnimationAsset = &InRHS;
+}
+
+//------------------------------------------------------------------
+
+void CSpriteAnimation::SetPlayType(EAnimationPlayType InPlayType)
+{
+	PlayType = InPlayType;
+}
+
+//------------------------------------------------------------------
+
+bool CSpriteAnimation::IsFinished() const
+{
+	return FinishedPlaying;
 }
 
 //------------------------------------------------------------------
@@ -65,6 +82,11 @@ void CSpriteAnimation::Tick(float InDeltaTime)
 
 		//We can load the Data
 		LoadData();
+	}
+
+	if (FinishedPlaying)
+	{
+		return;
 	}
 
 	TimeUntilNextFrame -= InDeltaTime;
@@ -116,6 +138,13 @@ void CSpriteAnimation::IncrementFrame()
 {
 	CurrentFrame++;
 	CurrentFrame %= MaxFrames;
+	if (PlayType == EAnimationPlayType::OneShot && CurrentFrame == 0)
+	{
+		FinishedPlaying = true;
+		return;
+	}
+
+
 	TimeUntilNextFrame = AnimationAsset->GetAnimationData().Frames[CurrentFrame].Time;
 }
 

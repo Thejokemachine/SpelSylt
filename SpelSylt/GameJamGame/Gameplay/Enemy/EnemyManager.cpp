@@ -18,6 +18,8 @@
 
 #include <SpelSylt/Debugging/Logging/DebugLogger.h>
 
+#include "GameJamGame/Core/AnimationSequencer.h"
+
 //------------------------------------------------------------------
 
 using namespace tree;
@@ -41,8 +43,6 @@ CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSy
 	}
 
 	InGameContext.MessageQueue.Subscribe<HitscanShotMsg>([this](auto & Msg) { OnHitscanMsg(Msg); }, Subscriptions);
-
-	SplatterAnimation = InGameContext.AssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/splatter.anmbndl");
 }
 
 //------------------------------------------------------------------
@@ -57,8 +57,6 @@ void CEnemyManager::SetTexture(SS::CTexture& InTexture)
 void CEnemyManager::Update(float InDT)
 {
 	TimeUntilNextSpawn -= InDT;
-
-	SplatterAnimation.Tick(InDT);
 
 	if (TimeUntilNextSpawn <= 0.f)
 	{
@@ -83,8 +81,6 @@ void CEnemyManager::Render(SpelSylt::CRenderQueue& aRenderQueue)
 		Sprite.setPosition(ActiveEnemyPawn->GetPawn().GetPosition());
 		aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteRenderCommand(Sprite));
 	}
-
-	aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteAnimationRenderCommand(SplatterAnimation));
 }
 
 //------------------------------------------------------------------
@@ -95,6 +91,7 @@ void CEnemyManager::SpawnEnemy()
 
 	CEnemy& NextEnemy = SimpleEnemyList[NextSimpleEnemy];
 	NextSimpleEnemy++;
+	NextSimpleEnemy %= MAX_SIMPLE_ENEMY_TYPE;
 
 	int RandomVal = rand() % 8;
 
@@ -145,7 +142,7 @@ void CEnemyManager::KillEnemies(std::vector<int>& InEnemiesMarkedForKill)
 	for (int IndexToErase : InEnemiesMarkedForKill)
 	{
 		IndexToErase -= ErasedCount;
-		SplatterAnimation.setPosition(ActiveEnemies[IndexToErase]->GetPawn().GetPosition());
+		CAnimationSequencer::PlayAnimationAtPosition("Graphics/Animations/splatter.anmbndl", ActiveEnemies[IndexToErase]->GetPawn().GetPosition());
 		ActiveEnemies.erase(ActiveEnemies.begin() + IndexToErase);
 		ErasedCount++;
 	}
