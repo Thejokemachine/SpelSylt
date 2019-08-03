@@ -57,6 +57,15 @@ bool CSpriteAnimation::IsFinished() const
 
 //------------------------------------------------------------------
 
+void SpelSylt::CSpriteAnimation::Restart()
+{
+	FinishedPlaying = false;
+	CurrentFrame = 0;
+	TimeUntilNextFrame = AnimationAsset->GetAnimationData().Frames[0].Time;
+}
+
+//------------------------------------------------------------------
+
 sf::Vector2u CSpriteAnimation::GetFrameSize() const
 {
 	if (AnimationAsset->GetLoadStatus() == ELoadRequestStatus::Done)

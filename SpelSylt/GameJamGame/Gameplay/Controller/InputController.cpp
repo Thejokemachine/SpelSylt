@@ -6,6 +6,8 @@
 #include <SpelSylt/Messaging/MessageQueue.h>
 #include "GameJamGame/Core/GameMessages.h"
 
+#include "GameJamGame/Gameplay/Pawn.h"
+
 //------------------------------------------------------------------
 
 using namespace tree;
@@ -15,32 +17,40 @@ using namespace tree;
 CInputController::CInputController(const SS::IInputEventGetter& InInputGetter, SpelSylt::CMessageQueue& InMessageQueue)
 	: InputGetter(InInputGetter)
 	, MessageQueue(InMessageQueue)
-	, CurrentDirection(0.f, 0.f)
+	, CurrentVelocity(0.f, 0.f)
 {
+}
+
+//------------------------------------------------------------------
+
+void CInputController::RegisterPawn(const CPawn& InPawn) const
+{
+	OwningPawn = &InPawn;
 }
 
 //------------------------------------------------------------------
 
 void CInputController::Update()
 {
-	CurrentDirection.x = 0.f;
-	CurrentDirection.y = 0.f;
+	const float Speed = OwningPawn->GetSpeed();
+
+	CurrentVelocity = { 0.f, 0.f };
 
 	if (InputGetter.IsKeyDown(EKeyCode::Up) || InputGetter.IsKeyDown(EKeyCode::W))
 	{
-		CurrentDirection.y -= 1;
+		CurrentVelocity.y -= 1;
 	}
 	if (InputGetter.IsKeyDown(EKeyCode::Down) || InputGetter.IsKeyDown(EKeyCode::S))
 	{
-		CurrentDirection.y += 1;
+		CurrentVelocity.y += 1;
 	}
 	if (InputGetter.IsKeyDown(EKeyCode::Right) || InputGetter.IsKeyDown(EKeyCode::D))
 	{
-		CurrentDirection.x += 1;
+		CurrentVelocity.x += 1;
 	}
 	if(InputGetter.IsKeyDown(EKeyCode::Left) || InputGetter.IsKeyDown(EKeyCode::A))
 	{
-		CurrentDirection.x -= 1;
+		CurrentVelocity.x -= 1;
 	}
 	if (InputGetter.IsKeyPressed(EKeyCode::Space))
 	{
@@ -63,17 +73,19 @@ void CInputController::Update()
 		MessageQueue.DispatchEvent<SwitchWeaponMsg>(2);
 	}
 
-	if (Math::Length2(CurrentDirection) > 1.f)
+	if (Math::Length2(CurrentVelocity) > 1.f)
 	{
-		Math::Normalize(CurrentDirection);
+		Math::Normalize(CurrentVelocity);
 	}
+
+	CurrentVelocity *= Speed;
 }
 
 //------------------------------------------------------------------
 
-const sf::Vector2f& tree::CInputController::GetDirection() const
+const sf::Vector2f& tree::CInputController::GetVelocity() const
 {
-	return CurrentDirection;
+	return CurrentVelocity;
 }
 
 //------------------------------------------------------------------

@@ -11,6 +11,7 @@ namespace tree
 		CPawn();
 
 		void SetSpeed(float InSpeed);
+		float GetSpeed() const;
 
 		void AttachController(const IController& InController);
 		virtual void Tick(float InDT);

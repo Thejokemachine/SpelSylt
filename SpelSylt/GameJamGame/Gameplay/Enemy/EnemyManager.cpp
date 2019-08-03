@@ -20,16 +20,19 @@
 
 #include "GameJamGame/Core/AnimationSequencer.h"
 
+#include <SpelSylt/Messaging/Messages/AudioMessages.h>
+
 //------------------------------------------------------------------
 
 using namespace tree;
 
 //------------------------------------------------------------------
 
-CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext)
+CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext, CWorldState& InWorldState)
 	: GameContext(InGameContext)
+	, WorldState(InWorldState)
 {
-	TimeBetweenSpawns = 5.f;
+	TimeBetweenSpawns = 1.f;
 	TimeUntilNextSpawn = 0.f;
 	NextSimpleEnemy = 0;
 
@@ -58,7 +61,8 @@ void CEnemyManager::Update(float InDT)
 {
 	TimeUntilNextSpawn -= InDT;
 
-	if (TimeUntilNextSpawn <= 0.f)
+
+	if (TimeUntilNextSpawn <= 0.f && ActiveEnemies.size() != MAX_SIMPLE_ENEMY_TYPE)
 	{
 		SpawnEnemy();
 	}
@@ -75,6 +79,8 @@ void CEnemyManager::Render(SpelSylt::CRenderQueue& aRenderQueue)
 {
 	SS::CSprite Sprite;
 	Sprite.SetTextureAsset(SimpleEnemyTexture.Get());
+	sf::Vector2f TextureRectF = { static_cast<float>(SimpleEnemyTexture.Get().GetSize().x), static_cast<float>(SimpleEnemyTexture.Get().GetSize().y) };
+	Sprite.setOrigin(TextureRectF / 2.f);
 
 	for (CEnemy* ActiveEnemyPawn : ActiveEnemies)
 	{
@@ -93,35 +99,29 @@ void CEnemyManager::SpawnEnemy()
 	NextSimpleEnemy++;
 	NextSimpleEnemy %= MAX_SIMPLE_ENEMY_TYPE;
 
-	int RandomVal = rand() % 8;
+	int RandomVal = rand() % 4;
 
 	sf::Vector2f PositionToSpawn = { 0.f, 0.f };
+	
+	float RandomOffset = static_cast<float>(rand() % 800) - 400.f;
 
 	switch (RandomVal)
 	{
 	case 0:
-		PositionToSpawn = POS_TOP_LEFT;
+		PositionToSpawn = POS_TOP_CENTER;
+		PositionToSpawn.x += RandomOffset;
 		break;
 	case 1:
-		PositionToSpawn = POS_TOP_CENTER;
+		PositionToSpawn = POS_CENTER_RIGHT;
+		PositionToSpawn.y += RandomOffset;
 		break;
 	case 2:
-		PositionToSpawn = POS_TOP_RIGHT;
+		PositionToSpawn = POS_BOT_CENTER;
+		PositionToSpawn.x += RandomOffset;
 		break;
 	case 3:
-		PositionToSpawn = POS_CENTER_RIGHT;
-		break;
-	case 4:
-		PositionToSpawn = POS_BOT_RIGHT;
-		break;
-	case 5:
-		PositionToSpawn = POS_BOT_CENTER;
-		break;
-	case 6:
-		PositionToSpawn = POS_BOT_LEFT;
-		break;
-	case 7:
 		PositionToSpawn = POS_CENTER_LEFT;
+		PositionToSpawn.y += RandomOffset;
 	default:
 		break;
 	}
@@ -129,6 +129,7 @@ void CEnemyManager::SpawnEnemy()
 	NextEnemy.GetPawn().SetPositon(PositionToSpawn); //Todo: Should be random
 
 	ActiveEnemies.push_back(&NextEnemy);
+	ActiveWorldObjectIDs.push_back(WorldState.AddToWorld<CEnemyPawn>(PositionToSpawn, sf::Vector2f(32.f, 32.f)));
 }
 
 //------------------------------------------------------------------
@@ -144,8 +145,16 @@ void CEnemyManager::KillEnemies(std::vector<int>& InEnemiesMarkedForKill)
 		IndexToErase -= ErasedCount;
 		CAnimationSequencer::PlayAnimationAtPosition("Graphics/Animations/splatter.anmbndl", ActiveEnemies[IndexToErase]->GetPawn().GetPosition());
 		ActiveEnemies.erase(ActiveEnemies.begin() + IndexToErase);
+		WorldState.RemoveFromWorld(ActiveWorldObjectIDs[IndexToErase]);
+		ActiveWorldObjectIDs.erase(ActiveWorldObjectIDs.begin() + IndexToErase);
 		ErasedCount++;
 	}
+	
+	if (InEnemiesMarkedForKill.size() > 0)
+	{
+		GameContext.MessageQueue.DispatchEvent<SS::SSoundMessage>("Splash");
+	}
+
 }
 
 //------------------------------------------------------------------
