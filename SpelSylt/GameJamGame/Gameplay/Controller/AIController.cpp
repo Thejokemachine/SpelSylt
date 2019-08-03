@@ -55,3 +55,10 @@ const sf::Vector2f& CAIController::GetDirection() const
 }
 
 //------------------------------------------------------------------
+
+const sf::Vector2f& CAIController::GetTarget() const
+{
+	return Target;
+}
+
+//------------------------------------------------------------------

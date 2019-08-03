@@ -29,10 +29,13 @@ CTree::CTree(SS::CMessageQueue & aMsgQueue, SS::CAssetManager& aAssetManager, co
 		float distToPlayer = Math::Length2(myPlayerPawn.GetPosition());
 		if (distToPlayer < 100.f * 100.f)
 		{
-			LOG_LOG(hej, "Watered the tree.");
 			myWaterLevel += 10; // Balance how much water per level is needed. Exponential?
 			myCurrentLevel = Math::Clamp(myWaterLevel / 10, 0, 4);
 		}
+	}, mySubs);
+
+	myMsgQueue.Subscribe<TreeAttackedMsg>([this](const auto & msg) {
+		myCurrentLevel = Math::Clamp(myCurrentLevel - 1, 0, 4);
 	}, mySubs);
 }
 

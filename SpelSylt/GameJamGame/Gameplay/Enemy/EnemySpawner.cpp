@@ -3,6 +3,7 @@
 #include <SpelSylt/Rendering/Sprite/Sprite.h>
 #include <SpelSylt/Rendering/RenderCommand.h>
 #include <SpelSylt/Rendering/RenderQueue.h>
+#include <SpelSylt/Contexts/GameContext.h>
 
 #include "GameJamGame/Gameplay/Controller/ControllerContainer.h"
 
@@ -14,7 +15,8 @@ using namespace tree;
 
 //------------------------------------------------------------------
 
-CEnemySpawner::CEnemySpawner(CControllerContainer& InControllerContainer)
+CEnemySpawner::CEnemySpawner(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext)
+	: GameContext(InGameContext)
 {
 	TimeBetweenSpawns = 5.f;
 	TimeUntilNextSpawn = 0.f;
@@ -25,8 +27,8 @@ CEnemySpawner::CEnemySpawner(CControllerContainer& InControllerContainer)
 	for (int i = 0; i < MAX_SIMPLE_ENEMY_TYPE; ++i)
 	{
 		SimpleEnemyList.emplace_back();
-		SimpleEnemyList.back().AttachController(InControllerContainer.CreateAIController());
-		SimpleEnemyList.back().SetSpeed(64.f);
+		SimpleEnemyList.back().GetPawn().AttachController(InControllerContainer.CreateAIController());
+		SimpleEnemyList.back().GetPawn().SetSpeed(64.f);
 	}
 }
 
@@ -48,9 +50,9 @@ void CEnemySpawner::Update(float InDT)
 		SpawnEnemy();
 	}
 
-	for (CPawn* ActiveEnemyPawn : ActiveEnemies)
+	for (CEnemy* ActiveEnemyPawn : ActiveEnemies)
 	{
-		ActiveEnemyPawn->Tick(InDT);
+		ActiveEnemyPawn->Update(GameContext);
 	}
 }
 
@@ -61,9 +63,9 @@ void CEnemySpawner::Render(SpelSylt::CRenderQueue& aRenderQueue)
 	SS::CSprite Sprite;
 	Sprite.SetTextureAsset(SimpleEnemyTexture.Get());
 
-	for (CPawn* ActiveEnemyPawn : ActiveEnemies)
+	for (CEnemy* ActiveEnemyPawn : ActiveEnemies)
 	{
-		Sprite.setPosition(ActiveEnemyPawn->GetPosition());
+		Sprite.setPosition(ActiveEnemyPawn->GetPawn().GetPosition());
 		aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteRenderCommand(Sprite));
 	}
 }
@@ -74,7 +76,7 @@ void CEnemySpawner::SpawnEnemy()
 {
 	TimeUntilNextSpawn = TimeBetweenSpawns;
 
-	CPawn& NextEnemy = SimpleEnemyList[NextSimpleEnemy];
+	CEnemy& NextEnemy = SimpleEnemyList[NextSimpleEnemy];
 	NextSimpleEnemy++;
 
 	int RandomVal = rand() % 8;
@@ -110,7 +112,7 @@ void CEnemySpawner::SpawnEnemy()
 		break;
 	}
 
-	NextEnemy.SetPositon(PositionToSpawn); //Todo: Should be random
+	NextEnemy.GetPawn().SetPositon(PositionToSpawn); //Todo: Should be random
 
 	ActiveEnemies.push_back(&NextEnemy);
 }

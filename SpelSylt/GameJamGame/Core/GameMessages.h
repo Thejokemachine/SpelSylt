@@ -7,6 +7,7 @@ DEFINE_MSG(InteractMsg)
 // Water messages
 DEFINE_MSG(PickedUpWater)
 DEFINE_MSG(WaterMsg)
+DEFINE_MSG(TreeAttackedMsg)
 DEFINE_MSG(ShowWaterPrompt)
 DEFINE_MSG(HideWaterPrompt)
 

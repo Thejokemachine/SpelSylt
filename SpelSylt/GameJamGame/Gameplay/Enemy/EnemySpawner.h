@@ -2,12 +2,18 @@
 
 #include "GameJamGame/Core/System.h"
 #include "GameJamGame/Gameplay/Pawn.h"
+#include "GameJamGame/Gameplay/Enemy/Enemy.h"
 
 #include <SpelSylt/Rendering/Sprite/Texture.h>
 
 #include <vector>
 
 #define MAX_SIMPLE_ENEMY_TYPE 32
+
+namespace SpelSylt
+{
+	struct SGameContext;
+}
 
 namespace tree
 {
@@ -17,7 +23,7 @@ namespace tree
 		: public ISystem
 	{
 	public:	
-		CEnemySpawner(CControllerContainer& InControllerContainer);
+		CEnemySpawner(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext);
 
 		void SetTexture(SS::CTexture& InTexture);
 
@@ -26,12 +32,14 @@ namespace tree
 	private:
 		void SpawnEnemy();
 
+		SpelSylt::SGameContext& GameContext;
+
 		SS::CTexture SimpleEnemyTexture;
 
 		float TimeBetweenSpawns;
 		float TimeUntilNextSpawn;
 		size_t NextSimpleEnemy;
-		std::vector<CPawn*> ActiveEnemies;
-		std::vector<CPawn> SimpleEnemyList;
+		std::vector<CEnemy*> ActiveEnemies;
+		std::vector<CEnemy> SimpleEnemyList;
 	};
 }

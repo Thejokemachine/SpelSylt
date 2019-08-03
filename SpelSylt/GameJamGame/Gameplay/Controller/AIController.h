@@ -15,6 +15,9 @@ namespace tree
 		virtual void RegisterPawn(const CPawn& InPawn) const override;
 		virtual void Update() override;
 		virtual const sf::Vector2f& GetDirection() const;
+
+		const sf::Vector2f& GetTarget() const;
+
 	private:
 		CWorldProbe& Probe;
 		mutable const CPawn* OwningPawn;
