@@ -29,6 +29,7 @@ void CPawn::SetSpeed(float InSpeed)
 void CPawn::AttachController(const IController& InController)
 {
 	Controller = &InController;
+	Controller->RegisterPawn(*this);
 }
 
 //------------------------------------------------------------------
