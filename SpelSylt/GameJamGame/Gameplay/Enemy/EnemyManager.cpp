@@ -1,4 +1,4 @@
-#include "GameJamGame/Gameplay/Enemy/EnemySpawner.h"
+#include "GameJamGame/Gameplay/Enemy/EnemyManager.h"
 
 #include <SpelSylt/Rendering/Sprite/Sprite.h>
 #include <SpelSylt/Rendering/RenderCommand.h>
@@ -15,7 +15,7 @@ using namespace tree;
 
 //------------------------------------------------------------------
 
-CEnemySpawner::CEnemySpawner(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext)
+CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext)
 	: GameContext(InGameContext)
 {
 	TimeBetweenSpawns = 5.f;
@@ -34,14 +34,14 @@ CEnemySpawner::CEnemySpawner(CControllerContainer& InControllerContainer, SpelSy
 
 //------------------------------------------------------------------
 
-void CEnemySpawner::SetTexture(SS::CTexture& InTexture)
+void CEnemyManager::SetTexture(SS::CTexture& InTexture)
 {
 	SimpleEnemyTexture = InTexture;
 }
 
 //------------------------------------------------------------------
 
-void CEnemySpawner::Update(float InDT)
+void CEnemyManager::Update(float InDT)
 {
 	TimeUntilNextSpawn -= InDT;
 
@@ -58,7 +58,7 @@ void CEnemySpawner::Update(float InDT)
 
 //------------------------------------------------------------------
 
-void CEnemySpawner::Render(SpelSylt::CRenderQueue& aRenderQueue)
+void CEnemyManager::Render(SpelSylt::CRenderQueue& aRenderQueue)
 {
 	SS::CSprite Sprite;
 	Sprite.SetTextureAsset(SimpleEnemyTexture.Get());
@@ -72,7 +72,7 @@ void CEnemySpawner::Render(SpelSylt::CRenderQueue& aRenderQueue)
 
 //------------------------------------------------------------------
 
-void CEnemySpawner::SpawnEnemy()
+void CEnemyManager::SpawnEnemy()
 {
 	TimeUntilNextSpawn = TimeBetweenSpawns;
 

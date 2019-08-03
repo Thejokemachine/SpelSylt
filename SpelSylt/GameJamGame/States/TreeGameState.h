@@ -10,7 +10,7 @@
 #include "GameJamGame/Gameplay/World/WorldState.h"
 #include "GameJamGame/Gameplay/World/ProbeConstructor.h"
 
-#include "GameJamGame/Gameplay/Enemy/EnemySpawner.h"
+#include "GameJamGame/Gameplay/Enemy/EnemyManager.h"
 #include <SpelSylt/Rendering/Sprite/Texture.h>
 
 namespace tree

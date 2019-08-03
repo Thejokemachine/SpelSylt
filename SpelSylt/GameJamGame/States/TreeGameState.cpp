@@ -43,8 +43,8 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	Systems.emplace_back(std::make_unique<CWaterSpawner>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
 	Systems.emplace_back(std::make_unique<CInventory>(InGameContext.MessageQueue));
 	Systems.emplace_back(std::make_unique<CWeaponSystem>(myDebugDrawer, InGameContext, PlayerPawn));
-	Systems.emplace_back(std::make_unique<CEnemySpawner>(Controllers, InGameContext));
-	CEnemySpawner* EnemySpawner = reinterpret_cast<CEnemySpawner*>(Systems.back().get());
+	Systems.emplace_back(std::make_unique<CEnemyManager>(Controllers, InGameContext));
+	CEnemyManager* EnemySpawner = reinterpret_cast<CEnemyManager*>(Systems.back().get());
 
 	PlayerPawn.AttachController(Controllers.CreateInputController(InGameContext.Input, InGameContext.MessageQueue));
 	PlayerWorldObjectID = WorldState.AddToWorld<CTree>({0.f, 0.f}, { 32.f, 32.f });

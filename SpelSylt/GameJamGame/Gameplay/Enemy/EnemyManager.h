@@ -19,11 +19,11 @@ namespace tree
 {
 	class CControllerContainer;
 
-	class CEnemySpawner
+	class CEnemyManager
 		: public ISystem
 	{
 	public:	
-		CEnemySpawner(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext);
+		CEnemyManager(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext);
 
 		void SetTexture(SS::CTexture& InTexture);
 
