@@ -44,6 +44,11 @@ namespace Math
 		return (aInDegree * M_PI) / 180.f;
 	}
 
+	static float Dot(const sf::Vector2f& InVecOne, const sf::Vector2f& InVecTwo)
+	{
+		return (InVecOne.x * InVecTwo.x) + (InVecOne.y * InVecTwo.y);
+	}
+
 	float Length2(const sf::Vector2f& aVector);
 	float Length(const sf::Vector2f& aVector);
 	

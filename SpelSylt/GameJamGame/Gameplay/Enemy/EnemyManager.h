@@ -5,6 +5,10 @@
 #include "GameJamGame/Gameplay/Enemy/Enemy.h"
 
 #include <SpelSylt/Rendering/Sprite/Texture.h>
+#include <SpelSylt/Rendering/Animation/SpriteAnimation.h>
+
+#include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
+#include "GameJamGame/Core/GameMessages.h"
 
 #include <vector>
 
@@ -31,10 +35,16 @@ namespace tree
 		void Render(SpelSylt::CRenderQueue& aRenderQueue) override;
 	private:
 		void SpawnEnemy();
+		void KillEnemies(std::vector<int>& InEnemiesMarkedForKill);
+
+		void OnHitscanMsg(const HitscanShotMsg& InMsg);
+
+		SS::CSubscriptions Subscriptions;
 
 		SpelSylt::SGameContext& GameContext;
 
 		SS::CTexture SimpleEnemyTexture;
+		SS::CSpriteAnimation SplatterAnimation;
 
 		float TimeBetweenSpawns;
 		float TimeUntilNextSpawn;
