@@ -15,7 +15,7 @@
 
 using namespace tree;
 
-CTree::CTree(SS::CMessageQueue & aMsgQueue, SS::CAssetManager& aAssetManager, CPawn& aPawn) : 
+CTree::CTree(SS::CMessageQueue & aMsgQueue, SS::CAssetManager& aAssetManager, const CPawn& aPawn) : 
 	myMsgQueue(aMsgQueue),
 	myPlayerPawn(aPawn)
 {
@@ -31,7 +31,7 @@ CTree::CTree(SS::CMessageQueue & aMsgQueue, SS::CAssetManager& aAssetManager, CP
 		{
 			LOG_LOG(hej, "Watered the tree.");
 			myWaterLevel += 10; // Balance how much water per level is needed. Exponential?
-			myCurrentLevel = Math::Clamp(myWaterLevel / 10, 0, 4);
+			myCurrentLevel = Math::Clamp(myWaterLevel / 20, 0, 4);
 		}
 	}, mySubs);
 }

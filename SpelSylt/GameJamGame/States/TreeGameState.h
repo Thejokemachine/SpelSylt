@@ -6,6 +6,9 @@
 #include "GameJamGame/Gameplay/Player.h"
 
 #include "GameJamGame/Gameplay/Tree/Tree.h"
+#include "GameJamGame/Gameplay/WaterSpawner.h"
+
+#include "GameJamGame/Core/System.h"
 
 namespace tree
 {
@@ -20,9 +23,11 @@ namespace tree
 		void ReadPlayerPawnSpeedFromConfig();
 
 		CPlayer PlayerPawn;
+
 		CControllerContainer Controllers;
 
-		std::unique_ptr<CTree> Tree = nullptr;
+		std::vector<std::unique_ptr<ISystem>> Systems;
+
 		SS::CSprite AreaBG;
 	};
 }

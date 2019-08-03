@@ -5,6 +5,7 @@
 
 #include <SpelSylt/Contexts/GameContext.h>
 #include <SpelSylt/Contexts/RenderingContext.h>
+#include <SpelSylt/FileHandling/Asset/AssetManager.h>
 
 #include <SpelSylt/Messaging/MessageQueue.h>
 #include <SpelSylt/Utility/Time/TimeGetter.h>
@@ -20,7 +21,8 @@ using namespace tree;
 
 void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
-	Tree = std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn);
+	Systems.emplace_back(std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
+	Systems.emplace_back(std::make_unique<CWaterSpawner>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
 	
 	PlayerPawn.AttachController(Controllers.CreateInputController(InGameContext.Input, InGameContext.MessageQueue));
 
@@ -63,9 +65,9 @@ void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 
 void CTreeGameState::OnRender(SS::CRenderQueue& InRenderQueue)
 {
-	if (Tree)
+	for (auto& system : Systems)
 	{
-		Tree->Render(InRenderQueue);
+		system->Render(InRenderQueue);
 	}
 	InRenderQueue.Enqueue(ERenderLayer::Background, SS::SSpriteRenderCommand(AreaBG));
 

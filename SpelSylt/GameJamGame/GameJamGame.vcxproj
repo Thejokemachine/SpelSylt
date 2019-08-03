@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="Core\GameApplication.h" />
     <ClInclude Include="Core\GameMessages.h" />
+    <ClInclude Include="Core\System.h" />
     <ClInclude Include="Gameplay\Controller\ControllerContainer.h" />
     <ClInclude Include="Gameplay\Controller\ControllerInterface.h" />
     <ClInclude Include="Gameplay\Controller\InputController.h" />

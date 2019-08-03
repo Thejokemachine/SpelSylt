@@ -1,29 +1,37 @@
 #pragma once
-#include <SpelSylt/FileHandling/Asset/AssetTypes/TextureAsset.h>
+#include "GameJamGame/Core/System.h"
+
+#include <SpelSylt/Rendering/Sprite/Sprite.h>
 #include <SpelSylt/Utility/TimedEvent.h>
 
 namespace SpelSylt
 {
 	class CAssetManager;
 	class CRenderQueue;
+	class CMessageQueue;
 }
 
 namespace tree
 {
-	class CWaterSpawner
+	class CPawn;
+
+	class CWaterSpawner : public ISystem
 	{
 	public:
-		CWaterSpawner(SpelSylt::CAssetManager& aAssetManager);
+		CWaterSpawner(SpelSylt::CMessageQueue& aMessageQueue, SpelSylt::CAssetManager& aAssetManager, const CPawn& aPlayerPawn);
 
-		void Update(float aDT);
+		virtual void Update(float aDT) override;
 
-		void Render(SpelSylt::CRenderQueue& aRenderQueue);
+		virtual void Render(SpelSylt::CRenderQueue& aRenderQueue) override;
 
 	private:
 
 		void SpawnWater();
 
 		CTimedEvent myTimer;
-		SS::STextureAsset myWaterTexture;
+		SS::CSprite myWater;
+
+
+		const CPawn& myPlayerPawn;
 	};
 }
