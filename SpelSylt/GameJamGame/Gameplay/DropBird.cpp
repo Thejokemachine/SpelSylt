@@ -21,6 +21,10 @@ tree::DropBird::DropBird(SpelSylt::SGameContext & aGameContext, const CPawn & aP
 	myDropBird.SetTextureAsset(aGameContext.AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/drop_bird.png"));
 	myDropBird.setOrigin(64, 64);
 	myDropBird.setPosition(sf::Vector2f(-10000, -10000));
+	myDropBirdShadow.SetTextureAsset(aGameContext.AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/drop_bird.png"));
+	myDropBirdShadow.setOrigin(64, 64);
+	myDropBirdShadow.setPosition(sf::Vector2f(-10000, -10000));
+	myDropBirdShadow.setColor(sf::Color(0, 0, 0, 130));
 
 	myDropTimer.Init(CTimedEvent::EType::Repeat, 15.f, [this]() {
 		int side = Math::Sign((rand() % 100) - 50);
@@ -83,4 +87,8 @@ void tree::DropBird::Render(SpelSylt::CRenderQueue & aRenderQueue)
 	}
 
 	aRenderQueue.Enqueue(ERenderLayer::UI, SS::SSpriteRenderCommand(myDropBird));
+	myDropBirdShadow.setPosition(myDropBird.getPosition() + sf::Vector2f(50.f, 50.f));
+	myDropBirdShadow.setScale(0.75f, 0.75f);
+	myDropBirdShadow.setRotation(myDropBird.getRotation());
+	aRenderQueue.Enqueue(ERenderLayer::Background, SS::SSpriteRenderCommand(myDropBirdShadow));
 }
