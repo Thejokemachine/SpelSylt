@@ -52,6 +52,7 @@ namespace UI
 		void SetImage(const std::string& aImage, bool aAbsolutePath = false);
 		void SetColor(const sf::Color& aColor);
 		void SetBounds(float x, float y, float width, float height);
+		void SetScale(float x, float y);
 		void SetVisible(bool aVisible);
 		// ---------------------------------------------
 
@@ -93,6 +94,9 @@ namespace UI
 		sf::Color myColor;
 		float myX;
 		float myY;
+
+		float myScaleX = 1.f;
+		float myScaleY = 1.f;
 
 		bool myVisible = true;
 		bool myIsDirty = false;

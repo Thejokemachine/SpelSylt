@@ -18,22 +18,22 @@
 using namespace UI;
 
 Panel::Panel(UILayout & aLayout, const Panel * aParent, const std::string & aName, float x, float y, float aWidth, float aHeight, unsigned char aDockFlags, tinyxml2::XMLElement & aElement) :
-sf::FloatRect(0, 0, aWidth, aHeight),
-myLayout(aLayout),
-myXMLElement(aElement),
-myParent(aParent),
-myHoveredColor(sf::Color::White)
+	sf::FloatRect(0, 0, aWidth, aHeight),
+	myLayout(aLayout),
+	myXMLElement(aElement),
+	myParent(aParent),
+	myHoveredColor(sf::Color::White)
 {
 	setDirty();
 	addChildren(*this, &aElement);
 }
 
 Panel::Panel(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement& aElement) :
-sf::FloatRect(0, 0, 0, 0),
-myLayout(aLayout),
-myXMLElement(aElement),
-myParent(aParent),
-myHoveredColor(sf::Color::White)
+	sf::FloatRect(0, 0, 0, 0),
+	myLayout(aLayout),
+	myXMLElement(aElement),
+	myParent(aParent),
+	myHoveredColor(sf::Color::White)
 {
 	std::string image, dockFlagsValue, colorValue;
 
@@ -101,14 +101,24 @@ void Panel::SetColor(const sf::Color & aColor)
 
 void UI::Panel::SetBounds(float x, float y, float width, float height)
 {
-	this->left = x;
-	this->top = y;
-	this->width = width;
-	this->height = height;
+	if (x != -1.f)
+		this->left = x;
+	if (y != -1.f)
+		this->top = y;
+	if (width != -1.f)
+		this->width = width;
+	if (height != -1.f)
+		this->height = height;
 
 	ForEachChild([](Panel& p) {
 		p.Layout();
 	});
+}
+
+void UI::Panel::SetScale(float x, float y)
+{
+	myScaleX = x;
+	myScaleY = y;
 }
 
 void UI::Panel::SetVisible(bool aVisible)
@@ -218,8 +228,9 @@ void Panel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		sf::Sprite sprite;
 		sprite.setTexture(myTexture);
-		sprite.setPosition(left, top);
-		sprite.setScale(width / myTexture.getSize().x, height / myTexture.getSize().y);
+		sprite.setOrigin(0.5f * myTexture.getSize().x, 0.5f * myTexture.getSize().y);
+		sprite.setPosition(left+width*0.5f, top+height*0.5f);
+		sprite.setScale(myScaleX * (width / myTexture.getSize().x), myScaleY * (height / myTexture.getSize().y));
 		sprite.setColor(myColor * myHoveredColor);
 
 		target.draw(sprite, states);
@@ -254,12 +265,12 @@ float UI::Panel::evaluateExpression(const std::string & aAttributeBlock)
 		{"parent.width", myParent->GetWidth()},
 		{"parent.height", myParent->GetHeight()}
 	};
-// 	static const char operations[] = {
-// 		'-',
-// 		'+',
-// 		'*',
-// 		'/'
-// 	};
+	// 	static const char operations[] = {
+	// 		'-',
+	// 		'+',
+	// 		'*',
+	// 		'/'
+	// 	};
 
 	const std::string block = UIUtilities::RemoveWhiteSpace(aAttributeBlock);
 
