@@ -47,6 +47,7 @@ CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSy
 
 	InGameContext.MessageQueue.Subscribe<HitscanShotMsg>([this](auto & Msg) { OnHitscanMsg(Msg); }, Subscriptions);
 	InGameContext.MessageQueue.Subscribe<TreeLevelMsg>([this](auto & Msg) { OnTreeLvlMsg(Msg); }, Subscriptions);
+	InGameContext.MessageQueue.Subscribe<HitscanExplosionMsg>([this](auto & Msg) { OnHitscanMsg(Msg); }, Subscriptions);
 }
 
 //------------------------------------------------------------------
@@ -213,6 +214,36 @@ void CEnemyManager::OnHitscanMsg(const HitscanShotMsg & InMsg)
 		}
 		else
 		{
+			continue;
+		}
+	}
+
+	KillEnemies(EnemiesToKill);
+}
+
+void tree::CEnemyManager::OnHitscanMsg(const HitscanExplosionMsg & InMsg)
+{
+	std::vector<int> EnemiesToKill;
+	EnemiesToKill.reserve(MAX_SIMPLE_ENEMY_TYPE);
+
+	const sf::Vector2f& explosionPos = InMsg.Param;
+	const float radius = InMsg.ParamTwo;
+
+	CCircleCollider ExplosionCollider;
+	ExplosionCollider.SetRadius(radius);
+	ExplosionCollider.setPosition(explosionPos);
+
+	for (int i = 0; i < ActiveEnemies.size(); ++i)
+	{
+		CEnemy* Enemy = ActiveEnemies[i];
+
+		CCircleCollider EnemyCollider;
+		EnemyCollider.SetRadius(32.f);
+		EnemyCollider.setPosition(Enemy->GetPawn().GetPosition());
+
+		if (ExplosionCollider.IsColliding(EnemyCollider))
+		{
+			EnemiesToKill.push_back(i);
 			continue;
 		}
 	}

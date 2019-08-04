@@ -41,6 +41,7 @@ namespace tree
 
 		void OnHitscanMsg(const HitscanShotMsg& InMsg);
 		void OnTreeLvlMsg(const TreeLevelMsg& InMsg);
+		void OnHitscanMsg(const HitscanExplosionMsg& InMsg);
 
 		SS::CSubscriptions Subscriptions;
 

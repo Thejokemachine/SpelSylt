@@ -29,6 +29,7 @@ SS::CSpriteAnimation& CAnimationSequencer::PlayAnimationAtPosition(const char* I
 	NewAnimation.SetPlayType(SS::EAnimationPlayType::OneShot);
 	NewAnimation = AssetManager->GetAsset<SS::SAnimationAsset>(InAnimation);
 	NewAnimation.setPosition(InPosition);
+	NewAnimation.setOrigin(static_cast<float>(NewAnimation.GetFrameSize().x) / 2.f, static_cast<float>(NewAnimation.GetFrameSize().y) / 2.f);
 
 	return NewAnimation;
 }

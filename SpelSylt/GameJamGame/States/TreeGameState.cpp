@@ -64,7 +64,7 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	EnemySpawner->SetTexture(EnemyTexture);
 
 	AreaBG.SetTextureAsset(InGameContext.AssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/area.png"));
-	AreaBG.setOrigin(960, 540);
+	AreaBG.setOrigin(960+100, 540+100);
 }
 
 //------------------------------------------------------------------
