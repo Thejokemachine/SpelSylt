@@ -125,18 +125,22 @@ void CEnemyManager::SpawnEnemy()
 	{
 	case 0:
 		PositionToSpawn = POS_TOP_CENTER;
+		PositionToSpawn.y -= 100.f;
 		PositionToSpawn.x += RandomOffset;
 		break;
 	case 1:
 		PositionToSpawn = POS_CENTER_RIGHT;
+		PositionToSpawn.x += 100.f;
 		PositionToSpawn.y += RandomOffset;
 		break;
 	case 2:
 		PositionToSpawn = POS_BOT_CENTER;
+		PositionToSpawn.y += 100.f;
 		PositionToSpawn.x += RandomOffset;
 		break;
 	case 3:
 		PositionToSpawn = POS_CENTER_LEFT;
+		PositionToSpawn.x -= 100.f;
 		PositionToSpawn.y += RandomOffset;
 	default:
 		break;

@@ -12,7 +12,7 @@
 tree::MiniGun::MiniGun(SpelSylt::SGameContext & aGameContext) :
 	IHitScanWeapon(aGameContext)
 {
-	myRange = 450.f;
+	myRange = 600.f;
 	myTimer.SetDuration(.15f);
 	myAmmo = 0;
 
