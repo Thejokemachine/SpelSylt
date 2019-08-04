@@ -11,6 +11,7 @@
   </panel>
 
   <panel image="box" color="#ba4a00" dock="hcenter|bottom" width="500" height="80">
+    <panel name="bucket" image="bucket_empty" width="64" height="64" dock="vcenter" x="-80"/>
     <panel dock="vcenter|left" width="112.5" height="60" x="10">
       <panel name="weapon1" image="handgun" dock="center" width="{parent.width}" height="{parent.height}"/>
       <panel image="box" color="0,0,0" dock="left|bottom" width="24" height="24" x="15" y="5">
@@ -28,6 +29,10 @@
         </panel>
       </panel>
       <text name="shotgun_ammo" string="999" dock="right|bottom" align="right|bottom" outline_size="2" size="20" x="-20" y="2"/>
+      <panel name="weapon2_lock" color="0,0,0" image="circle" dock="center" width="{parent.height}" height="{parent.height}">
+        <panel image="circle" dock="center" color="255,255,255,50" width="{parent.height-8}" height="{parent.height-8}"/>
+        <text string="?" dock="center" align="center" outline_size="2" size="46" outline_color="0,0,0"/>
+      </panel>
     </panel>
     <panel dock="center" width="112.5" height="60" x="61">
       <panel name="weapon3" image="minigun" dock="center" width="{parent.width}" height="{parent.height}"/>
@@ -37,6 +42,10 @@
         </panel>
       </panel>
       <text name="minigun_ammo" string="999" dock="right|bottom" align="right|bottom" outline_size="2" size="20" x="-20" y="2"/>
+      <panel name="weapon3_lock" color="0,0,0" image="circle" dock="center" width="{parent.height}" height="{parent.height}">
+        <panel image="circle" dock="center" color="255,255,255,50" width="{parent.height-8}" height="{parent.height-8}"/>
+        <text string="?" dock="center" align="center" outline_size="2" size="46" outline_color="0,0,0"/>
+      </panel>
     </panel>
     <panel dock="vcenter|right" width="112.5" height="60" x="-10">
       <panel name="weapon4" image="grenade_launcher" dock="center" width="{parent.width}" height="{parent.height}"/>
@@ -46,6 +55,10 @@
         </panel>
       </panel>
       <text name="grenade_ammo" string="999" dock="right|bottom" align="right|bottom" outline_size="2" size="20" x="-20" y="2"/>
+      <panel name="weapon4_lock" color="0,0,0" image="circle" dock="center" width="{parent.height}" height="{parent.height}">
+        <panel image="circle" dock="center" color="255,255,255,50" width="{parent.height-8}" height="{parent.height-8}"/>
+        <text string="?" dock="center" align="center" outline_size="2" size="46" outline_color="0,0,0"/>
+      </panel>
     </panel>
   </panel>
 </layout>

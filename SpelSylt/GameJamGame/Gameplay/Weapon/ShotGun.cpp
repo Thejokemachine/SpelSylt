@@ -10,7 +10,7 @@
 tree::ShotGun::ShotGun(SpelSylt::SGameContext& aGameContext) :
 	IHitScanWeapon(aGameContext)
 {
-	myRange = 500.f;
+	myRange = 750.f;
 	myTimer.SetDuration(1.f);
 	myAmmo = 0;
 	myContext.MessageQueue.DispatchEvent<ShotgunAmmoMsg>(myAmmo);

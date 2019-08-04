@@ -62,16 +62,49 @@ void tree::CInGameUIState::OnInit(SGameContext & InGameContext)
 	InGameContext.MessageQueue.Subscribe<SwitchWeaponMsg>([this](const auto& msg) {
 		for (int i = 1; i <= 4; ++i)
 		{
-			if (auto panel = myLayout->GetPanel("weapon" + std::to_string(i))) {
-				if (i == msg.Param + 1)
-				{
-					panel->SetScale(1.5f, 1.5f);
-				}
-				else
-				{
-					panel->SetScale(1.f, 1.f);
+			bool locked = false;
+			if (auto lockPanel = myLayout->GetPanel("weapon" + std::to_string(i) + "_lock"))
+			{
+				locked = lockPanel->IsVisible();
+			}
+			if (!locked)
+			{
+				if (auto panel = myLayout->GetPanel("weapon" + std::to_string(i))) {
+					if (i == msg.Param + 1)
+					{
+						panel->SetScale(1.5f, 1.5f);
+					}
+					else
+					{
+						panel->SetScale(1.f, 1.f);
+					}
 				}
 			}
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<UnlockShotgun>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("weapon2_lock")) {
+			panel->SetVisible(false);
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<UnlockMinigun>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("weapon3_lock")) {
+			panel->SetVisible(false);
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<UnlockGrenadeLauncher>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("weapon4_lock")) {
+			panel->SetVisible(false);
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<WaterMsg>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("bucket")) {
+			panel->SetImage("bucket_empty");
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<PickedUpWater>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("bucket")) {
+			panel->SetImage("bucket_filled");
 		}
 	}, mySubs);
 }

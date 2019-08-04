@@ -25,6 +25,10 @@ DEFINE_MSG_ONEPARAM(ShotgunAmmoMsg, int)
 DEFINE_MSG_ONEPARAM(MinigunAmmoMsg, int)
 DEFINE_MSG_ONEPARAM(GrenadeAmmoMsg, int)
 
+DEFINE_MSG(UnlockShotgun)
+DEFINE_MSG(UnlockMinigun)
+DEFINE_MSG(UnlockGrenadeLauncher)
+
 using FHitscanMessageParam = std::pair<sf::Vector2f, sf::Vector2f>;
 DEFINE_MSG_ONEPARAM(HitscanShotMsg, FHitscanMessageParam)
 DEFINE_MSG_TWOPARAM(HitscanExplosionMsg, sf::Vector2f, float)
