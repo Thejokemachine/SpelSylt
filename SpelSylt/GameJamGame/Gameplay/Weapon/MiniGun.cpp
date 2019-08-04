@@ -12,7 +12,7 @@
 tree::MiniGun::MiniGun(SpelSylt::SGameContext & aGameContext) :
 	IHitScanWeapon(aGameContext)
 {
-	myRange = 600.f;
+	myRange = 900.f;
 	myTimer.SetDuration(.15f);
 	myAmmo = 0;
 
@@ -38,8 +38,15 @@ void tree::MiniGun::Update(float aDT)
 
 void tree::MiniGun::PrepareForShoot()
 {
+	if (mySound.getStatus() != SoundSource::Playing)
+	{
+		myContext.AudioManager.PlaySound("minigun_load", &mySound);
+	}
+
 	if (myCooldown > 1.f)
 		return;
+
+	mySound.stop();
 
 	sf::Vector2f p = WeaponSystem->GetPlayerPos();
 	sf::Vector2f a = WeaponSystem->GetAimPos();

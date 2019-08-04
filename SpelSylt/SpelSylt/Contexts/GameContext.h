@@ -8,6 +8,7 @@ namespace SpelSylt
 	class CSynchronousLoader;
 	class CMessageQueue;
 	class CAssetManager;
+	class CAudioManager;
 
 	struct SGameContext
 	{
@@ -19,7 +20,8 @@ namespace SpelSylt
 			CAsyncLoader& InAsyncLoader,
 			CSynchronousLoader& InSynchronousLoader,
 			CMessageQueue& InMessageQueue,
-			SpelSylt::CAssetManager& InAssetManager
+			SpelSylt::CAssetManager& InAssetManager,
+			CAudioManager& InAudioManager
 		)
 			: Input(InInputEventGetter)
 			, Time(InTimeGetter)
@@ -27,6 +29,7 @@ namespace SpelSylt
 			, SynchronousLoader(InSynchronousLoader)
 			, MessageQueue(InMessageQueue)
 			, AssetManager(InAssetManager)
+			, AudioManager(InAudioManager)
 		{}
 
 		IInputEventGetter& Input;
@@ -35,6 +38,7 @@ namespace SpelSylt
 		CSynchronousLoader& SynchronousLoader;
 		CMessageQueue& MessageQueue;
 		SpelSylt::CAssetManager& AssetManager;
+		CAudioManager& AudioManager;
 	};
 }
 

@@ -36,7 +36,8 @@ SGameContext* CContextBuilder::BuildGameContext(
 		InAsyncLoader,
 		InSynchronousLoader,
 		InMessageQueue,
-		InAssetManager );
+		InAssetManager,
+		InAudioManager);
 
 	return BuiltGameContext;
 }
