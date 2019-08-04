@@ -26,6 +26,8 @@ namespace tree
 
 	private:
 
+		void UpdateTreeLevel();
+
 		std::array<SS::CSprite, 5> mySprites;
 		int myWaterLevel = 0;
 		short myCurrentLevel = 0;

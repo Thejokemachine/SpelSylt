@@ -32,24 +32,14 @@ CTree::CTree(SS::CMessageQueue & aMsgQueue, SS::CAssetManager& aAssetManager, co
 		float distToPlayer = Math::Length2(myPlayerPawn.GetPosition());
 		if (distToPlayer < 100.f * 100.f)
 		{
-			myWaterLevel += 1;
-			for (int i = 0; i < myLevelProgressions.size(); ++i)
-			{
-				if (myWaterLevel >= myLevelProgressions[i])
-					myCurrentLevel = i;
-			}
-
-			float currentReq = myLevelProgressions[myCurrentLevel];
-			float nextReq = myLevelProgressions[myCurrentLevel + 1];
-			float totalThisLevelReq = nextReq - currentReq;
-			float current = myWaterLevel - myLevelProgressions[myCurrentLevel];
-			myMsgQueue.DispatchEvent<WaterLevelMsg>(current / totalThisLevelReq);
-			myMsgQueue.DispatchEvent<TreeLevelMsg>(myCurrentLevel+1);
+			myWaterLevel += 10;
+			UpdateTreeLevel();
 		}
 	}, mySubs);
 
 	myMsgQueue.Subscribe<TreeAttackedMsg>([this](const auto & msg) {
-		myCurrentLevel = Math::Clamp(myCurrentLevel - 1, 0, 4);
+		myWaterLevel -= 2;
+		UpdateTreeLevel();
 	}, mySubs);
 }
 
@@ -60,4 +50,29 @@ tree::CTree::~CTree()
 void tree::CTree::Render(SS::CRenderQueue & aRenderQueue)
 {
 	aRenderQueue.Enqueue(ERenderLayer::Foreground, SS::SSpriteRenderCommand(mySprites[myCurrentLevel]));
+}
+
+void tree::CTree::UpdateTreeLevel()
+{
+	myWaterLevel = Math::Max(0, myWaterLevel);
+
+	for (int i = 0; i < myLevelProgressions.size(); ++i)
+	{
+		if ((myWaterLevel / 10) >= myLevelProgressions[i])
+			myCurrentLevel = i;
+	}
+
+	if (myCurrentLevel < 4)
+	{
+		float currentReq = myLevelProgressions[myCurrentLevel];
+		float nextReq = myLevelProgressions[myCurrentLevel + 1];
+		float totalThisLevelReq = nextReq - currentReq;
+		float current = (myWaterLevel/10) - myLevelProgressions[myCurrentLevel];
+		myMsgQueue.DispatchEvent<WaterLevelMsg>(current / totalThisLevelReq);
+	}
+	else
+	{
+		myMsgQueue.DispatchEvent<WaterLevelMsg>(1.f);
+	}
+	myMsgQueue.DispatchEvent<TreeLevelMsg>(myCurrentLevel + 1);
 }
