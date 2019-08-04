@@ -22,6 +22,7 @@
 #include "GameJamGame/Core/AnimationSequencer.h"
 #include "GameJamGame/Gameplay/DropBird.h"
 #include "GameJamGame/Gameplay/BloodManager.h"
+#include "GameJamGame/Gameplay/ZombieSmoke.h"
 
 #include "GameJamGame/States/InGameUIState.h"
 //------------------------------------------------------------------
@@ -55,6 +56,7 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	Systems.emplace_back(std::make_unique<CWeaponSystem>(myDebugDrawer, InGameContext, *PlayerPawn));
 	Systems.emplace_back(std::make_unique<CAnimationSequencer>(InGameContext.AssetManager));
 	Systems.emplace_back(std::make_unique<CBloodManager>(InGameContext.AssetManager, InGameContext.MessageQueue));
+	Systems.emplace_back(std::make_unique<ZombieSmoke>(InGameContext));
 
 	Systems.emplace_back(std::make_unique<CEnemyManager>(Controllers, InGameContext, WorldState));
 	Systems.emplace_back(std::make_unique<DropBird>(InGameContext, *PlayerPawn));
