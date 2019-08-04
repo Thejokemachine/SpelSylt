@@ -20,17 +20,6 @@ void tree::CInGameUIState::OnInit(SGameContext & InGameContext)
 	if (auto panel = myLayout->GetPanel("water_level")) {
 		panel->SetBounds(-1.f, -1.f, 0.f, -1.f);
 	}
-
-	InGameContext.MessageQueue.Subscribe<ShowWaterPrompt>([this](const auto& msg) {
-		if (auto prompt = myLayout->GetLabel("water_prompt")) {
-			prompt->SetVisible(true);
-		}
-	}, mySubs);
-	InGameContext.MessageQueue.Subscribe<HideWaterPrompt>([this](const auto& msg) {
-		if (auto prompt = myLayout->GetLabel("water_prompt")) {
-			prompt->SetVisible(false);
-		}
-	}, mySubs);
 	InGameContext.MessageQueue.Subscribe<ShotgunAmmoMsg>([this](const auto& msg) {
 		if (auto label = myLayout->GetLabel("shotgun_ammo")) {
 			std::string ammoString = std::to_string(msg.Param);
@@ -62,28 +51,55 @@ void tree::CInGameUIState::OnInit(SGameContext & InGameContext)
 	InGameContext.MessageQueue.Subscribe<SwitchWeaponMsg>([this](const auto& msg) {
 		for (int i = 1; i <= 4; ++i)
 		{
-			if (auto panel = myLayout->GetPanel("weapon" + std::to_string(i))) {
-				if (i == msg.Param + 1)
-				{
-					panel->SetScale(1.5f, 1.5f);
-				}
-				else
-				{
-					panel->SetScale(1.f, 1.f);
+			bool locked = false;
+			if (auto lockPanel = myLayout->GetPanel("weapon" + std::to_string(i) + "_lock"))
+			{
+				locked = lockPanel->IsVisible();
+			}
+			if (!locked)
+			{
+				if (auto panel = myLayout->GetPanel("weapon" + std::to_string(i))) {
+					if (i == msg.Param + 1)
+					{
+						panel->SetScale(1.5f, 1.5f);
+					}
+					else
+					{
+						panel->SetScale(1.f, 1.f);
+					}
 				}
 			}
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<UnlockShotgun>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("weapon2_lock")) {
+			panel->SetVisible(false);
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<UnlockMinigun>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("weapon3_lock")) {
+			panel->SetVisible(false);
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<UnlockGrenadeLauncher>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("weapon4_lock")) {
+			panel->SetVisible(false);
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<WaterMsg>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("bucket")) {
+			panel->SetImage("bucket_empty");
+		}
+	}, mySubs);
+	InGameContext.MessageQueue.Subscribe<PickedUpWater>([this](const auto& msg) {
+		if (auto panel = myLayout->GetPanel("bucket")) {
+			panel->SetImage("bucket_filled");
 		}
 	}, mySubs);
 }
 
 void tree::CInGameUIState::OnUpdate(SGameContext & InGameContext)
 {
-	if (auto waterPrompt = myLayout->GetLabel("water_prompt"))
-	{
-		auto c = waterPrompt->GetTextColor();
-			c.a = 255.f * (0.3f + 0.2f * sinf(5.f * InGameContext.Time.GetTotalTime()));
-			waterPrompt->SetTextColor(c);
-	}
 }
 
 void tree::CInGameUIState::OnRender(sf::RenderTarget & InTarget)

@@ -30,6 +30,7 @@ tree::DropBird::DropBird(SpelSylt::SGameContext & aGameContext, const CPawn & aP
 		myDropBird.setPosition(-side * 1000.f, myDropPos.y);
 		myDropBird.setRotation(side * 90.f);
 		myShouldDrop = true;
+		myContext.MessageQueue.DispatchEvent<SSoundMessage>("eagle");
 	});
 
 	myContext.MessageQueue.Subscribe<TreeLevelMsg>([this](const auto& msg) {

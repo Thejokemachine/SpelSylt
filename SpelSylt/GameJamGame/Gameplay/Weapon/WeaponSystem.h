@@ -4,6 +4,7 @@
 #include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
 
 #include <array>
+#include <unordered_map>
 
 #include "GameJamGame/Gameplay/Pawn.h"
 
@@ -44,5 +45,7 @@ namespace tree
 
 		std::array<std::unique_ptr<IWeapon>, 4> myWeapons;
 		IWeapon* myCurrentWeapon = nullptr;
+
+		std::unordered_map<int, bool> myUnlockedWeapons;
 	};
 }

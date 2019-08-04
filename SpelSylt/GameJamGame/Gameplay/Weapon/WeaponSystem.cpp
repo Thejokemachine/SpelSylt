@@ -25,7 +25,13 @@ tree::CWeaponSystem::CWeaponSystem(SpelSylt::CDebugDrawer & aDebugDrawer, SpelSy
 	for (auto& weapon : myWeapons)
 		weapon->SetWeaponSystem(this);
 
-	myCurrentWeapon = myWeapons[0].get();
+	myUnlockedWeapons[0] = true;
+	myUnlockedWeapons[1] = false;
+	myUnlockedWeapons[2] = false;
+	myUnlockedWeapons[3] = false;
+
+	SwitchWeapon(0);
+	aGameContext.MessageQueue.DispatchEvent<SwitchWeaponMsg>(0);
 
 	aGameContext.MessageQueue.Subscribe<FireWeaponMsg>([this](const auto& msg) {
 		myAimPos = msg.Param - sf::Vector2f(0.5f*1920.f, 0.5f*1080.f);
@@ -42,13 +48,19 @@ tree::CWeaponSystem::CWeaponSystem(SpelSylt::CDebugDrawer & aDebugDrawer, SpelSy
 		switch (msg.Param)
 		{
 		case EItemType::ShotgunAmmo:
+			msgQueue.DispatchEvent<UnlockShotgun>();
 			msgQueue.DispatchEvent<ShotgunAmmoMsg>(myWeapons[1]->AddAmmo(12 * 6));
+			myUnlockedWeapons[1] = true;
 			break;
 		case EItemType::MinigunAmmo:
+			msgQueue.DispatchEvent<UnlockMinigun>();
 			msgQueue.DispatchEvent<MinigunAmmoMsg>(myWeapons[2]->AddAmmo(3 * 24));
+			myUnlockedWeapons[2] = true;
 			break;
 		case EItemType::GrenadeAmmo:
+			msgQueue.DispatchEvent<UnlockGrenadeLauncher>();
 			 msgQueue.DispatchEvent<GrenadeAmmoMsg>(myWeapons[3]->AddAmmo(1 * 3));
+			 myUnlockedWeapons[3] = true;
 			break;
 		default:
 			break;
@@ -72,6 +84,9 @@ void tree::CWeaponSystem::Render(SpelSylt::CRenderQueue & aRenderQueue)
 
 void tree::CWeaponSystem::SwitchWeapon(int aID)
 {
-	myCurrentWeapon = myWeapons[Math::Clamp(aID, 0, (int)myWeapons.size()-1)].get();
-	myCurrentWeapon->OnActivated();
+	if (myUnlockedWeapons[aID])
+	{
+		myCurrentWeapon = myWeapons[Math::Clamp(aID, 0, (int)myWeapons.size() - 1)].get();
+		myCurrentWeapon->OnActivated();
+	}
 }
