@@ -24,6 +24,7 @@ DEFINE_MSG_ONEPARAM(GrenadeAmmoMsg, int)
 
 using FHitscanMessageParam = std::pair<sf::Vector2f, sf::Vector2f>;
 DEFINE_MSG_ONEPARAM(HitscanShotMsg, FHitscanMessageParam)
+DEFINE_MSG_TWOPARAM(HitscanExplosionMsg, sf::Vector2f, float)
 
 
 //Enemy messages

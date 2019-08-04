@@ -40,6 +40,7 @@ namespace tree
 		void KillEnemies(std::vector<int>& InEnemiesMarkedForKill);
 
 		void OnHitscanMsg(const HitscanShotMsg& InMsg);
+		void OnHitscanMsg(const HitscanExplosionMsg& InMsg);
 
 		SS::CSubscriptions Subscriptions;
 

@@ -10,13 +10,15 @@
 #include "GameJamGame/Gameplay/Weapon/ShotGun.h"
 #include "GameJamGame/Gameplay/Weapon/HandGun.h"
 #include "GameJamGame/Gameplay/Weapon/MiniGun.h"
+#include "GameJamGame/Gameplay/Weapon/GrenadeLauncher.h"
 
 tree::CWeaponSystem::CWeaponSystem(SpelSylt::CDebugDrawer & aDebugDrawer, SpelSylt::SGameContext& aGameContext, const CPawn & aPlayerPawn) :
 	myDebugDrawer(aDebugDrawer),
 	myPlayerPawn(aPlayerPawn),
 	myWeapons{	std::make_unique<HandGun>(aGameContext),
 				std::make_unique<ShotGun>(aGameContext),
-				std::make_unique<MiniGun>(aGameContext)}
+				std::make_unique<MiniGun>(aGameContext),
+				std::make_unique<GrenadeLauncher>(aGameContext) }
 {
 	for (auto& weapon : myWeapons)
 		weapon->SetWeaponSystem(this);
