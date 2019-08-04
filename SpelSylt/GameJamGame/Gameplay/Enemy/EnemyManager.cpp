@@ -48,6 +48,12 @@ CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSy
 	InGameContext.MessageQueue.Subscribe<HitscanShotMsg>([this](auto & Msg) { OnHitscanMsg(Msg); }, Subscriptions);
 	InGameContext.MessageQueue.Subscribe<TreeLevelMsg>([this](auto & Msg) { OnTreeLvlMsg(Msg); }, Subscriptions);
 	InGameContext.MessageQueue.Subscribe<HitscanExplosionMsg>([this](auto & Msg) { OnHitscanMsg(Msg); }, Subscriptions);
+
+	mySoundEmitter.Init(CTimedEvent::EType::Repeat, 5.f, [this]() {
+		GameContext.MessageQueue.DispatchEvent<SS::SSoundMessage>("zombie" + std::to_string(rand() % 4));
+		mySoundEmitter.SetDuration(5.f + 5.f * ((float)rand() / RAND_MAX));
+	});
+	mySoundEmitter.Start();
 }
 
 //------------------------------------------------------------------
@@ -62,6 +68,8 @@ void CEnemyManager::SetTexture(SS::CTexture& InTexture)
 void CEnemyManager::Update(float InDT)
 {
 	TimeUntilNextSpawn -= InDT;
+
+	mySoundEmitter.Update(InDT);
 
 
 	if (TimeUntilNextSpawn <= 0.f && ActiveEnemies.size() != MAX_SIMPLE_ENEMY_TYPE)

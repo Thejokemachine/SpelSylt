@@ -14,6 +14,8 @@
 
 #include <vector>
 
+#include <SpelSylt/Utility/TimedEvent.h>
+
 #define MAX_SIMPLE_ENEMY_TYPE 64
 
 namespace SpelSylt
@@ -56,5 +58,7 @@ namespace tree
 		std::vector<CEnemy*> ActiveEnemies;
 		std::vector<FWorldObjectID> ActiveWorldObjectIDs;
 		std::vector<CEnemy> SimpleEnemyList;
+
+		CTimedEvent mySoundEmitter;
 	};
 }
