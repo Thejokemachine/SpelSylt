@@ -33,7 +33,7 @@ void SpelSylt::CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) 
 	sf::Sprite Sprite;
 	sf::RectangleShape RectShape;
 
-	if (TextureAsset->GetLoadStatus() == ELoadRequestStatus::Done)
+	if (TextureAsset && TextureAsset->GetLoadStatus() == ELoadRequestStatus::Done)
 	{
 		Sprite = *this;
 		Sprite.setTexture(*TextureAsset, true);
