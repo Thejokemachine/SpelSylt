@@ -3,6 +3,8 @@
 #include <SpelSylt/Rendering/RenderQueue.h>
 #include <SpelSylt/Rendering/RenderCommand.h>
 
+#include <SpelSylt/Messaging/Messages/AudioMessages.h>
+
 #include <SpelSylt/Math/CommonMath.h>
 #include <SpelSylt/Messaging/MessageQueue.h>
 
@@ -41,9 +43,10 @@ tree::CWaterSpawner::CWaterSpawner(SpelSylt::CMessageQueue& aMessageQueue, SpelS
 	myWater.setOrigin(32, 32);
 	DespawnWater();
 
-	myTimer.Init(CTimedEvent::EType::Repeat, 3.f, [this]() {
+	myTimer.Init(CTimedEvent::EType::Repeat, 3.f, [this, &aMessageQueue]() {
 		SpawnWater();
 		myIsPaused = true;
+		aMessageQueue.DispatchEvent<SSoundMessage>("rain");
 	});
 	myTimer.Start();
 
