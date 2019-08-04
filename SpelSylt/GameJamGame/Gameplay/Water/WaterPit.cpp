@@ -4,6 +4,7 @@
 #include <SpelSylt/Rendering/RenderCommand.h>
 #include <SpelSylt/Rendering/RenderQueue.h>
 
+#include "GameJamGame/Core/AnimationSequencer.h"
 
 //------------------------------------------------------------------
 
@@ -90,6 +91,8 @@ void CWaterPit::TakeWater()
 void CWaterPit::SetFilling()
 {
 	Filling = true;
+
+	CAnimationSequencer::PlayAnimationAtPosition("Graphics/Animations/water_cloud.anmbndl", Position + sf::Vector2f(64.f, 32.f));
 }
 
 //------------------------------------------------------------------
