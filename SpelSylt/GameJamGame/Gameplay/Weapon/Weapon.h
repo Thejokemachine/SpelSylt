@@ -26,6 +26,8 @@ namespace tree
 
 		bool CanFire() const { return myCanFire; };
 
+		virtual void OnActivated() {};
+
 	protected:
 		bool myCanFire;
 		int myAmmo;

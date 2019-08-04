@@ -13,6 +13,8 @@ namespace tree
 		virtual void Update(float aDT) override;
 		virtual void PrepareForShoot() override;
 
+		virtual void OnActivated() override;
+
 	private:
 		float myCooldown;
 		sf::Sound mySound;
