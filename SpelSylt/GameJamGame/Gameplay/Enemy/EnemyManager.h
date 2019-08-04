@@ -14,7 +14,7 @@
 
 #include <vector>
 
-#define MAX_SIMPLE_ENEMY_TYPE 32
+#define MAX_SIMPLE_ENEMY_TYPE 64
 
 namespace SpelSylt
 {

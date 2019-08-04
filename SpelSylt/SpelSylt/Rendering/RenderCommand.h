@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics/BlendMode.hpp>
 #include <SFML/Graphics/Shader.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 namespace SpelSylt
 {
@@ -15,6 +16,7 @@ namespace SpelSylt
 		Sprite,
 		Text,
 		Animation,
+		SFTexture,
 	};
 
 	struct SRenderState
@@ -114,6 +116,37 @@ namespace SpelSylt
 	private:
 		SS::CSpriteAnimation Animation;
 	};
+
+	//HAX REMOVE AFTER JAM
+	struct SSFSpriteRenderCommand final
+		: public IRenderCommand
+	{
+		SSFSpriteRenderCommand()
+			: Sprite()
+		{
+		}
+
+		explicit SSFSpriteRenderCommand(const sf::Texture& InTexture)
+			: Sprite()
+		{
+			Sprite.setTexture(InTexture);
+			Sprite.setOrigin(1920.f / 2.f, 1080.f / 2.f);
+		}
+
+		virtual ECommandType GetCommandType() const override
+		{
+			return ECommandType::SFTexture;
+		};
+
+		virtual const sf::Drawable& GetRaw() const override
+		{
+			return Sprite;
+		}
+
+	private:
+		sf::Sprite Sprite;
+	};
+
 }
 
 namespace SS = SpelSylt;
