@@ -32,7 +32,7 @@ CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSy
 	: GameContext(InGameContext)
 	, WorldState(InWorldState)
 {
-	TimeBetweenSpawns = 1.f;
+	TimeBetweenSpawns = 5.f;
 	TimeUntilNextSpawn = 0.f;
 	NextSimpleEnemy = 0;
 
@@ -46,6 +46,7 @@ CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSy
 	}
 
 	InGameContext.MessageQueue.Subscribe<HitscanShotMsg>([this](auto & Msg) { OnHitscanMsg(Msg); }, Subscriptions);
+	InGameContext.MessageQueue.Subscribe<TreeLevelMsg>([this](auto & Msg) { OnTreeLvlMsg(Msg); }, Subscriptions);
 }
 
 //------------------------------------------------------------------
@@ -107,7 +108,7 @@ void CEnemyManager::SpawnEnemy()
 	int RandomVal = rand() % 4;
 
 	sf::Vector2f PositionToSpawn = { 0.f, 0.f };
-	
+
 	float RandomOffset = static_cast<float>(rand() % 800) - 400.f;
 
 	switch (RandomVal)
@@ -154,7 +155,7 @@ void CEnemyManager::KillEnemies(std::vector<int>& InEnemiesMarkedForKill)
 		ActiveWorldObjectIDs.erase(ActiveWorldObjectIDs.begin() + IndexToErase);
 		ErasedCount++;
 	}
-	
+
 	if (InEnemiesMarkedForKill.size() > 0)
 	{
 		GameContext.MessageQueue.DispatchEvent<SS::SSoundMessage>("Splash");
@@ -164,7 +165,7 @@ void CEnemyManager::KillEnemies(std::vector<int>& InEnemiesMarkedForKill)
 
 //------------------------------------------------------------------
 
-void CEnemyManager::OnHitscanMsg(const HitscanShotMsg& InMsg)
+void CEnemyManager::OnHitscanMsg(const HitscanShotMsg & InMsg)
 {
 	std::vector<int> EnemiesToKill;
 	EnemiesToKill.reserve(MAX_SIMPLE_ENEMY_TYPE);
@@ -205,7 +206,7 @@ void CEnemyManager::OnHitscanMsg(const HitscanShotMsg& InMsg)
 		if (StartToClosestPoint + EndToClosestPoint >= LineLength - Tolerance
 			&& StartToClosestPoint + EndToClosestPoint <= LineLength + Tolerance)
 		{
-			if(Math::Length(ClosestPoint - EnemyCollider.getPosition()) < 32.f)
+			if (Math::Length(ClosestPoint - EnemyCollider.getPosition()) < 32.f)
 			{
 				EnemiesToKill.push_back(i);
 			}
@@ -217,6 +218,13 @@ void CEnemyManager::OnHitscanMsg(const HitscanShotMsg& InMsg)
 	}
 
 	KillEnemies(EnemiesToKill);
+}
+
+//------------------------------------------------------------------
+
+void CEnemyManager::OnTreeLvlMsg(const TreeLevelMsg & InMsg)
+{
+	TimeBetweenSpawns = 6.f - static_cast<float>(InMsg.Param);
 }
 
 //------------------------------------------------------------------
