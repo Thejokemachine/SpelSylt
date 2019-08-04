@@ -6,6 +6,8 @@
 
 #include <SpelSylt/Math/CommonMath.h>
 
+#include <AccCtrl.h>
+
 #include <SpelSylt/FileHandling/Asset/AssetManager.h>
 #include <SpelSylt/FileHandling/Asset/AssetTypes/AnimationAsset.h>
 #include <SpelSylt/FileHandling/Asset/AssetTypes/TextureAsset.h>
@@ -14,13 +16,15 @@
 #include <SpelSylt/Rendering/RenderQueue.h>
 
 #include <SpelSylt/Utility/Input/InputManager.h>
+#include <SpelSylt/Messaging/MessageQueue.h>
+
 //------------------------------------------------------------------
 
 using namespace tree;
 
 //------------------------------------------------------------------
 
-CPlayer::CPlayer(SpelSylt::CAssetManager& InAssetManager, SpelSylt::IInputEventGetter& InInputManager)
+CPlayer::CPlayer(SpelSylt::CAssetManager& InAssetManager, SpelSylt::IInputEventGetter& InInputManager, SpelSylt::CMessageQueue& InMessageQueue)
 	: InputManager(InInputManager)
 {
 	RunningAnimation = InAssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/player_running.anmbndl");
@@ -37,6 +41,20 @@ CPlayer::CPlayer(SpelSylt::CAssetManager& InAssetManager, SpelSylt::IInputEventG
 
 	ShadowSprite.SetTextureAsset(InAssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/shadow.png"));
 	ShadowSprite.setOrigin({ 32.f, 32.f });
+
+	for(int i = 0; i < (int)EWeaponType::Count; ++i)
+	{
+		GunSprites[i].SetTextureAsset(InAssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/weapons.png"));
+		GunSprites[i].setOrigin(0.f, 32.f);
+	}
+
+	ActiveGun = &GunSprites[0];
+	GunSprites[(int)EWeaponType::HandGun].setTextureRect(sf::IntRect(0, 0, 32, 32));
+	GunSprites[(int)EWeaponType::ShotGun].setTextureRect(sf::IntRect(32, 0, 32, 32));
+	GunSprites[(int)EWeaponType::MiniGun].setTextureRect(sf::IntRect(0, 32, 32, 32));
+	GunSprites[(int)EWeaponType::GrenadeGun].setTextureRect(sf::IntRect(32, 32, 32, 32));
+
+	InMessageQueue.Subscribe<SwitchWeaponMsg>([this](auto msg) { OnWeapnChangeMsg(msg); }, Subscriptions);
 }
 
 //------------------------------------------------------------------
@@ -81,15 +99,20 @@ void CPlayer::Tick(float InDT)
 	ArmSprite.setPosition(Position.x, Position.y - 10.f);
 	ArmSprite.setRotation(RotationDeg);
 
+	ActiveGun->setPosition(ArmSprite.getTransform().transformPoint({ 20.f, 8.f }));
+	ActiveGun->setRotation(RotationDeg);
+
 	if (MousePos.x - Position.x < 0.f)
 	{
 		ActiveAnimation->setScale({ -1.f, 1.f });
 		ArmSprite.setScale({ 1.f, -1.f });
+		ActiveGun->setScale({ 1.f, -1.f });
 	}
 	else
 	{
 		ActiveAnimation->setScale({ 1.f, 1.f });
 		ArmSprite.setScale({ 1.f, 1.f });
+		ActiveGun->setScale({ 1.f, 1.f });
 	}
 
 	ShadowSprite.setPosition(Position.x, Position.y + 5);
@@ -104,8 +127,16 @@ void CPlayer::Draw(SpelSylt::CRenderQueue& InRenderQueue)
 	{
 		InRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteAnimationRenderCommand(*ActiveAnimation));
 	}
+	InRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteRenderCommand(*ActiveGun));
 	InRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteRenderCommand(ArmSprite));
 	InRenderQueue.Enqueue(ERenderLayer::UI, SS::SSpriteAnimationRenderCommand(CrosshairAnimation));
+}
+
+//------------------------------------------------------------------
+
+void CPlayer::OnWeapnChangeMsg(const SwitchWeaponMsg& InMsg)
+{
+	ActiveGun = &GunSprites[InMsg.Param];
 }
 
 //------------------------------------------------------------------

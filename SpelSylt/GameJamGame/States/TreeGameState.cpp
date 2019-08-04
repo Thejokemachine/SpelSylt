@@ -47,7 +47,7 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
 	CState::Push(std::make_shared<CInGameUIState>(1920, 1080));
 
-	PlayerPawn = new CPlayer(InGameContext.AssetManager, InGameContext.Input);
+	PlayerPawn = new CPlayer(InGameContext.AssetManager, InGameContext.Input, InGameContext.MessageQueue);
 	
 	Systems.emplace_back(std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, *PlayerPawn));
 	Systems.emplace_back(std::make_unique<CWaterSpawner>(InGameContext.MessageQueue, InGameContext.AssetManager, *PlayerPawn));
