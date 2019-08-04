@@ -51,7 +51,7 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
 	CState::Push(std::make_shared<CInGameUIState>(1920, 1080));
 
-	InGameContext.MessageQueue.DispatchEvent<SS::SMusicMessage>("soundtrack", true);
+	InGameContext.MessageQueue.DispatchEvent<SS::SMusicMessage>("soundtrack", false);
 
 	PlayerPawn = new CPlayer(InGameContext.AssetManager, InGameContext.Input, InGameContext.MessageQueue);
 	
@@ -95,6 +95,11 @@ void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 	if (InGameContext.Input.IsKeyPressed(EKeyCode::Escape))
 	{
 		CState::PopAll();
+	}
+
+	if (InGameContext.Input.IsKeyPressed(EKeyCode::BackSpace))
+	{
+		InGameContext.MessageQueue.DispatchEvent<WaterMsg>();
 	}
 
 	//WorldState.SetWorldObjectPosition(PlayerWorldObjectID, PlayerPawn.GetPosition());
