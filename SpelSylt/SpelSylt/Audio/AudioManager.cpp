@@ -98,8 +98,8 @@ void CAudioManager::PlayMusic(const std::string & aAlias, bool aFadeOutCurrent)
 		{
 			myMusic.stop();
 			myMusic.openFromFile("Audio/Music/" + myMusicAlias + ".ogg");
-			myMusic.play();
 			myMusic.setLoop(true);
+			myMusic.play();
 			myMusic.setVolume(myMusicVolume);
 		}
 		else
