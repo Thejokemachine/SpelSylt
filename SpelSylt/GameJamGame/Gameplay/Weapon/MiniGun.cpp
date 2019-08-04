@@ -70,3 +70,8 @@ void tree::MiniGun::PrepareForShoot()
 
 	myContext.MessageQueue.DispatchEvent<MinigunAmmoMsg>(myAmmo);
 }
+
+void tree::MiniGun::OnActivated()
+{
+	myCooldown = 2.f;
+}

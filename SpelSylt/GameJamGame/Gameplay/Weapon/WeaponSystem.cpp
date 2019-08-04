@@ -39,15 +39,18 @@ tree::CWeaponSystem::CWeaponSystem(SpelSylt::CDebugDrawer & aDebugDrawer, SpelSy
 
 void tree::CWeaponSystem::Update(float aDT)
 {
-	myCurrentWeapon->Update(aDT);
+	for (auto& weapon : myWeapons)
+		weapon->Update(aDT);
 }
 
 void tree::CWeaponSystem::Render(SpelSylt::CRenderQueue & aRenderQueue)
 {
-	myCurrentWeapon->Render(aRenderQueue);
+	for (auto& weapon : myWeapons)
+		weapon->Render(aRenderQueue);
 }
 
 void tree::CWeaponSystem::SwitchWeapon(int aID)
 {
 	myCurrentWeapon = myWeapons[Math::Clamp(aID, 0, (int)myWeapons.size()-1)].get();
+	myCurrentWeapon->OnActivated();
 }
