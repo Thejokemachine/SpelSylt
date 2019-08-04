@@ -28,7 +28,7 @@ void CStateStack::Update(SGameContext& InGameContext)
 
 		if (state.myShouldPop)
 		{
-			assert(i == myStates.size() - 1); // Only allowed to pop the highest layer!
+			//assert(i == myStates.size() - 1); // Only allowed to pop the highest layer!
 			Pop();
 			break;
 		}
