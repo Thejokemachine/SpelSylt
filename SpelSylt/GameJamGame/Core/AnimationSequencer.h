@@ -30,7 +30,7 @@ namespace tree
 
 	private:
 		static SpelSylt::CAssetManager* AssetManager;
-		static std::unordered_map<std::string, std::vector<SS::CSpriteAnimation>> Animations;
+		static std::vector<SS::CSpriteAnimation> Animations;
 
 	};
 }

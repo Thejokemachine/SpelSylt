@@ -10,7 +10,7 @@
 
 using namespace tree;
 
-std::unordered_map<std::string, std::vector<SS::CSpriteAnimation>> CAnimationSequencer::Animations;
+std::vector<SS::CSpriteAnimation> CAnimationSequencer::Animations;
 SpelSylt::CAssetManager* CAnimationSequencer::AssetManager;
 
 //------------------------------------------------------------------
@@ -24,8 +24,8 @@ CAnimationSequencer::CAnimationSequencer(SpelSylt::CAssetManager& InAssetManager
 
 SS::CSpriteAnimation& CAnimationSequencer::PlayAnimationAtPosition(const char* InAnimation, const sf::Vector2f& InPosition)
 {
-	Animations[InAnimation].emplace_back();
-	SS::CSpriteAnimation& NewAnimation = Animations[InAnimation].back();
+	Animations.emplace_back();
+	SS::CSpriteAnimation& NewAnimation = Animations.back();
 	NewAnimation.SetPlayType(SS::EAnimationPlayType::OneShot);
 	NewAnimation = AssetManager->GetAsset<SS::SAnimationAsset>(InAnimation);
 	NewAnimation.setPosition(InPosition);
@@ -37,46 +37,36 @@ SS::CSpriteAnimation& CAnimationSequencer::PlayAnimationAtPosition(const char* I
 
 void CAnimationSequencer::Update(float aDT)
 {
-	for (auto& AnimationMapPair : Animations)
+	std::vector<int> ToRemove;
+	ToRemove.reserve(Animations.size());
+
+	for (int i = 0; i < Animations.size(); ++i)
 	{
-		auto& AnimationList = AnimationMapPair.second;
+		auto& Animation = Animations[i];
 
-		std::vector<int> ToRemove;
-		ToRemove.reserve(AnimationList.size());
+		Animation.Tick(aDT);
 
-		for (int i = 0; i < AnimationList.size(); ++i)
+		if (Animation.IsFinished())
 		{
-			auto& Animation = AnimationList[i];
-
-			Animation.Tick(aDT);
-
-			if (Animation.IsFinished())
-			{
-				ToRemove.push_back(i);
-			}
+			ToRemove.push_back(i);
 		}
-		
-		int PreviouslyRemoved = 0;
-		for (int RemoveIndex : ToRemove)
-		{
-			RemoveIndex -= PreviouslyRemoved;
-			AnimationList.erase(AnimationList.begin() + RemoveIndex);
-			PreviouslyRemoved++;
-		}
+	}
+
+	for (int i = ToRemove.size() - 1; i >= 0; --i)
+	{
+		int RemoveIndex = ToRemove[i];
+
+		Animations.erase(Animations.begin() + RemoveIndex);
 	}
 }
 
 //------------------------------------------------------------------
 
-void CAnimationSequencer::Render(SpelSylt::CRenderQueue& aRenderQueue)
+void CAnimationSequencer::Render(SpelSylt::CRenderQueue & aRenderQueue)
 {
-	for (auto& AnimationMapPair : Animations)
+	for (auto& Animation : Animations)
 	{
-		auto& AnimationList = AnimationMapPair.second;
-		for (auto& Animation : AnimationList)
-		{
-			aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteAnimationRenderCommand(Animation));
-		}
+		aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteAnimationRenderCommand(Animation));
 	}
 }
 

@@ -32,6 +32,8 @@ void CSpriteAnimation::operator=(const CSpriteAnimation& InRHS)
 	MaxFrames = InRHS.MaxFrames;
 	DataLoaded = InRHS.DataLoaded;
 	PlayType = InRHS.PlayType;
+	FinishedPlaying = InRHS.FinishedPlaying;
+	sf::Sprite::operator=(InRHS);
 }
 
 //------------------------------------------------------------------
