@@ -39,6 +39,7 @@ namespace tree
 		SpelSylt::SGameContext& myContext;
 
 		SS::CSprite myDropBird;
+		SS::CSprite myDropBirdShadow;
 
 		std::unordered_map<EItemType, SS::CTexture> myAmmoTextures;
 
