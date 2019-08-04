@@ -18,6 +18,8 @@
 #include "GameJamGame/Gameplay/Inventory/Inventory.h"
 #include "GameJamGame/Gameplay/Weapon/WeaponSystem.h"
 #include "GameJamGame/Core/AnimationSequencer.h"
+
+#include "GameJamGame/States/InGameUIState.h"
 //------------------------------------------------------------------
 
 using namespace tree;
@@ -39,6 +41,8 @@ CTreeGameState::CTreeGameState()
 
 void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
+	CState::Push(std::make_shared<CInGameUIState>(1920, 1080));
+
 	PlayerPawn = new CPlayer(InGameContext.AssetManager, InGameContext.Input);
 	
 	Systems.emplace_back(std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, *PlayerPawn));

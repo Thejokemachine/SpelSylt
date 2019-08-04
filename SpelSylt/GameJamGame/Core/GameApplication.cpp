@@ -1,8 +1,6 @@
 #include "GameJamGame/Core/GameApplication.h"
 
-#include "GameJamGame/States/TreeGameState.h"
-#include "GameJamGame/States/InGameUIState.h"
-
+#include "GameJamGame/States/TreeGameLoadingState.h"
 //------------------------------------------------------------------
 
 using namespace tree;
@@ -19,8 +17,7 @@ void CGameApplication::SetUpWindow()
 
 void CGameApplication::PushStartUpStates()
 {
-	CApplication::PushState(std::make_shared<CTreeGameState>());
-	CApplication::PushState(std::make_shared<CInGameUIState>(1920, 1080));
+	CApplication::PushState(std::make_shared<CTreeGameLoadingState>(1920, 1080, "UI/Layouts/loading_layout.xml"));
 }
 
 //------------------------------------------------------------------

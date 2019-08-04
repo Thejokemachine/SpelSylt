@@ -164,6 +164,7 @@
     <ClCompile Include="Gameplay\Weapon\WeaponSystem.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="States\InGameUIState.cpp" />
+    <ClCompile Include="States\TreeGameLoadingState.cpp" />
     <ClCompile Include="States\TreeGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +198,7 @@
     <ClInclude Include="Gameplay\Weapon\Weapon.h" />
     <ClInclude Include="Gameplay\Weapon\WeaponSystem.h" />
     <ClInclude Include="States\InGameUIState.h" />
+    <ClInclude Include="States\TreeGameLoadingState.h" />
     <ClInclude Include="States\TreeGameState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
