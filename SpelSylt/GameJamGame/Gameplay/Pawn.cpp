@@ -26,10 +26,24 @@ void CPawn::SetSpeed(float InSpeed)
 
 //------------------------------------------------------------------
 
+float CPawn::GetSpeed() const
+{
+	return Speed;
+}
+
+//------------------------------------------------------------------
+
 void CPawn::AttachController(const IController& InController)
 {
 	Controller = &InController;
 	Controller->RegisterPawn(*this);
+}
+
+//------------------------------------------------------------------
+
+const IController& tree::CPawn::GetController() const
+{
+	return *Controller;
 }
 
 //------------------------------------------------------------------
@@ -42,8 +56,8 @@ void CPawn::Tick(float InDT)
 		return;
 	}
 
-	sf::Vector2f Direction = Controller->GetDirection();
-	Position = Position + Direction * Speed * InDT;
+	sf::Vector2f Velocity = Controller->GetVelocity();
+	Position += Velocity * InDT;
 }
 
 //------------------------------------------------------------------

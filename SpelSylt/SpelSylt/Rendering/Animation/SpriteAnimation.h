@@ -29,6 +29,7 @@ namespace SpelSylt
 
 		void SetPlayType(EAnimationPlayType InPlayType);
 		bool IsFinished() const;
+		void Restart();
 
 		void setTexture(const sf::Texture& texture, bool resetRect /* = false */) = delete;
 

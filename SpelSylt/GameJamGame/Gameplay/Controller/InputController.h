@@ -15,12 +15,14 @@ namespace tree
 	public:
 		CInputController(const SpelSylt::IInputEventGetter& InInputGetter, SpelSylt::CMessageQueue& InMessageQueue);
 
-		virtual void RegisterPawn(const CPawn& InPawn) const override {}; //This does not use the pawn
+		virtual void RegisterPawn(const CPawn& InPawn) const override;
 		virtual void Update() override;
-		virtual const sf::Vector2f& GetDirection() const;
+		virtual const sf::Vector2f& GetVelocity() const;
 	private:
 		const SpelSylt::IInputEventGetter& InputGetter;
-		sf::Vector2f CurrentDirection;
+		sf::Vector2f CurrentVelocity;
+
+		mutable const CPawn* OwningPawn;
 
 		SpelSylt::CMessageQueue& MessageQueue;
 	};

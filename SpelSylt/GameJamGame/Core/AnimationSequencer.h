@@ -23,7 +23,7 @@ namespace tree
 	public:
 		CAnimationSequencer(SpelSylt::CAssetManager& InAssetManager);
 
-		static void PlayAnimationAtPosition(const char* InAnimation, const sf::Vector2f& InPosition);
+		static SS::CSpriteAnimation& PlayAnimationAtPosition(const char* InAnimation, const sf::Vector2f& InPosition);
 
 		void Update(float aDT) override;
 		void Render(SpelSylt::CRenderQueue& aRenderQueue) override;

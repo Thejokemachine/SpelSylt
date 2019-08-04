@@ -10,6 +10,8 @@
 #include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
 #include "GameJamGame/Core/GameMessages.h"
 
+#include "GameJamGame/Gameplay/World/WorldState.h"
+
 #include <vector>
 
 #define MAX_SIMPLE_ENEMY_TYPE 32
@@ -27,7 +29,7 @@ namespace tree
 		: public ISystem
 	{
 	public:	
-		CEnemyManager(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext);
+		CEnemyManager(CControllerContainer& InControllerContainer, SpelSylt::SGameContext& InGameContext, CWorldState& InWorldState);
 
 		void SetTexture(SS::CTexture& InTexture);
 
@@ -42,13 +44,15 @@ namespace tree
 		SS::CSubscriptions Subscriptions;
 
 		SpelSylt::SGameContext& GameContext;
+		CWorldState& WorldState;
 
 		SS::CTexture SimpleEnemyTexture;
-
+		
 		float TimeBetweenSpawns;
 		float TimeUntilNextSpawn;
 		size_t NextSimpleEnemy;
 		std::vector<CEnemy*> ActiveEnemies;
+		std::vector<FWorldObjectID> ActiveWorldObjectIDs;
 		std::vector<CEnemy> SimpleEnemyList;
 	};
 }

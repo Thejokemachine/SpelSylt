@@ -22,13 +22,15 @@ CAnimationSequencer::CAnimationSequencer(SpelSylt::CAssetManager& InAssetManager
 
 //------------------------------------------------------------------
 
-void CAnimationSequencer::PlayAnimationAtPosition(const char* InAnimation, const sf::Vector2f& InPosition)
+SS::CSpriteAnimation& CAnimationSequencer::PlayAnimationAtPosition(const char* InAnimation, const sf::Vector2f& InPosition)
 {
 	Animations[InAnimation].emplace_back();
 	SS::CSpriteAnimation& NewAnimation = Animations[InAnimation].back();
 	NewAnimation.SetPlayType(SS::EAnimationPlayType::OneShot);
 	NewAnimation = AssetManager->GetAsset<SS::SAnimationAsset>(InAnimation);
 	NewAnimation.setPosition(InPosition);
+
+	return NewAnimation;
 }
 
 //------------------------------------------------------------------
@@ -53,7 +55,7 @@ void CAnimationSequencer::Update(float aDT)
 				ToRemove.push_back(i);
 			}
 		}
-
+		
 		int PreviouslyRemoved = 0;
 		for (int RemoveIndex : ToRemove)
 		{
