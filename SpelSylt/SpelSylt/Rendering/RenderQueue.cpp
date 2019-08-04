@@ -39,6 +39,9 @@ void CRenderQueue::Enqueue(ERenderLayer InLayer, const IRenderCommand& InRenderC
 	case ECommandType::Text:
 		SizeOfCommandType = sizeof(STextRenderCommand);
 		break;
+	case ECommandType::SFTexture:
+		SizeOfCommandType = sizeof(SSFSpriteRenderCommand);
+		break;
 	default:
 		break;
 	}

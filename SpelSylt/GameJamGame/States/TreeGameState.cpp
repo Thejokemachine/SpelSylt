@@ -6,6 +6,8 @@
 #include <SpelSylt/Contexts/GameContext.h>
 #include <SpelSylt/Contexts/RenderingContext.h>
 #include <SpelSylt/FileHandling/Asset/AssetManager.h>
+#include <SpelSylt/Utility/Input/InputManager.h>
+#include <SpelSylt/Messaging/MessageQueue.h>
 
 #include <SpelSylt/Messaging/MessageQueue.h>
 #include <SpelSylt/Utility/Time/TimeGetter.h>
@@ -18,6 +20,7 @@
 #include "GameJamGame/Gameplay/Inventory/Inventory.h"
 #include "GameJamGame/Gameplay/Weapon/WeaponSystem.h"
 #include "GameJamGame/Core/AnimationSequencer.h"
+#include "GameJamGame/Gameplay/BloodManager.h"
 
 #include "GameJamGame/States/InGameUIState.h"
 //------------------------------------------------------------------
@@ -50,6 +53,8 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	Systems.emplace_back(std::make_unique<CInventory>(InGameContext.MessageQueue));
 	Systems.emplace_back(std::make_unique<CWeaponSystem>(myDebugDrawer, InGameContext, *PlayerPawn));
 	Systems.emplace_back(std::make_unique<CAnimationSequencer>(InGameContext.AssetManager));
+	Systems.emplace_back(std::make_unique<CBloodManager>(InGameContext.AssetManager, InGameContext.MessageQueue));
+
 	Systems.emplace_back(std::make_unique<CEnemyManager>(Controllers, InGameContext, WorldState));
 	CEnemyManager* EnemySpawner = reinterpret_cast<CEnemyManager*>(Systems.back().get());
 
@@ -75,6 +80,11 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 
 void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 {
+	if (InGameContext.Input.IsKeyPressed(EKeyCode::BackSpace))
+	{
+		InGameContext.MessageQueue.DispatchEvent<WaterMsg>();
+	}
+
 	for (auto& system : Systems)
 	{
 		system->Update(InGameContext.Time.GetDeltaTime());
@@ -101,17 +111,18 @@ void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 	sf::Vector2f target = { PlayerPawn->GetPosition().x / 10, PlayerPawn->GetPosition().y / 10.f };
 	lerp = lerp + InGameContext.Time.GetDeltaTime() * 5.f * (target - lerp);
 	GetCamera().setCenter(lerp);
+	
 }
 
 //------------------------------------------------------------------
 
 void CTreeGameState::OnRender(SS::CRenderQueue& InRenderQueue)
 {
+	InRenderQueue.Enqueue(ERenderLayer::Background, SS::SSpriteRenderCommand(AreaBG));
 	for (auto& system : Systems)
 	{
 		system->Render(InRenderQueue);
 	}
-	InRenderQueue.Enqueue(ERenderLayer::Background, SS::SSpriteRenderCommand(AreaBG));
 
 	PlayerPawn->Draw(InRenderQueue);
 }

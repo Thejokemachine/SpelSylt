@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="Core\AnimationSequencer.cpp" />
     <ClCompile Include="Core\GameApplication.cpp" />
+    <ClCompile Include="Gameplay\BloodManager.cpp" />
     <ClCompile Include="Gameplay\Controller\AIController.cpp" />
     <ClCompile Include="Gameplay\Controller\ControllerContainer.cpp" />
     <ClCompile Include="Gameplay\Controller\InputController.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Core\GameMessages.h" />
     <ClInclude Include="Core\System.h" />
     <ClInclude Include="Core\WindowDefines.h" />
+    <ClInclude Include="Gameplay\BloodManager.h" />
     <ClInclude Include="Gameplay\Controller\AIController.h" />
     <ClInclude Include="Gameplay\Controller\ControllerContainer.h" />
     <ClInclude Include="Gameplay\Controller\ControllerInterface.h" />

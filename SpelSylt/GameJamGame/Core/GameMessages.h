@@ -29,3 +29,5 @@ DEFINE_MSG_TWOPARAM(HitscanExplosionMsg, sf::Vector2f, float)
 
 //Enemy messages
 DEFINE_MSG(TreeAttackedMsg)
+
+DEFINE_MSG_TWOPARAM(EnemyKilledMsg, int, sf::Vector2f)

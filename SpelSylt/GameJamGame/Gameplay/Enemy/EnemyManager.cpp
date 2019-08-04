@@ -32,7 +32,7 @@ CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSy
 	: GameContext(InGameContext)
 	, WorldState(InWorldState)
 {
-	TimeBetweenSpawns = 5.f;
+	TimeBetweenSpawns = 2.5f;
 	TimeUntilNextSpawn = 0.f;
 	NextSimpleEnemy = 0;
 
@@ -143,18 +143,15 @@ void CEnemyManager::SpawnEnemy()
 
 void CEnemyManager::KillEnemies(std::vector<int>& InEnemiesMarkedForKill)
 {
-	std::sort(InEnemiesMarkedForKill.begin(), InEnemiesMarkedForKill.end());
 
-	int ErasedCount = 0;
-
-	for (int IndexToErase : InEnemiesMarkedForKill)
+	for (int i = InEnemiesMarkedForKill.size() - 1; i >= 0; --i)
 	{
-		IndexToErase -= ErasedCount;
+		int IndexToErase = InEnemiesMarkedForKill[i];
+		GameContext.MessageQueue.DispatchEvent<EnemyKilledMsg>(rand() % 3, ActiveEnemies[IndexToErase]->GetPawn().GetPosition());
 		CAnimationSequencer::PlayAnimationAtPosition("Graphics/Animations/splatter.anmbndl", ActiveEnemies[IndexToErase]->GetPawn().GetPosition());
 		ActiveEnemies.erase(ActiveEnemies.begin() + IndexToErase);
 		WorldState.RemoveFromWorld(ActiveWorldObjectIDs[IndexToErase]);
 		ActiveWorldObjectIDs.erase(ActiveWorldObjectIDs.begin() + IndexToErase);
-		ErasedCount++;
 	}
 
 	if (InEnemiesMarkedForKill.size() > 0)
@@ -255,7 +252,9 @@ void tree::CEnemyManager::OnHitscanMsg(const HitscanExplosionMsg & InMsg)
 
 void CEnemyManager::OnTreeLvlMsg(const TreeLevelMsg & InMsg)
 {
-	TimeBetweenSpawns = 6.f - static_cast<float>(InMsg.Param);
+	float X = static_cast<float>(InMsg.Param);
+	float Y = 2.5f + (0.1f * X * X) * -1.f;
+	TimeBetweenSpawns = Y;
 }
 
 //------------------------------------------------------------------
