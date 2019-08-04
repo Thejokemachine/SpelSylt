@@ -28,6 +28,9 @@ namespace tree
 		CEnemyPawn Pawn;
 
 		SS::CSpriteAnimation WalkAnimation;
+		SS::CSpriteAnimation StandingAnimation;
+		SS::CSpriteAnimation AttackAnimation;
+		SS::CSpriteAnimation* ActiveAnimation;
 		SS::CSprite ShadowSprite;
 
 		bool CanAttack(float InDT);

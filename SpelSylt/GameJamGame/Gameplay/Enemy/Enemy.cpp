@@ -28,9 +28,17 @@ CEnemy::CEnemy(SpelSylt::CAssetManager& InAssetManager)
 	, TimeBetweenAttacks(5.f)
 {
 	WalkAnimation = InAssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/zombie.anmbndl");
+	StandingAnimation = InAssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/zombie_standing.anmbndl");
+	AttackAnimation = InAssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/zombie_attack.anmbndl");
+
 	ShadowSprite.SetTextureAsset(InAssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/shadow.png"));
 	ShadowSprite.setOrigin({ 32.f, 28.f });
+
 	WalkAnimation.setOrigin({ 32.f, 32.f });
+	StandingAnimation.setOrigin({ 32.f, 32.f });
+	AttackAnimation.setOrigin({ 32.f, 32.f });
+
+	AttackAnimation.SetPlayType(EAnimationPlayType::OneShot);
 }
 
 //------------------------------------------------------------------
@@ -42,33 +50,50 @@ void CEnemy::Update(SpelSylt::SGameContext& InGameContext)
 	if (Pawn.HasReachedTarget() && CanAttack(DT))
 	{
 		InGameContext.MessageQueue.DispatchEvent<TreeAttackedMsg>();
+		AttackAnimation.Restart();
+		ActiveAnimation = &AttackAnimation;
+	}
+	else if (Pawn.HasReachedTarget())
+	{
+		if (ActiveAnimation == &AttackAnimation)
+		{
+			if (ActiveAnimation->IsFinished())
+			{
+				ActiveAnimation = &StandingAnimation;
+			}
+		}
+		else
+		{
+			ActiveAnimation = &StandingAnimation;
+		}
 	}
 	else
 	{
-		WalkAnimation.Tick(DT);
+		ActiveAnimation = &WalkAnimation;
 		Pawn.Tick(DT);
 	}
+
+	ActiveAnimation->Tick(DT);
 }
 
 //------------------------------------------------------------------
 
 void CEnemy::Render(SpelSylt::CRenderQueue& InRenderQueue)
 {
-
 	ShadowSprite.setPosition(Pawn.GetPosition());
 	InRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteRenderCommand(ShadowSprite));
 
 	const float MoveX = Pawn.GetController().GetVelocity().x;
 	if (MoveX < 0.f)
 	{
-		WalkAnimation.setScale(-1.f, 1.f);
+		ActiveAnimation->setScale(-1.f, 1.f);
 	}
 	else if (MoveX > 0.f)
 	{
-		WalkAnimation.setScale(1.f, 1.f);
+		ActiveAnimation->setScale(1.f, 1.f);
 	}
-	WalkAnimation.setPosition(Pawn.GetPosition());
-	InRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteAnimationRenderCommand(WalkAnimation));
+	ActiveAnimation->setPosition(Pawn.GetPosition());
+	InRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteAnimationRenderCommand(*ActiveAnimation));
 }
 
 //------------------------------------------------------------------
