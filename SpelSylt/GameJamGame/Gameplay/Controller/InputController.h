@@ -1,6 +1,8 @@
 #pragma once
 #include "GameJamGame/Gameplay/Controller/ControllerInterface.h"
 
+#include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
+
 namespace SpelSylt
 {
 	class IInputEventGetter;
@@ -24,6 +26,10 @@ namespace tree
 
 		mutable const CPawn* OwningPawn;
 
+		bool WeaponsLocked;
+
 		SpelSylt::CMessageQueue& MessageQueue;
+		SS::CSubscriptions Subscriptions;
+
 	};
 }

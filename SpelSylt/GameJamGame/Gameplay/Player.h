@@ -44,7 +44,8 @@ namespace tree
 		SS::CSpriteAnimation CrosshairAnimation;
 
 		SS::CSprite GunSprites[(int)EWeaponType::Count];
-		SS::CSprite* ActiveGun;
+		SS::CSprite BucketSprite;
+		SS::CSprite* ActiveHandItem;
 
 		SS::CSprite ArmSprite;
 		SS::CSprite ShadowSprite;

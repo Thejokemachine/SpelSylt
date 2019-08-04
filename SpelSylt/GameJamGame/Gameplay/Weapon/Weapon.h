@@ -2,6 +2,8 @@
 
 #include <SpelSylt/Utility/TimedEvent.h>
 
+#include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
+
 namespace SpelSylt
 {
 	class CRenderQueue;
@@ -25,16 +27,19 @@ namespace tree
 		void SetWeaponSystem(CWeaponSystem* aWeaponSystem);
 
 		int AddAmmo(int aAmmo);
-		bool CanFire() const { return myCanFire; };
+		bool CanFire() const { return myIsLocked ? false : myCanFire; };
 
 		virtual void OnActivated() {};
 
 	protected:
 		bool myCanFire;
+		bool myIsLocked;
 		int myAmmo;
 		SpelSylt::SGameContext& myContext;
 
 		CTimedEvent myTimer;
 		CWeaponSystem* WeaponSystem = nullptr;
+
+		SS::CSubscriptions mySubscriptions;
 	};
 }
