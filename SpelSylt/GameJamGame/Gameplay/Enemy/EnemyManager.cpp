@@ -166,6 +166,7 @@ void CEnemyManager::KillEnemies(std::vector<int>& InEnemiesMarkedForKill)
 	if (InEnemiesMarkedForKill.size() > 0)
 	{
 		GameContext.MessageQueue.DispatchEvent<SS::SSoundMessage>("Splash");
+		GameContext.MessageQueue.DispatchEvent<SS::SSoundMessage>("zombie_death" + std::to_string(rand() % 3));
 	}
 
 }
