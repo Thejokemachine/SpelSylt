@@ -39,5 +39,4 @@ void tree::HandGun::PrepareForShoot()
 	std::string alias = "handgun";
 
 	myContext.MessageQueue.DispatchEvent<SSoundMessage>(alias);
-	myContext.MessageQueue.DispatchEvent<AmmoMsg>(myAmmo);
 }

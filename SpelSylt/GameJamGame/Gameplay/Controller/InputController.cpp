@@ -62,6 +62,10 @@ void CInputController::Update()
 	{
 		MessageQueue.DispatchEvent<SwitchWeaponMsg>(2);
 	}
+	if (InputGetter.IsKeyDown(EKeyCode::Four))
+	{
+		MessageQueue.DispatchEvent<SwitchWeaponMsg>(3);
+	}
 
 	if (Math::Length2(CurrentDirection) > 1.f)
 	{

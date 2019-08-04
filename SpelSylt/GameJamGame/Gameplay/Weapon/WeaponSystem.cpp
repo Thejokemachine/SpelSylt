@@ -9,12 +9,14 @@
 
 #include "GameJamGame/Gameplay/Weapon/ShotGun.h"
 #include "GameJamGame/Gameplay/Weapon/HandGun.h"
+#include "GameJamGame/Gameplay/Weapon/MiniGun.h"
 
 tree::CWeaponSystem::CWeaponSystem(SpelSylt::CDebugDrawer & aDebugDrawer, SpelSylt::SGameContext& aGameContext, const CPawn & aPlayerPawn) :
 	myDebugDrawer(aDebugDrawer),
 	myPlayerPawn(aPlayerPawn),
 	myWeapons{	std::make_unique<HandGun>(aGameContext),
-				std::make_unique<ShotGun>(aGameContext) }
+				std::make_unique<ShotGun>(aGameContext),
+				std::make_unique<MiniGun>(aGameContext)}
 {
 	for (auto& weapon : myWeapons)
 		weapon->SetWeaponSystem(this);
@@ -45,5 +47,5 @@ void tree::CWeaponSystem::Render(SpelSylt::CRenderQueue & aRenderQueue)
 
 void tree::CWeaponSystem::SwitchWeapon(int aID)
 {
-	myCurrentWeapon = myWeapons[Math::Clamp(aID, 0, (int)myWeapons.size())].get();
+	myCurrentWeapon = myWeapons[Math::Clamp(aID, 0, (int)myWeapons.size()-1)].get();
 }

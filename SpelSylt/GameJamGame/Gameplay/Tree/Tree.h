@@ -32,6 +32,8 @@ namespace tree
 
 		const CPawn& myPlayerPawn;
 
+		std::array<int, 5> myLevelProgressions;
+
 		SS::CMessageQueue& myMsgQueue;
 		SS::CSubscriptions mySubs;
 	};

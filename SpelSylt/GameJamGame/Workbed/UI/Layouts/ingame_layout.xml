@@ -1,6 +1,51 @@
 <layout>
-  <text string="Wave: 0" x="15" y="15"/>
-  <text string="Tree Height: 0m" x="150" y="15"/>
   <text name="water_prompt" visible="false" string="PRESS 'SPACE' TO WATER THE TREE" dock="center" align="center" y="-125"/>
-  <text name="ammo" dock="left|bottom" x="15" y="-15" string="AMMO" align="bottom|left"/>
+
+  <panel image="box" color="#ba4a00" dock="hcenter" width="500" height="75">
+    <panel image="box" color="100,65,20" dock="vcenter" width="{parent.height-20}" height="{parent.height-20}" x="10">
+      <text name="tree_level" string="1" image="box" width="{parent.width-10}" height="{parent.height-10}" color="#ffbc80" text_color="#753700" dock="center" align="center" size="42"/>
+    </panel>
+    <panel image="box" color="100,65,20" width="{parent.width-85}" dock="vcenter|right" height="{parent.height*0.5}" x="-10">
+      <panel name="water_level" image="box" color="0,115,196" dock="vcenter" x="5" width="{parent.width-10}" height="{parent.height-10}"/>
+    </panel>
+  </panel>
+
+  <panel image="box" color="#ba4a00" dock="hcenter|bottom" width="500" height="80">
+    <panel dock="vcenter|left" width="112.5" height="60" x="10">
+      <panel name="weapon1" image="handgun" dock="center" width="{parent.width}" height="{parent.height}"/>
+      <panel image="box" color="0,0,0" dock="left|bottom" width="24" height="24" x="15" y="5">
+        <panel image="box" color="230,230,230" dock="center" width="20" height="20">
+          <text string="1" text_color="0,0,0" size="18" dock="center" align="center"/>
+        </panel>
+      </panel>
+      <panel image="infinity_symbol" width="50" height="20" dock="right|bottom" size="12" x="-15" y="4"/>
+    </panel>
+    <panel dock="center" width="112.5" height="60" x="-61">
+      <panel name="weapon2" image="shotgun" dock="center" width="{parent.width}" height="{parent.height}"/>
+      <panel image="box" color="0,0,0" dock="left|bottom" width="24" height="24" x="15" y="5">
+        <panel image="box" color="230,230,230" dock="center" width="20" height="20">
+          <text string="2" text_color="0,0,0" size="18" dock="center" align="center"/>
+        </panel>
+      </panel>
+      <text name="shotgun_ammo" string="999" dock="right|bottom" align="right|bottom" outline_size="2" size="20" x="-20" y="2"/>
+    </panel>
+    <panel dock="center" width="112.5" height="60" x="61">
+      <panel name="weapon3" image="minigun" dock="center" width="{parent.width}" height="{parent.height}"/>
+      <panel image="box" color="0,0,0" dock="left|bottom" width="24" height="24" x="15" y="5">
+        <panel image="box" color="230,230,230" dock="center" width="20" height="20">
+          <text string="3" text_color="0,0,0" size="18" dock="center" align="center"/>
+        </panel>
+      </panel>
+      <text name="minigun_ammo" string="999" dock="right|bottom" align="right|bottom" outline_size="2" size="20" x="-20" y="2"/>
+    </panel>
+    <panel dock="vcenter|right" width="112.5" height="60" x="-10">
+      <panel name="weapon4" image="grenade_launcher" dock="center" width="{parent.width}" height="{parent.height}"/>
+      <panel image="box" color="0,0,0" dock="left|bottom" width="24" height="24" x="15" y="5">
+        <panel image="box" color="230,230,230" dock="center" width="20" height="20">
+          <text string="4" text_color="0,0,0" size="18" dock="center" align="center"/>
+        </panel>
+      </panel>
+      <text name="grenade_ammo" string="999" dock="right|bottom" align="right|bottom" outline_size="2" size="20" x="-20" y="2"/>
+    </panel>
+  </panel>
 </layout>

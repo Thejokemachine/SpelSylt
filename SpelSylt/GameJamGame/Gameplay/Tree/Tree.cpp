@@ -17,7 +17,10 @@ using namespace tree;
 
 CTree::CTree(SS::CMessageQueue & aMsgQueue, SS::CAssetManager& aAssetManager, const CPawn& aPawn) : 
 	myMsgQueue(aMsgQueue),
-	myPlayerPawn(aPawn)
+	myPlayerPawn(aPawn),
+	myLevelProgressions{
+		0, 4, 12, 24, 40
+	}
 {
 	for (int i = 0; i < mySprites.size(); ++i)
 	{
@@ -29,8 +32,19 @@ CTree::CTree(SS::CMessageQueue & aMsgQueue, SS::CAssetManager& aAssetManager, co
 		float distToPlayer = Math::Length2(myPlayerPawn.GetPosition());
 		if (distToPlayer < 100.f * 100.f)
 		{
-			myWaterLevel += 10; // Balance how much water per level is needed. Exponential?
-			myCurrentLevel = Math::Clamp(myWaterLevel / 10, 0, 4);
+			myWaterLevel += 1;
+			for (int i = 0; i < myLevelProgressions.size(); ++i)
+			{
+				if (myWaterLevel >= myLevelProgressions[i])
+					myCurrentLevel = i;
+			}
+
+			float currentReq = myLevelProgressions[myCurrentLevel];
+			float nextReq = myLevelProgressions[myCurrentLevel + 1];
+			float totalThisLevelReq = nextReq - currentReq;
+			float current = myWaterLevel - myLevelProgressions[myCurrentLevel];
+			myMsgQueue.DispatchEvent<WaterLevelMsg>(current / totalThisLevelReq);
+			myMsgQueue.DispatchEvent<TreeLevelMsg>(myCurrentLevel+1);
 		}
 	}, mySubs);
 

@@ -42,7 +42,7 @@ namespace tree
 		SpelSylt::CSubscriptions mySubs;
 		SpelSylt::CDebugDrawer& myDebugDrawer;
 
-		std::array<std::unique_ptr<IWeapon>, 2> myWeapons;
+		std::array<std::unique_ptr<IWeapon>, 3> myWeapons;
 		IWeapon* myCurrentWeapon = nullptr;
 	};
 }

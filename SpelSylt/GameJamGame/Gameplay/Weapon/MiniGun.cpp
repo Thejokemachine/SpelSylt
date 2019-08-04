@@ -1,4 +1,4 @@
-#include "ShotGun.h"
+#include "MiniGun.h"
 #include "GameJamGame/Gameplay/Weapon/WeaponSystem.h"
 
 #include <SpelSylt/Math/CommonMath.h>
@@ -6,17 +6,40 @@
 #include <SpelSylt/Messaging/MessageQueue.h>
 #include <SpelSylt/Messaging/Messages/AudioMessages.h>
 #include "GameJamGame/Core/GameMessages.h"
+#include <SpelSylt/Utility/Input/InputEventGetter.h>
+#include <SpelSylt/Audio/AudioManager.h>
 
-tree::ShotGun::ShotGun(SpelSylt::SGameContext& aGameContext) :
+tree::MiniGun::MiniGun(SpelSylt::SGameContext & aGameContext) :
 	IHitScanWeapon(aGameContext)
 {
-	myRange = 500.f;
-	myTimer.SetDuration(1.f);
+	myRange = 1500.f;
+	myTimer.SetDuration(.15f);
 	myAmmo = 999;
+
+	myCooldown = 2.f;
 }
 
-void tree::ShotGun::PrepareForShoot()
+void tree::MiniGun::Update(float aDT)
 {
+	if (myContext.Input.IsKeyDown(EKeyCode::MouseLeft))
+	{
+		myCooldown -= aDT;
+	}
+	else
+	{
+		myCooldown += aDT;
+	}
+
+	myCooldown = Math::Clamp(myCooldown, 0.f, 2.f);
+
+	IHitScanWeapon::Update(aDT);
+}
+
+void tree::MiniGun::PrepareForShoot()
+{
+	if (myCooldown > 1.f)
+		return;
+
 	sf::Vector2f p = WeaponSystem->GetPlayerPos();
 	sf::Vector2f a = WeaponSystem->GetAimPos();
 
@@ -24,11 +47,11 @@ void tree::ShotGun::PrepareForShoot()
 	float l = Math::Length(dir);
 	sf::Vector2f spread(dir.y, -dir.x);
 	Math::Normalize(spread);
-	float s = 250.f * (l / myRange);
+	float s = 75 * (l / myRange);
 
-	int shots = Math::Min(myAmmo, 12);
+	int shots = Math::Min(myAmmo, 3);
 	if (myAmmo < 0)
-		shots = 12;
+		shots = 3;
 	for (int i = 0; i < shots; ++i)
 	{
 		float amp = s * (-1.f + 2.f * ((rand() % 100) / 100.f));
@@ -42,6 +65,8 @@ void tree::ShotGun::PrepareForShoot()
 	if (shots <= 0)
 		alias.append("_empty");
 
-	myContext.MessageQueue.DispatchEvent<SSoundMessage>(alias);
-	myContext.MessageQueue.DispatchEvent<ShotgunAmmoMsg>(myAmmo);
+	if (shots > 0)
+		myContext.MessageQueue.DispatchEvent<SSoundMessage>("minigun");
+
+	myContext.MessageQueue.DispatchEvent<MinigunAmmoMsg>(myAmmo);
 }
