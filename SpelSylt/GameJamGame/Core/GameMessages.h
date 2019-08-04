@@ -2,8 +2,11 @@
 #include <SpelSylt/Messaging/Messages/BaseMessage.h>
 #include <SFML/System/Vector2.hpp>
 #include <utility>
+#include "GameJamGame/Gameplay/ItemTypes.h"
 
 DEFINE_MSG(InteractMsg)
+
+DEFINE_MSG_ONEPARAM(ItemPickupMsg, tree::EItemType)
 
 // Water messages
 DEFINE_MSG(PickedUpWater)

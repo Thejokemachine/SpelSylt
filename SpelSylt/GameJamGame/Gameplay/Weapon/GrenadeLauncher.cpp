@@ -19,8 +19,9 @@ tree::GrenadeLauncher::GrenadeLauncher(SpelSylt::SGameContext & aGameContext) :
 {
 	myGrenadeTexture = aGameContext.AssetManager.GetAsset<STextureAsset>("Graphics/Sprites/grenade.png");
 
-	myAmmo = 999;
+	myAmmo = 0;
 	myTimer.SetDuration(1.5f);
+	myContext.MessageQueue.DispatchEvent<GrenadeAmmoMsg>(myAmmo);
 }
 
 void tree::GrenadeLauncher::Update(float aDt)

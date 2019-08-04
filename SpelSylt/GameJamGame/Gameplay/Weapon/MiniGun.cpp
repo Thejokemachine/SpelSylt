@@ -14,9 +14,10 @@ tree::MiniGun::MiniGun(SpelSylt::SGameContext & aGameContext) :
 {
 	myRange = 1500.f;
 	myTimer.SetDuration(.15f);
-	myAmmo = 999;
+	myAmmo = 0;
 
 	myCooldown = 2.f;
+	myContext.MessageQueue.DispatchEvent<MinigunAmmoMsg>(myAmmo);
 }
 
 void tree::MiniGun::Update(float aDT)

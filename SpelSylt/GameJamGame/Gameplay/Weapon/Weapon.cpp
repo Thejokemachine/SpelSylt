@@ -1,4 +1,5 @@
 #include "Weapon.h"
+#include <SpelSylt/Math/CommonMath.h>
 
 tree::IWeapon::IWeapon(SpelSylt::SGameContext& aGameContext) :
 	myContext(aGameContext),
@@ -19,4 +20,10 @@ void tree::IWeapon::Update(float aDt)
 void tree::IWeapon::SetWeaponSystem(CWeaponSystem * aWeaponSystem)
 {
 	WeaponSystem = aWeaponSystem;
+}
+
+int tree::IWeapon::AddAmmo(int aAmmo)
+{
+	myAmmo = Math::Min(999, myAmmo + aAmmo);
+	return myAmmo;
 }

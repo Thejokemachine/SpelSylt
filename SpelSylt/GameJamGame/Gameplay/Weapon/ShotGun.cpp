@@ -12,7 +12,8 @@ tree::ShotGun::ShotGun(SpelSylt::SGameContext& aGameContext) :
 {
 	myRange = 500.f;
 	myTimer.SetDuration(1.f);
-	myAmmo = 999;
+	myAmmo = 0;
+	myContext.MessageQueue.DispatchEvent<ShotgunAmmoMsg>(myAmmo);
 }
 
 void tree::ShotGun::PrepareForShoot()

@@ -18,6 +18,7 @@
 #include "GameJamGame/Gameplay/Inventory/Inventory.h"
 #include "GameJamGame/Gameplay/Weapon/WeaponSystem.h"
 #include "GameJamGame/Core/AnimationSequencer.h"
+#include "GameJamGame/Gameplay/DropBird.h"
 
 #include "GameJamGame/States/InGameUIState.h"
 //------------------------------------------------------------------
@@ -51,6 +52,7 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 	Systems.emplace_back(std::make_unique<CWeaponSystem>(myDebugDrawer, InGameContext, *PlayerPawn));
 	Systems.emplace_back(std::make_unique<CAnimationSequencer>(InGameContext.AssetManager));
 	Systems.emplace_back(std::make_unique<CEnemyManager>(Controllers, InGameContext, WorldState));
+	Systems.emplace_back(std::make_unique<DropBird>(InGameContext, *PlayerPawn));
 	CEnemyManager* EnemySpawner = reinterpret_cast<CEnemyManager*>(Systems.back().get());
 
 

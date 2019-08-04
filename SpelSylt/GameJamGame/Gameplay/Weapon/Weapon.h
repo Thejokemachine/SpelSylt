@@ -24,6 +24,7 @@ namespace tree
 
 		void SetWeaponSystem(CWeaponSystem* aWeaponSystem);
 
+		int AddAmmo(int aAmmo);
 		bool CanFire() const { return myCanFire; };
 
 		virtual void OnActivated() {};
