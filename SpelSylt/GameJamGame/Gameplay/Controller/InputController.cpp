@@ -18,7 +18,9 @@ CInputController::CInputController(const SS::IInputEventGetter& InInputGetter, S
 	: InputGetter(InInputGetter)
 	, MessageQueue(InMessageQueue)
 	, CurrentVelocity(0.f, 0.f)
+	, WeaponsLocked(false)
 {
+	InMessageQueue.Subscribe<LockWeaponsMsg>([this](auto msg) { WeaponsLocked = msg.Param; }, Subscriptions);
 }
 
 //------------------------------------------------------------------
@@ -60,21 +62,25 @@ void CInputController::Update()
 	{
 		MessageQueue.DispatchEvent<FireWeaponMsg>(InputGetter.GetMousePosFloat());
 	}
-	if (InputGetter.IsKeyDown(EKeyCode::One))
+
+	if (!WeaponsLocked)
 	{
-		MessageQueue.DispatchEvent<SwitchWeaponMsg>(0);
-	}
-	if (InputGetter.IsKeyDown(EKeyCode::Two))
-	{
-		MessageQueue.DispatchEvent<SwitchWeaponMsg>(1);
-	}
-	if (InputGetter.IsKeyDown(EKeyCode::Three))
-	{
-		MessageQueue.DispatchEvent<SwitchWeaponMsg>(2);
-	}
-	if (InputGetter.IsKeyDown(EKeyCode::Four))
-	{
-		MessageQueue.DispatchEvent<SwitchWeaponMsg>(3);
+		if (InputGetter.IsKeyDown(EKeyCode::One))
+		{
+			MessageQueue.DispatchEvent<SwitchWeaponMsg>(0);
+		}
+		if (InputGetter.IsKeyDown(EKeyCode::Two))
+		{
+			MessageQueue.DispatchEvent<SwitchWeaponMsg>(1);
+		}
+		if (InputGetter.IsKeyDown(EKeyCode::Three))
+		{
+			MessageQueue.DispatchEvent<SwitchWeaponMsg>(2);
+		}
+		if (InputGetter.IsKeyDown(EKeyCode::Four))
+		{
+			MessageQueue.DispatchEvent<SwitchWeaponMsg>(3);
+		}
 	}
 
 	if (Math::Length2(CurrentVelocity) > 1.f)

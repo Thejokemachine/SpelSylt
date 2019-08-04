@@ -34,6 +34,7 @@ void CEnemyPawn::Tick(float InDT)
 void CEnemyPawn::ResetTarget() const
 {
 	Controller->ResetTarget();
+	ReachedTarget = false;
 }
 
 //------------------------------------------------------------------

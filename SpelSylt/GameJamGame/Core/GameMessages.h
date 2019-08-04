@@ -33,6 +33,7 @@ using FHitscanMessageParam = std::pair<sf::Vector2f, sf::Vector2f>;
 DEFINE_MSG_ONEPARAM(HitscanShotMsg, FHitscanMessageParam)
 DEFINE_MSG_TWOPARAM(HitscanExplosionMsg, sf::Vector2f, float)
 
+DEFINE_MSG_ONEPARAM(LockWeaponsMsg, bool)
 
 //Enemy messages
 DEFINE_MSG(TreeAttackedMsg)

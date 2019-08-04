@@ -13,6 +13,6 @@ namespace tree
 		bool HasReachedTarget() const;
 		void ResetTarget() const;
 	private:
-		bool ReachedTarget : 1;
+		mutable bool ReachedTarget : 1;
 	};
 }
