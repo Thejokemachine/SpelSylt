@@ -15,6 +15,9 @@
 #include <SpelSylt/FileHandling/FileWatcher.h>
 #include <SpelSylt/Math/CommonMath.h>
 
+#include <SpelSylt/Messaging/Messages/AudioMessages.h>
+
+
 #include "GameJamGame/Gameplay/Tree/Tree.h"
 #include "GameJamGame/Gameplay/Water/WaterSpawner.h"
 #include "GameJamGame/Gameplay/Inventory/Inventory.h"
@@ -47,6 +50,8 @@ CTreeGameState::CTreeGameState()
 void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
 	CState::Push(std::make_shared<CInGameUIState>(1920, 1080));
+
+	InGameContext.MessageQueue.DispatchEvent<SS::SMusicMessage>("soundtrack", true);
 
 	PlayerPawn = new CPlayer(InGameContext.AssetManager, InGameContext.Input, InGameContext.MessageQueue);
 	
