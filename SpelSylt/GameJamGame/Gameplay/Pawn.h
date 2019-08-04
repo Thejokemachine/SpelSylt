@@ -14,6 +14,7 @@ namespace tree
 		float GetSpeed() const;
 
 		void AttachController(const IController& InController);
+		const IController& GetController() const;
 		virtual void Tick(float InDT);
 
 		void SetPositon(const sf::Vector2f& InPosition);

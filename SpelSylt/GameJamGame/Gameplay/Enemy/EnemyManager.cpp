@@ -40,7 +40,7 @@ CEnemyManager::CEnemyManager(CControllerContainer& InControllerContainer, SpelSy
 
 	for (int i = 0; i < MAX_SIMPLE_ENEMY_TYPE; ++i)
 	{
-		SimpleEnemyList.emplace_back();
+		SimpleEnemyList.emplace_back(InGameContext.AssetManager);
 		SimpleEnemyList.back().GetPawn().AttachController(InControllerContainer.CreateAIController());
 		SimpleEnemyList.back().GetPawn().SetSpeed(64.f);
 	}
@@ -67,9 +67,9 @@ void CEnemyManager::Update(float InDT)
 		SpawnEnemy();
 	}
 
-	for (CEnemy* ActiveEnemyPawn : ActiveEnemies)
+	for (CEnemy* ActiveEnemy : ActiveEnemies)
 	{
-		ActiveEnemyPawn->Update(GameContext);
+		ActiveEnemy->Update(GameContext);
 	}
 }
 
@@ -77,16 +77,21 @@ void CEnemyManager::Update(float InDT)
 
 void CEnemyManager::Render(SpelSylt::CRenderQueue& aRenderQueue)
 {
-	SS::CSprite Sprite;
-	Sprite.SetTextureAsset(SimpleEnemyTexture.Get());
-	sf::Vector2f TextureRectF = { static_cast<float>(SimpleEnemyTexture.Get().GetSize().x), static_cast<float>(SimpleEnemyTexture.Get().GetSize().y) };
-	Sprite.setOrigin(TextureRectF / 2.f);
-
-	for (CEnemy* ActiveEnemyPawn : ActiveEnemies)
+	for (CEnemy* ActiveEnemy : ActiveEnemies)
 	{
-		Sprite.setPosition(ActiveEnemyPawn->GetPawn().GetPosition());
-		aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteRenderCommand(Sprite));
+		ActiveEnemy->Render(aRenderQueue);
 	}
+
+	//SS::CSprite Sprite;
+	//Sprite.SetTextureAsset(SimpleEnemyTexture.Get());
+	//sf::Vector2f TextureRectF = { static_cast<float>(SimpleEnemyTexture.Get().GetSize().x), static_cast<float>(SimpleEnemyTexture.Get().GetSize().y) };
+	//Sprite.setOrigin(TextureRectF / 2.f);
+	//
+	//for (CEnemy* ActiveEnemyPawn : ActiveEnemies)
+	//{
+	//	Sprite.setPosition(ActiveEnemyPawn->GetPawn().GetPosition());
+	//	aRenderQueue.Enqueue(ERenderLayer::Game, SS::SSpriteRenderCommand(Sprite));
+	//}
 }
 
 //------------------------------------------------------------------

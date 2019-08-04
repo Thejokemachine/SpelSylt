@@ -41,6 +41,13 @@ void CPawn::AttachController(const IController& InController)
 
 //------------------------------------------------------------------
 
+const IController& tree::CPawn::GetController() const
+{
+	return *Controller;
+}
+
+//------------------------------------------------------------------
+
 void CPawn::Tick(float InDT)
 {
 	if (!Controller)

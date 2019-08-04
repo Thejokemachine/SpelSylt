@@ -1,10 +1,14 @@
 #pragma once
 
 #include "GameJamGame/Gameplay/Enemy/EnemyPawn.h"
+#include <SpelSylt/Rendering/Animation/SpriteAnimation.h>
+#include <SpelSylt/Rendering/Sprite/Sprite.h>
 
 namespace SpelSylt
 {
 	struct SGameContext;
+	class CRenderQueue;
+	class CAssetManager;
 }
 
 namespace tree
@@ -12,15 +16,19 @@ namespace tree
 	class CEnemy
 	{
 	public:
-		CEnemy();
+		CEnemy(SpelSylt::CAssetManager& InAssetManager);
 
 		void Update(SpelSylt::SGameContext& InGameContext);
+		void Render(SpelSylt::CRenderQueue& InRenderQueue);
 
 		const CEnemyPawn& GetPawn() const;
 		CEnemyPawn& GetPawn();
 
 	private:
 		CEnemyPawn Pawn;
+
+		SS::CSpriteAnimation WalkAnimation;
+		SS::CSprite ShadowSprite;
 
 		bool CanAttack(float InDT);
 

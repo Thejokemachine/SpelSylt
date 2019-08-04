@@ -55,7 +55,7 @@ void CAnimationSequencer::Update(float aDT)
 				ToRemove.push_back(i);
 			}
 		}
-
+		
 		int PreviouslyRemoved = 0;
 		for (int RemoveIndex : ToRemove)
 		{
