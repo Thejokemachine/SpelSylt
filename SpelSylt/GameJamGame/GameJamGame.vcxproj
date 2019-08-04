@@ -164,6 +164,7 @@
     <ClCompile Include="Gameplay\Weapon\ShotGun.cpp" />
     <ClCompile Include="Gameplay\Weapon\Weapon.cpp" />
     <ClCompile Include="Gameplay\Weapon\WeaponSystem.cpp" />
+    <ClCompile Include="Gameplay\ZombieSmoke.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="States\InGameUIState.cpp" />
     <ClCompile Include="States\TreeGameLoadingState.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Gameplay\Weapon\ShotGun.h" />
     <ClInclude Include="Gameplay\Weapon\Weapon.h" />
     <ClInclude Include="Gameplay\Weapon\WeaponSystem.h" />
+    <ClInclude Include="Gameplay\ZombieSmoke.h" />
     <ClInclude Include="States\InGameUIState.h" />
     <ClInclude Include="States\TreeGameLoadingState.h" />
     <ClInclude Include="States\TreeGameState.h" />
