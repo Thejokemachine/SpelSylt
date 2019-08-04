@@ -47,6 +47,7 @@ tree::DropBird::DropBird(SpelSylt::SGameContext & aGameContext, const CPawn & aP
 	}, mySubs);
 }
 
+#include <iostream>
 void tree::DropBird::Update(float aDT)
 {
 	myDropTimer.Update(aDT);
@@ -58,7 +59,8 @@ void tree::DropBird::Update(float aDT)
 	if (myShouldDrop && Math::Length(myDropPos - myDropBird.getPosition()) < 50.f)
 	{
 		SItemDrop item;
-		item.id = static_cast<EItemType>(Math::Min(myTreeLevel-2, rand() % static_cast<int>(EItemType::Count)));
+		item.id = static_cast<EItemType>(myTreeLevel > 2 ? (rand() % (myTreeLevel-1)) : 0);
+		std::cout << (int)item.id << std::endl;
 		item.pos = myDropBird.getPosition();
 		myDroppedItems.emplace_back(item);
 		myShouldDrop = false;
