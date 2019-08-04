@@ -61,7 +61,8 @@ void CApplication::Initialize()
 		AsyncLoader,
 		SynchronousLoader,
 		MessageQueue,
-		AssetManager
+		AssetManager,
+		AudioManager
 	);
 	//End Build Contexts
 
@@ -106,6 +107,7 @@ bool CApplication::Run()
 	
 	const bool CouldHandleAllEvents = HandleEvents();
 	
+	AudioManager.Update(GameContext->Time.GetDeltaTime());
 	StateStack.Update(*GameContext);
 	MessageQueue.SendAllEvents();
 

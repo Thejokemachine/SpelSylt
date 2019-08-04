@@ -44,6 +44,7 @@ void CAudioManager::Update(const float dt)
 	{
 		if (mySoundHandles[i]->getStatus() != sf::Sound::Playing)
 		{
+			delete mySoundHandles[i];
 			mySoundHandles[i] = mySoundHandles.back();
 			mySoundHandles.pop_back();
 		}

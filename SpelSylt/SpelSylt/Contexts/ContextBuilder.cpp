@@ -20,7 +20,8 @@ SGameContext* CContextBuilder::BuildGameContext(
 	CAsyncLoader& InAsyncLoader,
 	CSynchronousLoader& InSynchronousLoader,
 	CMessageQueue& InMessageQueue,
-	SS::CAssetManager& InAssetManager )
+	SS::CAssetManager& InAssetManager,
+	CAudioManager& InAudioManager)
 {
 #ifdef _DEBUG
 	if (BuiltGameContext)

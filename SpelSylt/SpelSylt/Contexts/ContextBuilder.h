@@ -12,6 +12,7 @@ namespace SpelSylt
 	class IRenderQueueInput;
 	class IDebugDrawerInput;
 	class CAssetManager;
+	class CAudioManager;
 
 	class CContextBuilder
 	{
@@ -24,7 +25,8 @@ namespace SpelSylt
 			CAsyncLoader& InAsyncLoader,
 			CSynchronousLoader& InSynchronousLoader,
 			CMessageQueue& InMessageQueue,
-			SS::CAssetManager& InAssetManager);
+			SS::CAssetManager& InAssetManager,
+			CAudioManager& InAudioManager);
 
 		SRenderingContext* BuildRenderingContext(
 			IRenderQueueInput& InRenderQueueInput,
