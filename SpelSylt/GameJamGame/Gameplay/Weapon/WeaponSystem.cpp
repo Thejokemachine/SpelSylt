@@ -54,12 +54,12 @@ tree::CWeaponSystem::CWeaponSystem(SpelSylt::CDebugDrawer & aDebugDrawer, SpelSy
 			break;
 		case EItemType::MinigunAmmo:
 			msgQueue.DispatchEvent<UnlockMinigun>();
-			msgQueue.DispatchEvent<MinigunAmmoMsg>(myWeapons[2]->AddAmmo(3 * 24));
+			msgQueue.DispatchEvent<MinigunAmmoMsg>(myWeapons[2]->AddAmmo(3 * 36));
 			myUnlockedWeapons[2] = true;
 			break;
 		case EItemType::GrenadeAmmo:
 			msgQueue.DispatchEvent<UnlockGrenadeLauncher>();
-			 msgQueue.DispatchEvent<GrenadeAmmoMsg>(myWeapons[3]->AddAmmo(1 * 3));
+			 msgQueue.DispatchEvent<GrenadeAmmoMsg>(myWeapons[3]->AddAmmo(1 * 5));
 			 myUnlockedWeapons[3] = true;
 			break;
 		default:
