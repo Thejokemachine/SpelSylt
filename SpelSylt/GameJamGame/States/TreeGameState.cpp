@@ -90,7 +90,13 @@ void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 		InGameContext.MessageQueue.DispatchEvent<HideWaterPrompt>();
 	}
 
+
 	myDebugDrawer.DrawCircle({}, 100.f, false, sf::Color::Blue);
+
+	auto lerp = GetCamera().getCenter();
+	sf::Vector2f target = { PlayerPawn->GetPosition().x / 10, PlayerPawn->GetPosition().y / 10.f };
+	lerp = lerp + InGameContext.Time.GetDeltaTime() * 5.f * (target - lerp);
+	GetCamera().setCenter(lerp);
 }
 
 //------------------------------------------------------------------

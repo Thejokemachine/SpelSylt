@@ -74,14 +74,28 @@ void CApplication::Initialize()
 
 //------------------------------------------------------------------
 
-void CApplication::CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen )
+void CApplication::CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen, bool InShowCursor )
 {
 	sf::VideoMode vm;
 	vm.width = InWindowW;
 	vm.height = InWindowH;
 	vm.bitsPerPixel = 32;
 
-	Window.create(vm, "SpelSylt Application");
+	sf::Uint32 WindowStyle = sf::Style::None;
+
+	if (InFullscreen)
+	{
+		WindowStyle |= sf::Style::Fullscreen;
+	}
+	else
+	{
+		WindowStyle |= sf::Style::Default;
+	}
+
+
+	Window.create(vm, "SpelSylt Application", WindowStyle);
+
+	Window.setMouseCursorVisible(InShowCursor);
 	//Window.setFramerateLimit(60u);
 }
 

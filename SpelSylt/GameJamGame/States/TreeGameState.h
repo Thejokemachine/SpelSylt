@@ -13,6 +13,8 @@
 #include "GameJamGame/Gameplay/Enemy/EnemyManager.h"
 #include <SpelSylt/Rendering/Sprite/Texture.h>
 
+#include <SpelSylt/Messaging/Subscribing/Subscriptions.h>
+
 namespace tree
 {
 	class CTreeGameState
@@ -27,6 +29,8 @@ namespace tree
 
 		void ReadPlayerPawnSpeedFromConfig();
 
+		float CurrentZoom;
+
 		CProbeConstructor ProbeConstructor;
 		CControllerContainer Controllers;
 
@@ -37,6 +41,8 @@ namespace tree
 
 		SS::CSprite AreaBG;
 		SS::CTexture EnemyTexture;
+
+		SS::CSubscriptions Subscriptions;
 
 		CWorldState WorldState;
 	};

@@ -42,7 +42,7 @@ namespace SpelSylt
 		virtual void SetUpWindow() = 0;
 		virtual void PushStartUpStates() = 0;
 
-		void CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen = false);
+		void CreateWindow(unsigned int InWindowW, unsigned int InWindowH, bool InFullscreen = false, bool InShowCursor = true);
 		void SetWindowTitle(const char* InTitle);
 		void PushState(std::shared_ptr<CState> InState);
 	private:

@@ -12,7 +12,7 @@ using namespace tree;
 void CGameApplication::SetUpWindow()
 {
 	CApplication::SetWindowTitle("Game");
-	CApplication::CreateWindow(1920, 1080, true);
+	CApplication::CreateWindow(1920, 1080, false, false);
 }
 
 //------------------------------------------------------------------
