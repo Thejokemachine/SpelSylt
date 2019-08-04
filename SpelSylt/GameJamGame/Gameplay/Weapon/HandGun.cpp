@@ -10,7 +10,7 @@
 tree::HandGun::HandGun(SpelSylt::SGameContext & aGameContext) :
 	IHitScanWeapon(aGameContext)
 {
-	myRange = 400.f;
+	myRange = 500.f;
 	myTimer.SetDuration(0.35f);
 	myAmmo = -1;
 }

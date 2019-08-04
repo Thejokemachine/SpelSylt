@@ -107,7 +107,7 @@ void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 	}
 
 
-	myDebugDrawer.DrawCircle({}, 100.f, false, sf::Color::Blue);
+	myDebugDrawer.DrawCircle({}, 100.f, false, sf::Color(0,0,0, 200));
 
 	auto lerp = GetCamera().getCenter();
 	sf::Vector2f target = { PlayerPawn->GetPosition().x / 10, PlayerPawn->GetPosition().y / 10.f };

@@ -21,6 +21,10 @@ CWaterPit::CWaterPit(SpelSylt::CAssetManager& InAssetManager)
 	FillingAnimation = InAssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/water_fill.anmbndl");
 	FillingAnimation.SetPlayType(SS::EAnimationPlayType::OneShot);
 	FullAnimation = InAssetManager.GetAsset<SS::SAnimationAsset>("Graphics/Animations/water_full.anmbndl");
+
+	PitSprite.setOrigin(64.f, 64.f);
+	FillingAnimation.setOrigin(64.f, 64.f);
+	FullAnimation.setOrigin(64.f, 64.f);
 }
 
 //------------------------------------------------------------------
@@ -92,7 +96,7 @@ void CWaterPit::SetFilling()
 {
 	Filling = true;
 
-	CAnimationSequencer::PlayAnimationAtPosition("Graphics/Animations/water_cloud.anmbndl", Position + sf::Vector2f(64.f, 32.f));
+	CAnimationSequencer::PlayAnimationAtPosition("Graphics/Animations/water_cloud.anmbndl", Position);
 }
 
 //------------------------------------------------------------------

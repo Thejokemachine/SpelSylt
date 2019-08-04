@@ -25,16 +25,16 @@ tree::CWaterSpawner::CWaterSpawner(SpelSylt::CMessageQueue& aMessageQueue, SpelS
 	TopLeft.SetPosition(Position);
 	
 	Position = POS_TOP_RIGHT;
-	Position.x -= 128.f;
+	Position.x -= 64.f;
 	TopRight.SetPosition(Position);
 
 	Position = POS_BOT_LEFT;
-	Position.y -= 128.f;
+	Position.y -= 64.f;
 	BottomLeft.SetPosition(Position);
 
 	Position = POS_BOT_RIGHT;
-	Position.x -= 128.f;
-	Position.y -= 128.f;
+	Position.x -= 64.f;
+	Position.y -= 64.f;
 	BottomRight.SetPosition(Position);
 
 	myWater.SetTextureAsset(aAssetManager.GetAsset<SS::STextureAsset>("Graphics/Sprites/water.png"));
