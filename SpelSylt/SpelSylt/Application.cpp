@@ -51,7 +51,7 @@ void CApplication::Initialize()
 	AudioManager.Init(MessageQueue);
 
 	SS::CAsyncLoader& AsyncLoader = UtilityThread.EmplaceWorker<SS::CAsyncLoader>();
-	UtilityThread.EmplaceWorker<SS::CFileWatcher>();
+	//UtilityThread.EmplaceWorker<SS::CFileWatcher>();
 	UtilityThread.Start();
 
 	//Begin Build Contexts

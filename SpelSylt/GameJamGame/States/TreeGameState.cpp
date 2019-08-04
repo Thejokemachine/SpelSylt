@@ -68,8 +68,6 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 
 	ReadPlayerPawnSpeedFromConfig();
 
-	SS::CFileWatcher::AddFile("player.cfg", [this] { ReadPlayerPawnSpeedFromConfig(); });
-
 	GetCamera().setCenter({ 0,0 });
 	GetCamera().setSize(1920.f, 1080.f);
 
@@ -84,14 +82,14 @@ void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 
 void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 {
-	if (InGameContext.Input.IsKeyPressed(EKeyCode::BackSpace))
-	{
-		InGameContext.MessageQueue.DispatchEvent<WaterMsg>();
-	}
-
 	for (auto& system : Systems)
 	{
 		system->Update(InGameContext.Time.GetDeltaTime());
+	}
+
+	if (InGameContext.Input.IsKeyPressed(EKeyCode::Escape))
+	{
+		CState::PopAll();
 	}
 
 	//WorldState.SetWorldObjectPosition(PlayerWorldObjectID, PlayerPawn.GetPosition());
