@@ -11,6 +11,7 @@ namespace tree
 		virtual void Tick(float InDT) override;
 
 		bool HasReachedTarget() const;
+		void ResetTarget() const;
 	private:
 		bool ReachedTarget : 1;
 	};

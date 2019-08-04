@@ -17,6 +17,7 @@ namespace tree
 		virtual const sf::Vector2f& GetVelocity() const;
 
 		const sf::Vector2f& GetTarget() const;
+		void ResetTarget() const;
 
 	private:
 		sf::Vector2f Seek(const sf::Vector2f& Direction, const sf::Vector2f& CurrentPosition, const sf::Vector2f& TargetPosition, const float InSpeed, const float InRelevance);
@@ -25,6 +26,7 @@ namespace tree
 
 		CWorldProbe& Probe;
 		mutable const CPawn* OwningPawn;
+		mutable bool GotTarget;
 
 		float WanderAngle;
 

@@ -20,6 +20,7 @@ using namespace tree;
 CAIController::CAIController()
 	: Probe(CProbeConstructor::ConstructProbe())
 	, OwningPawn(nullptr)
+	, GotTarget(false)
 	, Velocity(0.f, 0.f)
 	, Target(0.f, 0.f)
 {
@@ -53,7 +54,16 @@ void CAIController::Update()
 
 		if (InProbedObject.ObjectType == typeid(CTree).hash_code())
 		{
-			Steering += Seek(Velocity, ControlledPawnPosition, InProbedObject.Position, OwningPawn->GetSpeed(), 1.f);
+			//Closest point on circle should be target
+			if (!GotTarget)
+			{
+				sf::Vector2f ToTarget = ControlledPawnPosition - InProbedObject.Position;
+				float ToTargetMag = Math::Length(ToTarget);
+				Target = InProbedObject.Position + ToTarget / ToTargetMag * 64.f;
+				GotTarget = true;
+			}
+
+			Steering += Seek(Velocity, ControlledPawnPosition, Target, OwningPawn->GetSpeed(), 1.f);
 		}
 
 		if (InProbedObject.ObjectType == typeid(CEnemyPawn).hash_code())
@@ -84,6 +94,14 @@ const sf::Vector2f& CAIController::GetTarget() const
 }
 
 //------------------------------------------------------------------
+
+void CAIController::ResetTarget() const
+{
+	GotTarget = false;
+}
+
+//------------------------------------------------------------------
+
 
 sf::Vector2f CAIController::Seek(const sf::Vector2f& Direction, const sf::Vector2f& CurrentPosition, const sf::Vector2f& TargetPosition, const float InSpeed, const float InRelevance)
 {

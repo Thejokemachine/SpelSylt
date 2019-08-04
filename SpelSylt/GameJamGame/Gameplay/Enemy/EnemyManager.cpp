@@ -105,6 +105,7 @@ void CEnemyManager::SpawnEnemy()
 	CEnemy& NextEnemy = SimpleEnemyList[NextSimpleEnemy];
 	NextSimpleEnemy++;
 	NextSimpleEnemy %= MAX_SIMPLE_ENEMY_TYPE;
+	NextEnemy.GetPawn().ResetTarget();
 
 	int RandomVal = rand() % 4;
 

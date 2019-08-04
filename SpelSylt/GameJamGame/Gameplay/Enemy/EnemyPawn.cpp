@@ -31,6 +31,14 @@ void CEnemyPawn::Tick(float InDT)
 
 //------------------------------------------------------------------
 
+void CEnemyPawn::ResetTarget() const
+{
+	Controller->ResetTarget();
+}
+
+//------------------------------------------------------------------
+
+
 bool CEnemyPawn::HasReachedTarget() const
 {
 	return ReachedTarget;
