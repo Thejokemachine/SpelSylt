@@ -1,6 +1,4 @@
 <layout>
-  <text name="water_prompt" visible="false" string="PRESS 'SPACE' TO WATER THE TREE" dock="center" align="center" y="-125"/>
-
   <panel image="box" color="#ba4a00" dock="hcenter" width="500" height="75">
     <panel image="box" color="100,65,20" dock="vcenter" width="{parent.height-20}" height="{parent.height-20}" x="10">
       <text name="tree_level" string="1" image="box" width="{parent.width-10}" height="{parent.height-10}" color="#ffbc80" text_color="#753700" dock="center" align="center" size="42"/>
@@ -11,7 +9,13 @@
   </panel>
 
   <panel image="box" color="#ba4a00" dock="hcenter|bottom" width="500" height="80">
-    <panel name="bucket" image="bucket_empty" width="64" height="64" dock="vcenter" x="-80"/>
+    <panel name="bucket" image="bucket_empty" width="64" height="64" dock="vcenter" x="-80" y="-5">
+      <panel image="box" color="0,0,0" dock="left|bottom" width="50" height="24" x="-15" y="10">
+        <panel image="box" color="230,230,230" dock="center" width="46" height="20">
+          <text string="SPACE" text_color="0,0,0" size="12" dock="center" align="center"/>
+        </panel>
+      </panel>
+    </panel>
     <panel dock="vcenter|left" width="112.5" height="60" x="10">
       <panel name="weapon1" image="handgun" dock="center" width="{parent.width}" height="{parent.height}"/>
       <panel image="box" color="0,0,0" dock="left|bottom" width="24" height="24" x="15" y="5">

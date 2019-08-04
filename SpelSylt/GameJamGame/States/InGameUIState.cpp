@@ -20,17 +20,6 @@ void tree::CInGameUIState::OnInit(SGameContext & InGameContext)
 	if (auto panel = myLayout->GetPanel("water_level")) {
 		panel->SetBounds(-1.f, -1.f, 0.f, -1.f);
 	}
-
-	InGameContext.MessageQueue.Subscribe<ShowWaterPrompt>([this](const auto& msg) {
-		if (auto prompt = myLayout->GetLabel("water_prompt")) {
-			prompt->SetVisible(true);
-		}
-	}, mySubs);
-	InGameContext.MessageQueue.Subscribe<HideWaterPrompt>([this](const auto& msg) {
-		if (auto prompt = myLayout->GetLabel("water_prompt")) {
-			prompt->SetVisible(false);
-		}
-	}, mySubs);
 	InGameContext.MessageQueue.Subscribe<ShotgunAmmoMsg>([this](const auto& msg) {
 		if (auto label = myLayout->GetLabel("shotgun_ammo")) {
 			std::string ammoString = std::to_string(msg.Param);
@@ -111,12 +100,6 @@ void tree::CInGameUIState::OnInit(SGameContext & InGameContext)
 
 void tree::CInGameUIState::OnUpdate(SGameContext & InGameContext)
 {
-	if (auto waterPrompt = myLayout->GetLabel("water_prompt"))
-	{
-		auto c = waterPrompt->GetTextColor();
-			c.a = 255.f * (0.3f + 0.2f * sinf(5.f * InGameContext.Time.GetTotalTime()));
-			waterPrompt->SetTextColor(c);
-	}
 }
 
 void tree::CInGameUIState::OnRender(sf::RenderTarget & InTarget)
