@@ -28,7 +28,7 @@ CTreeGameState::CTreeGameState()
 	: GameState2D()
 	, ProbeConstructor(WorldState)
 	, Controllers()
-	, PlayerPawn()
+	, PlayerPawn(nullptr)
 	, Systems()
 	, AreaBG()
 	, WorldState()
@@ -39,15 +39,18 @@ CTreeGameState::CTreeGameState()
 
 void CTreeGameState::OnInit(SS::SGameContext& InGameContext)
 {
-	Systems.emplace_back(std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
-	Systems.emplace_back(std::make_unique<CWaterSpawner>(InGameContext.MessageQueue, InGameContext.AssetManager, PlayerPawn));
+	PlayerPawn = new CPlayer(InGameContext.AssetManager, InGameContext.Input);
+	
+	Systems.emplace_back(std::make_unique<CTree>(InGameContext.MessageQueue, InGameContext.AssetManager, *PlayerPawn));
+	Systems.emplace_back(std::make_unique<CWaterSpawner>(InGameContext.MessageQueue, InGameContext.AssetManager, *PlayerPawn));
 	Systems.emplace_back(std::make_unique<CInventory>(InGameContext.MessageQueue));
-	Systems.emplace_back(std::make_unique<CWeaponSystem>(myDebugDrawer, InGameContext, PlayerPawn));
+	Systems.emplace_back(std::make_unique<CWeaponSystem>(myDebugDrawer, InGameContext, *PlayerPawn));
 	Systems.emplace_back(std::make_unique<CAnimationSequencer>(InGameContext.AssetManager));
 	Systems.emplace_back(std::make_unique<CEnemyManager>(Controllers, InGameContext, WorldState));
 	CEnemyManager* EnemySpawner = reinterpret_cast<CEnemyManager*>(Systems.back().get());
 
-	PlayerPawn.AttachController(Controllers.CreateInputController(InGameContext.Input, InGameContext.MessageQueue));
+
+	PlayerPawn->AttachController(Controllers.CreateInputController(InGameContext.Input, InGameContext.MessageQueue));
 	PlayerWorldObjectID = WorldState.AddToWorld<CTree>({0.f, 0.f}, { 32.f, 32.f });
 
 	ReadPlayerPawnSpeedFromConfig();
@@ -76,9 +79,9 @@ void CTreeGameState::OnUpdate(SS::SGameContext& InGameContext)
 	//WorldState.SetWorldObjectPosition(PlayerWorldObjectID, PlayerPawn.GetPosition());
 
 	Controllers.Update();
-	PlayerPawn.Tick(InGameContext.Time.GetDeltaTime());
+	PlayerPawn->Tick(InGameContext.Time.GetDeltaTime());
 
-	if (Math::Length2(PlayerPawn.GetPosition()) < 100 * 100.f)
+	if (Math::Length2(PlayerPawn->GetPosition()) < 100 * 100.f)
 	{
 		InGameContext.MessageQueue.DispatchEvent<ShowWaterPrompt>();
 	}
@@ -100,7 +103,7 @@ void CTreeGameState::OnRender(SS::CRenderQueue& InRenderQueue)
 	}
 	InRenderQueue.Enqueue(ERenderLayer::Background, SS::SSpriteRenderCommand(AreaBG));
 
-	myDebugDrawer.DrawCircle(PlayerPawn.GetPosition(), 32.f, true, sf::Color::Green);
+	PlayerPawn->Draw(InRenderQueue);
 }
 
 //------------------------------------------------------------------
@@ -110,7 +113,7 @@ void CTreeGameState::ReadPlayerPawnSpeedFromConfig()
 	SS::CConfigReader ConfigReader;
 	ConfigReader.ReadConfigFile("player.cfg");
 
-	PlayerPawn.SetSpeed(ConfigReader.GetAsFloat("speed"));
+	PlayerPawn->SetSpeed(ConfigReader.GetAsFloat("speed"));
 }
 
 //------------------------------------------------------------------

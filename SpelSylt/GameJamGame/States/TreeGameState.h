@@ -30,7 +30,7 @@ namespace tree
 		CProbeConstructor ProbeConstructor;
 		CControllerContainer Controllers;
 
-		CPlayer PlayerPawn;
+		CPlayer* PlayerPawn;
 		FWorldObjectID PlayerWorldObjectID;
 
 		std::vector<std::unique_ptr<ISystem>> Systems;
