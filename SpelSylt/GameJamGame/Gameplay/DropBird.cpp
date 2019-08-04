@@ -6,6 +6,7 @@
 #include <SpelSylt/Math/CommonMath.h>
 #include <SpelSylt/Messaging/MessageQueue.h>
 #include <SpelSylt/Messaging/Messages/AudioMessages.h>
+#include <SpelSylt/Math/CommonMath.h>
 
 #include "GameJamGame/Core/GameMessages.h"
 #include "GameJamGame/Gameplay/Pawn.h"
@@ -59,7 +60,7 @@ void tree::DropBird::Update(float aDT)
 	if (myShouldDrop && Math::Length(myDropPos - myDropBird.getPosition()) < 50.f)
 	{
 		SItemDrop item;
-		item.id = static_cast<EItemType>(myTreeLevel > 2 ? (rand() % (myTreeLevel-1)) : 0);
+		item.id = static_cast<EItemType>(Math::Clamp(myTreeLevel > 2 ? (rand() % (myTreeLevel-1)) : 0), 0, 2);
 		std::cout << (int)item.id << std::endl;
 		item.pos = myDropBird.getPosition();
 		myDroppedItems.emplace_back(item);
