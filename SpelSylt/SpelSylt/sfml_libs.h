@@ -2,17 +2,17 @@
 
 
 #ifdef _DEBUG
-#pragma comment(lib, "../External/SFML/Lib/sfml-audio-d.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-graphics-d.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-main-d.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-network-d.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-system-d.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-window-d.lib")
+#pragma comment(lib, "sfml-audio-d.lib")
+#pragma comment(lib, "sfml-graphics-d.lib")
+#pragma comment(lib, "sfml-main-d.lib")
+#pragma comment(lib, "sfml-network-d.lib")
+#pragma comment(lib, "sfml-system-d.lib")
+#pragma comment(lib, "sfml-window-d.lib")
 #else
-#pragma comment(lib, "../External/SFML/Lib/sfml-audio.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-graphics.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-main.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-network.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-system.lib")
-#pragma comment(lib, "../External/SFML/Lib/sfml-window.lib")
+#pragma comment(lib, "sfml-audio.lib")
+#pragma comment(lib, "sfml-graphics.lib")
+#pragma comment(lib, "sfml-main.lib")
+#pragma comment(lib, "sfml-network.lib")
+#pragma comment(lib, "sfml-system.lib")
+#pragma comment(lib, "sfml-window.lib")
 #endif

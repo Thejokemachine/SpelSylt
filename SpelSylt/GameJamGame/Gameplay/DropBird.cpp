@@ -60,7 +60,7 @@ void tree::DropBird::Update(float aDT)
 	if (myShouldDrop && Math::Length(myDropPos - myDropBird.getPosition()) < 50.f)
 	{
 		SItemDrop item;
-		item.id = static_cast<EItemType>(Math::Clamp(myTreeLevel > 2 ? (rand() % (myTreeLevel-1)) : 0), 0, 2);
+		item.id = static_cast<EItemType>(Math::Clamp(myTreeLevel > 2 ? (rand() % (myTreeLevel-1)) : 0, 0, 2));
 		std::cout << (int)item.id << std::endl;
 		item.pos = myDropBird.getPosition();
 		myDroppedItems.emplace_back(item);
