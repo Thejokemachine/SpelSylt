@@ -7,9 +7,6 @@
 #include "SpelSylt/Messaging/Messages/UIMessages.h"
 #include "SpelSylt/UI/Base/UIState.h"
 
-#include "Game/HookGame.h"
-#include "Game/HookUIState.h"
-
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
 
