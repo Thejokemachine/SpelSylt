@@ -96,7 +96,6 @@ void CApplication::CreateWindow(unsigned int InWindowW, unsigned int InWindowH, 
 	Window.create(vm, "SpelSylt Application", WindowStyle);
 
 	Window.setMouseCursorVisible(InShowCursor);
-	//Window.setFramerateLimit(60u);
 }
 
 //------------------------------------------------------------------
