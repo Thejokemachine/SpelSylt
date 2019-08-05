@@ -85,13 +85,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <OutDir>$(SolutionDir)External\Engine\</OutDir>
+    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
     <IntDir>$(SolutionDir)trash\$(ProjectName)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <OutDir>$(SolutionDir)External\Engine\</OutDir>
+    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
     <IntDir>$(SolutionDir)trash\$(ProjectName)$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|Win32'">
+    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|x64'">
+    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -100,6 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -108,7 +121,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir);$(SolutionDir)External\SFML\Include\SFML\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSylt/SpelSyltPCH.h</PrecompiledHeaderFile>
@@ -121,7 +134,8 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)Tools\SpelSyltEventGenerator.exe $(SolutionDir)Bin\UI\Layouts\hookGame_layout.xml $(ProjectDir)Events.generated.h</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
@@ -137,6 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -151,7 +166,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External\SFML\Include\;$(SolutionDir);$(SolutionDir)External\SFML\Include\SFML\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSylt/SpelSyltPCH.h</PrecompiledHeaderFile>
@@ -177,6 +192,12 @@
     <ClCompile>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <MinimalRebuild>true</MinimalRebuild>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
