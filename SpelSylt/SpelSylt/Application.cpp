@@ -102,7 +102,7 @@ void CApplication::CreateWindow(unsigned int InWindowW, unsigned int InWindowH, 
 
 void CApplication::SetWindowTitle(const char* InTitle)
 {
-	Window.setTitle(InTitle);
+	Window.setTitle(InTitle); //Should add version
 }
 
 //------------------------------------------------------------------
