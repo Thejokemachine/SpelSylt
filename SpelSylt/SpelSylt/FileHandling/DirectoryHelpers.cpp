@@ -19,6 +19,11 @@ void SDirectoryHelpers::CreateDirectoryIfNotExisting(const char* InRelativePath)
 
 void SDirectoryHelpers::VisitDirectory(const char* InRelativePath, const FFileIteratorPredicate& InPredicate)
 {
+	if (!std::filesystem::exists(InRelativePath))
+	{
+		return;
+	}
+
 	for (auto&& File : std::filesystem::directory_iterator(InRelativePath))
 	{
 		InPredicate(File);
