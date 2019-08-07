@@ -84,14 +84,17 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)External\</OutDir>
+    <OutDir>$(SolutionDir)External\Lib\RapidJson\</OutDir>
     <IntDir>$(SolutionDir)trash\rapidjson$(Configuration)\</IntDir>
     <TargetName>RapidJson_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)External\</OutDir>
+    <OutDir>$(SolutionDir)External\Lib\RapidJson\</OutDir>
     <IntDir>$(SolutionDir)trash\rapidjson$(Configuration)\</IntDir>
     <TargetName>RapidJson_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|x64'">
+    <OutDir>$(SolutionDir)External\Lib\RapidJson\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

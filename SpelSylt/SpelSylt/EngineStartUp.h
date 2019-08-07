@@ -3,9 +3,9 @@
 #include "SpelSylt/sfml_libs.h"
 
 #ifdef _DEBUG
-#pragma comment(lib, "Engine/SpelSylt_Debug")
-#pragma comment(lib, "RapidJson_Debug")
+#pragma comment(lib, "SSEngine/SpelSylt_Debug")
+#pragma comment(lib, "RapidJson/RapidJson_Debug")
 #else
-#pragma comment(lib, "Engine/SpelSylt_Release")
-#pragma comment(lib, "RapidJson_Release")
+#pragma comment(lib, "SSEngine/SpelSylt_Release")
+#pragma comment(lib, "RapidJson/RapidJson_Release")
 #endif

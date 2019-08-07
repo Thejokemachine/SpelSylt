@@ -85,12 +85,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
+    <OutDir>$(ProjectDir)..\External\Lib\SSEngine\</OutDir>
     <IntDir>$(SolutionDir)trash\$(ProjectName)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
+    <OutDir>$(ProjectDir)..\External\Lib\SSEngine\</OutDir>
     <IntDir>$(SolutionDir)trash\$(ProjectName)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -103,7 +103,7 @@
     <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|x64'">
-    <OutDir>$(ProjectDir)..\External\Lib\</OutDir>
+    <OutDir>$(ProjectDir)..\External\Lib\SSEngine\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -121,7 +121,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSylt/SpelSyltPCH.h</PrecompiledHeaderFile>
@@ -166,7 +166,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SpelSylt/SpelSyltPCH.h</PrecompiledHeaderFile>
@@ -192,7 +192,7 @@
     <ClCompile>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <MinimalRebuild>true</MinimalRebuild>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\External\SFML\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\External\Include\;$(ProjectDir);$(ProjectDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugHMtNM|Win32'">
