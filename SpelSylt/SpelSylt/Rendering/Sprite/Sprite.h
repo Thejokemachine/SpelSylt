@@ -18,10 +18,12 @@ namespace SpelSylt
 	public:
 		CSprite();
 
+		void operator=(const CSprite& InRHS);
+		void operator=(STextureAsset& InRHS);
+
 		//This function is deleted due to SS::CSprite working with SS::STextureAssets instead
 		void setTexture(const sf::Texture& texture, bool resetRect) = delete;
-
-		void SetTextureAsset(const STextureAsset& Asset);
+		
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	private:
 		const STextureAsset* TextureAsset;

@@ -20,9 +20,17 @@ CSprite::CSprite()
 
 //------------------------------------------------------------------
 
-void SpelSylt::CSprite::SetTextureAsset(const STextureAsset& Asset)
+void SpelSylt::CSprite::operator=(const CSprite& InRHS)
 {
-	TextureAsset = &Asset;
+	sf::Sprite::operator=(InRHS);
+	TextureAsset = InRHS.TextureAsset;
+}
+
+//------------------------------------------------------------------
+
+void SpelSylt::CSprite::operator=(STextureAsset& InRHS)
+{
+	TextureAsset = &InRHS;
 }
 
 //------------------------------------------------------------------
