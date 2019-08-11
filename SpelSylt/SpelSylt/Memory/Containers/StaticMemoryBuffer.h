@@ -1,4 +1,5 @@
 #pragma once
+#include <new>
 #include "SpelSylt/Memory/MemAllocSizes.h"
 
 typedef unsigned char RawByte;
@@ -26,6 +27,9 @@ public:
 	template<typename T>
 	T& AddToBuffer(const T& InData);
 
+	template<typename T, typename ... TArgs>
+	T& EmplaceToBuffer(TArgs ...);
+
 private:
 	unsigned int NextSlot;
 	B Size;
@@ -50,6 +54,16 @@ inline T& CStaticMemoryBuffer::AddToBuffer(const T& InData)
 	NextSlot += sizeof(T);
 
 	return *Added;
+}
+
+//------------------------------------------------------------------
+
+template<typename T, typename ...TArgs>
+inline T& CStaticMemoryBuffer::EmplaceToBuffer(TArgs ... InArgs)
+{
+	T* TPtr = new(&Buffer[NextSlot]) T(InArgs...);
+	NextSlot += sizeof(T);
+	return *TPtr;
 }
 
 //------------------------------------------------------------------
