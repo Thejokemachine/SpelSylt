@@ -141,10 +141,12 @@
     <ClCompile Include="EngineTestApplication.cpp" />
     <ClCompile Include="EngineTestProjectState.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="System\TestSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineTestApplication.h" />
     <ClInclude Include="EngineTestProjectState.h" />
+    <ClInclude Include="System\TestSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
