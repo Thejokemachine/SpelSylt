@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2019
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpelSylt", "SpelSylt\SpelSylt.vcxproj", "{51EC98B9-DB61-47C8-A253-5086ACA847E3}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -11,8 +11,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RapidJsonLibrary", "RapidJsonLibrary\RapidJsonLibrary.vcxproj", "{5C473E41-C71B-4522-8662-FDBA6BB5A5F2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpelSyltAnimationEditor", "SpelSyltAnimationEditor\SpelSyltAnimationEditor.vcxproj", "{DB22E5F5-732E-417F-9E53-67F4D26586E9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameJamGame", "GameJamGame\GameJamGame.vcxproj", "{E9A7F385-5866-4E02-93D0-1BE119C8797F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,16 +51,6 @@ Global
 		{DB22E5F5-732E-417F-9E53-67F4D26586E9}.Release|x64.ActiveCfg = Release|x64
 		{DB22E5F5-732E-417F-9E53-67F4D26586E9}.Release|x86.ActiveCfg = Release|Win32
 		{DB22E5F5-732E-417F-9E53-67F4D26586E9}.Release|x86.Build.0 = Release|Win32
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Debug|x64.ActiveCfg = Debug|x64
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Debug|x64.Build.0 = Debug|x64
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Debug|x86.ActiveCfg = Debug|Win32
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Debug|x86.Build.0 = Debug|Win32
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Release|Any CPU.ActiveCfg = Release|Win32
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Release|x64.ActiveCfg = Release|x64
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Release|x64.Build.0 = Release|x64
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Release|x86.ActiveCfg = Release|Win32
-		{E9A7F385-5866-4E02-93D0-1BE119C8797F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
