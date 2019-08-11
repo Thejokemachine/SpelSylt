@@ -4,6 +4,7 @@
 #include "SpelSylt/Rendering/Renderer.h"
 #include "SpelSylt/Rendering/RenderQueue.h"
 #include "SpelSylt/Debugging/Rendering/DebugDrawer.h"
+#include "SpelSylt/System/SystemManager.h"
 
 #include <memory>
 
@@ -30,6 +31,7 @@ namespace SpelSylt
 		sf::View& GetCamera() { return myCamera; };
 
 		CDebugDrawer myDebugDrawer;
+		CSystemManager Systems;
 
 	private:
 

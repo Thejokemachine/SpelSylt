@@ -21,6 +21,7 @@ void GameState2D::Init(SGameContext & InGameContext)
 
 void GameState2D::Update(SGameContext & InGameContext)
 {
+	Systems.RunSystemsTick(InGameContext.Time.GetDeltaTime());
 	OnUpdate(InGameContext);
 }
 
@@ -30,6 +31,7 @@ void GameState2D::Render(sf::RenderTarget & InTarget)
 	//myCamera.setSize((float)InTarget.getSize().x, (float)InTarget.getSize().y);
 	InTarget.setView(myCamera);
 
+	Systems.RunSystemsRender(myRenderQueue);
 	OnRender(myRenderQueue);
 
 	myRenderer->RunRenderAllLayers(myRenderQueue, InTarget);
