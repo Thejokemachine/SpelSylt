@@ -18,6 +18,11 @@ namespace SpelSylt
 		{
 		}
 
+		SShaderAsset(const SShaderAsset& InOther)
+			: Type(InOther.Type)
+		{
+		}
+
 		void operator=(const SShaderAsset& InRHS)
 		{
 			Type = InRHS.Type;
