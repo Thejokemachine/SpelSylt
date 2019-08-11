@@ -235,7 +235,6 @@
     <ClCompile Include="Rendering\RenderQueue.cpp" />
     <ClCompile Include="Rendering\Shader\Shader.cpp" />
     <ClCompile Include="Rendering\Sprite\Sprite.cpp" />
-    <ClCompile Include="Rendering\Sprite\Texture.cpp" />
     <ClCompile Include="Rendering\Text\Font.cpp" />
     <ClCompile Include="Rendering\Text\Text.cpp" />
     <ClCompile Include="SpelSyltPCH.cpp">
@@ -322,7 +321,6 @@
     <ClInclude Include="Rendering\RenderQueueOutput.h" />
     <ClInclude Include="Rendering\Shader\Shader.h" />
     <ClInclude Include="Rendering\Sprite\Sprite.h" />
-    <ClInclude Include="Rendering\Sprite\Texture.h" />
     <ClInclude Include="Rendering\Text\Font.h" />
     <ClInclude Include="Rendering\Text\Text.h" />
     <ClInclude Include="Rendering\Window\AspectRatio.h" />
