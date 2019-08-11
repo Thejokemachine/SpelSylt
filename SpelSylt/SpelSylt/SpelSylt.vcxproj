@@ -242,6 +242,7 @@
     </ClCompile>
     <ClCompile Include="State\State.cpp" />
     <ClCompile Include="State\StateStack.cpp" />
+    <ClCompile Include="System\SystemManager.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="UI\Base\UILayout.cpp" />
     <ClCompile Include="UI\Base\UIState.cpp" />
@@ -328,6 +329,8 @@
     <ClInclude Include="State\State.h" />
     <ClInclude Include="State\StateStack.h" />
     <ClInclude Include="sfml_libs.h" />
+    <ClInclude Include="System\SystemInterface.h" />
+    <ClInclude Include="System\SystemManager.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="UI\Base\UILayout.h" />
     <ClInclude Include="UI\Base\UIState.h" />
