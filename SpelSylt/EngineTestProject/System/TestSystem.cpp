@@ -22,7 +22,7 @@ CTestSystem::CTestSystem(SpelSylt::CAssetManager& InAssetManager)
 void CTestSystem::Tick(float InDT)
 {
 	const float HighLimit = 500.f;
-	const float LowLimit = 200.f;
+	const float LowLimit = 0.f;
 
 	if (DirRight)
 	{
