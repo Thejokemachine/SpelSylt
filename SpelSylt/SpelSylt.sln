@@ -13,6 +13,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpelSyltAnimationEditor", "SpelSyltAnimationEditor\SpelSyltAnimationEditor.vcxproj", "{DB22E5F5-732E-417F-9E53-67F4D26586E9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineTestProject", "EngineTestProject\EngineTestProject.vcxproj", "{727BBFBE-F7FD-4A38-8AF0-F3F1FAA6F922}"
+	ProjectSection(ProjectDependencies) = postProject
+		{51EC98B9-DB61-47C8-A253-5086ACA847E3} = {51EC98B9-DB61-47C8-A253-5086ACA847E3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
