@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include "SFML/System/Vector2.hpp"
 
 #define M_PI 3.141592654f
@@ -59,13 +60,25 @@ namespace Math
 	sf::Vector2f GetNormalized(const sf::Vector2f& aVector);
 	void Normalize(sf::Vector2f& aVector);
 
-	//static SColor Lerp(SColor aLerpFrom, SColor aLerpTo, float aInterpolation)
-	//{
-	//	SColor rv;
-	//	rv.r = (aLerpFrom.r + aInterpolation * (aLerpTo.r - aLerpFrom.r));
-	//	rv.g = (aLerpFrom.g + aInterpolation * (aLerpTo.g - aLerpFrom.g));
-	//	rv.b = (aLerpFrom.b + aInterpolation * (aLerpTo.b - aLerpFrom.b));
-	//	rv.a = (aLerpFrom.a + aInterpolation * (aLerpTo.a - aLerpFrom.a));
-	//	return rv;
-	//}
+	float RandomInRange(float Min, float Max);
+
+	static sf::Color LerpColor(const sf::Color& aLerpFrom, const sf::Color& aLerpTo, float aInterpolation)
+	{
+		const float FromR = static_cast<float>(aLerpFrom.r);
+		const float FromG = static_cast<float>(aLerpFrom.g);
+		const float FromB = static_cast<float>(aLerpFrom.b);
+		const float FromA = static_cast<float>(aLerpFrom.a);
+
+		const float ToR = static_cast<float>(aLerpTo.r);
+		const float ToG = static_cast<float>(aLerpTo.g);
+		const float ToB = static_cast<float>(aLerpTo.b);
+		const float ToA = static_cast<float>(aLerpTo.a);
+
+		sf::Color rv;
+		rv.r = static_cast<sf::Uint8>(aLerpFrom.r + aInterpolation * (ToR - FromR));
+		rv.g = static_cast<sf::Uint8>(aLerpFrom.g + aInterpolation * (ToG - FromG));
+		rv.b = static_cast<sf::Uint8>(aLerpFrom.b + aInterpolation * (ToB - FromB));
+		rv.a = static_cast<sf::Uint8>(aLerpFrom.a + aInterpolation * (ToA - FromA));
+		return rv;
+	}
 }

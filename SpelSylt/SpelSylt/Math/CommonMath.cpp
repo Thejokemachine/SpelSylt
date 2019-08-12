@@ -49,3 +49,11 @@ void Math::Normalize(sf::Vector2f & aVector)
 		aVector.y /= length;
 	}
 }
+
+float Math::RandomInRange(float Min, float Max)
+{
+	static std::random_device Device;
+	static std::mt19937_64 Engine(Device());
+	std::uniform_real_distribution<float> Dist(Min, Max);
+	return Dist(Engine);
+}
