@@ -19,7 +19,7 @@ namespace SpelSylt
 		CSprite();
 
 		void operator=(const CSprite& InRHS);
-		void operator=(STextureAsset& InRHS);
+		void operator=(const STextureAsset& InRHS);
 
 		//This function is deleted due to SS::CSprite working with SS::STextureAssets instead
 		void setTexture(const sf::Texture& texture, bool resetRect) = delete;

@@ -5,3 +5,4 @@
 #include "SpelSylt/FileHandling/Asset/AssetTypes/FontAsset.h"
 #include "SpelSylt/FileHandling/Asset/AssetTypes/ShaderAsset.h"
 #include "SpelSylt/FileHandling/Asset/AssetTypes/AnimationAsset.h"
+#include "SpelSylt/FileHandling/Asset/AssetTypes/AtlasAsset.h"

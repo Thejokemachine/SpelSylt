@@ -28,7 +28,7 @@ void SpelSylt::CSprite::operator=(const CSprite& InRHS)
 
 //------------------------------------------------------------------
 
-void SpelSylt::CSprite::operator=(STextureAsset& InRHS)
+void SpelSylt::CSprite::operator=(const STextureAsset& InRHS)
 {
 	TextureAsset = &InRHS;
 }

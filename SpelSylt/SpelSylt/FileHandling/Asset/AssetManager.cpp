@@ -18,6 +18,7 @@ CAssetManager::CAssetManager()
 	AddAssetProvider<SFontAsset>(FontProvider);
 	AddAssetProvider<SAnimationAsset>(AnimationProvider);
 	AddAssetProvider<SShaderAsset>(ShaderProvider);
+	AddAssetProvider<SAtlasAsset>(AtlasProvider);
 }
 
 //------------------------------------------------------------------
@@ -29,5 +30,4 @@ void CAssetManager::ProvideLoaders(CAsyncLoader& InAsyncLoader, CSynchronousLoad
 }
 
 //------------------------------------------------------------------
-
 
