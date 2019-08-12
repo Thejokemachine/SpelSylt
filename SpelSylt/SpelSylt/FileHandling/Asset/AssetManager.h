@@ -49,6 +49,7 @@ namespace SpelSylt
 		CAssetBank<STextureAsset> TextureProvider;
 		CAssetBank<SFontAsset> FontProvider;
 		CAssetBank<SAnimationAsset> AnimationProvider;
+		CAssetBank<SAtlasAsset> AtlasProvider;
 		CShaderBank ShaderProvider;
 	};
 }
