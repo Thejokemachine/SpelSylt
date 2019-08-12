@@ -230,6 +230,8 @@
     <ClCompile Include="Rendering\Animation\SpriteAnimation.cpp" />
     <ClCompile Include="Rendering\BlackAndWhitePass.cpp" />
     <ClCompile Include="Rendering\FullScreenPass.cpp" />
+    <ClCompile Include="Rendering\Particles\Particle.cpp" />
+    <ClCompile Include="Rendering\Particles\ParticleEmitter.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderingScissor.cpp" />
     <ClCompile Include="Rendering\RenderQueue.cpp" />
@@ -313,6 +315,8 @@
     <ClInclude Include="Rendering\BlackAndWhitePass.h" />
     <ClInclude Include="Rendering\FullScreenPass.h" />
     <ClInclude Include="Rendering\OpenGL.h" />
+    <ClInclude Include="Rendering\Particles\Particle.h" />
+    <ClInclude Include="Rendering\Particles\ParticleEmitter.h" />
     <ClInclude Include="Rendering\RenderCommand.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderingScissor.h" />
