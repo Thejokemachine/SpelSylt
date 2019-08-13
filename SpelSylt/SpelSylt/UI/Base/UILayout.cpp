@@ -5,6 +5,7 @@
 #include "SpelSylt/UI/Button.h"
 #include "SpelSylt/UI/Label.h"
 #include "SpelSylt/UI/List.h"
+#include "SpelSylt/UI/Slider.h"
 #include "SpelSylt/tinyxml2.h"
 #include "SpelSylt/Utility/Input/InputEventGetter.h"
 #include "SpelSylt/UI/UIUtilities.h"
@@ -91,6 +92,11 @@ Label * UI::UILayout::GetLabel(const std::string & aName)
 List * UI::UILayout::GetList(const std::string & aName)
 {
 	return dynamic_cast<List*>(GetPanel(aName));
+}
+
+Slider * UI::UILayout::GetSlider(const std::string & aName)
+{
+	return dynamic_cast<Slider*>(GetPanel(aName));
 }
 
 float UI::UILayout::GetWidth() const

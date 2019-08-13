@@ -1,6 +1,6 @@
 #include "SpelSylt/EngineStartUp.h"
 #include "SpelSylt/EngineMinimal.h"
-#include "Game/GameApplication.h"
+#include "GameApplication.h"
 
 void LoggingSetup()
 {

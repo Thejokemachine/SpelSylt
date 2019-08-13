@@ -55,9 +55,11 @@ void UI::List::onUpdate(const float dt)
 
 void UI::List::onHover()
 {
-	auto& input = myLayout.GetInputManager();
-	myScroll -= 10*input.GetScrollWheelDelta();
-	myScroll = Math::Clamp(myScroll, 0.f, myMaxScroll);
+	if (myMaxScroll > GetHeight()) {
+		auto& input = myLayout.GetInputManager();
+		myScroll -= 10 * input.GetScrollWheelDelta();
+		myScroll = Math::Clamp(myScroll, -(myMaxScroll-GetHeight()), myMargin);
+	}
 }
 
 void UI::List::onLayout()

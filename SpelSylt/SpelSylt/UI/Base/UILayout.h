@@ -30,6 +30,7 @@ namespace UI
 	class Button;
 	class Label;
 	class List;
+	class Slider;
 
 	class UILayout
 	{
@@ -45,6 +46,7 @@ namespace UI
 		Button* GetButton(const std::string& aName);
 		Label* GetLabel(const std::string& aName);
 		List* GetList(const std::string& aName);
+		Slider* GetSlider(const std::string& aName);
 
 		float GetWidth() const;
 		float GetHeight() const;

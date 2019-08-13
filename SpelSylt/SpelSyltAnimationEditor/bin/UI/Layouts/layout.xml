@@ -32,6 +32,11 @@
       <button name="save_btn" dock="right|vcenter" x="-25" y="35" image="whiteBox" width="150" height="50">
         <text string="Save" dock="center" align="center" font="default" size="28" text_color="#00000030"/>
       </button>
+      <text string="Playrate:" x="20" y="20"/>
+      <slider name="playrate_slider" default_value="0.5" x="150" y="6"  width="170" height="50">
+        <panel image="whiteBox" color="0,0,0" dock="center" height="4" width="{parent.width}"/>
+        <panel name="cursor" width="15" height="25" dock="center" image="whiteBox"/>
+      </slider>
     </panel>
   </panel>
 </layout>

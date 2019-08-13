@@ -1,4 +1,4 @@
-#include "Game/GameApplication.h"
+#include "GameApplication.h"
 
 #include "AnimationEditorState.h"
 

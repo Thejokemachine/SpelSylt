@@ -5,6 +5,7 @@
 #include <SpelSylt/UI/Label.h>
 #include <SpelSylt/UI/Panel.h>
 #include <SpelSylt/UI/List.h>
+#include <SpelSylt/UI/Slider.h>
 #include <SpelSylt/Contexts/GameContext.h>
 #include <SpelSylt/Contexts/RenderingContext.h>
 #include <SpelSylt/Utility/Time/Time.h>
@@ -39,6 +40,8 @@ void AnimationEditorState::OnInit(SGameContext & InGameContext)
 			isPlaying = !isPlaying;
 		});
 	}
+
+	slider = myLayout->GetSlider("playrate_slider");
 
 	animCenter = myLayout->GetPanel("center");
 
@@ -85,7 +88,7 @@ void AnimationEditorState::OnInit(SGameContext & InGameContext)
 		}
 	}, mySubs);
 }
-
+#include <iostream>
 void AnimationEditorState::OnUpdate(SGameContext & InGameContext)
 {
 	if (isPlaying) {
@@ -94,6 +97,10 @@ void AnimationEditorState::OnUpdate(SGameContext & InGameContext)
 
 	if (animCenter) {
 		animation.setPosition(animCenter->GetX(), animCenter->GetY());
+	}
+
+	if (slider) {
+		animation.setGlobalSpeed(1.f/60.f + 1.f/5.f * (1.f-slider->GetValue()));
 	}
 }
 
