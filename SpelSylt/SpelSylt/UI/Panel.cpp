@@ -8,8 +8,9 @@
 #include "SpelSylt/UI/UIUtilities.h"
 
 #include "SpelSylt/UI/Button.h"
-#include "SpelSylt/UI/List.h"
 #include "SpelSylt/UI/Label.h"
+#include "SpelSylt/UI/List.h"
+#include "SpelSylt/UI/Slider.h"
 
 #include "SpelSylt/Rendering/RenderingScissor.h"
 
@@ -25,6 +26,8 @@ Panel::Panel(UILayout & aLayout, const Panel * aParent, const std::string & aNam
 	myHoveredColor(sf::Color::White)
 {
 	setDirty();
+	Layout();
+
 	addChildren(*this, &aElement);
 }
 
@@ -51,6 +54,8 @@ Panel::Panel(UILayout& aLayout, const Panel* aParent, tinyxml2::XMLElement& aEle
 		SetImage(image);
 
 	setDirty();
+	Layout();
+
 	addChildren(*this, &aElement);
 }
 
@@ -366,6 +371,10 @@ void Panel::addChildren(Panel& aParent, tinyxml2::XMLElement* aElement)
 		else if (val == "list")
 		{
 			panel = std::make_shared<List>(myLayout, &aParent, *child);
+		}
+		else if (val == "slider")
+		{
+			panel = std::make_shared<Slider>(myLayout, &aParent, *child);
 		}
 
 		if (panel)

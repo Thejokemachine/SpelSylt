@@ -254,6 +254,7 @@
     <ClCompile Include="UI\List.cpp" />
     <ClCompile Include="UI\Panel.cpp" />
     <ClCompile Include="UI\Label.cpp" />
+    <ClCompile Include="UI\Slider.cpp" />
     <ClCompile Include="UI\UIUtilities.cpp" />
     <ClCompile Include="Utility\Async\AsyncWorker.cpp" />
     <ClCompile Include="Utility\Async\SpelSyltThread.cpp" />
@@ -346,6 +347,7 @@
     <ClInclude Include="UI\List.h" />
     <ClInclude Include="UI\Panel.h" />
     <ClInclude Include="UI\Label.h" />
+    <ClInclude Include="UI\Slider.h" />
     <ClInclude Include="UI\UIUtilities.h" />
     <ClInclude Include="Utility\Async\AsyncWorker.h" />
     <ClInclude Include="Utility\Async\SpelSyltThread.h" />

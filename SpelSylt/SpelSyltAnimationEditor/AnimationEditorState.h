@@ -8,6 +8,7 @@
 namespace UI {
 	class Panel;
 	class List;
+	class Slider;
 }
 
 namespace AnimationEditor {
@@ -31,6 +32,7 @@ namespace AnimationEditor {
 
 		UI::Panel* animCenter = nullptr;
 		UI::List* frameList = nullptr;
+		UI::Slider* slider = nullptr;
 
 		CSubscriptions mySubs;
 	};
