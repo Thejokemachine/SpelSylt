@@ -2,6 +2,8 @@
 
 #include "SpelSylt/Rendering/Sprite/Sprite.h"
 
+#include "SpelSylt/Math/Random.h"
+
 namespace SpelSylt
 {
 	class CParticle;
@@ -9,10 +11,10 @@ namespace SpelSylt
 
 	struct SParticleEmitterDesc
 	{
-		sf::Vector2f VelocityMax;
-		sf::Vector2f VelocityMin;
-		sf::Vector2f AccelerationMax;
-		sf::Vector2f AccelerationMin;
+		sf::Vector2f StartVelocityMax;
+		sf::Vector2f StartVelocityMin;
+		sf::Vector2f EndVelocityMax;
+		sf::Vector2f EndVelocityMin;
 		sf::Vector2f Spread;
 		sf::Color StartColor;
 		sf::Color EndColor;
@@ -22,6 +24,7 @@ namespace SpelSylt
 		float MaxStartScale;
 		float MinEndScale;
 		float MaxEndScale;
+		float TimeBetweenParticleSpawn;
 		CSprite ParticleSprite;
 	};
 
@@ -40,10 +43,11 @@ namespace SpelSylt
 	private:
 		const short MaxParticles = 128;
 
-		float TimeBetweenParticles;
 		float TimeToNextParticle;
 
 		SParticleEmitterDesc Settings;
+
+		Math::FSeed Seed;
 
 		sf::Vector2f Position;
 		CParticle* Particles;

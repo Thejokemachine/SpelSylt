@@ -13,11 +13,11 @@ using namespace SpelSylt;
 //------------------------------------------------------------------
 
 CParticleEmitter::CParticleEmitter()
-	: TimeBetweenParticles(0.02f)
-	, TimeToNextParticle(0.f)
+	: TimeToNextParticle(0.f)
 	, Particles(nullptr)
 	, ParticleSprite()
 	, NextParticle(0)
+	, Seed(1)
 {
 	Particles = new CParticle[MaxParticles];
 }
@@ -51,27 +51,9 @@ void CParticleEmitter::Tick(float InDT)
 	
 	if (TimeToNextParticle <= 0.f)
 	{
-		TimeToNextParticle = TimeBetweenParticles;
+		TimeToNextParticle = Settings.TimeBetweenParticleSpawn;
 
-		SParticleDesc TestDesc;
-		TestDesc.Position.x = Math::RandomInRange(Position.x - Settings.Spread.x, Position.x + Settings.Spread.x);
-		TestDesc.Position.y = Math::RandomInRange(Position.y - Settings.Spread.y, Position.y + Settings.Spread.y);
-
-		TestDesc.Velocity.x = Math::RandomInRange(Settings.VelocityMin.x, Settings.VelocityMax.x);
-		TestDesc.Velocity.y = Math::RandomInRange(Settings.VelocityMin.y, Settings.VelocityMax.y);
-
-		TestDesc.Acceleration.x = Math::RandomInRange(Settings.AccelerationMin.x, Settings.AccelerationMax.x);
-		TestDesc.Acceleration.y = Math::RandomInRange(Settings.AccelerationMin.y, Settings.AccelerationMax.y);
-
-		TestDesc.AllowedLifetime = Math::RandomInRange(Settings.MinLifetime, Settings.MaxLifetime);
-
-		TestDesc.StartScale = Math::RandomInRange(Settings.MinStartScale, Settings.MaxStartScale);
-		TestDesc.EndScale = Math::RandomInRange(Settings.MinEndScale, Settings.MaxEndScale);
-
-		TestDesc.StartColor = Settings.StartColor;
-		TestDesc.EndColor = Settings.EndColor;
-
-		Particles[NextParticle].Spawn(TestDesc);
+		Particles[NextParticle].Spawn(Seed++, Position);
 		NextParticle++;
 		NextParticle %= MaxParticles;
 	}
@@ -83,7 +65,7 @@ void CParticleEmitter::Tick(float InDT)
 			continue;
 		}
 
-		Particles[i].Tick(InDT);
+		Particles[i].Tick(InDT, Settings);
 	}
 }
 
@@ -98,7 +80,7 @@ void CParticleEmitter::Render(CRenderQueue& InRenderQueue)
 			continue;
 		}
 
-		Particles[i].Render(InRenderQueue, Settings.ParticleSprite);
+		Particles[i].Render(InRenderQueue, Settings.ParticleSprite, Settings);
 	}
 }
 
